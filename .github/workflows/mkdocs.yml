@@ -9,6 +9,8 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -41,6 +43,9 @@ jobs:
             - awesome-pages" > mkdocs.yml
           fi
 
+      - name: Display mkdocs.yml content
+        run: cat mkdocs.yml
+
       - name: Generate blog structure
         run: |
           mkdir -p docs/posts
@@ -62,8 +67,11 @@ jobs:
       - name: Build MkDocs site
         run: mkdocs build
 
+      - name: List site contents
+        run: ls -R site
+
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4.0.0
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./site
