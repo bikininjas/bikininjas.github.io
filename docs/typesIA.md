@@ -3,7 +3,7 @@ title: Les types d'intelligence artificielle
 description: L'intelligence artificielle est un domaine vaste qui englobe plusieurs approches et techniques.
 date: 2024-09-15
 publish: true
-slug: ia
+slug: typesIA
 ---
 
 # Les types d'intelligence artificielle
