@@ -30,7 +30,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install mkdocs mkdocs-material mkdocs-awesome-pages-plugin mkdocs-dracula-theme
+          pip install mkdocs mkdocs-material mkdocs-awesome-pages-plugin mkdocs-dracula-theme mkdocs-publisher
 
       - name: Configure MkDocs
         run: |
@@ -40,6 +40,12 @@ jobs:
             name: dracula
           plugins:
             - search
+            - pub-debugger
+            - pub-blog
+            - pub-obsidian
+            - pub-social
+            - pub-meta
+            - pub-minifier
             - awesome-pages" > mkdocs.yml
           fi
 
