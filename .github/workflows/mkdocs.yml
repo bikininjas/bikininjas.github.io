@@ -1,0 +1,69 @@
+name: MkDocs Auto Deploy
+
+on:
+  push:
+    branches:
+      - main  # ou master, selon votre branche principale
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@main
+        with:
+          python-version: '3.12'
+
+      - name: Cache dependencies
+        uses: actions/cache@main
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          pip install mkdocs mkdocs-material mkdocs-awesome-pages-plugin
+
+      - name: Configure MkDocs
+        run: |
+          if [ ! -f mkdocs.yml ]; then
+            echo "site_name: Mon Blog MkDocs
+          theme:
+            name: material
+          plugins:
+            - search
+            - awesome-pages" > mkdocs.yml
+          fi
+
+      - name: Generate blog structure
+        run: |
+          mkdir -p docs/posts
+          if [ ! -f docs/index.md ]; then
+            echo "# Bienvenue sur mon blog" > docs/index.md
+          fi
+          if [ ! -f docs/posts/.pages ]; then
+            echo "arrange:
+              - ...
+          " > docs/posts/.pages
+          fi
+          for file in $(find docs -name "*.md" -not -path "*/posts/*" -not -name "index.md"); do
+            filename=$(basename "$file" .md)
+            if [ ! -f "docs/posts/$filename.md" ]; then
+              mv "$file" "docs/posts/$filename.md"
+            fi
+          done
+
+      - name: Build MkDocs site
+        run: mkdocs build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
