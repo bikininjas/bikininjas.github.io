@@ -45,7 +45,7 @@ jobs:
                 teaser_marker: '<!-- plus -->'
                 searchable_non_posts: false
                 posts_per_page: 5
-                lang: fr
+                lang: en
                 slug: blog
             - pub-obsidian
             - pub-social
