@@ -35,7 +35,7 @@ jobs:
       - name: Configure MkDocs
         run: |
           if [ ! -f mkdocs.yml ]; then
-            echo "site_name: Mon Blog MkDocs
+            echo "site_name: Le blog des bikininjas
           theme:
             name: dracula
           plugins:
