@@ -2,7 +2,12 @@
 title: Bilan exceptionnel pour la France aux Jeux de Paris 2024
 description: Les Jeux olympiques et paralympiques de Paris 2024 se sont achevés sur un bilan historique pour la délégation française. Retour sur les performances remarquables des athlètes tricolores lors de cet événement sportif majeur organisé à domicile.
 date: 2024-09-15
-slug: jop
+category: societe
+tags:
+    - Jeux olympiques
+    - paralympiques
+    - France
+    - Paris 2024
 authors:
     - redPikPik
 publish: true

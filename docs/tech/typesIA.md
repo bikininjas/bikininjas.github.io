@@ -5,7 +5,12 @@ date: 2024-09-15
 publish: true
 authors:
     - redPikPik
-slug: typesIA
+category: tech
+tags:
+    - IA
+    - types
+    - technologie
+    - AI
 ---
 
 # Les types d'intelligence artificielle

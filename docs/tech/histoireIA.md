@@ -3,9 +3,14 @@ title: L'histoire de l'intelligence artificielle
 description: L'IA a une histoire fascinante qui remonte aux années 1950.
 date: 2024-09-15
 publish: true
-slug: histoireIA
+category: tech
 authors:
     - redPikPik
+tags:
+    - IA
+    - histoire
+    - technologie
+    - AI
 ---
 
 # L'histoire de l'intelligence artificielle

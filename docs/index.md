@@ -1,16 +1,15 @@
 ---
 title: Bienvenue sur Le Blog des Bikininjas
-description: Décryptage des tendances sociétales, analyse des mouvements culturels et réflexions sur les enjeux contemporains.
-date: 2024-09-15
+description: Décryptage des tendances sociétales, gaming, tft, tech, IA
+date: 2024-09-15 
 publish: true
 authors:
     - redPikPik
-slug: home
+category: blog
 ---
+# Blogs
 
-# Bienvenue sur Le Blog des Bikininjas
-
-Plongez dans un univers où la société, la technologie, l'informatique et les jeux vidéo se rencontrent et s'entrechoquent. Ici, nous explorons les facettes fascinantes de notre monde en constante évolution.
+{{ blog_content }}
 
 ## 🌍 Société en Mouvement
 
