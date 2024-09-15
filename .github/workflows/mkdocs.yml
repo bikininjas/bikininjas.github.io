@@ -58,17 +58,6 @@ jobs:
           if [ ! -f docs/index.md ]; then
             echo "# Bienvenue sur le blog des bikininjas" > docs/index.md
           fi
-          if [ ! -f docs/posts/.pages ]; then
-            echo "arrange:
-              - ...
-          " > docs/posts/.pages
-          fi
-          for file in $(find docs -name "*.md" -not -path "*/posts/*" -not -name "index.md"); do
-            filename=$(basename "$file" .md)
-            if [ ! -f "docs/posts/$filename.md" ]; then
-              mv "$file" "docs/posts/$filename.md"
-            fi
-          done
 
       - name: Build MkDocs site
         run: mkdocs build
