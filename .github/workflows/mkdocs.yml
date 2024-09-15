@@ -41,7 +41,7 @@ jobs:
           plugins:
             - search
             - pub-debugger
-            - pub-blog
+            - pub-blog:
               teaser_marker: "<!-- plus -->"
               searchable_non_posts: false
               posts_per_page: 5
