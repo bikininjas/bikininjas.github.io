@@ -4,6 +4,8 @@ description: L'IA est devenue une partie intégrante de notre vie quotidienne.
 date: 2024-09-15
 publish: true
 slug: IAdansQuotidien
+authors:
+    - redPikPik
 ---
 
 # L'IA dans notre quotidien

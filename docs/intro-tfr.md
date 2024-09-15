@@ -4,6 +4,8 @@ description: "Plongez dans l'univers stratégique de Teamfight Tactics, le jeu a
 date: 2024-09-15
 slug: teamfight-tactics-guide-ultime
 publish: true
+authors:
+    - redPikPik
 ---
 
 # Teamfight Tactics : Le Guide Ultime du Auto-Battler de Riot Games

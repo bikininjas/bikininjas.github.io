@@ -3,6 +3,8 @@ title: Bienvenue sur Le Blog des Bikininjas
 description: Décryptage des tendances sociétales, analyse des mouvements culturels et réflexions sur les enjeux contemporains.
 date: 2024-09-15
 publish: true
+authors:
+    - redPikPik
 slug: home
 ---
 
