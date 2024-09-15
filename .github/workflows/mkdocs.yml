@@ -30,14 +30,14 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install mkdocs mkdocs-material mkdocs-awesome-pages-plugin
+          pip install mkdocs mkdocs-material mkdocs-awesome-pages-plugin mkdocs-dracula-theme
 
       - name: Configure MkDocs
         run: |
           if [ ! -f mkdocs.yml ]; then
             echo "site_name: Mon Blog MkDocs
           theme:
-            name: material
+            name: dracula
           plugins:
             - search
             - awesome-pages" > mkdocs.yml
@@ -50,7 +50,7 @@ jobs:
         run: |
           mkdir -p docs/posts
           if [ ! -f docs/index.md ]; then
-            echo "# Bienvenue sur mon blog" > docs/index.md
+            echo "# Bienvenue sur le blog des bikininjas" > docs/index.md
           fi
           if [ ! -f docs/posts/.pages ]; then
             echo "arrange:
