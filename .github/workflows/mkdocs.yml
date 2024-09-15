@@ -42,6 +42,11 @@ jobs:
             - search
             - pub-debugger
             - pub-blog
+              teaser_marker: "<!-- plus -->"
+              searchable_non_posts: false
+              posts_per_page: 5
+              lang: fr
+              slug: blog
             - pub-obsidian
             - pub-social
             - pub-meta
