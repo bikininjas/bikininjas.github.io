@@ -1,0 +1,26 @@
+site_name: Le blog des bikininjas
+site_url: https://bikininjas.github.io/
+theme:
+  name: dracula
+plugins:
+  - search
+  - awesome-pages
+  - blogging:
+    dirs: # The directories to be included
+      - docs
+    features:
+      tags: {}
+      index_page: tags.md
+    categories:
+      - name: tft
+        dirs:
+          - tft
+      - name: societe
+        dirs:
+          - societe
+      - name: tech
+        dirs:
+          - tech
+      - name: gaming
+        dirs:
+          - gaming
