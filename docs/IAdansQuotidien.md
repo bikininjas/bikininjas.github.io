@@ -1,3 +1,11 @@
+---
+title: L'IA dans notre quotidien
+description: L'IA est devenue une partie intégrante de notre vie quotidienne.
+date: 2024-09-15
+publish: true
+slug: ia
+---
+
 # L'IA dans notre quotidien
 
 L'intelligence artificielle (IA) est devenue une partie intégrante de notre vie quotidienne, souvent de manière si subtile que nous ne la remarquons même pas. Voici quelques domaines où l'IA influence notre vie de tous les jours :

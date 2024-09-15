@@ -1,3 +1,11 @@
+---
+title: Les défis éthiques de l'intelligence artificielle
+description: L'IA soulève de nombreuses questions éthiques importantes.
+date: 2024-09-15
+publish: true
+slug: ia
+---
+
 # Les défis éthiques de l'intelligence artificielle
 
 Alors que l'intelligence artificielle (IA) progresse rapidement, elle soulève de nombreuses questions éthiques importantes. Voici quelques-uns des principaux défis éthiques liés à l'IA :

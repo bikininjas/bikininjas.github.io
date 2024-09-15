@@ -1,23 +1,9 @@
 ---
-title: "Teamfight Tactics : Le Guide Ultime du Auto-Battler de Riot Games"
+title: Introduction à Teamfight Tactics
 description: "Plongez dans l'univers stratégique de Teamfight Tactics, le jeu auto-battler populaire de Riot Games. Découvrez les mécaniques de jeu, les meilleures stratégies et les dernières mises à jour."
-authors:
-  - Ninja Gamer
 date: 2024-09-15
-categories:
-  - Jeux Vidéo
-  - Stratégie
-tags:
-  - Teamfight Tactics
-  - Riot Games
-  - Auto-Battler
-  - eSports
 slug: teamfight-tactics-guide-ultime
-status: published
 publish: true
-nav_order: 1
-toc: true
-comments: true
 ---
 
 # Teamfight Tactics : Le Guide Ultime du Auto-Battler de Riot Games
