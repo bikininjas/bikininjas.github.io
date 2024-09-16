@@ -11,16 +11,16 @@ plugins:
     features:
       tags: {}
       index_page: tags.md
-    categories:
-      - name: tft
-        dirs:
-          - tft
-      - name: societe
-        dirs:
-          - societe
-      - name: tech
-        dirs:
-          - tech
-      - name: gaming
-        dirs:
-          - gaming
+    # categories:
+    #   - name: tft
+    #     dirs:
+    #       - tft
+    #   - name: societe
+    #     dirs:
+    #       - societe
+    #   - name: tech
+    #     dirs:
+    #       - tech
+    #   - name: gaming
+    #     dirs:
+    #       - gaming
