@@ -6,21 +6,43 @@ plugins:
   - search
   - awesome-pages
   - blogging:
-    dirs: # The directories to be included
-      - docs
-    features:
-      tags: {}
-      index_page: tags.md
-    # categories:
-    #   - name: tft
-    #     dirs:
-    #       - tft
-    #   - name: societe
-    #     dirs:
-    #       - societe
-    #   - name: tech
-    #     dirs:
-    #       - tech
-    #   - name: gaming
-    #     dirs:
-    #       - gaming
+      dirs: # The directories to be included
+        - docs
+      features:
+        tags:
+          index_page: tags.md
+          insert: top
+      categories:
+        - name: tft
+          dirs:
+            - tft
+        - name: societe
+          dirs:
+            - societe
+        - name: tech
+          dirs:
+            - tech
+        - name: gaming
+          dirs:
+            - gaming
+
+
+
+
+  - blogging:
+      # GLOBAL CATEGORY: configs for {{ blog_content }}
+      dirs:
+        - blog
+
+
+      # INDIVIDUAL CATEGORIES: configs for {{ blog_content name }}
+      categories:
+        - name: reviews
+          dirs:
+            - reviews
+
+      features:
+        tags:
+          
+
+copyright: Copyright &copy; 2021 Liang Yesheng
