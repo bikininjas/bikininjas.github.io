@@ -1,5 +1,7 @@
 site_name: Le blog des bikininjas
 site_url: https://bikininjas.github.io/
+repo_url: https://github.com/bikininjas/bikininjas.github.io
+repo_name: bikininjas/bikininjas.github.io
 theme:
   name: dracula
 plugins:
@@ -26,23 +28,4 @@ plugins:
           dirs:
             - gaming
 
-
-
-
-  - blogging:
-      # GLOBAL CATEGORY: configs for {{ blog_content }}
-      dirs:
-        - blog
-
-
-      # INDIVIDUAL CATEGORIES: configs for {{ blog_content name }}
-      categories:
-        - name: reviews
-          dirs:
-            - reviews
-
-      features:
-        tags:
-          
-
-copyright: Copyright &copy; 2021 Liang Yesheng
+copyright: Copyright &copy; 2024 Bikininja
