@@ -25,12 +25,24 @@ theme:
     - content.tooltips
 plugins:
   - search
-  - meta
+  - termynal
+  - rss
+  - charts
+  - obsidian-interactive-graph
   - awesome-pages
+  - git-revision-date-localized
   - blog:
       blog_dir: .
       authors_profiles: true
-
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/vega@5
+  - https://cdn.jsdelivr.net/npm/vega-lite@5
+  - https://cdn.jsdelivr.net/npm/vega-embed@6
+  - https://fastly.jsdelivr.net/npm/jquery/dist/jquery.min.js
+  - https://fastly.jsdelivr.net/npm/echarts/dist/echarts.min.js
+  - assets/javascripts/interactive_graph.js
+extra_css:
+  - assets/stylesheets/interactive_graph.css
 validation:
   nav:
     omitted_files: warn
@@ -70,5 +82,9 @@ markdown_extensions:
   - toc:
       permalink: true
   - tables
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: vegalite
+          class: vegalite
+          format: !!python/name:mkdocs_charts_plugin.fences.fence_vegalite
 copyright: Copyright &copy; 2024 Bikininja

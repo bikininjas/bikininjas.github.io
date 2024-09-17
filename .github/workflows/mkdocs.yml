@@ -30,7 +30,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install mkdocs mkdocs-material mkdocs-awesome-pages-plugin mkdocs-dracula-theme mkdocs-glightbox
+          pip install mkdocs mkdocs-material mkdocs-awesome-pages-plugin mkdocs-dracula-theme mkdocs-glightbox mkdocs-git-revision-date-localized-plugin termynal mkdocs-rss-plugin mkdocs-charts-plugin mkdocs-obsidian-interactive-graph-plugin
 
 
       - name: Display mkdocs.yml content
