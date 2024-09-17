@@ -2,9 +2,9 @@ site_name: Le blog des bikininjas
 site_url: https://bikininjas.github.io/
 repo_url: https://github.com/bikininjas/bikininjas.github.io
 repo_name: bikininjas/bikininjas.github.io
-locale: fr
 theme:
   name: material
+  language: fr
   palette:
     - scheme: default
       toggle:
