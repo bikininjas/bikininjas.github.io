@@ -32,35 +32,6 @@ jobs:
         run: |
           pip install mkdocs mkdocs-material mkdocs-awesome-pages-plugin mkdocs-dracula-theme mkdocs-blogging-plugin
 
-      - name: Configure MkDocs
-        run: |
-          if [ ! -f mkdocs.yml ]; then
-            echo "site_name: Le blog des bikininjas
-          site_url: https://bikininjas.github.io/
-          theme:
-            name: dracula
-          plugins:
-            - search
-            - blogging:
-              dirs: # The directories to be included
-                - docs
-              features:
-                tags: {}
-              categories:
-                - name: tft
-                  dirs:
-                    - tft
-                - name: societe
-                  dirs:
-                    - societe
-                - name: tech
-                  dirs:
-                    - tech
-                - name: gaming
-                  dirs:
-                    - gaming
-            - awesome-pages" > mkdocs.yml
-          fi
 
       - name: Display mkdocs.yml content
         run: cat mkdocs.yml

@@ -25,10 +25,6 @@ theme:
 plugins:
   - search
   - awesome-pages
-  - projects:
-      projects_dir: examples
-      projects_config_transform: !!python/name:examples.transform
-      log_level: info  
   - blog:
       blog_dir: .
     authors_profiles: true
