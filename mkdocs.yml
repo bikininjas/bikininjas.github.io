@@ -27,7 +27,7 @@ plugins:
   - awesome-pages
   - blog:
       blog_dir: .
-    authors_profiles: true
+      authors_profiles: true
 
 validation:
   nav:
