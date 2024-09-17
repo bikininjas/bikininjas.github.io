@@ -1,7 +1,10 @@
 site_name: Le blog des bikininjas
 site_url: https://bikininjas.github.io/
+site_author: Sebastien PICOT
 repo_url: https://github.com/bikininjas/bikininjas.github.io
 repo_name: bikininjas/bikininjas.github.io
+site_description: >-
+  Décryptage des tendances sociétales, gaming, tft, tech, IA
 theme:
   name: material
   language: fr
@@ -22,9 +25,23 @@ theme:
 plugins:
   - search
   - awesome-pages
+  - projects:
+      projects_dir: examples
+      projects_config_transform: !!python/name:examples.transform
+      log_level: info  
   - blog:
-    blog_dir: .
+      blog_dir: .
     authors_profiles: true
+
+validation:
+  nav:
+    omitted_files: warn
+    not_found: warn
+    absolute_links: warn
+  links:
+    not_found: warn
+    absolute_links: warn
+    unrecognized_links: warn    
 extra:
   generator: false
   social:
