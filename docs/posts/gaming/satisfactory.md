@@ -5,7 +5,8 @@ date: 2024-09-15
 publish: true
 authors:
     - redPikPik
-categories: gaming
+categories:
+  - gaming
 tags:
     - jeu vidéo
     - gestion
