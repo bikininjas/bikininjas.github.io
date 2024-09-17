@@ -21,6 +21,9 @@
         <link rel="next" href="../tft/">
       
       
+        <link rel="alternate" type="application/rss+xml" title="Flux RSS" href="../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="Flux RSS du contenu mis à jour" href="../../feed_rss_updated.xml">
+      
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
     
@@ -51,6 +54,10 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/interactive_graph.css">
+    
+      <link rel="stylesheet" href="../../termynal.css">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -937,10 +944,26 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["header.autohide", "navigation.footer"], "search": "../../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["header.autohide", "navigation.footer", "content.tooltips"], "search": "../../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+        <script src="../../js/mkdocs-charts-plugin.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+      
+        <script src="https://fastly.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+      
+        <script src="https://fastly.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+      
+        <script src="../../assets/javascripts/interactive_graph.js"></script>
+      
+        <script src="../../termynal.js"></script>
       
     
   </body>
