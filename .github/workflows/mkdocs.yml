@@ -30,7 +30,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install mkdocs mkdocs-material mkdocs-awesome-pages-plugin mkdocs-dracula-theme mkdocs-blogging-plugin
+          pip install mkdocs mkdocs-material mkdocs-awesome-pages-plugin mkdocs-dracula-theme mkdocs-glightbox
 
 
       - name: Display mkdocs.yml content
@@ -40,7 +40,7 @@ jobs:
         run: mkdocs build
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./site

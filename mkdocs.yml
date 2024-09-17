@@ -22,8 +22,10 @@ theme:
   features:
     - header.autohide
     - navigation.footer
+    - content.tooltips
 plugins:
   - search
+  - meta
   - awesome-pages
   - blog:
       blog_dir: .
@@ -64,6 +66,7 @@ markdown_extensions:
   - attr_list
   - def_list
   - footnotes
+  - pymdownx.snippets
   - toc:
       permalink: true
   - tables
