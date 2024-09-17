@@ -11,9 +11,9 @@ tags:
     - jeu vidéo
     - gestion
     - automatisation
-image: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh-bTUYOsuS6GaRqhtOEVWTm1GfpiRwtIcQA&s
 ---
 
+![Satisfactory](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh-bTUYOsuS6GaRqhtOEVWTm1GfpiRwtIcQA&s)
 # Satisfactory: L'usine de vos rêves sur une planète alien
 
 Satisfactory est un jeu de gestion et d'automatisation en première personne développé par Coffee Stain Studios. Lancé en accès anticipé en 2019, le jeu continue de captiver les joueurs avec son mélange unique d'exploration, de construction et d'optimisation.
