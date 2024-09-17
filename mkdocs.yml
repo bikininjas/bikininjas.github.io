@@ -45,7 +45,7 @@ extra:
       link: https://fosstodon.org/@squidfunk
   analytics:
     provider: google
-    property: G-FNYVMVTS6D
+    property: ${{ secrets.G_ANALYTICS_ID }}
     feedback:
       title: Ca t'a aidé ?
       ratings:
