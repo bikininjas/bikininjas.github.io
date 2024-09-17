@@ -5,7 +5,11 @@ date: 2024-09-15
 publish: true
 authors:
     - redPikPik
-category: gaming
+categories: gaming
+tags:
+    - jeu vidéo
+    - gestion
+    - automatisation
 image: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh-bTUYOsuS6GaRqhtOEVWTm1GfpiRwtIcQA&s
 ---
 

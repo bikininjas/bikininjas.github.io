@@ -5,7 +5,7 @@ date: 2024-09-15
 publish: true
 authors:
     - redPikPik
-category: tech
+categories: tech
 tags:
     - IA
     - types

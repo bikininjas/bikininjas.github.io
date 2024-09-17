@@ -3,7 +3,7 @@ title: L'IA dans notre quotidien
 description: L'IA est devenue une partie intégrante de notre vie quotidienne.
 date: 2024-09-15
 publish: true
-category: tech
+categories: tech
 authors:
     - redPikPik
 tags:

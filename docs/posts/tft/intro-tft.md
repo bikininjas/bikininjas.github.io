@@ -2,7 +2,11 @@
 title: Introduction à Teamfight Tactics
 description: "Plongez dans l'univers stratégique de Teamfight Tactics, le jeu auto-battler populaire de Riot Games. Découvrez les mécaniques de jeu, les meilleures stratégies et les dernières mises à jour."
 date: 2024-09-15
-category: tft
+categories: tft
+tags:
+    - jeu vidéo
+    - stratégie
+    - auto-battler
 publish: true
 authors:
     - redPikPik

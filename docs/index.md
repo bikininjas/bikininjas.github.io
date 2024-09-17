@@ -5,11 +5,13 @@ date: 2024-09-15
 publish: true
 authors:
     - redPikPik
-category: blog
+categories: blog
+tags:
+    - blog
+pin: true
+readtime: 15
 ---
 # Blogs
-
-{{ blog_content }}
 
 ## 🌍 Société en Mouvement
 

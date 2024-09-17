@@ -3,7 +3,7 @@ title: Les défis éthiques de l'intelligence artificielle
 description: L'IA soulève de nombreuses questions éthiques importantes.
 date: 2024-09-15
 publish: true
-category: tech
+categories: tech
 authors:
     - redPikPik
 tags:

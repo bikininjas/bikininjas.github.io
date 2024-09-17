@@ -4,29 +4,55 @@ repo_url: https://github.com/bikininjas/bikininjas.github.io
 repo_name: bikininjas/bikininjas.github.io
 locale: fr
 theme:
-  name: dracula
+  name: material
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/brightness-7 
+        name: Dark mode
+
+    # Palette toggle for dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Light mode
+  features:
+    - header.autohide
+    - navigation.footer
 plugins:
   - search
   - awesome-pages
-  - blogging:
-      dirs: # The directories to be included
-        - docs
-      features:
-        tags:
-          index_page: tags.md
-          insert: top
-      categories:
-        - name: tft
-          dirs:
-            - tft
-        - name: societe
-          dirs:
-            - societe
-        - name: tech
-          dirs:
-            - tech
-        - name: gaming
-          dirs:
-            - gaming
-
+  - blog:
+    blog_dir: .
+    authors_profiles: true
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/mastodon 
+      link: https://fosstodon.org/@squidfunk
+  analytics:
+    provider: google
+    property: G-XXXXXXXXXX
+    feedback:
+      title: Ca t'a aidé ?
+      ratings:
+        - icon: material/emoticon-happy-outline
+          name: Grave !
+          data: 1
+          note: >-
+            Merci de ton retour !
+        - icon: material/emoticon-sad-outline
+          name: Bof, c'est pas grave
+          data: 0
+          note: >- 
+            Merci de ton retour !
+markdown_extensions:
+  - abbr
+  - attr_list
+  - def_list
+  - footnotes
+  - toc:
+      permalink: true
+  - tables
+  - pymdownx.superfences
 copyright: Copyright &copy; 2024 Bikininja
