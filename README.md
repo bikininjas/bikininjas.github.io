@@ -1,83 +1,109 @@
-# MDX Static Blog Template
+# BikiNinjas Blog
 
-MDX Blog Template is a simple implementation of a markdown static blog. Built with Next.js 14 and velite js.
-
-<img src="screenshot/mdx-blog-template.jpg" alt="Dashboard" width="100%">
-
-## Table of Contents
-
-- [Features](#features)
-
-- [Used Technologies](#used-technologies)
-
-- [Run Locally](#run-locally)
+A modern blog built with Next.js and hosted on GitHub Pages, featuring content about society, mental health, video games, programming, game development, and modding games.
 
 ## Features
 
-- MDX Components
+- 🔥 Next.js for Static Site Generator
+- 🎨 Tailwind CSS for styling
+- 💅 PostCSS for processing Tailwind CSS
+- 🎉 TypeScript for type checking
+- ✅ Strict Mode for TypeScript and React 18
+- ✏️ ESLint with NextJS, NextJS Core Web Vitals, and Airbnb configuration
+- 🛠 Prettier for code formatting
+- 🦊 Husky for Git Hooks
+- 🚫 Lint-staged for running linters on Git staged files
+- 🗂 VSCode configuration
+- 🤖 SEO optimization with Next SEO
+- 📝 Markdown-based blog posts
 
-- Responsive design built using `shadcn/ui` and `tailwindcss`
+## Blog Categories
 
-- Syntax Highlighting of code.
+- Society
+- Mental health
+- Video games
+- Programming
+- Game development
+- Modding games
 
-## Used Technologies
+## Getting Started
 
-- `Next.js`: Harness the power of Next.js, leveraging its static site generation (SSG) capabilities to create a user interface.
+### Prerequisites
 
-- `shadcn/ui`: Enhance your app's visual and interactive elements with components from shadcn/ui. These beautifully designed components can be seamlessly integrated into your application, offering accessibility, customizability, and open-source goodness.
+- Node.js (version 18 or later)
+- npm or yarn
 
-- `Tailwind CSS`: Employ Tailwind CSS for efficient styling, enabling rapid development through its utility-first approach and streamlined design workflow.
+### Installation
 
-- `Markdown`: MDX lets you use JSX in your markdown content. You can import components, such as interactive charts or alerts, and embed them within your content.
-
-- `Velite`: Velite is a tool for building type-safe data layer, turn Markdown / MDX, YAML, JSON, or other files into app's data layer with Zod schema.
-
-## Run Locally
-
-To get a copy of MDX Blog Template up and running on your local machine, follow these steps:
-
-1. **Clone the repository**:
-
+1. Clone the repository:
    ```bash
-   git clone https://github.com/devbertskie/next-mdx-blog.git
+   git clone https://github.com/bikininjas/bikininjas.github.io.git
+   cd bikininjas.github.io
    ```
 
-   After successful cloned. Head over to the project directory
-
-   ```bash
-   cd next-mdx-blog
-   ```
-
-2. **Install Dependencies**:
-
-   Navigate into the project directory and install the required dependencies:
-
+2. Install dependencies:
    ```bash
    npm install
+   # or
+   yarn install
    ```
 
-3. **Run the Development Server**:
-
-   Start the app in development mode with the following command:
-
+3. Run the development server:
    ```bash
    npm run dev
+   # or
+   yarn dev
    ```
 
-   Head over to your browser and access the `localhost:3000`
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
-4. **Build the App**:
+## Creating Blog Posts
 
-   To build the app, run the following command:
+Blog posts are written in Markdown and stored in the `_posts` directory. Each post should include a YAML front matter with the following fields:
 
-   ```bash
-   npm run build
-   ```
-
+```markdown
+---
+title: 'Post Title'
+excerpt: 'Brief description of the post'
+coverImage: '/assets/blog/example/cover.jpg'
+date: '2025-03-10T05:35:07.322Z'
+author:
+  name: Author Name
+  picture: '/assets/blog/authors/profile.jpg'
+ogImage:
+  url: '/assets/blog/example/cover.jpg'
+category: 'Category Name'
 ---
 
-- **Add New Blog Content**:
+Post content in Markdown...
+```
 
-  To add new blog content, go to `content` folder and you can add new markdown component in `.mdx` file
+## Building for Production
 
-  `Important`: Make sure to name the component with dash(`-`) and without space. Example: `my-example-blog.mdx`
+To build the site for production:
+
+```bash
+npm run build
+# or
+yarn build
+```
+
+This will generate a static export in the `out` directory that can be deployed to GitHub Pages.
+
+## Deployment
+
+The site is automatically deployed to GitHub Pages when changes are pushed to the master branch, using the GitHub Actions workflow defined in `.github/workflows/deploy-docs.yml`.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgements
+
+- [Next.js](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [ESLint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
+- [Husky](https://typicode.github.io/husky/)
+- [Next SEO](https://github.com/garmeeh/next-seo)

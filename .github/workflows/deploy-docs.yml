@@ -1,5 +1,5 @@
 
-name: Deploy Docs
+name: Deploy Next.js Site
 
 on:
   push:
@@ -20,23 +20,19 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 23
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2.0.1
-        with:
-          bun-version: latest
+          node-version: 18
 
       - name: Install dependencies
         run: |
-          bun install
+          npm ci
   
       - name: Build Project
         run: |
-          bun run build
+          npm run build
+          touch out/.nojekyll # Prevents GitHub Pages from ignoring files that begin with an underscore
   
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist  # Change this if your build output directory is different
+          publish_dir: ./out  # Next.js static export output directory
