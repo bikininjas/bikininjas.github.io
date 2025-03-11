@@ -29,6 +29,7 @@ jobs:
       - name: Linting
         run: |
           bun add eslint
+          bun install eslint-plugin-next
           bun run eslint --fix
 
 
