@@ -7,19 +7,27 @@ import tsParser from '@typescript-eslint/parser';
 import prettier from 'eslint-plugin-prettier';
 import next from 'eslint-plugin-next';
 import globals from 'globals';
+import { FlatCompat } from '@eslint/eslintrc';
+
+// Initialize the compatibility helper.
+const compat = new FlatCompat({
+  baseDirectory: import.meta.dir, // or use __dirname
+  recommendedConfig: eslint.configs.recommended,
+});
 
 export default [
+  ...compat.extends('next/core-web-vitals', 'airbnb', 'airbnb/hooks', 'prettier', 'plugin:@typescript-eslint/recommended'),
   {
     files: ['**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx'],
     languageOptions: {
-      ecmaVersion: 'latest', // ou 2022, etc.
+      ecmaVersion: 'latest',
       sourceType: 'module',
       parser: tsParser,
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
         },
-        project: './tsconfig.json', // Ajustez le chemin si nécessaire
+        project: './tsconfig.json',
       },
       globals: {
         ...globals.browser,
@@ -35,7 +43,7 @@ export default [
     },
     settings: {
       react: {
-        version: 'detect', // Détecte automatiquement la version de React
+        version: 'detect',
       },
       'import/resolver': {
         node: {
@@ -45,12 +53,6 @@ export default [
       },
     },
     rules: {
-      ...eslint.configs['eslint:recommended'].rules,
-      ...react.configs['jsx-runtime'].rules, // Ajout pour le nouveau runtime JSX
-      ...react.configs['recommended'].rules,
-      ...typescriptEslint.configs['recommended'].rules,
-      ...next.configs['core-web-vitals'].rules,
-      ...next.configs['recommended'].rules,
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
       'react/jsx-props-no-spreading': 'off',
@@ -91,7 +93,6 @@ export default [
     ignores: ['node_modules/'],
   },
   {
-    // Configuration spécifique pour les fichiers de configuration (si nécessaire)
     files: ['eslint.config.js'],
     rules: {
       'no-console': 'off',
