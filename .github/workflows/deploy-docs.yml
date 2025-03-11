@@ -26,7 +26,11 @@ jobs:
         run: |
           npm install -g bun
           bun install
-  
+      - name: Linting
+        run: |
+          eslint . --ext .js,.jsx,.ts,.tsx
+
+
       - name: Build Project
         run: |
           bun run build
