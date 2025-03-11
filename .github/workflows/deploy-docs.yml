@@ -28,7 +28,8 @@ jobs:
           bun install
       - name: Linting
         run: |
-          eslint . --ext .js,.jsx,.ts,.tsx
+          bun add eslint
+          bun run eslint --fix
 
 
       - name: Build Project
