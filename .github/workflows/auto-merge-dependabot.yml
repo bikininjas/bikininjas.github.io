@@ -1,4 +1,4 @@
-name: CI
+name: merge-dependabot
 on:
   push:
     branches:
