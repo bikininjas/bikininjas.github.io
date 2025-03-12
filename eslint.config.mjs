@@ -1,22 +1,28 @@
-// eslint.config.js
+// eslint.config.mjs
 import eslint from 'eslint';
 import react from 'eslint-plugin-react';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import prettier from 'eslint-plugin-prettier';
-import next from 'eslint-plugin-next';
+// Next.js ESLint config is imported via FlatCompat.extends
 import globals from 'globals';
 import { FlatCompat } from '@eslint/eslintrc';
 
 // Initialize the compatibility helper.
 const compat = new FlatCompat({
-  baseDirectory: import.meta.dir, // or use __dirname
+  baseDirectory: new URL('.', import.meta.url).pathname, // Using URL API instead of import.meta.dir
   recommendedConfig: eslint.configs.recommended,
 });
 
 export default [
-  ...compat.extends('next/core-web-vitals', 'airbnb', 'airbnb/hooks', 'prettier', 'plugin:@typescript-eslint/recommended'),
+  ...compat.extends(
+    'next/core-web-vitals',
+    'airbnb',
+    'airbnb/hooks',
+    'prettier',
+    'plugin:@typescript-eslint/recommended'
+  ),
   {
     files: ['**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx'],
     languageOptions: {
@@ -39,7 +45,7 @@ export default [
       '@typescript-eslint': typescriptEslint,
       prettier,
       'jsx-a11y': jsxA11y,
-      next,
+      // next plugin is not needed as we're using eslint-config-next
     },
     settings: {
       react: {

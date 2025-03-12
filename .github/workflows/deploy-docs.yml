@@ -24,7 +24,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install -g bun
           bun install
       - name: Linting
         run: |
