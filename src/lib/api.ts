@@ -7,7 +7,7 @@ const postsDirectory = join(process.cwd(), '_posts');
 export function getPostSlugs() {
   try {
     return fs.readdirSync(postsDirectory);
-  } catch (error) {
+  } catch {
     // If the directory doesn't exist yet, return an empty array
     return [];
   }
@@ -42,7 +42,7 @@ export function getPostBySlug(slug: string, fields: string[] = []) {
     });
 
     return items;
-  } catch (error) {
+  } catch {
     return {};
   }
 }
@@ -55,7 +55,7 @@ export function getAllPosts(fields: string[] = []) {
       // Sort posts by date in descending order
       .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
     return posts;
-  } catch (error) {
+  } catch {
     return [];
   }
 }

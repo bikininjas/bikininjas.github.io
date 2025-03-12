@@ -15,6 +15,14 @@ const compat = new FlatCompat({
 });
 
 export default [
+  // Configuration for JavaScript files (including next.config.js)
+  {
+    files: ['**/*.js', 'next.config.js'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+    },
+  },
   ...compat.extends(
     'next/core-web-vitals',
     'airbnb',
@@ -23,7 +31,7 @@ export default [
     'plugin:@typescript-eslint/recommended'
   ),
   {
-    files: ['**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx'],
+    files: ['**/*.jsx', '**/*.ts', '**/*.tsx'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',

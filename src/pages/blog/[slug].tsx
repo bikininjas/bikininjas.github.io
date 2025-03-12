@@ -26,7 +26,7 @@ const Post = ({ post }: PostProps) => {
     if (post.date) {
       formattedDate = format(new Date(post.date), 'MMMM dd, yyyy');
     }
-  } catch (error) {
+  } catch {
     // Silently handle the error and use a fallback
     formattedDate = 'Invalid date';
   }

@@ -26,7 +26,7 @@ const PostPreview = ({
     if (date) {
       formattedDate = format(new Date(date), 'MMMM dd, yyyy');
     }
-  } catch (error) {
+  } catch {
     // Silently handle the error and use a fallback
     formattedDate = 'Invalid date';
   }
