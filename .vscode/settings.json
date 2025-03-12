@@ -25,5 +25,9 @@
     "javascriptreact",
     "typescript",
     "typescriptreact"
-  ]
+  ],
+  "sonarlint.connectedMode.project": {
+    "connectionId": "bikininjas",
+    "projectKey": "bikininjas_bikininjas.github.io"
+  }
 }
