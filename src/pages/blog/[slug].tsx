@@ -2,6 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import ErrorPage from 'next/error';
+import Image from 'next/image';
 import { format } from 'date-fns';
 import Layout from '../../components/Layout';
 import { getPostBySlug, getAllPosts } from '../../lib/api';
@@ -19,9 +20,16 @@ const Post = ({ post }: PostProps) => {
     return <ErrorPage statusCode={404} />;
   }
 
-  const formattedDate = post.date 
-    ? format(new Date(post.date), 'MMMM dd, yyyy')
-    : '';
+  // Handle potentially invalid date values
+  let formattedDate = '';
+  try {
+    if (post.date) {
+      formattedDate = format(new Date(post.date), 'MMMM dd, yyyy');
+    }
+  } catch (error) {
+    // Silently handle the error and use a fallback
+    formattedDate = 'Invalid date';
+  }
 
   return (
     <Layout title={post.title} description={post.excerpt}>
@@ -64,10 +72,12 @@ const Post = ({ post }: PostProps) => {
               </div>
               {post.coverImage && (
                 <div className="relative h-64 sm:h-80 md:h-96 w-full overflow-hidden rounded-lg mb-8">
-                  <img
+                  <Image
                     src={post.coverImage}
-                    alt={`Cover Image for ${post.title}`}
-                    className="object-cover w-full h-full"
+                    alt={post.title}
+                    className="object-cover"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </div>
               )}
@@ -82,11 +92,15 @@ const Post = ({ post }: PostProps) => {
               <div className="mt-12 border-t border-gray-200 dark:border-gray-700 pt-8">
                 <div className="flex items-center">
                   {post.author.picture && (
-                    <img
-                      src={post.author.picture}
-                      alt={post.author.name}
-                      className="w-12 h-12 rounded-full mr-4"
-                    />
+                    <div className="relative w-12 h-12 mr-4">
+                      <Image
+                        src={post.author.picture}
+                        alt={post.author.name}
+                        className="rounded-full"
+                        fill
+                        sizes="48px"
+                      />
+                    </div>
                   )}
                   <div>
                     <p className="text-lg font-semibold text-gray-900 dark:text-white">
@@ -104,7 +118,11 @@ const Post = ({ post }: PostProps) => {
   );
 };
 
-export const getStaticProps = async ({ params }: { params: { slug: string } }) => {
+export const getStaticProps = async ({
+  params,
+}: {
+  params: { slug: string };
+}) => {
   const post = getPostBySlug(params.slug, [
     'title',
     'date',
@@ -117,7 +135,7 @@ export const getStaticProps = async ({ params }: { params: { slug: string } }) =
     'category',
   ]);
 
-  const content = await markdownToHtml(post.content as string || '');
+  const content = await markdownToHtml((post.content as string) || '');
 
   return {
     props: {
@@ -133,13 +151,13 @@ export const getStaticPaths = async () => {
   const posts = getAllPosts(['slug']);
 
   return {
-    paths: posts.map((post) => {
-      return {
+    paths: posts
+      .filter((post) => !!post.slug) // Filter out posts with undefined slugs
+      .map((post) => ({
         params: {
           slug: post.slug as string,
         },
-      };
-    }),
+      })),
     fallback: false,
   };
 };

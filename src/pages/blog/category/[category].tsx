@@ -16,7 +16,7 @@ const Category = ({ posts, category }: CategoryProps) => {
 
   if (router.isFallback) {
     return (
-      <Layout>
+      <Layout title="Loading" description="Loading category content...">
         <div className="text-center py-12">
           <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-300">
             Loading...
@@ -32,7 +32,10 @@ const Category = ({ posts, category }: CategoryProps) => {
     .join(' ');
 
   return (
-    <Layout title={`${formattedCategory} Posts`}>
+    <Layout
+      title={`${formattedCategory} Posts`}
+      description={`Read our latest blog posts about ${formattedCategory.toLowerCase()}.`}
+    >
       <NextSeo
         title={`${formattedCategory} Posts`}
         description={`Read our latest blog posts about ${formattedCategory.toLowerCase()}.`}
@@ -103,13 +106,11 @@ export const getStaticPaths = async () => {
   const categories = getAllCategories();
 
   return {
-    paths: categories.map((category) => {
-      return {
-        params: {
-          category: category.toLowerCase().replace(/\s+/g, '-'),
-        },
-      };
-    }),
+    paths: categories.map((category) => ({
+      params: {
+        category: category.toLowerCase().replace(/\s+/g, '-'),
+      },
+    })),
     fallback: 'blocking',
   };
 };

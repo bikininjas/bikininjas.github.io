@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { format } from 'date-fns';
 
 type PostPreviewProps = {
@@ -19,16 +20,27 @@ const PostPreview = ({
   slug,
   category,
 }: PostPreviewProps) => {
-  const formattedDate = format(new Date(date), 'MMMM dd, yyyy');
+  // Handle potentially invalid date values
+  let formattedDate = '';
+  try {
+    if (date) {
+      formattedDate = format(new Date(date), 'MMMM dd, yyyy');
+    }
+  } catch (error) {
+    // Silently handle the error and use a fallback
+    formattedDate = 'Invalid date';
+  }
 
   return (
     <div className="card hover:shadow-lg transition-shadow duration-200">
       {coverImage && (
         <div className="relative h-48 w-full overflow-hidden">
-          <img
+          <Image
             src={coverImage}
-            alt={`Cover Image for ${title}`}
-            className="object-cover w-full h-full"
+            alt={title}
+            className="object-cover"
+            fill
+            sizes="(max-width: 768px) 100vw, 33vw"
           />
         </div>
       )}

@@ -16,7 +16,7 @@ export function getPostSlugs() {
 export function getPostBySlug(slug: string, fields: string[] = []) {
   const realSlug = slug.replace(/\.md$/, '');
   const fullPath = join(postsDirectory, `${realSlug}.md`);
-  
+
   try {
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data, content } = matter(fileContents);
@@ -64,12 +64,16 @@ export function getPostsByCategory(category: string, fields: string[] = []) {
   const allPosts = getAllPosts(fields);
   return allPosts.filter((post) => {
     const postCategory = post.category as string;
-    return postCategory && postCategory.toLowerCase() === category.toLowerCase();
+    return (
+      postCategory && postCategory.toLowerCase() === category.toLowerCase()
+    );
   });
 }
 
 export function getAllCategories() {
   const posts = getAllPosts(['category']);
-  const categories = posts.map((post) => post.category as string);
+  const categories = posts
+    .map((post) => post.category as string)
+    .filter((category): category is string => !!category); // Filter out null or undefined categories
   return Array.from(new Set(categories));
 }
