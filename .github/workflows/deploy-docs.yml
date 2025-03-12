@@ -36,6 +36,9 @@ jobs:
           bun run build
           touch out/.nojekyll # Prevents GitHub Pages from ignoring files that begin with an underscore
 
+      - name: Official SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v5.0.0
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
