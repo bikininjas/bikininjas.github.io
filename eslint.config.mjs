@@ -1,5 +1,4 @@
 // eslint.config.mjs
-import eslint from 'eslint';
 import react from 'eslint-plugin-react';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
@@ -12,7 +11,7 @@ import { FlatCompat } from '@eslint/eslintrc';
 // Initialize the compatibility helper.
 const compat = new FlatCompat({
   baseDirectory: new URL('.', import.meta.url).pathname, // Using URL API instead of import.meta.dir
-  recommendedConfig: eslint.configs.recommended,
+  // Don't use eslint.configs.recommended as it might not be available in all ESLint versions
 });
 
 export default [
