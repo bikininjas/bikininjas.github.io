@@ -1,4 +1,3 @@
-
 name: Deploy Next.js Site
 
 on:
@@ -24,6 +23,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          npm install -g bun          
           bun install
       - name: Linting
         run: |
@@ -31,14 +31,13 @@ jobs:
           bun install eslint-plugin-next --save-dev
           bun run eslint --fix
 
-
       - name: Build Project
         run: |
           bun run build
           touch out/.nojekyll # Prevents GitHub Pages from ignoring files that begin with an underscore
-  
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out  # Next.js static export output directory
+          publish_dir: ./out # Next.js static export output directory
