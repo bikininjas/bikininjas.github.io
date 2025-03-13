@@ -5,6 +5,7 @@ const nextConfig = {
   images: {
     unoptimized: true, // Required for static export
   },
+  assetPrefix: './',
   // Ensure the basePath is set if your site is not hosted at the root of the domain
   // basePath: '/bikininjas.github.io',
 };
