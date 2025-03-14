@@ -50,3 +50,41 @@ A walkthrough on how to do this is forthcoming, but in the meantime our [todo ex
 ### Embedding Keystone in a Next.js frontend
 
 While Keystone works as a standalone app, you can embed your Keystone app into a [Next.js](https://nextjs.org/) app. This is quite a different setup to the starter, and we recommend checking out our walkthrough for that [here](https://keystonejs.com/docs/walkthroughs/embedded-mode-with-sqlite-nextjs#how-to-embed-keystone-sq-lite-in-a-next-js-app).
+
+# Bienvenue sur Bikininjas 🏄‍♂️💻
+
+Ce blog est construit avec amour (et un peu de sarcasme) en utilisant les technologies suivantes :
+
+## 🛠️ Technologies utilisées
+
+### **Keystone.js** 🏰
+
+Notre framework de choix pour gérer le contenu de manière élégante. Parce que oui, on aime les châteaux, mais surtout les châteaux de code.
+
+### **TypeScript** 📜
+
+Parce que JavaScript, c'est bien, mais TypeScript, c'est mieux. On aime quand le code est bien typé, comme un bon vin. 🍷
+
+### **Markdown** 📝
+
+Pour écrire nos articles avec style et simplicité. Parce que parfois, on a juste envie de se concentrer sur le contenu, pas sur la mise en page.
+
+### **Git** 🐙
+
+Pour versionner notre code comme des pros. Parce que perdre du code, c'est comme perdre ses clés : ça arrive, mais c'est très énervant. 🔑
+
+### **Et bien plus...** 🎉
+
+On utilise aussi une tonne d'autres outils et bibliothèques pour rendre ce blog aussi cool que possible. Parce que dans le monde de la tech, il faut toujours rester à la pointe (ou au moins essayer).
+
+## 🚀 Comment contribuer ?
+
+Si tu veux ajouter ton grain de sel (ou de code), n'hésite pas à forker ce repo et à nous envoyer une pull request. On adore les contributions, surtout si elles viennent avec des gifs drôles.
+
+## 📜 Licence
+
+Ce projet est sous licence MIT. En gros, tu peux faire ce que tu veux avec, mais on apprécierait un petit crédit. Parce que c'est sympa, et que ça fait plaisir. 😊
+
+---
+
+Alors, prêt à plonger dans le code ? 🌊 Attache ta ceinture, mets ton casque de réalité virtuelle, et prépare-toi à une aventure où le code rencontre la créativité, et où le sarcasme est toujours de mise. Bienvenue chez les Bikininjas, où on ne fait pas que surfer sur le web, on le modifie. 🏄‍♂️💻
