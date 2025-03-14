@@ -1,109 +1,52 @@
-# BikiNinjas Blog
+# Keystone Project Starter
 
-A modern blog built with Next.js and hosted on GitHub Pages, featuring content about society, mental health, video games, programming, game development, and modding games.
+Welcome to Keystone!
 
-## Features
+Run
 
-- 🔥 Next.js for Static Site Generator
-- 🎨 Tailwind CSS for styling
-- 💅 PostCSS for processing Tailwind CSS
-- 🎉 TypeScript for type checking
-- ✅ Strict Mode for TypeScript and React 18
-- ✏️ ESLint with NextJS, NextJS Core Web Vitals, and Airbnb configuration
-- 🛠 Prettier for code formatting
-- 🦊 Husky for Git Hooks
-- 🚫 Lint-staged for running linters on Git staged files
-- 🗂 VSCode configuration
-- 🤖 SEO optimization with Next SEO
-- 📝 Markdown-based blog posts
-
-## Blog Categories
-
-- Society
-- Mental health
-- Video games
-- Programming
-- Game development
-- Modding games
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js (version 18 or later)
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/bikininjas/bikininjas.github.io.git
-   cd bikininjas.github.io
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
-
-3. Run the development server:
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
-
-## Creating Blog Posts
-
-Blog posts are written in Markdown and stored in the `_posts` directory. Each post should include a YAML front matter with the following fields:
-
-```markdown
----
-title: 'Post Title'
-excerpt: 'Brief description of the post'
-coverImage: '/assets/blog/example/cover.jpg'
-date: '2025-03-10T05:35:07.322Z'
-author:
-  name: Author Name
-  picture: '/assets/blog/authors/profile.jpg'
-ogImage:
-  url: '/assets/blog/example/cover.jpg'
-category: 'Category Name'
----
-
-Post content in Markdown...
+```
+npm run dev
 ```
 
-## Building for Production
+To view the config for your new app, look at [./keystone.ts](./keystone.ts)
 
-To build the site for production:
+This project starter is designed to give you a sense of the power Keystone can offer you, and show off some of its main features. It's also a pretty simple setup if you want to build out from it.
 
-```bash
-npm run build
-# or
-yarn build
+We recommend you use this alongside our [getting started walkthrough](https://keystonejs.com/docs/walkthroughs/getting-started-with-create-keystone-app) which will walk you through what you get as part of this starter.
+
+If you want an overview of all the features Keystone offers, check out our [features](https://keystonejs.com/why-keystone#features) page.
+
+## Some Quick Notes On Getting Started
+
+### Changing the database
+
+We've set you up with an [SQLite database](https://keystonejs.com/docs/apis/config#sqlite) for ease-of-use. If you're wanting to use PostgreSQL, you can!
+
+Just change the `db` property on line 16 of the Keystone file [./keystone.ts](./keystone.ts) to
+
+```typescript
+db: {
+    provider: 'postgresql',
+    url: process.env.DATABASE_URL || 'DATABASE_URL_TO_REPLACE',
+}
 ```
 
-This will generate a static export in the `out` directory that can be deployed to GitHub Pages.
+And provide your database url from PostgreSQL.
 
-## Deployment
+For more on database configuration, check out or [DB API Docs](https://keystonejs.com/docs/apis/config#db)
 
-The site is automatically deployed to GitHub Pages when changes are pushed to the master branch, using the GitHub Actions workflow defined in `.github/workflows/deploy-docs.yml`.
+### Auth
 
-## License
+We've put auth into its own file to make this humble starter easier to navigate. To explore it without auth turned on, comment out the `isAccessAllowed` on line 21 of the Keystone file [./keystone.ts](./keystone.ts).
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+For more on auth, check out our [Authentication API Docs](https://keystonejs.com/docs/apis/auth#authentication-api)
 
-## Acknowledgements
+### Adding a frontend
 
-- [Next.js](https://nextjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [ESLint](https://eslint.org/)
-- [Prettier](https://prettier.io/)
-- [Husky](https://typicode.github.io/husky/)
-- [Next SEO](https://github.com/garmeeh/next-seo)
+As a Headless CMS, Keystone can be used with any frontend that uses GraphQL. It provides a GraphQL endpoint you can write queries against at `/api/graphql` (by default [http://localhost:3000/api/graphql](http://localhost:3000/api/graphql)). At Thinkmill, we tend to use [Next.js](https://nextjs.org/) and [Apollo GraphQL](https://www.apollographql.com/docs/react/get-started/) as our frontend and way to write queries, but if you have your own favourite, feel free to use it.
+
+A walkthrough on how to do this is forthcoming, but in the meantime our [todo example](https://github.com/keystonejs/keystone-react-todo-demo) shows a Keystone set up with a frontend. For a more full example, you can also look at an example app we built for [Prisma Day 2021](https://github.com/keystonejs/prisma-day-2021-workshop)
+
+### Embedding Keystone in a Next.js frontend
+
+While Keystone works as a standalone app, you can embed your Keystone app into a [Next.js](https://nextjs.org/) app. This is quite a different setup to the starter, and we recommend checking out our walkthrough for that [here](https://keystonejs.com/docs/walkthroughs/embedded-mode-with-sqlite-nextjs#how-to-embed-keystone-sq-lite-in-a-next-js-app).
