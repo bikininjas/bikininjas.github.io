@@ -2,7 +2,7 @@ name: Deploy Next.js Blog to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   # Allow manual triggering
   workflow_dispatch:
 
