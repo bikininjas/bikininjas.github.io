@@ -22,14 +22,14 @@ const ParallaxHero = ({ title, subtitle, backgroundImage }) => {
       <div 
         className={styles.parallaxBackground}
         style={{ 
-          backgroundImage: `url(${backgroundImage || '/images/bike-bg.jpg'})`,
+          backgroundImage: `url(${backgroundImage || 'https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'})`,
           transform: `translateY(${offset * 0.3}px)`,
           backgroundPosition: '50% 50%'
         }}
       />
       <div className={styles.parallaxContent}>
         <h1 className={styles.title}>{title || 'BikiNinjas'}</h1>
-        <p className={styles.subtitle}>{subtitle || 'Adventures on Two Wheels'}</p>
+        <p className={styles.subtitle}>{subtitle || 'Gaming, Development & Digital Wellbeing'}</p>
       </div>
     </div>
   );

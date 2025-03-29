@@ -1,8 +1,8 @@
-import Link from 'next/link';
 import PropTypes from 'prop-types';
 import Layout from '../components/layout';
 import CategoryNav from '../components/CategoryNav';
 import ParallaxHero from '../components/ParallaxHero';
+import PostCard from '../components/PostCard';
 import { getSortedPostsData, getAllCategories } from '../lib/posts';
 
 export async function getStaticProps() {
@@ -18,10 +18,10 @@ export async function getStaticProps() {
 
 export default function Home({ allPostsData, categories }) {
   return (
-    <Layout home title="BikiNinjas Blog - Home">
+    <Layout home title="BikiNinjas - Home">
       <ParallaxHero 
-        title="BikiNinjas Blog" 
-        subtitle="Adventures on Two Wheels - A Modern Biking Blog" 
+        title="BikiNinjas" 
+        subtitle="Gaming, Development & Digital Wellbeing" 
       />
 
       <section className="blog-section">
@@ -33,21 +33,9 @@ export default function Home({ allPostsData, categories }) {
           <div className="blog-main-content">
             <h2 className="section-title">Latest Posts</h2>
             <div className="grid">
-
-          {allPostsData.map(({ id, date, title, excerpt }) => (
-            <Link href={`/posts/${id}`} key={id} className="card-link">
-              <article className="card">
-                <div className="card-content">
-                  <h3 className="card-title">{title}</h3>
-                  <time className="card-date">{date}</time>
-                  <p className="card-excerpt">{excerpt}</p>
-                </div>
-                <div className="card-arrow">
-                  <span>&rarr;</span>
-                </div>
-              </article>
-            </Link>
-          ))}
+              {allPostsData.map((post) => (
+                <PostCard key={post.id} post={post} />
+              ))}
             </div>
           </div>
         </div>

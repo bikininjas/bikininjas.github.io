@@ -2,7 +2,7 @@ import Head from 'next/head';
 import PropTypes from 'prop-types';
 import Navbar from './Navbar';
 
-export default function Layout({ children, home, title = 'BikiNinjas Blog' }) {
+export default function Layout({ children, home, title = 'BikiNinjas' }) {
   return (
     <div className="layout">
       <Head>
@@ -20,7 +20,7 @@ export default function Layout({ children, home, title = 'BikiNinjas Blog' }) {
         </main>
 
         <footer>
-          <p>© {new Date().getFullYear()} BikiNinjas Blog. Built with Next.js</p>
+          <p>© {new Date().getFullYear()} BikiNinjas. Built with Next.js</p>
         </footer>
       </div>
     </div>
