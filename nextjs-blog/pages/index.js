@@ -2,6 +2,7 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import Layout from '../components/layout';
 import CategoryNav from '../components/CategoryNav';
+import ParallaxHero from '../components/ParallaxHero';
 import { getSortedPostsData, getAllCategories } from '../lib/posts';
 
 export async function getStaticProps() {
@@ -18,15 +19,10 @@ export async function getStaticProps() {
 export default function Home({ allPostsData, categories }) {
   return (
     <Layout home title="BikiNinjas Blog - Home">
-      <section className="hero">
-        <h1 className="title">
-          Welcome to <span>BikiNinjas Blog!</span>
-        </h1>
-
-        <p className="description">
-          A modern blog built with Next.js and Markdown
-        </p>
-      </section>
+      <ParallaxHero 
+        title="BikiNinjas Blog" 
+        subtitle="Adventures on Two Wheels - A Modern Biking Blog" 
+      />
 
       <section className="blog-section">
         <div className="blog-layout">
@@ -37,6 +33,7 @@ export default function Home({ allPostsData, categories }) {
           <div className="blog-main-content">
             <h2 className="section-title">Latest Posts</h2>
             <div className="grid">
+
           {allPostsData.map(({ id, date, title, excerpt }) => (
             <Link href={`/posts/${id}`} key={id} className="card-link">
               <article className="card">
