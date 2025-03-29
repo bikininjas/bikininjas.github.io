@@ -10,6 +10,7 @@ This guide will help you customize your Next.js Markdown blog, even if you're a 
 - [Changing the Layout](#changing-the-layout)
 - [Modifying Colors](#modifying-colors)
 - [Customizing the Parallax Effect](#customizing-the-parallax-effect)
+- [Adding Author Information](#adding-author-information)
 - [Adding New Categories](#adding-new-categories)
 - [Customizing Post Cards](#customizing-post-cards)
 - [Deployment](#deployment)
@@ -34,7 +35,6 @@ coverImage: 'https://example.com/your-image.jpg'
 Your post content goes here...
 ```
 
-
 ### Front Matter Explained
 
 - **title**: The title of your blog post
@@ -42,6 +42,8 @@ Your post content goes here...
 - **excerpt**: A short summary that appears on the homepage
 - **categories**: An array of categories your post belongs to (must be in square brackets)
 - **coverImage**: (Optional) A URL to an image that will be used as the card background
+- **author**: (Optional) The name of the post author
+- **authorHtml**: (Optional) Markdown or HTML content for the author footer section
 
 ### Writing Content
 
@@ -215,6 +217,52 @@ To change the color theme of your blog:
    }
    ```
 
+
+## Adding Author Information
+
+### Author Footer
+
+You can add author information to your blog posts that will appear as a footer at the end of each post:
+
+1. In your post's front matter, add the `author` and optionally the `authorHtml` properties:
+
+```markdown
+---
+title: 'Your Post Title'
+date: '2025-04-01'
+excerpt: 'A brief description'
+categories: ['Category1']
+author: 'Your Name'
+authorHtml: "<p><strong>Written by:</strong> Your Name</p><p><em>Your bio or credentials here.</em></p>"
+---
+```
+
+1. The `author` property is used for the author's name.
+2. The `authorHtml` property allows you to add formatted HTML content to the author footer, such as credentials, social media links, or a short bio.
+3. If you only specify `author` without `authorHtml`, a simple "Written by: [Author Name]" will be displayed.
+
+### Customizing Author Footer Style
+
+To customize the appearance of the author footer:
+
+1. Open `styles/globals.css`
+2. Find the `.author-footer` class
+3. Modify the styling as needed:
+
+```css
+.author-footer {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  color: var(--text-muted);
+}
+
+.author-footer hr {
+  border: 0;
+  height: 1px;
+  background-color: var(--border-color);
+  margin-bottom: 1.5rem;
+}
+```
 
 ## Adding New Categories
 

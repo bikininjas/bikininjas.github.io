@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './ParallaxHero.module.css';
 
-const PostParallax = ({ title, date, category, backgroundImage }) => {
+const PostParallax = ({ title, date, category, categories, backgroundImage }) => {
   const [offset, setOffset] = useState(0);
   
   useEffect(() => {
@@ -34,8 +34,19 @@ const PostParallax = ({ title, date, category, backgroundImage }) => {
   let finalBackgroundImage = backgroundImage;
   
   // If no background image is specified, use a category image
-  if (!finalBackgroundImage && category) {
-    finalBackgroundImage = categoryImages[category] || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1920&q=80';
+  if (!finalBackgroundImage) {
+    // Try to use the first category from categories array if available
+    if (categories && categories.length > 0) {
+      finalBackgroundImage = categoryImages[categories[0]] || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1920&q=80';
+    } 
+    // Fall back to single category if categories array is not available
+    else if (category) {
+      finalBackgroundImage = categoryImages[category] || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1920&q=80';
+    }
+    // Default fallback
+    else {
+      finalBackgroundImage = 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1920&q=80';
+    }
   }
 
   return (
@@ -52,7 +63,15 @@ const PostParallax = ({ title, date, category, backgroundImage }) => {
         <h1 className={styles.title}>{title}</h1>
         <div className={styles.postMeta}>
           {date && <time className={styles.date}>{date}</time>}
-          {category && <span className={styles.category}>{category}</span>}
+          {/* Display category information */}
+          {(() => {
+            if (categories && categories.length > 0) {
+              return <span className={styles.category}>{categories[0]}</span>;
+            } else if (category) {
+              return <span className={styles.category}>{category}</span>;
+            }
+            return null;
+          })()}
         </div>
       </div>
     </div>
@@ -63,6 +82,7 @@ PostParallax.propTypes = {
   title: PropTypes.string.isRequired,
   date: PropTypes.string,
   category: PropTypes.string,
+  categories: PropTypes.arrayOf(PropTypes.string),
   backgroundImage: PropTypes.string
 };
 

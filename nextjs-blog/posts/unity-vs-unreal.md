@@ -3,9 +3,9 @@ title: 'Unity vs Unreal Engine: Choosing the Right Game Engine in 2025'
 date: '2025-03-26'
 excerpt: 'A comprehensive comparison of Unity and Unreal Engine for game developers, examining performance, workflow, licensing, and ideal use cases.'
 categories: ['Game Development', 'Unity', 'Tech']
+author: 'Alex Chen'
+authorHtml: "<p><strong>Written by:</strong> Alex Chen</p><p><em>Senior game developer with experience in both Unity and Unreal Engine projects. Technical consultant for indie and AAA studios.</em></p>"
 ---
-
-# Unity vs Unreal Engine: Choosing the Right Game Engine in 2025
 
 The debate between Unity and Unreal Engine continues to be one of the most discussed topics in game development. Both engines have evolved significantly over the years, each with distinct strengths and workflows. This guide will help you make an informed decision based on your project needs, team composition, and long-term goals.
 

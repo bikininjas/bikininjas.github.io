@@ -3,9 +3,9 @@ title: 'The Ultimate Skyrim Modding Guide for 2025'
 date: '2025-03-27'
 excerpt: 'Transform your Skyrim experience with this comprehensive modding guide covering essential tools, top mods, and troubleshooting tips.'
 categories: ['Gaming', 'Modding']
+author: 'Lydia Dragonborn'
+authorHtml: "<p><strong>Written by:</strong> Lydia Dragonborn</p><p><em>Veteran Skyrim modder with over 500 mods created and a decade of experience transforming Tamriel.</em></p>"
 ---
-
-# The Ultimate Skyrim Modding Guide for 2025
 
 Even after more than a decade since its release, The Elder Scrolls V: Skyrim remains one of the most modded games of all time. With the right combination of mods, you can transform the aging game into a modern masterpiece with enhanced graphics, expanded gameplay, and entirely new experiences.
 

@@ -607,3 +607,21 @@ footer a {
   padding: 1rem;
   border-radius: 0 8px 8px 0;
 }
+
+.author-footer {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  color: var(--text-muted);
+}
+
+.author-footer hr {
+  border: 0;
+  height: 1px;
+  background-color: var(--border-color);
+  margin-bottom: 1.5rem;
+}
+
+.author-footer .markdown p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}

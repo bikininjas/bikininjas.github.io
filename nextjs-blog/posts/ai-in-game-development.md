@@ -4,6 +4,8 @@ date: '2025-03-28'
 excerpt: 'Explore how artificial intelligence is transforming game development, from procedural content generation to advanced NPC behaviors.'
 categories: ['AI', 'Game Development', 'Tech']
 coverImage: 'https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&w=800&q=80'
+author: 'Dr. Maya Rodriguez'
+authorHtml: "<p><strong>Written by:</strong> Dr. Maya Rodriguez</p><p><em>AI researcher and game developer specializing in procedural generation and NPC behavior systems.</em></p>"
 ---
 
 Artificial intelligence has become a game-changer in the world of game development. From creating dynamic worlds to powering non-player characters with realistic behaviors, AI technologies are revolutionizing how games are made and played. This article explores the current state of AI in game development and what the future might hold.

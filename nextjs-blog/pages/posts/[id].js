@@ -31,6 +31,7 @@ export default function Post({ postData, categories }) {
         title={postData.title}
         date={postData.date}
         category={postData.category}
+        categories={postData.categories}
         backgroundImage={postData.coverImage}
       />
       <div className="blog-section">
@@ -49,6 +50,15 @@ export default function Post({ postData, categories }) {
             className="markdown post-content"
             dangerouslySetInnerHTML={{ __html: postData.contentHtml }} 
           />
+            {postData.author && (
+              <div className="author-footer">
+                <hr />
+                <div 
+                  className="markdown"
+                  dangerouslySetInnerHTML={{ __html: postData.authorHtml || `<p><strong>Written by:</strong> ${postData.author}</p>` }} 
+                />
+              </div>
+            )}
             </article>
           </div>
         </div>
@@ -63,6 +73,8 @@ Post.propTypes = {
     title: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
     author: PropTypes.string,
+    authorHtml: PropTypes.string,
+    categories: PropTypes.arrayOf(PropTypes.string),
     category: PropTypes.string.isRequired,
     categorySlug: PropTypes.string.isRequired,
     contentHtml: PropTypes.string.isRequired,
