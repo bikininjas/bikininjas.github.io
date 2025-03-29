@@ -558,7 +558,7 @@ footer a {
 }
 
 .back-to-home a {
-  color: #0070f3;
+  color: var(--accent-color);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -572,52 +572,18 @@ footer a {
 
 .post-article {
   width: 100%;
-}
-
-.post-header {
-  margin-bottom: 2rem;
-  border-bottom: 1px solid #eaeaea;
-  padding-bottom: 1.5rem;
-}
-
-.post-title {
-  font-size: 2.5rem;
-  line-height: 1.2;
-  font-weight: 700;
-  margin: 0 0 1rem;
-  color: #0070f3;
-}
-
-.post-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  color: #666;
-  font-size: 0.9rem;
-}
-
-.post-date, .post-author, .post-category {
-  display: inline-block;
-}
-
-.post-category {
-  background-color: var(--accent-color);
-  color: white;
-  padding: 0.2rem 0.6rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-}
-
-.post-category:hover {
-  background-color: var(--accent-hover);
+  margin-top: 1rem;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .post-content {
   font-size: 1.1rem;
   line-height: 1.8;
   color: var(--text-color);
+  margin-top: 1rem;
 }
 
 .post-content p {
@@ -633,11 +599,11 @@ footer a {
 }
 
 .post-content blockquote {
-  border-left: 4px solid #0070f3;
+  border-left: 4px solid var(--accent-color);
   margin-left: 0;
-  color: #555;
+  color: var(--text-muted);
   font-style: italic;
-  background-color: #f8f9fa;
+  background-color: rgba(0, 0, 0, 0.2);
   padding: 1rem;
   border-radius: 0 8px 8px 0;
 }

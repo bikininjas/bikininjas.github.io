@@ -53,6 +53,37 @@
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
+.postMeta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  color: #f5f5f5;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.date {
+  font-weight: 300;
+  position: relative;
+}
+
+.date::after {
+  content: '•';
+  position: absolute;
+  right: -0.9rem;
+  color: var(--accent-color);
+}
+
+.category {
+  font-weight: 500;
+  color: var(--accent-color);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+}
+
 @media (max-width: 768px) {
   .parallaxContainer {
     height: 50vh;
@@ -65,5 +96,10 @@
   
   .subtitle {
     font-size: 1.2rem;
+  }
+  
+  .postMeta {
+    font-size: 0.9rem;
+    gap: 1rem;
   }
 }

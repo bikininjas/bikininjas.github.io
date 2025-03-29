@@ -2,6 +2,7 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import Layout from '../../components/layout';
 import CategoryNav from '../../components/CategoryNav';
+import PostParallax from '../../components/PostParallax';
 import { getAllPostIds, getPostData, getAllCategories } from '../../lib/posts';
 
 export async function getStaticPaths() {
@@ -26,6 +27,12 @@ export async function getStaticProps({ params }) {
 export default function Post({ postData, categories }) {
   return (
     <Layout title={postData.title}>
+      <PostParallax 
+        title={postData.title}
+        date={postData.date}
+        category={postData.category}
+        backgroundImage={postData.coverImage}
+      />
       <div className="blog-section">
         <div className="blog-layout">
           <aside className="blog-sidebar">
@@ -37,16 +44,6 @@ export default function Post({ postData, categories }) {
           
           <div className="blog-main-content">
             <article className="post-article">
-          <header className="post-header">
-            <h1 className="post-title">{postData.title}</h1>
-            <div className="post-meta">
-              <time className="post-date">{postData.date}</time>
-              {postData.author && <span className="post-author">By: {postData.author}</span>}
-              <Link href={`/categories/${postData.categorySlug}`} className="post-category">
-                {postData.category}
-              </Link>
-            </div>
-          </header>
           
           <div 
             className="markdown post-content"
@@ -68,7 +65,8 @@ Post.propTypes = {
     author: PropTypes.string,
     category: PropTypes.string.isRequired,
     categorySlug: PropTypes.string.isRequired,
-    contentHtml: PropTypes.string.isRequired
+    contentHtml: PropTypes.string.isRequired,
+    coverImage: PropTypes.string
   }).isRequired,
   categories: PropTypes.arrayOf(PropTypes.string).isRequired
 };
