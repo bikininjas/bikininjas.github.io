@@ -1,62 +1,61 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import { getSortedPostsData } from '../lib/posts';
+import Layout from '../components/layout';
+import CategoryNav from '../components/CategoryNav';
+import { getSortedPostsData, getAllCategories } from '../lib/posts';
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
+  const categories = getAllCategories();
   return {
     props: {
       allPostsData,
+      categories,
     },
   };
 }
 
-export default function Home({ allPostsData }) {
+export default function Home({ allPostsData, categories }) {
   return (
-    <div className="container">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main>
+    <Layout home title="BikiNinjas Blog - Home">
+      <section className="hero">
         <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Bike Ninjas Blog!</a>
+          Welcome to <span>BikiNinjas Blog!</span>
         </h1>
 
         <p className="description">
-          A blog built with Next.js and Markdown
+          A modern blog built with Next.js and Markdown
         </p>
+      </section>
 
-        <div className="grid">
-          <h2 className="blogHeading">Blog Posts</h2>
+      <section className="blog-section">
+        <div className="blog-layout">
+          <aside className="blog-sidebar">
+            <CategoryNav categories={categories} currentCategory="all" />
+          </aside>
+          
+          <div className="blog-main-content">
+            <h2 className="section-title">Latest Posts</h2>
+            <div className="grid">
           {allPostsData.map(({ id, date, title, excerpt }) => (
-            <Link href={`/posts/${id}`} key={id}>
-              <div className="card">
-                <h3>{title} &rarr;</h3>
-                <p className="blogDate">{date}</p>
-                <p>{excerpt}</p>
-              </div>
+            <Link href={`/posts/${id}`} key={id} className="card-link">
+              <article className="card">
+                <div className="card-content">
+                  <h3 className="card-title">{title}</h3>
+                  <time className="card-date">{date}</time>
+                  <p className="card-excerpt">{excerpt}</p>
+                </div>
+                <div className="card-arrow">
+                  <span>&rarr;</span>
+                </div>
+              </article>
             </Link>
           ))}
+            </div>
+          </div>
         </div>
-      </main>
-
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel" className="logo" />
-        </a>
-      </footer>
-
-      {/* Styles moved to globals.css */}
-
-    </div>
+      </section>
+    </Layout>
   );
 }
 
@@ -66,7 +65,9 @@ Home.propTypes = {
       id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       date: PropTypes.string.isRequired,
-      excerpt: PropTypes.string
+      excerpt: PropTypes.string,
+      category: PropTypes.string
     })
-  ).isRequired
+  ).isRequired,
+  categories: PropTypes.arrayOf(PropTypes.string).isRequired
 };

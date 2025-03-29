@@ -3,6 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
+import { slugify } from './utils';
 
 const postsDirectory = path.join(process.cwd(), 'posts');
 
@@ -20,10 +21,16 @@ export function getSortedPostsData() {
     // Use gray-matter to parse the post metadata section
     const matterResult = matter(fileContents);
 
-    // Combine the data with the id
+    // Ensure category exists, default to 'Uncategorized' if not specified
+    const category = matterResult.data.category || 'Uncategorized';
+    const categorySlug = slugify(category);
+
+    // Combine the data with the id and ensure category exists
     return {
       id,
       ...matterResult.data,
+      category,
+      categorySlug,
     };
   });
 
@@ -62,10 +69,83 @@ export async function getPostData(id) {
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
 
+  // Ensure category exists, default to 'Uncategorized' if not specified
+  const category = matterResult.data.category || 'Uncategorized';
+  const categorySlug = slugify(category);
+
   // Combine the data with the id and contentHtml
   return {
     id,
     contentHtml,
     ...matterResult.data,
+    category,
+    categorySlug,
   };
+}
+
+// Get all categories from posts
+export function getAllCategories() {
+  const allPosts = getSortedPostsData();
+  const categories = new Set();
+  
+  allPosts.forEach(post => {
+    if (post.category) {
+      categories.add(post.category);
+    } else {
+      categories.add('Uncategorized');
+    }
+  });
+  
+  return Array.from(categories).sort((a, b) => a.localeCompare(b));
+}
+
+// Get all category slugs
+export function getAllCategorySlugs() {
+  const allPosts = getSortedPostsData();
+  const categorySlugMap = new Map();
+  
+  allPosts.forEach(post => {
+    const category = post.category || 'Uncategorized';
+    const slug = slugify(category);
+    categorySlugMap.set(slug, category);
+  });
+  
+  return Array.from(categorySlugMap.keys());
+}
+
+// Get category name from slug
+export function getCategoryFromSlug(slug) {
+  const allPosts = getSortedPostsData();
+  const categoryMap = new Map();
+  
+  allPosts.forEach(post => {
+    const category = post.category || 'Uncategorized';
+    categoryMap.set(slugify(category), category);
+  });
+  
+  return categoryMap.get(slug) || null;
+}
+
+// Get posts filtered by category
+export function getPostsByCategory(category) {
+  const allPosts = getSortedPostsData();
+  
+  if (category === 'all') {
+    return allPosts;
+  }
+  
+  return allPosts.filter(post => {
+    const postCategory = post.category || 'Uncategorized';
+    return postCategory === category;
+  });
+}
+
+// Get posts filtered by category slug
+export function getPostsByCategorySlug(slug) {
+  const category = getCategoryFromSlug(slug);
+  if (!category) {
+    return [];
+  }
+  
+  return getPostsByCategory(category);
 }

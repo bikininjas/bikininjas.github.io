@@ -2,10 +2,9 @@
 title: 'Hello World'
 date: '2025-03-29'
 excerpt: 'This is my first blog post using Markdown'
-author: 'Bike Ninjas'
+author: 'BikiNinjas'
+category: 'Getting Started'
 ---
-
-# Hello World
 
 This is my first blog post using **Markdown**.
 
