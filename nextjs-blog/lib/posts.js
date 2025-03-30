@@ -21,16 +21,26 @@ export function getSortedPostsData() {
     // Use gray-matter to parse the post metadata section
     const matterResult = matter(fileContents);
 
-    // Ensure category exists, default to 'Uncategorized' if not specified
-    const category = matterResult.data.category || 'Uncategorized';
-    const categorySlug = slugify(category);
+    // Handle categories - support both single category and array of categories
+    let categories = matterResult.data.categories || matterResult.data.category || 'Uncategorized';
+    
+    // Ensure categories is always an array
+    if (!Array.isArray(categories)) {
+      categories = [categories];
+    }
+    
+    // Create category slugs
+    const categorySlugs = categories.map(cat => slugify(cat));
 
-    // Combine the data with the id and ensure category exists
+    // Combine the data with the id and ensure categories exist
     return {
       id,
       ...matterResult.data,
-      category,
-      categorySlug,
+      categories,
+      categorySlugs,
+      // Keep single category for backward compatibility
+      category: categories[0],
+      categorySlug: categorySlugs[0],
     };
   });
 
@@ -63,14 +73,24 @@ export async function getPostData(id) {
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents);
 
-  // Use remark to convert markdown into HTML string
+  // Process content to HTML
   const processedContent = await remark()
     .use(html)
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
 
-  // Ensure category exists, default to 'Uncategorized' if not specified
-  const category = matterResult.data.category || 'Uncategorized';
+  // Handle categories - support both single category and array of categories
+  let categories = matterResult.data.categories || matterResult.data.category || 'Uncategorized';
+  
+  // Ensure categories is always an array
+  if (!Array.isArray(categories)) {
+    categories = [categories];
+  }
+
+  // For backward compatibility
+  const category = Array.isArray(matterResult.data.category) 
+    ? matterResult.data.category[0] 
+    : (matterResult.data.category || categories[0] || 'Uncategorized');
   const categorySlug = slugify(category);
 
   // Combine the data with the id and contentHtml
@@ -78,6 +98,7 @@ export async function getPostData(id) {
     id,
     contentHtml,
     ...matterResult.data,
+    categories,
     category,
     categorySlug,
   };
@@ -89,7 +110,11 @@ export function getAllCategories() {
   const categories = new Set();
   
   allPosts.forEach(post => {
-    if (post.category) {
+    if (post.categories && Array.isArray(post.categories)) {
+      post.categories.forEach(category => {
+        categories.add(category);
+      });
+    } else if (post.category) {
       categories.add(post.category);
     } else {
       categories.add('Uncategorized');
@@ -105,9 +130,16 @@ export function getAllCategorySlugs() {
   const categorySlugMap = new Map();
   
   allPosts.forEach(post => {
-    const category = post.category || 'Uncategorized';
-    const slug = slugify(category);
-    categorySlugMap.set(slug, category);
+    if (post.categories && Array.isArray(post.categories)) {
+      post.categories.forEach(category => {
+        const slug = slugify(category);
+        categorySlugMap.set(slug, category);
+      });
+    } else {
+      const category = post.category || 'Uncategorized';
+      const slug = slugify(category);
+      categorySlugMap.set(slug, category);
+    }
   });
   
   return Array.from(categorySlugMap.keys());
@@ -119,8 +151,14 @@ export function getCategoryFromSlug(slug) {
   const categoryMap = new Map();
   
   allPosts.forEach(post => {
-    const category = post.category || 'Uncategorized';
-    categoryMap.set(slugify(category), category);
+    if (post.categories && Array.isArray(post.categories)) {
+      post.categories.forEach(category => {
+        categoryMap.set(slugify(category), category);
+      });
+    } else {
+      const category = post.category || 'Uncategorized';
+      categoryMap.set(slugify(category), category);
+    }
   });
   
   return categoryMap.get(slug) || null;
@@ -135,8 +173,12 @@ export function getPostsByCategory(category) {
   }
   
   return allPosts.filter(post => {
-    const postCategory = post.category || 'Uncategorized';
-    return postCategory === category;
+    if (post.categories && Array.isArray(post.categories)) {
+      return post.categories.includes(category);
+    } else {
+      const postCategory = post.category || 'Uncategorized';
+      return postCategory === category;
+    }
   });
 }
 

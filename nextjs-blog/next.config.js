@@ -6,7 +6,9 @@ const nextConfig = {
     allowedDevOrigins: [
       'http://localhost:3000', 
       'http://127.0.0.1:3000',
-      'http://127.0.0.1:*'
+      'http://127.0.0.1:*',
+      'http://localhost:*',
+      'http://0.0.0.0:*'
     ],
   },
   // Optimize Fast Refresh

@@ -15,7 +15,7 @@ export default function Navbar({ title }) {
             </Link>
           </li>
           <li className="navbar-item">
-            <Link href="/posts/hello-world" className="navbar-link">
+            <Link href="/posts/unreal-engine-beginners-guide" className="navbar-link">
               Blog
             </Link>
           </li>
