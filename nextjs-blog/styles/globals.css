@@ -1,3 +1,6 @@
+/* Import embed styles */
+@import './embeds.css';
+
 /* Dark Grey Theme Variables */
 :root {
   --background-color: #2a2a2a;

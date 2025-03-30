@@ -1,0 +1,90 @@
+/* Social Media Embeds Styling */
+
+/* Common container styles */
+.video-container,
+.twitter-embed-container,
+.bluesky-embed-container {
+  margin: 2rem 0;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* YouTube and Twitch video containers */
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
+/* Twitter embed styling */
+.twitter-embed-container {
+  display: flex;
+  justify-content: center;
+}
+
+/* Bluesky embed styling */
+.bluesky-embed-container {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.bluesky-theme-light {
+  background-color: #f8f8f8;
+  color: #333;
+  border: 1px solid #e1e8ed;
+}
+
+.bluesky-theme-dark {
+  background-color: #15202b;
+  color: #fff;
+  border: 1px solid #38444d;
+}
+
+.bluesky-embed-card {
+  padding: 16px;
+}
+
+.bluesky-embed-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.bluesky-embed-author {
+  font-weight: bold;
+}
+
+.bluesky-embed-link {
+  font-size: 0.8rem;
+  color: #1da1f2;
+  text-decoration: none;
+}
+
+.bluesky-embed-content {
+  line-height: 1.5;
+}
+
+.bluesky-embed-loading,
+.bluesky-embed-error {
+  padding: 16px;
+  text-align: center;
+  color: #657786;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .video-container {
+    margin: 1.5rem 0;
+  }
+}

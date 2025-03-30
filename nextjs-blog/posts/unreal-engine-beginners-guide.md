@@ -5,8 +5,6 @@ excerpt: 'Learn the fundamentals of Unreal Engine 5 and start creating your firs
 categories: ['Game Development', 'Unreal Engine']
 ---
 
-# Getting Started with Unreal Engine 5: A Beginner's Guide
-
 Unreal Engine 5 has revolutionized game development with its powerful features and accessible workflow. Whether you're a complete beginner or transitioning from another engine, this guide will help you get started on your game development journey.
 
 ## What Makes Unreal Engine 5 Special?
@@ -32,6 +30,16 @@ Before diving into Unreal Engine 5, you'll need to set up your development envir
 
 3. **Install Unreal Engine 5** - Open the Epic Games Launcher, navigate to the Unreal Engine tab, and install Unreal Engine 5.
 
+Here's a video tutorial that walks you through the installation process:
+
+```jsx
+<SocialEmbed 
+  type="youtube" 
+  videoId="3jfwfDZeSaE" 
+  title="How to Install Unreal Engine 5" 
+/>
+```
+
 ## Creating Your First Project
 
 Now that you have Unreal Engine 5 installed, let's create your first project:
@@ -45,6 +53,15 @@ Now that you have Unreal Engine 5 installed, let's create your first project:
    - Choose a location to save your project
 5. Click "Create Project" to generate your new Unreal Engine 5 project.
 
+Many game developers stream their Unreal Engine development process on Twitch. Here's an example of a live stream:
+
+```jsx
+<SocialEmbed 
+  type="twitch" 
+  channelName="unrealengine" 
+/>
+```
+
 ## Understanding the Unreal Editor Interface
 
 The Unreal Editor interface might seem overwhelming at first, but it's organized logically:
@@ -52,6 +69,25 @@ The Unreal Editor interface might seem overwhelming at first, but it's organized
 - **Viewport** - The central window where you can see and manipulate your game world
 - **Content Browser** - Where you manage all your assets (models, textures, materials, etc.)
 - **World Outliner** - Lists all actors in your scene
+
+The Unreal Engine team often shares updates on Twitter:
+
+```jsx
+<SocialEmbed 
+  type="twitter" 
+  tweetId="1507007507434110978" 
+/>
+```
+
+You can also follow discussions about Unreal Engine on Bluesky:
+
+```jsx
+<SocialEmbed 
+  type="bluesky" 
+  postUrl="https://bsky.app/profile/unrealengine.bsky.social/post/3kgiqoiuqwz2r" 
+/>
+```
+
 - **Details Panel** - Shows properties of selected objects
 - **Toolbar** - Contains tools for transforming objects and play testing your game
 
