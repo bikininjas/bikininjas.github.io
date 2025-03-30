@@ -30,6 +30,8 @@
 .twitter-embed-container {
   max-width: 550px;
   margin: 2rem auto;
+  display: flex;
+  justify-content: center;
 }
 
 /* Twitch embeds */

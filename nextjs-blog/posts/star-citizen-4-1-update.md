@@ -14,6 +14,8 @@ The highly anticipated Star Citizen 4.1 update has finally arrived, bringing a w
 
 ## Key Features in the 4.1 Update
 
+![youtube](https://www.youtube.com/watch?v=9X6lMaVZfy8 "Star Citizen 4.1 Update")
+
 ### Persistent Entity Streaming 2.0
 
 One of the most significant technical achievements in the 4.1 update is the implementation of Persistent Entity Streaming 2.0 (PES 2.0). This enhanced system dramatically improves how the game handles object persistence throughout the universe:

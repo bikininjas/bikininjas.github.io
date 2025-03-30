@@ -33,15 +33,18 @@ function processEmbeds(content) {
   processedContent = processedContent.replace(
     /!\[twitter\]\(([^)]+)\)/g,
     (match, url) => {
-      // Extract tweet ID
+      // Extract tweet URL and optional title
       const parts = url.split(' "');
       const tweetUrl = parts[0];
       
-      const tweetId = tweetUrl.includes('/status/') 
-        ? tweetUrl.split('/status/')[1].split('?')[0] 
-        : tweetUrl;
+      // No need to extract tweet ID, using the full URL
       
-      return `<div class="twitter-embed-container"><blockquote class="twitter-tweet" data-dnt="true"><a href="https://twitter.com/i/status/${tweetId}">Loading tweet...</a></blockquote></div>`;
+      // Create Twitter embed with proper attributes
+      return `<div class="twitter-embed-container">
+        <blockquote class="twitter-tweet" data-conversation="none">
+          <a href="${tweetUrl}"></a>
+        </blockquote>
+      </div>`;
     }
   );
   

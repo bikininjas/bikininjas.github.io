@@ -32,11 +32,11 @@ Before diving into Unreal Engine 5, you'll need to set up your development envir
 
 Here's a video tutorial that walks you through the installation process:
 
-![youtube](https://www.youtube.com/watch?v=3jfwfDZeSaE "How to Install Unreal Engine 5")
+![youtube](https://www.youtube.com/watch?v=k-zMkzmduqI "Unreal Engine 5 Beginner Tutorial - UE5 Starter Course")
 
 You can also follow the official Unreal Engine Twitter account for the latest updates:
 
-![twitter](https://twitter.com/UnrealEngine/status/1507007146692558848)
+![twitter](https://twitter.com/UnrealEngine/status/1507007146692558848 "Unreal Engine Tweet")
 
 Many developers stream their Unreal Engine development process on Twitch:
 
