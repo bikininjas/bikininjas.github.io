@@ -3,8 +3,6 @@ import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
-import { serialize } from 'next-mdx-remote/serialize';
-import remarkMdx from 'remark-mdx';
 import { slugify } from './utils';
 
 const postsDirectory = path.join(process.cwd(), 'posts');
@@ -75,20 +73,11 @@ export async function getPostData(id) {
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents);
 
-  // Process content in two ways:
-  // 1. Standard HTML for backward compatibility
+  // Process content to HTML
   const processedContent = await remark()
     .use(html)
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
-
-  // 2. MDX processing for JSX components like social embeds
-  const mdxSource = await serialize(matterResult.content, {
-    mdxOptions: {
-      remarkPlugins: [remarkMdx],
-    },
-    scope: matterResult.data,
-  });
 
   // Handle categories - support both single category and array of categories
   let categories = matterResult.data.categories || matterResult.data.category || 'Uncategorized';
@@ -104,11 +93,10 @@ export async function getPostData(id) {
     : (matterResult.data.category || categories[0] || 'Uncategorized');
   const categorySlug = slugify(category);
 
-  // Combine the data with the id, contentHtml, and mdxSource
+  // Combine the data with the id and contentHtml
   return {
     id,
     contentHtml,
-    mdxSource,
     ...matterResult.data,
     categories,
     category,

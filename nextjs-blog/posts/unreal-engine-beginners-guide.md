@@ -32,13 +32,7 @@ Before diving into Unreal Engine 5, you'll need to set up your development envir
 
 Here's a video tutorial that walks you through the installation process:
 
-```jsx
-<SocialEmbed 
-  type="youtube" 
-  videoId="3jfwfDZeSaE" 
-  title="How to Install Unreal Engine 5" 
-/>
-```
+[How to Install Unreal Engine 5](https://www.youtube.com/watch?v=3jfwfDZeSaE)
 
 ## Creating Your First Project
 
@@ -53,14 +47,7 @@ Now that you have Unreal Engine 5 installed, let's create your first project:
    - Choose a location to save your project
 5. Click "Create Project" to generate your new Unreal Engine 5 project.
 
-Many game developers stream their Unreal Engine development process on Twitch. Here's an example of a live stream:
-
-```jsx
-<SocialEmbed 
-  type="twitch" 
-  channelName="unrealengine" 
-/>
-```
+Many game developers stream their Unreal Engine development process on Twitch. Check out the [Unreal Engine Twitch channel](https://www.twitch.tv/unrealengine) for live streams.
 
 ## Understanding the Unreal Editor Interface
 
@@ -70,23 +57,9 @@ The Unreal Editor interface might seem overwhelming at first, but it's organized
 - **Content Browser** - Where you manage all your assets (models, textures, materials, etc.)
 - **World Outliner** - Lists all actors in your scene
 
-The Unreal Engine team often shares updates on Twitter:
+The Unreal Engine team often shares updates on [Twitter](https://twitter.com/UnrealEngine).
 
-```jsx
-<SocialEmbed 
-  type="twitter" 
-  tweetId="1507007507434110978" 
-/>
-```
-
-You can also follow discussions about Unreal Engine on Bluesky:
-
-```jsx
-<SocialEmbed 
-  type="bluesky" 
-  postUrl="https://bsky.app/profile/unrealengine.bsky.social/post/3kgiqoiuqwz2r" 
-/>
-```
+You can also follow discussions about Unreal Engine on [Bluesky](https://bsky.app/profile/unrealengine.bsky.social).
 
 - **Details Panel** - Shows properties of selected objects
 - **Toolbar** - Contains tools for transforming objects and play testing your game
