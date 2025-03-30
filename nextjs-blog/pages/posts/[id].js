@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 import Layout from '../../components/layout';
 import CategoryNav from '../../components/CategoryNav';
 import PostParallax from '../../components/PostParallax';
@@ -25,6 +26,20 @@ export async function getStaticProps({ params }) {
 }
 
 export default function Post({ postData, categories }) {
+  // Load Twitter widgets script if needed
+  useEffect(() => {
+    // Check if the post contains Twitter embeds
+    if (document.querySelector('.twitter-embed-container')) {
+      // Load Twitter widgets script
+      const script = document.createElement('script');
+      script.src = 'https://platform.twitter.com/widgets.js';
+      script.async = true;
+      // Use setAttribute for charset to avoid deprecation warning
+      script.setAttribute('charset', 'utf-8');
+      document.head.appendChild(script);
+    }
+  }, []);
+  
   return (
     <Layout title={postData.title}>
       <PostParallax 

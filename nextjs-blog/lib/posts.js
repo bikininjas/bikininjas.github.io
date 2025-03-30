@@ -3,6 +3,81 @@ import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
+
+// Custom function to process embeds
+function processEmbeds(content) {
+  let processedContent = content;
+  
+  // Process YouTube embeds
+  processedContent = processedContent.replace(
+    /!\[youtube\]\(([^)]+)\)/g,
+    (match, url) => {
+      // Extract video ID and title
+      const parts = url.split(' "');
+      const videoUrl = parts[0];
+      const title = parts.length > 1 ? parts[1].replace('"', '') : '';
+      
+      let videoId = videoUrl;
+      if (videoUrl.includes('youtu.be/')) {
+        videoId = videoUrl.split('youtu.be/')[1].split('?')[0];
+      } else if (videoUrl.includes('v=')) {
+        videoId = videoUrl.split('v=')[1].split('&')[0];
+      }
+      
+      const titleAttr = title ? ` title="${title}"` : '';
+      return `<div class="embed-container video-container"><iframe src="https://www.youtube.com/embed/${videoId}"${titleAttr} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+    }
+  );
+  
+  // Process Twitter embeds
+  processedContent = processedContent.replace(
+    /!\[twitter\]\(([^)]+)\)/g,
+    (match, url) => {
+      // Extract tweet ID
+      const parts = url.split(' "');
+      const tweetUrl = parts[0];
+      
+      const tweetId = tweetUrl.includes('/status/') 
+        ? tweetUrl.split('/status/')[1].split('?')[0] 
+        : tweetUrl;
+      
+      return `<div class="twitter-embed-container"><blockquote class="twitter-tweet" data-dnt="true"><a href="https://twitter.com/i/status/${tweetId}">Loading tweet...</a></blockquote></div>`;
+    }
+  );
+  
+  // Process Twitch embeds
+  processedContent = processedContent.replace(
+    /!\[twitch\]\(([^)]+)\)/g,
+    (match, url) => {
+      // Extract channel name
+      const parts = url.split(' "');
+      const channelUrl = parts[0];
+      const title = parts.length > 1 ? parts[1].replace('"', '') : '';
+      
+      const channelName = channelUrl.includes('twitch.tv/') 
+        ? channelUrl.split('twitch.tv/')[1].split('?')[0] 
+        : channelUrl;
+      
+      const parent = process.env.NODE_ENV === 'development' ? 'localhost' : 'bikininjas.github.io';
+      const titleAttr = title ? ` title="${title}"` : '';
+      return `<div class="embed-container twitch-container"><iframe src="https://player.twitch.tv/?channel=${channelName}&parent=${parent}"${titleAttr} frameborder="0" allowfullscreen scrolling="no"></iframe></div>`;
+    }
+  );
+  
+  // Process Bluesky embeds
+  processedContent = processedContent.replace(
+    /!\[bluesky\]\(([^)]+)\)/g,
+    (match, url) => {
+      // Extract URL
+      const parts = url.split(' "');
+      const bskyUrl = parts[0];
+      
+      return `<div class="bluesky-embed-container"><iframe class="bluesky-embed" src="https://bsky.app/embed?url=${encodeURIComponent(bskyUrl)}" frameborder="0" allowfullscreen scrolling="no"></iframe></div>`;
+    }
+  );
+  
+  return processedContent;
+}
 import { slugify } from './utils';
 
 const postsDirectory = path.join(process.cwd(), 'posts');
@@ -72,12 +147,36 @@ export async function getPostData(id) {
 
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents);
-
-  // Process content to HTML
-  const processedContent = await remark()
-    .use(html)
-    .process(matterResult.content);
-  const contentHtml = processedContent.toString();
+  
+  // Set up the remark processor for converting Markdown to HTML
+  const remarkProcessor = remark().use(html);
+  
+  // Then process the embeds separately
+  // This is a two-step process to avoid remark sanitizing our custom HTML
+  const markdownWithEmbeds = processEmbeds(matterResult.content);
+  
+  // Now convert the markdown parts to HTML while preserving our custom HTML
+  const parts = markdownWithEmbeds.split(/(<div class="embed-container.*?<\/div>)/gs);
+  let finalHtml = '';
+  
+  for (const part of parts) {
+    if (part.startsWith('<div class="embed-container')) {
+      // This is already HTML (our custom embed), keep it as is
+      finalHtml += part;
+    } else {
+      // This is markdown, convert it to HTML
+      const processed = await remarkProcessor.process(part);
+      finalHtml += processed.toString();
+    }
+  }
+  
+  // For debugging
+  console.log('Post ID:', id);
+  console.log('Contains embeds:', markdownWithEmbeds.includes('embed-container'));
+  console.log('Final HTML contains embeds:', finalHtml.includes('embed-container'));
+  
+  // Use the final HTML with embeds
+  let contentHtml = finalHtml;
 
   // Handle categories - support both single category and array of categories
   let categories = matterResult.data.categories || matterResult.data.category || 'Uncategorized';

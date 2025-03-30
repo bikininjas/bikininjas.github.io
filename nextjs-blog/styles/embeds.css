@@ -1,0 +1,65 @@
+/* Social Media Embeds Styling */
+
+/* Common container styles */
+.embed-container {
+  margin: 2rem 0;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+/* YouTube and video embeds */
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Twitter embeds */
+.twitter-embed-container {
+  max-width: 550px;
+  margin: 2rem auto;
+}
+
+/* Twitch embeds */
+.twitch-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.twitch-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Bluesky embeds */
+.bluesky-embed-container {
+  max-width: 550px;
+  margin: 2rem auto;
+  border: 1px solid #e1e8ed;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.bluesky-embed {
+  width: 100%;
+  height: 300px;
+  border: 0;
+}
