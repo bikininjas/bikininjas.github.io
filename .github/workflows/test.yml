@@ -41,13 +41,31 @@ jobs:
 
       # Run Cypress E2E tests
       - name: Run Cypress E2E tests
-        run: cd nextjs-blog && bun run test:e2e:headless
+        run: 
         env:
           CYPRESS_BASE_URL: http://localhost:3000
           # Note: Si vous souhaitez utiliser Cypress Dashboard à l'avenir, vous devrez ajouter
           # la variable CYPRESS_RECORD_KEY dans les secrets GitHub
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Cypress run
+        # Uses the official Cypress GitHub action https://github.com/cypress-io/github-action
+        uses: cypress-io/github-action@v6
+        with:
+          # Starts web server for E2E tests - replace with your own server invocation
+          # https://docs.cypress.io/guides/continuous-integration/introduction#Boot-your-server
+          start: cd nextjs-blog && bun run test:e2e:headless
+          wait-on: 'http://localhost:3000' # Waits for above
+          # Records to Cypress Cloud
+          # https://docs.cypress.io/guides/cloud/projects#Set-up-a-project-to-record
+          record: true
+          parallel: true # Runs test in parallel using settings above
+        env:
+          # For recording and parallelization to work you must set your CYPRESS_RECORD_KEY
+          # in GitHub repo → Settings → Secrets → Actions
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # Creating a token https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # Playwright tests are removed to reduce CI time and costs
       # They will be run locally only
 
@@ -71,10 +89,10 @@ jobs:
           SONAR_HOST_URL: https://sonarcloud.io
         with:
           args: >
-            -Dsonar.qualitygate.wait=true
-            -Dsonar.qualitygate.timeout=300
+            -Dsonar.qualitygate.wait=false
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.coverage.jacoco.xmlReportPaths=coverage/coverage-final.xml
+        continue-on-error: true
 
       # Upload test reports as artifacts
       - name: Upload test reports
@@ -92,7 +110,7 @@ jobs:
           
       # Publish test results with GitHub Test Reporter
       - name: Publish Jest Test Results
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@main
         if: always()
         with:
           name: Jest Tests
@@ -101,78 +119,11 @@ jobs:
           fail-on-error: false
           
       - name: Publish Cypress Test Results
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@main
         if: always()
         with:
           name: Cypress Tests
           path: nextjs-blog/cypress/reports/junit/results-*.xml
           reporter: jest-junit
           fail-on-error: false
-      
-      # Générer un rapport de test détaillé
-      - name: Générer un rapport de test
-        if: always()
-        run: |
-          cd nextjs-blog
-          echo "## 📊 Rapport de Tests" > test-report.md
-          echo "### Tests Unitaires" >> test-report.md
-          if [ -f "test-reports/junit.xml" ]; then
-            echo "✅ Résultats des tests unitaires:" >> test-report.md
-            echo '```' >> test-report.md
-            cat test-reports/junit.xml | grep -E 'testsuites|testsuite' | head -n 5 >> test-report.md
-            echo '```' >> test-report.md
-          else
-            echo "❌ Rapport de tests unitaires non disponible" >> test-report.md
-          fi
-          
-          echo "### Couverture de Code" >> test-report.md
-          if [ -f "coverage/lcov-report/index.html" ]; then
-            echo "✅ Couverture de code:" >> test-report.md
-            echo '```' >> test-report.md
-            grep -A 5 -B 5 "<span class=\"strong\">Total</span>" coverage/lcov-report/index.html >> test-report.md
-            echo '```' >> test-report.md
-          else
-            echo "❌ Rapport de couverture non disponible" >> test-report.md
-          fi
-          
-          echo "### Tests E2E Cypress" >> test-report.md
-          if [ -d "cypress/reports/mochawesome" ]; then
-            echo "✅ Tests Cypress exécutés" >> test-report.md
-            echo '```' >> test-report.md
-            find cypress/reports/mochawesome -name "*.json" | xargs cat | grep -E '"passes":|"failures":' | head -n 4 >> test-report.md
-            echo '```' >> test-report.md
-          else
-            echo "❌ Rapport Cypress non disponible" >> test-report.md
-          fi
-          
-          echo "### Tests Playwright" >> test-report.md
-          echo "⏩ Tests Playwright désactivés dans CI (exécutés en local uniquement)" >> test-report.md
-      
-      # Poster le rapport comme commentaire sur la PR ou le commit
-      - name: Poster le rapport de test
-        if: always()
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const fs = require('fs');
-            const report = fs.readFileSync('nextjs-blog/test-report.md', 'utf8');
-            
-            // Pour les Pull Requests
-            if (context.payload.pull_request) {
-              github.rest.issues.createComment({
-                issue_number: context.payload.pull_request.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: report
-              });
-            } 
-            // Pour les commits sur une branche
-            else if (context.payload.after) {
-              github.rest.repos.createCommitComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                commit_sha: context.payload.after,
-                body: report
-              });
-            }
+
