@@ -155,6 +155,65 @@ La configuration de Playwright se trouve dans le fichier `playwright.config.js` 
 - Utilisez des attentes explicites (`cy.wait()`, `page.waitForSelector()`)
 - Vérifiez si l'élément est dans un iframe ou un shadow DOM
 
+## Intégration avec SonarQube
+
+Le projet est configuré pour s'intégrer avec SonarQube Cloud afin de surveiller la qualité du code et la couverture des tests.
+
+### Configuration SonarQube
+
+La configuration SonarQube se trouve dans le fichier `sonar-project.properties` à la racine du projet. Cette configuration inclut :
+
+- L'organisation et la clé du projet
+- Les chemins des sources et des tests
+- Les exclusions pour l'analyse
+- Les chemins des rapports de couverture
+- Les paramètres de Quality Gate
+
+### Exécution de l'analyse SonarQube
+
+L'analyse SonarQube est automatiquement exécutée dans les workflows GitHub Actions. Vous pouvez également l'exécuter localement :
+
+```bash
+# Préparer les rapports pour SonarQube
+bun run sonar:prepare
+
+# Exécuter l'analyse SonarQube localement (nécessite sonar-scanner)
+bun run sonar:local
+```
+
+### Quality Gate
+
+Le projet utilise un Quality Gate SonarQube avec les critères suivants :
+
+- Couverture de code minimale : 70%
+- Duplication de code maximale : 5%
+- Dette technique maximale : 5%
+- Bugs critiques : 0
+- Vulnérabilités de sécurité : 0
+
+### Amélioration de la couverture de code
+
+Pour améliorer la couverture de code et passer le Quality Gate, suivez ces bonnes pratiques :
+
+1. **Ajouter des tests pour le code non couvert** :
+
+   ```bash
+   # Voir un résumé de la couverture actuelle
+   bun run coverage:summary
+   ```
+
+2. **Identifier les fichiers à faible couverture** :
+   - Consultez le rapport de couverture dans `coverage/lcov-report/index.html`
+   - Concentrez-vous sur les fichiers avec une couverture inférieure à 70%
+
+3. **Tester les branches conditionnelles** :
+   - Assurez-vous de tester les deux côtés des instructions if/else
+   - Testez les cas limites et les exceptions
+
+4. **Utiliser les seuils de couverture** :
+   - Le projet est configuré avec un seuil de couverture de 70% dans `jest.config.js`
+   - Les tests échoueront si la couverture tombe en dessous de ce seuil
+
 ## Rapports de tests
 
 Le projet est configuré pour générer des rapports détaillés pour tous les types de tests :
@@ -198,6 +257,33 @@ Les rapports sont générés dans les dossiers suivants :
 - Rapports JUnit : `test-reports/playwright-results.xml`
 - Rapports JSON : `test-reports/playwright-results.json`
 - Traces et captures d'écran : `test-results/`
+
+## Intégration continue et rapports automatisés
+
+Les workflows GitHub Actions sont configurés pour exécuter tous les tests et générer des rapports à chaque push :
+
+1. **Workflow de test** (`test.yml`) :
+   - S'exécute sur toutes les branches sauf master et main
+   - Exécute tous les types de tests
+   - Génère des rapports de couverture
+   - Effectue l'analyse SonarQube
+   - Publie un rapport détaillé en commentaire sur la PR ou le commit
+
+2. **Workflow de déploiement** (`deploy-blog.yml`) :
+   - S'exécute sur les branches master et main
+   - Exécute les tests unitaires avant le déploiement
+   - Déploie le blog sur GitHub Pages
+
+### Rapport de test automatisé
+
+Après chaque exécution du workflow de test, un rapport détaillé est automatiquement publié en commentaire, incluant :
+
+- Résultats des tests unitaires
+- Couverture de code
+- Résultats des tests Cypress
+- Résultats des tests Playwright
+
+Ce rapport vous permet de voir rapidement si vos modifications ont amélioré ou dégradé la qualité du code et la couverture des tests.
 
 ## Intégration SonarCloud
 

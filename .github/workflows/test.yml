@@ -50,7 +50,9 @@ jobs:
         run: cd nextjs-blog && bun run test:e2e:headless
         env:
           CYPRESS_BASE_URL: http://localhost:3000
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # La variable CYPRESS_RECORD_KEY est facultative et n'est nécessaire que si vous utilisez Cypress Dashboard
+          # Si vous utilisez Cypress Dashboard, décommentez la ligne suivante et ajoutez la clé dans les secrets GitHub
+          # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Run Playwright tests
@@ -62,14 +64,29 @@ jobs:
         env:
           CI: true
 
-      # SonarCloud analysis
+      # Préparation pour SonarCloud
+      - name: Préparer les rapports de couverture pour SonarCloud
+        run: |
+          mkdir -p .scannerwork
+          cp -r nextjs-blog/coverage .
+          cp nextjs-blog/coverage/lcov.info .
+          # Créer un rapport de couverture consolidé si nécessaire
+          if [ -f "nextjs-blog/coverage/coverage-final.json" ]; then
+            cp nextjs-blog/coverage/coverage-final.json .
+          fi
+      
+      # SonarCloud analysis avec Quality Gate
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          projectBaseDir: nextjs-blog
+          args: >
+            -Dsonar.qualitygate.wait=true
+            -Dsonar.qualitygate.timeout=300
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.coverage.jacoco.xmlReportPaths=coverage/coverage-final.xml
 
       # Upload test reports as artifacts
       - name: Upload test reports
