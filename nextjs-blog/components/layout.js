@@ -7,7 +7,7 @@ export default function Layout({ children, home, title = 'BikiNinjas' }) {
     <div className="layout">
       <Head>
         <title>{title}</title>
-        <meta name="description" content="A Next.js Markdown blog" />
+        <meta name="description" content="Un blog Markdown avec Next.js" />
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
@@ -20,7 +20,7 @@ export default function Layout({ children, home, title = 'BikiNinjas' }) {
         </main>
 
         <footer>
-          <p>© {new Date().getFullYear()} BikiNinjas. Built with Next.js</p>
+          <p>© {new Date().getFullYear()} BikiNinjas. Créé avec Next.js</p>
         </footer>
       </div>
     </div>

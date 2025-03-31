@@ -18,10 +18,10 @@ export async function getStaticProps() {
 
 export default function Home({ allPostsData, categories }) {
   return (
-    <Layout home title="BikiNinjas - Home">
+    <Layout home title="BikiNinjas - Accueil">
       <ParallaxHero 
         title="BikiNinjas" 
-        subtitle="Gaming, Development & Digital Wellbeing" 
+        subtitle="Jeux Vidéo, Développement & Bien-être Numérique" 
       />
 
       <section className="blog-section">
@@ -31,7 +31,7 @@ export default function Home({ allPostsData, categories }) {
           </aside>
           
           <div className="blog-main-content">
-            <h2 className="section-title">Latest Posts</h2>
+            <h2 className="section-title">Derniers Articles</h2>
             <div className="grid">
               {allPostsData.map((post) => (
                 <PostCard key={post.id} post={post} />

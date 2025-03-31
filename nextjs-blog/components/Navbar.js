@@ -11,7 +11,7 @@ export default function Navbar({ title }) {
         <ul className="navbar-menu">
           <li className="navbar-item">
             <Link href="/" className="navbar-link">
-              Home
+              Accueil
             </Link>
           </li>
           <li className="navbar-item">
