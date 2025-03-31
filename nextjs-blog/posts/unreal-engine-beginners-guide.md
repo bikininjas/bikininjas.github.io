@@ -34,10 +34,6 @@ Voici un tutoriel vidéo qui vous guide à travers le processus d'installation :
 
 ![youtube](https://www.youtube.com/watch?v=k-zMkzmduqI "Tutoriel pour débutants Unreal Engine 5 - Cours de démarrage UE5")
 
-Vous pouvez également suivre le compte Twitter officiel d'Unreal Engine pour les dernières mises à jour :
-
-![twitter](https://twitter.com/UnrealEngine/status/1507007146692558848 "Tweet d'Unreal Engine")
-
 De nombreux développeurs diffusent leur processus de développement Unreal Engine sur Twitch :
 
 ![twitch](https://www.twitch.tv/unrealengine "Chaîne officielle d'Unreal Engine")
@@ -68,8 +64,6 @@ L'interface de l'éditeur Unreal peut sembler complexe au premier abord, mais el
 - **Viewport** - La fenêtre centrale où vous pouvez voir et manipuler votre monde de jeu
 - **Navigateur de contenu** - Où vous gérez tous vos éléments (modèles, textures, matériaux, etc.)
 - **World Outliner** - Liste tous les acteurs dans votre scène
-
-L'équipe d'Unreal Engine partage souvent des mises à jour sur [Twitter](https://twitter.com/UnrealEngine).
 
 Vous pouvez également suivre les discussions sur Unreal Engine sur [Bluesky](https://bsky.app/profile/unrealengine.bsky.social).
 

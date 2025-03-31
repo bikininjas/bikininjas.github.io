@@ -29,25 +29,6 @@ function processEmbeds(content) {
     }
   );
   
-  // Process Twitter embeds
-  processedContent = processedContent.replace(
-    /!\[twitter\]\(([^)]+)\)/g,
-    (match, url) => {
-      // Extract tweet URL and optional title
-      const parts = url.split(' "');
-      const tweetUrl = parts[0];
-      
-      // No need to extract tweet ID, using the full URL
-      
-      // Create Twitter embed with proper attributes
-      return `<div class="twitter-embed-container">
-        <blockquote class="twitter-tweet" data-conversation="none">
-          <a href="${tweetUrl}"></a>
-        </blockquote>
-      </div>`;
-    }
-  );
-  
   // Process Twitch embeds
   processedContent = processedContent.replace(
     /!\[twitch\]\(([^)]+)\)/g,
@@ -159,11 +140,11 @@ export async function getPostData(id) {
   const markdownWithEmbeds = processEmbeds(matterResult.content);
   
   // Now convert the markdown parts to HTML while preserving our custom HTML
-  const parts = markdownWithEmbeds.split(/(<div class="embed-container.*?<\/div>)/gs);
+  const parts = markdownWithEmbeds.split(/(<div class="(embed-container|tweet-embed).*?<\/div>)/gs);
   let finalHtml = '';
   
   for (const part of parts) {
-    if (part.startsWith('<div class="embed-container')) {
+    if (part.startsWith('<div class="embed-container') || part.startsWith('<div class="tweet-embed')) {
       // This is already HTML (our custom embed), keep it as is
       finalHtml += part;
     } else {

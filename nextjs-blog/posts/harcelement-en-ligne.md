@@ -35,8 +35,6 @@ Des études montrent que les adolescents sont particulièrement vulnérables, le
 
 ## Cadre juridique en France
 
-![twitter](https://x.com/ZeratoR/status/1646862265952370688 "ZeratoR s'exprime sur la ZLAN 2025 et son harcèlement en ligne")
-
 En France, le harcèlement en ligne est puni par la loi. Depuis la loi du 3 août 2018, le cyberharcèlement en meute (plusieurs personnes s'attaquant à une même victime) est considéré comme une circonstance aggravante.
 
 Les peines peuvent aller jusqu'à :
@@ -64,8 +62,6 @@ Si vous êtes victime de harcèlement en ligne, plusieurs ressources sont dispon
 - **Net Écoute** : 0800 200 000, ligne d'écoute gratuite
 - **Associations spécialisées** : e-Enfance, Respect Zone, etc.
 - **Plateformes de signalement** : PHAROS pour signaler les contenus illicites
-
-![twitter](https://x.com/e_enfance/status/1499682506651348993 "Association e-Enfance")
 
 ## L'importance de l'éducation numérique
 
