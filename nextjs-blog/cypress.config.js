@@ -4,7 +4,8 @@ module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
       // implement node event listeners here
-      require('cypress-multi-reporters/plugin')(on);
+      // Le module cypress-multi-reporters n'a pas de sous-module plugin
+      // Nous utilisons simplement le reporter sans plugin
     },
     // Configuration des rapports
     reporter: 'cypress-multi-reporters',
