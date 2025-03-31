@@ -37,13 +37,7 @@ jobs:
       - name: Run unit tests with coverage
         run: cd nextjs-blog && bun run test:coverage
 
-      # Start the application in the background for E2E tests
-      - name: Start Next.js app for E2E tests
-        run: |
-          cd nextjs-blog
-          bun run build
-          bun run start &
-          sleep 5  # Give the app time to start
+      # Nous n'avons plus besoin de démarrer l'application séparément car c'est géré par start-server-and-test
 
       # Run Cypress E2E tests
       - name: Run Cypress E2E tests
