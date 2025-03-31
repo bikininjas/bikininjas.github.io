@@ -29,7 +29,7 @@ function getAllJsFiles(dir, fileList = []) {
 function detectUnusedFunctions(fileContent) {
   const functionRegex = /function\s+(\w+)\s*\(/g;
   const exportedFunctionRegex = /export\s+(?:default\s+)?function\s+(\w+)\s*\(/g;
-  const constFunctionRegex = /const\s+(\w+)\s*=\s*(?:async\s*)?\(\s*.*?\)\s*=>/g;
+  const constFunctionRegex = /const\s+(\w+)\s*=\s*(?:async\s*)?\([^)]*\)\s*=>/g;
   
   const allFunctions = [];
   const exportedFunctions = [];
