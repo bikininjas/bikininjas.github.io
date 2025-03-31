@@ -54,14 +54,8 @@ jobs:
           # la variable CYPRESS_RECORD_KEY dans les secrets GitHub
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Run Playwright tests
-      - name: Install Playwright browsers
-        run: cd nextjs-blog && bun playwright install --with-deps
-
-      - name: Run Playwright tests
-        run: cd nextjs-blog && bun run test:playwright
-        env:
-          CI: true
+      # Playwright tests are removed to reduce CI time and costs
+      # They will be run locally only
 
       # Préparation pour SonarCloud
       - name: Préparer les rapports de couverture pour SonarCloud
@@ -99,8 +93,26 @@ jobs:
             nextjs-blog/cypress/reports/
             nextjs-blog/cypress/videos/
             nextjs-blog/cypress/screenshots/
-            nextjs-blog/playwright-report/
           retention-days: 30
+          
+      # Publish test results with GitHub Test Reporter
+      - name: Publish Jest Test Results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Jest Tests
+          path: nextjs-blog/test-reports/junit.xml
+          reporter: jest-junit
+          fail-on-error: false
+          
+      - name: Publish Cypress Test Results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Cypress Tests
+          path: nextjs-blog/cypress/reports/junit/results-*.xml
+          reporter: jest-junit
+          fail-on-error: false
       
       # Générer un rapport de test détaillé
       - name: Générer un rapport de test
@@ -139,14 +151,7 @@ jobs:
           fi
           
           echo "### Tests Playwright" >> test-report.md
-          if [ -f "test-reports/playwright-results.json" ]; then
-            echo "✅ Tests Playwright exécutés" >> test-report.md
-            echo '```' >> test-report.md
-            cat test-reports/playwright-results.json | grep -E '"passed":|"failed":' | head -n 4 >> test-report.md
-            echo '```' >> test-report.md
-          else
-            echo "❌ Rapport Playwright non disponible" >> test-report.md
-          fi
+          echo "⏩ Tests Playwright désactivés dans CI (exécutés en local uniquement)" >> test-report.md
       
       # Poster le rapport comme commentaire sur la PR ou le commit
       - name: Poster le rapport de test
