@@ -1,6 +1,6 @@
+import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import { useEffect, useRef } from 'react';
 import Layout from '../../components/layout';
 import CategoryNav from '../../components/CategoryNav';
 import PostParallax from '../../components/PostParallax';

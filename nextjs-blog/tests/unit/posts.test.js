@@ -1,4 +1,15 @@
-import { getSortedPostsData, getAllPostIds } from '../../lib/posts';
+// Mocks pour les modules ESM
+jest.mock('remark', () => ({
+  remark: jest.fn().mockReturnValue({
+    use: jest.fn().mockReturnThis(),
+    process: jest.fn().mockResolvedValue({ toString: jest.fn().mockReturnValue('<p>Contenu mockée</p>') })
+  })
+}));
+
+jest.mock('remark-html', () => jest.fn());
+
+// Importer les fonctions après avoir défini les mocks
+const { getSortedPostsData, getAllPostIds } = require('../../lib/posts');
 
 // Mock du module fs pour éviter de lire les fichiers réels pendant les tests
 jest.mock('fs', () => ({

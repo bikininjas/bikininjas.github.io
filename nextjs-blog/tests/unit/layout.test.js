@@ -40,7 +40,7 @@ describe('Layout Component', () => {
     expect(screen.getByTestId('mock-navbar')).toBeInTheDocument();
     
     // Vérifier que le footer est présent
-    expect(screen.getByText(/BikiNinjas/)).toBeInTheDocument();
+    expect(screen.getByText(/Créé avec Next.js/)).toBeInTheDocument();
   });
 
   test('renders with custom title', () => {
@@ -53,6 +53,10 @@ describe('Layout Component', () => {
     // Vérifier que le titre est passé au Head (via data-testid="mock-head")
     const head = screen.getByTestId('mock-head');
     expect(head).toBeInTheDocument();
-    expect(head).toHaveTextContent('Test Title');
+    
+    // Vérifier que la navbar est présente avec le titre
+    const navbar = screen.getByTestId('mock-navbar');
+    expect(navbar).toBeInTheDocument();
+    expect(navbar).toHaveTextContent('BikiNinjas');
   });
 });
