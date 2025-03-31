@@ -1,0 +1,163 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 4,
+    "passes": 4,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-03-31T09:32:39.723Z",
+    "end": "2025-03-31T09:32:47.760Z",
+    "duration": 8037,
+    "testsRegistered": 4,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "f8f5f20e-32ad-463e-a30a-2a4d92cfbf93",
+      "title": "",
+      "fullFile": "cypress/e2e/blog.cy.js",
+      "file": "cypress/e2e/blog.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "5d404943-48be-4f52-b084-ace648fdba74",
+          "title": "Blog Tests",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should navigate to the home page",
+              "fullTitle": "Blog Tests should navigate to the home page",
+              "timedOut": null,
+              "duration": 3281,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/');\ncy.get('h1.ParallaxHero_title__K8rqy').should('exist');\ncy.get('a[href^=\"/posts/\"]').should('have.length.greaterThan', 0);",
+              "err": {},
+              "uuid": "b5dea77b-e5df-4ea8-8df9-0fd69fef1b8e",
+              "parentUUID": "5d404943-48be-4f52-b084-ace648fdba74",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should navigate to a blog post",
+              "fullTitle": "Blog Tests should navigate to a blog post",
+              "timedOut": null,
+              "duration": 1120,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/');\ncy.get('a[href^=\"/posts/\"]').first().click();\ncy.get('h1').should('be.visible');\n// Vérifier qu'il y a un élément h1 visible sur la page\ncy.get('h1').should('be.visible');",
+              "err": {},
+              "uuid": "a08c6d74-93b8-4117-88d1-9ddcc5f29f38",
+              "parentUUID": "5d404943-48be-4f52-b084-ace648fdba74",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should load Twitter embeds",
+              "fullTitle": "Blog Tests should load Twitter embeds",
+              "timedOut": null,
+              "duration": 2253,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/posts/harcelement-en-ligne');\ncy.get('h1').should('be.visible');\n// Vérifier que le contenu de la page est chargé\ncy.get('main').should('exist');",
+              "err": {},
+              "uuid": "28f155be-3dd9-4b4b-a15d-86e7fff69d60",
+              "parentUUID": "5d404943-48be-4f52-b084-ace648fdba74",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should load Bluesky embeds",
+              "fullTitle": "Blog Tests should load Bluesky embeds",
+              "timedOut": null,
+              "duration": 1037,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/posts/harcelement-en-ligne');\n// Vérifier que le contenu de la page est chargé\ncy.get('main').should('exist');",
+              "err": {},
+              "uuid": "6eb3a36b-82f2-4586-a67a-39f89e256ba6",
+              "parentUUID": "5d404943-48be-4f52-b084-ace648fdba74",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "b5dea77b-e5df-4ea8-8df9-0fd69fef1b8e",
+            "a08c6d74-93b8-4117-88d1-9ddcc5f29f38",
+            "28f155be-3dd9-4b4b-a15d-86e7fff69d60",
+            "6eb3a36b-82f2-4586-a67a-39f89e256ba6"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 7691,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": true,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

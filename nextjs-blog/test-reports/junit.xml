@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="46" failures="0" errors="0" time="3.907">
+  <testsuite name="Posts Library" errors="0" failures="0" skipped="0" timestamp="2025-03-31T12:17:02" time="1.556" tests="2">
+    <testcase classname="Posts Library getSortedPostsData returns sorted posts data" name="Posts Library getSortedPostsData returns sorted posts data" time="0.016">
+    </testcase>
+    <testcase classname="Posts Library getAllPostIds returns formatted post ids" name="Posts Library getAllPostIds returns formatted post ids" time="0.006">
+    </testcase>
+  </testsuite>
+  <testsuite name="getPostData function" errors="0" failures="0" skipped="0" timestamp="2025-03-31T12:17:02" time="1.657" tests="5">
+    <testcase classname="getPostData function processes a post with multiple categories correctly" name="getPostData function processes a post with multiple categories correctly" time="0.018">
+    </testcase>
+    <testcase classname="getPostData function processes a post with a single category correctly" name="getPostData function processes a post with a single category correctly" time="0.005">
+    </testcase>
+    <testcase classname="getPostData function processes a post without a category correctly" name="getPostData function processes a post without a category correctly" time="0.004">
+    </testcase>
+    <testcase classname="getPostData function processes a post with Twitch embed correctly" name="getPostData function processes a post with Twitch embed correctly" time="0.002">
+    </testcase>
+    <testcase classname="getPostData function processes a post with Bluesky embed correctly" name="getPostData function processes a post with Bluesky embed correctly" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Layout Component" errors="0" failures="0" skipped="0" timestamp="2025-03-31T12:17:02" time="1.835" tests="2">
+    <testcase classname="Layout Component renders layout with children" name="Layout Component renders layout with children" time="0.08">
+    </testcase>
+    <testcase classname="Layout Component renders with custom title" name="Layout Component renders with custom title" time="0.021">
+    </testcase>
+  </testsuite>
+  <testsuite name="MyApp Component" errors="0" failures="0" skipped="0" timestamp="2025-03-31T12:17:02" time="1.877" tests="1">
+    <testcase classname="MyApp Component renders the component with pageProps" name="MyApp Component renders the component with pageProps" time="0.063">
+    </testcase>
+  </testsuite>
+  <testsuite name="Navbar Component" errors="0" failures="0" skipped="0" timestamp="2025-03-31T12:17:02" time="1.872" tests="4">
+    <testcase classname="Navbar Component renders the navbar with correct title" name="Navbar Component renders the navbar with correct title" time="0.084">
+    </testcase>
+    <testcase classname="Navbar Component renders all navigation links" name="Navbar Component renders all navigation links" time="0.018">
+    </testcase>
+    <testcase classname="Navbar Component has correct href attributes for links" name="Navbar Component has correct href attributes for links" time="0.014">
+    </testcase>
+    <testcase classname="Navbar Component renders without crashing when title prop is missing" name="Navbar Component renders without crashing when title prop is missing" time="0.008">
+    </testcase>
+  </testsuite>
+  <testsuite name="CategoryNav Component" errors="0" failures="0" skipped="0" timestamp="2025-03-31T12:17:02" time="1.96" tests="4">
+    <testcase classname="CategoryNav Component renders all categories correctly" name="CategoryNav Component renders all categories correctly" time="0.091">
+    </testcase>
+    <testcase classname="CategoryNav Component marks current category as active" name="CategoryNav Component marks current category as active" time="0.128">
+    </testcase>
+    <testcase classname="CategoryNav Component marks &quot;all&quot; as active when currentCategory is &quot;all&quot;" name="CategoryNav Component marks &quot;all&quot; as active when currentCategory is &quot;all&quot;" time="0.023">
+    </testcase>
+    <testcase classname="CategoryNav Component uses correct links for categories" name="CategoryNav Component uses correct links for categories" time="0.012">
+    </testcase>
+  </testsuite>
+  <testsuite name="Home Page" errors="0" failures="0" skipped="0" timestamp="2025-03-31T12:17:02" time="1.932" tests="2">
+    <testcase classname="Home Page getStaticProps returns the correct data" name="Home Page getStaticProps returns the correct data" time="0.015">
+    </testcase>
+    <testcase classname="Home Page renders the home page with all components" name="Home Page renders the home page with all components" time="0.065">
+    </testcase>
+  </testsuite>
+  <testsuite name="Post Page" errors="0" failures="0" skipped="0" timestamp="2025-03-31T12:17:02" time="1.999" tests="5">
+    <testcase classname="Post Page getStaticPaths returns the correct paths" name="Post Page getStaticPaths returns the correct paths" time="0.014">
+    </testcase>
+    <testcase classname="Post Page getStaticProps returns the correct data" name="Post Page getStaticProps returns the correct data" time="0.003">
+    </testcase>
+    <testcase classname="Post Page renders the post page with all components" name="Post Page renders the post page with all components" time="0.091">
+    </testcase>
+    <testcase classname="Post Page renders with authorHtml when provided" name="Post Page renders with authorHtml when provided" time="0.014">
+    </testcase>
+    <testcase classname="Post Page handles Twitter widget loading correctly" name="Post Page handles Twitter widget loading correctly" time="0.008">
+    </testcase>
+  </testsuite>
+  <testsuite name="ParallaxHero Component" errors="0" failures="0" skipped="0" timestamp="2025-03-31T12:17:02" time="2.032" tests="4">
+    <testcase classname="ParallaxHero Component renders with default props" name="ParallaxHero Component renders with default props" time="0.052">
+    </testcase>
+    <testcase classname="ParallaxHero Component renders with custom props" name="ParallaxHero Component renders with custom props" time="0.01">
+    </testcase>
+    <testcase classname="ParallaxHero Component handles scroll events" name="ParallaxHero Component handles scroll events" time="0.008">
+    </testcase>
+    <testcase classname="ParallaxHero Component cleans up event listener on unmount" name="ParallaxHero Component cleans up event listener on unmount" time="0.007">
+    </testcase>
+  </testsuite>
+  <testsuite name="Category Page" errors="0" failures="0" skipped="0" timestamp="2025-03-31T12:17:02" time="1.982" tests="4">
+    <testcase classname="Category Page getStaticPaths returns the correct paths" name="Category Page getStaticPaths returns the correct paths" time="0.009">
+    </testcase>
+    <testcase classname="Category Page getStaticProps returns the correct data" name="Category Page getStaticProps returns the correct data" time="0.003">
+    </testcase>
+    <testcase classname="Category Page renders the category page with posts" name="Category Page renders the category page with posts" time="0.065">
+    </testcase>
+    <testcase classname="Category Page renders the category page with no posts" name="Category Page renders the category page with no posts" time="0.01">
+    </testcase>
+  </testsuite>
+  <testsuite name="PostCard Component" errors="0" failures="0" skipped="0" timestamp="2025-03-31T12:17:02" time="2.004" tests="5">
+    <testcase classname="PostCard Component renders post card with correct content" name="PostCard Component renders post card with correct content" time="0.064">
+    </testcase>
+    <testcase classname="PostCard Component links to the correct post URL" name="PostCard Component links to the correct post URL" time="0.01">
+    </testcase>
+    <testcase classname="PostCard Component uses provided cover image when available" name="PostCard Component uses provided cover image when available" time="0.05">
+    </testcase>
+    <testcase classname="PostCard Component uses category default image when no cover image is provided" name="PostCard Component uses category default image when no cover image is provided" time="0.013">
+    </testcase>
+    <testcase classname="PostCard Component uses fallback image when no cover image or matching category image is available" name="PostCard Component uses fallback image when no cover image or matching category image is available" time="0.011">
+    </testcase>
+  </testsuite>
+  <testsuite name="PostParallax Component" errors="0" failures="0" skipped="0" timestamp="2025-03-31T12:17:02" time="2.079" tests="7">
+    <testcase classname="PostParallax Component renders with required props" name="PostParallax Component renders with required props" time="0.055">
+    </testcase>
+    <testcase classname="PostParallax Component renders with date and category" name="PostParallax Component renders with date and category" time="0.009">
+    </testcase>
+    <testcase classname="PostParallax Component renders with multiple categories" name="PostParallax Component renders with multiple categories" time="0.008">
+    </testcase>
+    <testcase classname="PostParallax Component uses custom background image when provided" name="PostParallax Component uses custom background image when provided" time="0.005">
+    </testcase>
+    <testcase classname="PostParallax Component handles scroll events" name="PostParallax Component handles scroll events" time="0.006">
+    </testcase>
+    <testcase classname="PostParallax Component cleans up event listener on unmount" name="PostParallax Component cleans up event listener on unmount" time="0.005">
+    </testcase>
+    <testcase classname="PostParallax Component falls back to default image when category is not recognized" name="PostParallax Component falls back to default image when category is not recognized" time="0.005">
+    </testcase>
+  </testsuite>
+  <testsuite name="Dead Code Detection" errors="0" failures="0" skipped="0" timestamp="2025-03-31T12:17:02" time="3.026" tests="1">
+    <testcase classname="Dead Code Detection should not have unused functions or variables" name="Dead Code Detection should not have unused functions or variables" time="1.48">
+    </testcase>
+  </testsuite>
+</testsuites>

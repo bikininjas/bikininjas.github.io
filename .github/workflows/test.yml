@@ -1,0 +1,118 @@
+name: Test Next.js Blog
+
+on:
+  push:
+    branches-ignore: [ "master", "main" ]  # Toutes les branches sauf master et main
+  pull_request:
+    branches-ignore: [ "master", "main" ]  # Toutes les branches sauf master et main
+  # Allow manual triggering
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for better SonarCloud analysis
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: './nextjs-blog/package-lock.json'
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: cd nextjs-blog && bun install
+
+      # Unit tests with Jest
+      - name: Run unit tests with coverage
+        run: cd nextjs-blog && bun run test:coverage
+
+      # Nous n'avons plus besoin de démarrer l'application séparément car c'est géré par start-server-and-test
+
+      # # Run Cypress E2E tests
+      # - name: Run Cypress E2E tests
+      #   run: cd nextjs-blog && bun run test:e2e:headless
+      #   env:
+      #     CYPRESS_BASE_URL: http://localhost:3000
+      #     # Note: Si vous souhaitez utiliser Cypress Dashboard à l'avenir, vous devrez ajouter
+      #     # la variable CYPRESS_RECORD_KEY dans les secrets GitHub
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Revenir à l'approche simple pour les tests Cypress
+      - name: Run Cypress E2E tests
+        run: cd nextjs-blog && bun run test:e2e:headless
+        env:
+          CYPRESS_BASE_URL: http://localhost:3000
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Playwright tests are removed to reduce CI time and costs
+      # They will be run locally only
+
+      # Préparation pour SonarCloud
+      - name: Préparer les rapports de couverture pour SonarCloud
+        run: |
+          mkdir -p .scannerwork
+          cp -r nextjs-blog/coverage .
+          cp nextjs-blog/coverage/lcov.info .
+          # Créer un rapport de couverture consolidé si nécessaire
+          if [ -f "nextjs-blog/coverage/coverage-final.json" ]; then
+            cp nextjs-blog/coverage/coverage-final.json .
+          fi
+      
+      # SonarCloud analysis avec Quality Gate
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io
+        with:
+          args: >
+            -Dsonar.qualitygate.wait=false
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.coverage.jacoco.xmlReportPaths=coverage/coverage-final.xml
+        continue-on-error: true
+
+      # Upload test reports as artifacts
+      - name: Upload test reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-reports
+          path: |
+            nextjs-blog/coverage/
+            nextjs-blog/test-reports/
+            nextjs-blog/cypress/reports/
+            nextjs-blog/cypress/videos/
+            nextjs-blog/cypress/screenshots/
+          retention-days: 30
+          
+      # Publish test results with GitHub Test Reporter
+      - name: Publish Jest Test Results
+        uses: dorny/test-reporter@main
+        if: always()
+        with:
+          name: Jest Tests
+          path: nextjs-blog/test-reports/junit.xml
+          reporter: jest-junit
+          fail-on-error: false
+          
+      - name: Publish Cypress Test Results
+        uses: dorny/test-reporter@main
+        if: always()
+        with:
+          name: Cypress Tests
+          path: nextjs-blog/cypress/reports/junit/results-*.xml
+          reporter: jest-junit
+          fail-on-error: false
+

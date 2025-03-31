@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="8.037" tests="4" failures="0">
+  <testsuite name="Root Suite" timestamp="2025-03-31T09:32:39" tests="0" file="cypress/e2e/blog.cy.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Blog Tests" timestamp="2025-03-31T09:32:39" tests="4" time="8.033" failures="0">
+    <testcase name="Blog Tests should navigate to the home page" time="3.281" classname="should navigate to the home page">
+    </testcase>
+    <testcase name="Blog Tests should navigate to a blog post" time="1.120" classname="should navigate to a blog post">
+    </testcase>
+    <testcase name="Blog Tests should load Twitter embeds" time="2.253" classname="should load Twitter embeds">
+    </testcase>
+    <testcase name="Blog Tests should load Bluesky embeds" time="1.037" classname="should load Bluesky embeds">
+    </testcase>
+  </testsuite>
+</testsuites>

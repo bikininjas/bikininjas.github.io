@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 💬 Questions et discussions
+    url: https://github.com/bikininjas/bikininjas.github.io/discussions
+    about: Posez des questions et discutez avec d'autres membres de la communauté
+  - name: 📝 Contribution au blog
+    url: https://github.com/bikininjas/bikininjas.github.io/blob/main/CONTRIBUTING.md
+    about: Consultez notre guide de contribution pour proposer un nouvel article
