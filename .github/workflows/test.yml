@@ -50,9 +50,8 @@ jobs:
         run: cd nextjs-blog && bun run test:e2e:headless
         env:
           CYPRESS_BASE_URL: http://localhost:3000
-          # La variable CYPRESS_RECORD_KEY est facultative et n'est nécessaire que si vous utilisez Cypress Dashboard
-          # Si vous utilisez Cypress Dashboard, décommentez la ligne suivante et ajoutez la clé dans les secrets GitHub
-          # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # Note: Si vous souhaitez utiliser Cypress Dashboard à l'avenir, vous devrez ajouter
+          # la variable CYPRESS_RECORD_KEY dans les secrets GitHub
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Run Playwright tests

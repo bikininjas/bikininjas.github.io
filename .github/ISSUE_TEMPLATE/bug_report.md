@@ -1,0 +1,32 @@
+---
+name: 🐛 Rapport de bug
+about: Signalez un bug pour nous aider à améliorer le site
+title: "[BUG] "
+labels: bug
+assignees: ''
+---
+
+## Description du bug
+Une description claire et concise du bug.
+
+## Étapes pour reproduire
+Étapes pour reproduire le comportement :
+1. Aller à '...'
+2. Cliquer sur '....'
+3. Faire défiler jusqu'à '....'
+4. Voir l'erreur
+
+## Comportement attendu
+Une description claire et concise de ce à quoi vous vous attendiez.
+
+## Captures d'écran
+Si applicable, ajoutez des captures d'écran pour aider à expliquer votre problème.
+
+## Environnement
+ - OS: [ex: Windows, macOS, Linux]
+ - Navigateur: [ex: Chrome, Safari, Firefox]
+ - Version: [ex: 22]
+ - Appareil: [ex: Desktop, iPhone X, etc.]
+
+## Contexte supplémentaire
+Ajoutez tout autre contexte concernant le problème ici.
