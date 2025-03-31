@@ -1,19 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="5" failures="0" errors="0" time="1.536">
-  <testsuite name="Posts Library" errors="0" failures="0" skipped="0" timestamp="2025-03-31T09:03:04" time="0.96" tests="2">
-    <testcase classname="Posts Library getSortedPostsData returns sorted posts data" name="Posts Library getSortedPostsData returns sorted posts data" time="0.009">
+<testsuites name="jest tests" tests="23" failures="3" errors="0" time="2.472">
+  <testsuite name="getPostData function" errors="0" failures="2" skipped="0" timestamp="2025-03-31T09:10:23" time="0.652" tests="5">
+    <testcase classname="getPostData function processes a post with multiple categories correctly" name="getPostData function processes a post with multiple categories correctly" time="0.007">
+      <failure>Error: expect(received).toContain(expected) // indexOf
+
+Expected substring: &quot;&lt;h1&gt;Test Content&lt;/h1&gt;&quot;
+Received string:    &quot;&lt;p&gt;Contenu mockée&lt;/p&gt;&lt;div class=\&quot;embed-container video-container\&quot;&gt;&lt;iframe src=\&quot;https://www.youtube.com/embed/abcdefg\&quot; title=\&quot;Test YouTube Video\&quot; frameborder=\&quot;0\&quot; allow=\&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\&quot; allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;Contenu mockée&lt;/p&gt;&quot;
+    at Object.toContain (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postData.test.js:100:34)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)</failure>
+    </testcase>
+    <testcase classname="getPostData function processes a post with a single category correctly" name="getPostData function processes a post with a single category correctly" time="0.001">
+    </testcase>
+    <testcase classname="getPostData function processes a post without a category correctly" name="getPostData function processes a post without a category correctly" time="0.001">
+    </testcase>
+    <testcase classname="getPostData function processes a post with Twitch embed correctly" name="getPostData function processes a post with Twitch embed correctly" time="0.001">
+    </testcase>
+    <testcase classname="getPostData function processes a post with Bluesky embed correctly" name="getPostData function processes a post with Bluesky embed correctly" time="0.001">
+      <failure>Error: expect(received).toContain(expected) // indexOf
+
+Expected substring: &quot;&lt;div class=\&quot;bluesky-embed-container\&quot;&gt;&quot;
+Received string:    &quot;&lt;p&gt;Contenu mockée&lt;/p&gt;&quot;
+    at Object.toContain (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postData.test.js:136:34)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)</failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="PostCard Component" errors="0" failures="0" skipped="0" timestamp="2025-03-31T09:10:24" time="0.446" tests="5">
+    <testcase classname="PostCard Component renders post card with correct content" name="PostCard Component renders post card with correct content" time="0.03">
+    </testcase>
+    <testcase classname="PostCard Component links to the correct post URL" name="PostCard Component links to the correct post URL" time="0.005">
+    </testcase>
+    <testcase classname="PostCard Component uses provided cover image when available" name="PostCard Component uses provided cover image when available" time="0.036">
+    </testcase>
+    <testcase classname="PostCard Component uses category default image when no cover image is provided" name="PostCard Component uses category default image when no cover image is provided" time="0.007">
+    </testcase>
+    <testcase classname="PostCard Component uses fallback image when no cover image or matching category image is available" name="PostCard Component uses fallback image when no cover image or matching category image is available" time="0.006">
+    </testcase>
+  </testsuite>
+  <testsuite name="CategoryNav Component" errors="0" failures="0" skipped="0" timestamp="2025-03-31T09:10:24" time="0.214" tests="4">
+    <testcase classname="CategoryNav Component renders all categories correctly" name="CategoryNav Component renders all categories correctly" time="0.007">
+    </testcase>
+    <testcase classname="CategoryNav Component marks current category as active" name="CategoryNav Component marks current category as active" time="0.033">
+    </testcase>
+    <testcase classname="CategoryNav Component marks &quot;all&quot; as active when currentCategory is &quot;all&quot;" name="CategoryNav Component marks &quot;all&quot; as active when currentCategory is &quot;all&quot;" time="0.011">
+    </testcase>
+    <testcase classname="CategoryNav Component uses correct links for categories" name="CategoryNav Component uses correct links for categories" time="0.006">
+    </testcase>
+  </testsuite>
+  <testsuite name="Navbar Component" errors="0" failures="1" skipped="0" timestamp="2025-03-31T09:10:25" time="0.172" tests="4">
+    <testcase classname="Navbar Component renders the navbar with correct title" name="Navbar Component renders the navbar with correct title" time="0.005">
+    </testcase>
+    <testcase classname="Navbar Component renders all navigation links" name="Navbar Component renders all navigation links" time="0.003">
+    </testcase>
+    <testcase classname="Navbar Component has correct href attributes for links" name="Navbar Component has correct href attributes for links" time="0.004">
+    </testcase>
+    <testcase classname="Navbar Component throws error when title prop is missing" name="Navbar Component throws error when title prop is missing" time="0.009">
+      <failure>Error: expect(received).toThrow()
+
+Received function did not throw
+    at Object.toThrow (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/navbar.test.js:58:8)
+    at Promise.then.completed (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/run.js:316:40)
+    at _runTest (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/run.js:121:9)
+    at run (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)</failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Dead Code Detection" errors="0" failures="0" skipped="0" timestamp="2025-03-31T09:10:25" time="0.426" tests="1">
+    <testcase classname="Dead Code Detection should not have unused functions or variables" name="Dead Code Detection should not have unused functions or variables" time="0.336">
+    </testcase>
+  </testsuite>
+  <testsuite name="Layout Component" errors="0" failures="0" skipped="0" timestamp="2025-03-31T09:10:25" time="0.127" tests="2">
+    <testcase classname="Layout Component renders layout with children" name="Layout Component renders layout with children" time="0.008">
+    </testcase>
+    <testcase classname="Layout Component renders with custom title" name="Layout Component renders with custom title" time="0.013">
+    </testcase>
+  </testsuite>
+  <testsuite name="Posts Library" errors="0" failures="0" skipped="0" timestamp="2025-03-31T09:10:25" time="0.077" tests="2">
+    <testcase classname="Posts Library getSortedPostsData returns sorted posts data" name="Posts Library getSortedPostsData returns sorted posts data" time="0.002">
     </testcase>
     <testcase classname="Posts Library getAllPostIds returns formatted post ids" name="Posts Library getAllPostIds returns formatted post ids" time="0.001">
-    </testcase>
-  </testsuite>
-  <testsuite name="Layout Component" errors="0" failures="0" skipped="0" timestamp="2025-03-31T09:03:04" time="0.966" tests="2">
-    <testcase classname="Layout Component renders layout with children" name="Layout Component renders layout with children" time="0.037">
-    </testcase>
-    <testcase classname="Layout Component renders with custom title" name="Layout Component renders with custom title" time="0.006">
-    </testcase>
-  </testsuite>
-  <testsuite name="Dead Code Detection" errors="0" failures="0" skipped="0" timestamp="2025-03-31T09:03:04" time="1.073" tests="1">
-    <testcase classname="Dead Code Detection should not have unused functions or variables" name="Dead Code Detection should not have unused functions or variables" time="0.366">
     </testcase>
   </testsuite>
 </testsuites>
