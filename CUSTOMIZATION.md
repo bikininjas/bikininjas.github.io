@@ -1,389 +1,331 @@
-# BikiNinjas Blog Customization Guide
+# Customization Guide for Your Next.js Blog
 
-This document provides detailed instructions on how to customize various aspects of your BikiNinjas blog, including adding new content, changing the appearance, and modifying the layout.
+This guide will help you customize your Next.js Markdown blog, even if you're a complete beginner. Follow these step-by-step instructions to make the blog your own.
 
 ## Table of Contents
 
-1. [Adding New Blog Posts](#adding-new-blog-posts)
-2. [Including Images in Posts](#including-images-in-posts)
-3. [Customizing Fonts](#customizing-fonts)
-4. [Modifying Card Sizes and Appearance](#modifying-card-sizes-and-appearance)
-5. [Changing Colors and Theme](#changing-colors-and-theme)
-6. [Adjusting the Parallax Effect](#adjusting-the-parallax-effect)
-7. [Customizing the Layout](#customizing-the-layout)
-8. [Adding New Categories](#adding-new-categories)
-9. [Deployment](#deployment)
+- [Adding Blog Posts](#adding-blog-posts)
+- [Working with Images](#working-with-images)
+- [Customizing Fonts](#customizing-fonts)
+- [Changing the Layout](#changing-the-layout)
+- [Modifying Colors](#modifying-colors)
+- [Customizing the Parallax Effect](#customizing-the-parallax-effect)
+- [Adding Author Information](#adding-author-information)
+- [Adding New Categories](#adding-new-categories)
+- [Customizing Post Cards](#customizing-post-cards)
+- [Deployment](#deployment)
 
-## Adding New Blog Posts
+## Adding Blog Posts
 
-Blog posts are written in Markdown format and stored in the `nextjs-blog/posts` directory.
+### Creating a New Post
 
-### Step-by-Step Guide:
-
-1. Create a new Markdown file in the `nextjs-blog/posts` directory with a unique name (e.g., `my-new-post.md`).
-2. Add the required front matter at the top of the file:
+1. Navigate to the `posts` folder in your project
+2. Create a new Markdown file (`.md`) with a descriptive name (e.g., `my-first-post.md`)
+3. Add the following "front matter" at the top of your file:
 
 ```markdown
 ---
-title: 'Your Post Title'
-date: '2025-03-29'
-excerpt: 'A brief summary of your post that will appear on the home page'
-categories: ['category1', 'category2']
+title: 'Your Post Title Here'
+date: '2025-04-01'
+excerpt: 'A brief description of your post that will appear on the homepage'
+categories: ['Category1', 'Category2']
+coverImage: 'https://example.com/your-image.jpg'
 ---
 
 Your post content goes here...
 ```
 
-3. Write your post content in Markdown format below the front matter.
-4. Save the file. The post will automatically appear on the home page and in the appropriate category pages.
-
-### Front Matter Fields:
+### Front Matter Explained
 
 - **title**: The title of your blog post
-- **date**: The publication date in 'YYYY-MM-DD' format
-- **excerpt**: A short summary that appears on the home page
-- **categories**: An array of categories the post belongs to (must match existing categories)
+- **date**: Publication date in 'YYYY-MM-DD' format
+- **excerpt**: A short summary that appears on the homepage
+- **categories**: An array of categories your post belongs to (must be in square brackets)
+- **coverImage**: (Optional) A URL to an image that will be used as the card background
+- **author**: (Optional) The name of the post author
+- **authorHtml**: (Optional) Markdown or HTML content for the author footer section
 
-## Including Images in Posts
+### Writing Content
 
-You can include images in your blog posts by placing them in the `nextjs-blog/public/images` directory.
-
-### Step-by-Step Guide:
-
-1. Add your image to the `nextjs-blog/public/images` directory.
-2. Reference the image in your Markdown file using the following syntax:
+After the front matter, write your post content using Markdown:
 
 ```markdown
-![Alt text for the image](/images/your-image-filename.jpg)
+## My First Heading
+
+This is a paragraph with **bold text** and *italic text*.
+
+### A Subheading
+
+- This is a bullet point
+- Another bullet point
+
+1. This is a numbered list
+2. Second item in the list
+
+[This is a link](https://example.com)
 ```
 
-3. For more control over the image display, you can use HTML directly in your Markdown:
 
-```markdown
-<div style="text-align: center; margin: 2rem 0;">
-  <img src="/images/your-image-filename.jpg" alt="Description" style="max-width: 100%; height: auto; border-radius: 8px;" />
-  <p style="font-style: italic; margin-top: 0.5rem;">Image caption</p>
-</div>
-```
+## Working with Images
 
-### Image Optimization:
+### Adding Images to Posts
 
-- Keep image files under 500KB when possible for better performance
-- Use JPG for photographs and PNG for graphics with transparency
-- Consider using WebP format for better compression and quality
+You can include images in your posts in two ways:
+
+1. **External Images**: Link to images hosted elsewhere
+
+   ```markdown
+   ![Alt text](https://example.com/image.jpg)
+   ```
+
+
+2. **Local Images**: Store images in the `public/images` folder
+
+   ```markdown
+   ![Alt text](/images/my-image.jpg)
+   ```
+
+
+### Post Card Background Images
+
+Each post card can have a background image:
+
+1. **Specific Image**: Add a `coverImage` field to your post's front matter
+
+   ```markdown
+   coverImage: 'https://example.com/your-image.jpg'
+   ```
+
+
+2. **Category-Based Images**: If no coverImage is specified, the system will use a default image based on the post's first category
+
+3. **Default Image**: If no category image is available, a generic tech image will be used
 
 ## Customizing Fonts
 
-The blog uses system fonts by default, but you can easily change them by modifying the CSS variables in the `nextjs-blog/styles/globals.css` file.
+To change the fonts used in your blog:
 
-### Changing Font Family:
+1. Open `/styles/globals.css`
+2. Find the `:root` section with CSS variables
+3. Update the font-family variables:
 
-1. Open `nextjs-blog/styles/globals.css`
-2. Locate the `:root` section at the top of the file
-3. Add or modify the font-family variables:
+   ```css
+   :root {
+     --font-main: 'Your Main Font', sans-serif;
+     --font-headings: 'Your Heading Font', serif;
+   }
+   ```
 
-```css
-:root {
-  --font-family-heading: 'Your Heading Font', sans-serif;
-  --font-family-body: 'Your Body Font', serif;
-}
+4. To use Google Fonts, add the font import at the top of the file:
+
+   ```css
+   @import url('https://fonts.googleapis.com/css2?family=Your+Font+Name:wght@400;700&display=swap');
+   ```
+
+
+## Changing the Layout
+
+### Adjusting Card Sizes
+
+1. Open `/styles/Card.module.css`
+2. Modify the `.card` class to change the size and appearance of post cards
+
+### Modifying the Grid Layout
+
+1. Open `/styles/globals.css`
+2. Find the `.grid` class
+3. Adjust the grid properties:
+
+   ```css
+   .grid {
+     display: grid;
+     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+     gap: 2rem;
+   }
+   ```
+
+
+### Changing Overall Layout Width
+
+1. Open `/styles/globals.css`
+2. Find the `.container` class
+3. Adjust the max-width and width properties:
+
+   ```css
+   .container {
+     width: 90%;
+     max-width: 1200px;
+     margin: 0 auto;
+   }
+   ```
+
+
+## Modifying Colors
+
+To change the color theme of your blog:
+
+1. Open `/styles/globals.css`
+2. Find the `:root` section with CSS variables
+3. Update the color variables:
+
+   ```css
+   :root {
+     --background-color: #2a2a2a;
+     --card-bg: #333333;
+     --header-bg: #222222;
+     --text-color: #f5f5f5;
+     --text-muted: #c0c0c0;
+     --accent-color: #61dafb;
+     --link-color: #61dafb;
+   }
+   ```
+
+
+## Customizing the Parallax Effect
+
+### Changing the Background Image
+
+1. Open `/components/ParallaxHero.js`
+2. Find the line with the background image URL
+3. Replace it with your own image URL:
+
+   ```javascript
+   const backgroundImage = 'https://example.com/your-image.jpg';
+   ```
+
+
+### Adjusting Parallax Speed
+
+1. In the same file, find the `handleScroll` function
+2. Modify the speed factor (higher values = slower movement):
+
+   ```javascript
+   const offset = window.scrollY;
+   const parallaxOffset = offset * 0.5; // Change 0.5 to adjust speed
+   ```
+
+
+### Changing Parallax Height
+
+1. Open `/styles/ParallaxHero.module.css`
+2. Find the `.parallaxContainer` class
+3. Adjust the height property:
+
+   ```css
+   .parallaxContainer {
+     height: 60vh; /* Change to your preferred height */
+   }
+   ```
+
+
+## Adding Author Information
+
+### Author Footer
+
+You can add author information to your blog posts that will appear as a footer at the end of each post:
+
+1. In your post's front matter, add the `author` and optionally the `authorHtml` properties:
+
+```markdown
+---
+title: 'Your Post Title'
+date: '2025-04-01'
+excerpt: 'A brief description'
+categories: ['Category1']
+author: 'Your Name'
+authorHtml: "<p><strong>Written by:</strong> Your Name</p><p><em>Your bio or credentials here.</em></p>"
+---
 ```
 
-4. Apply these variables to the appropriate elements:
+1. The `author` property is used for the author's name.
+2. The `authorHtml` property allows you to add formatted HTML content to the author footer, such as credentials, social media links, or a short bio.
+3. If you only specify `author` without `authorHtml`, a simple "Written by: [Author Name]" will be displayed.
+
+### Customizing Author Footer Style
+
+To customize the appearance of the author footer:
+
+1. Open `styles/globals.css`
+2. Find the `.author-footer` class
+3. Modify the styling as needed:
 
 ```css
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-family-heading);
-}
-
-body, p, div, span {
-  font-family: var(--font-family-body);
-}
-```
-
-### Using Google Fonts:
-
-1. Add the Google Fonts link to the `<Head>` section in `nextjs-blog/components/layout.js`:
-
-```jsx
-<Head>
-  <title>{title}</title>
-  <meta name="description" content="A Next.js Markdown blog" />
-  <link rel="icon" href="/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet" />
-</Head>
-```
-
-2. Update your CSS variables to use these fonts:
-
-```css
-:root {
-  --font-family-heading: 'Montserrat', sans-serif;
-  --font-family-body: 'Merriweather', serif;
-}
-```
-
-## Modifying Card Sizes and Appearance
-
-Blog post cards can be customized by modifying the CSS in `nextjs-blog/styles/globals.css`.
-
-### Changing Card Size:
-
-1. Locate the `.card` class in `globals.css`:
-
-```css
-.card {
-  margin: 1rem 0;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-  width: 100%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  background-color: var(--card-bg);
-}
-```
-
-2. Adjust the following properties to change the card size:
-   - `width`: Controls the width of the card
-   - `padding`: Controls the internal spacing
-   - `margin`: Controls the external spacing
-
-### Modifying Card Grid Layout:
-
-To change how many cards appear per row:
-
-1. Find the grid layout for cards:
-
-```css
-.blog-section .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
-  width: 100%;
-  margin-top: 1.5rem;
-}
-```
-
-2. Modify the `minmax(300px, 1fr)` value:
-   - Increase the first value (300px) to make cards wider and show fewer per row
-   - Decrease it to make cards narrower and show more per row
-
-### Styling Card Elements:
-
-You can customize individual elements within cards:
-
-```css
-.card-title {
-  margin: 0 0 0.5rem;
-  font-size: 1.5rem;
-}
-
-.card-date {
-  display: block;
-  font-size: 0.8rem;
+.author-footer {
+  margin-top: 3rem;
+  padding-top: 1rem;
   color: var(--text-muted);
-  margin-bottom: 0.5rem;
 }
 
-.card-excerpt {
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-```
-
-## Changing Colors and Theme
-
-The blog uses CSS variables for consistent theming. You can modify these variables in the `nextjs-blog/styles/globals.css` file.
-
-### Main Theme Colors:
-
-```css
-:root {
-  --background-color: #2a2a2a;
-  --card-bg: #333333;
-  --header-bg: #222222;
-  --text-color: #f5f5f5;
-  --text-muted: #c0c0c0;
-  --accent-color: #0070f3;
-  --border-color: #444444;
-}
-```
-
-- `--background-color`: Main background color of the site
-- `--card-bg`: Background color for cards and content blocks
-- `--header-bg`: Background color for the header/navbar
-- `--text-color`: Primary text color
-- `--text-muted`: Secondary text color for dates, captions, etc.
-- `--accent-color`: Color for links, buttons, and highlights
-- `--border-color`: Color for borders and dividers
-
-### Creating a Light Theme:
-
-To switch to a light theme, replace the color values:
-
-```css
-:root {
-  --background-color: #f9f9f9;
-  --card-bg: #ffffff;
-  --header-bg: #f0f0f0;
-  --text-color: #333333;
-  --text-muted: #666666;
-  --accent-color: #0070f3;
-  --border-color: #e0e0e0;
-}
-```
-
-## Adjusting the Parallax Effect
-
-The parallax hero section can be customized by modifying the `ParallaxHero.js` component and its CSS module.
-
-### Changing the Background Image:
-
-1. Add your new image to `nextjs-blog/public/images/`
-2. Open `nextjs-blog/components/ParallaxHero.js`
-3. Update the backgroundImage prop or the default value:
-
-```jsx
-<div 
-  className={styles.parallaxBackground}
-  style={{ 
-    backgroundImage: `url(${backgroundImage || '/images/your-new-image.jpg'})`,
-    transform: `translateY(${offset * 0.3}px)`,
-    backgroundPosition: '50% 50%'
-  }}
-/>
-```
-
-### Adjusting Parallax Speed:
-
-The parallax effect speed is controlled by the multiplier applied to the scroll offset:
-
-```jsx
-transform: `translateY(${offset * 0.3}px)`
-```
-
-- Increase the value (e.g., 0.5) for a more pronounced effect
-- Decrease the value (e.g., 0.1) for a more subtle effect
-
-### Modifying Hero Height:
-
-To change the height of the parallax hero section, edit `nextjs-blog/components/ParallaxHero.module.css`:
-
-```css
-.parallaxContainer {
-  position: relative;
-  height: 60vh; /* Change this value */
-  min-height: 400px; /* Change this value */
-  width: 100%;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 2rem;
-  border-radius: 8px;
-}
-```
-
-## Customizing the Layout
-
-The overall layout can be modified by editing the `nextjs-blog/components/layout.js` file and its associated CSS.
-
-### Changing the Container Width:
-
-To adjust the width of the main content area:
-
-```css
-.container {
-  min-height: 100vh;
-  width: 90%; /* Change this percentage */
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--background-color);
-  margin: 0 auto;
-}
-```
-
-### Adjusting Spacing:
-
-To modify the spacing between elements:
-
-```css
-.main {
-  padding: 5rem 0; /* Change top/bottom padding */
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  margin: 0 auto;
-  background-color: var(--background-color);
+.author-footer hr {
+  border: 0;
+  height: 1px;
+  background-color: var(--border-color);
+  margin-bottom: 1.5rem;
 }
 ```
 
 ## Adding New Categories
 
-Categories are automatically generated from the front matter of your blog posts.
+Categories are automatically generated from your blog posts. To add a new category:
 
-### Creating a New Category:
+1. Simply use a new category name in the `categories` field of your post's front matter
+2. The system will automatically add it to the category navigation
 
-1. Simply add a new category name to the `categories` array in the front matter of a blog post:
+To customize category-specific images:
 
-```markdown
----
-title: 'Your Post Title'
-date: '2025-03-29'
-excerpt: 'A brief summary of your post'
-categories: ['existing-category', 'new-category']
----
-```
+1. Open `/components/PostCard.js`
+2. Find the `categoryImages` object
+3. Add or update entries for your categories:
 
-2. The new category will automatically appear in the category navigation.
+   ```javascript
+   const categoryImages = {
+     'Your Category': 'https://example.com/category-image.jpg',
+     // other categories...
+   };
+   ```
 
-### Customizing Category Display:
 
-To modify how categories appear, edit the `nextjs-blog/components/CategoryNav.js` component and its associated CSS.
+## Customizing Post Cards
+
+### Changing Card Appearance
+
+1. Open `/styles/Card.module.css`
+2. Modify the various card-related classes to change:
+   - Border radius (`.card` class)
+   - Shadow effects (`.card` and `.card:hover` classes)
+   - Text colors and sizes (`.cardTitle`, `.cardExcerpt`, etc.)
+   - Background overlay opacity (`.cardWithBg::before` class)
+
+### Modifying Card Layout
+
+1. In the same file, adjust the padding, margins, and flex properties to change how content is arranged within cards
 
 ## Deployment
 
-The blog is configured to deploy automatically to GitHub Pages using GitHub Actions.
+This blog is set up to deploy automatically to GitHub Pages:
 
-### Deployment Process:
+1. Push your changes to the main branch
+2. The GitHub Actions workflow will build and deploy your site
+3. Your site will be available at `https://yourusername.github.io`
 
-1. Push your changes to the main branch of your GitHub repository
-2. The GitHub Actions workflow will automatically build and deploy your blog
-3. Your changes will be live on GitHub Pages within a few minutes
+To customize the deployment process:
 
-### Manual Deployment:
+1. Open `/.github/workflows/deploy-blog.yml`
+2. Modify the workflow as needed
 
-If you need to deploy manually:
+### Manual Deployment
 
-1. Run the build and export commands:
+If you prefer to deploy manually:
 
-```bash
-cd nextjs-blog
-npm run build
-npm run export
-```
+1. Build the site:
 
-2. The static site will be generated in the `nextjs-blog/out` directory
-3. You can deploy this directory to any static hosting service
+   ```bash
+   npm run build && npm run export
+   ```
 
----
-
-## Additional Resources
-
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Markdown Guide](https://www.markdownguide.org/)
-- [CSS Variables Guide](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
-- [GitHub Pages Documentation](https://docs.github.com/en/pages)
+2. The static site will be generated in the `out` folder
+3. Upload these files to any static hosting service
 
 ---
 
-If you have any questions or need further assistance with customizing your blog, please open an issue on the GitHub repository.
+Need more help? Check the [Next.js documentation](https://nextjs.org/docs) or [open an issue](https://github.com/yourusername/your-repo/issues) on GitHub.

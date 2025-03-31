@@ -1,0 +1,162 @@
+name: Test Next.js Blog
+
+on:
+  push:
+    branches-ignore: [ "master", "main" ]  # Toutes les branches sauf master et main
+  pull_request:
+    branches-ignore: [ "master", "main" ]  # Toutes les branches sauf master et main
+  # Allow manual triggering
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for better SonarCloud analysis
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: './nextjs-blog/package-lock.json'
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: cd nextjs-blog && bun install --frozen-lockfile
+
+      # Unit tests with Jest
+      - name: Run unit tests with coverage
+        run: cd nextjs-blog && bun run test:coverage
+
+      # Start the application in the background for E2E tests
+      - name: Start Next.js app for E2E tests
+        run: |
+          cd nextjs-blog
+          bun run build
+          bun run start &
+          sleep 5  # Give the app time to start
+
+      # Run Cypress E2E tests
+      - name: Run Cypress E2E tests
+        run: cd nextjs-blog && bun run test:e2e:headless
+        env:
+          CYPRESS_BASE_URL: http://localhost:3000
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Run Playwright tests
+      - name: Install Playwright browsers
+        run: cd nextjs-blog && bun playwright install --with-deps
+
+      - name: Run Playwright tests
+        run: cd nextjs-blog && bun run test:playwright
+        env:
+          CI: true
+
+      # SonarCloud analysis
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: nextjs-blog
+
+      # Upload test reports as artifacts
+      - name: Upload test reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-reports
+          path: |
+            nextjs-blog/coverage/
+            nextjs-blog/test-reports/
+            nextjs-blog/cypress/reports/
+            nextjs-blog/cypress/videos/
+            nextjs-blog/cypress/screenshots/
+            nextjs-blog/playwright-report/
+          retention-days: 30
+      
+      # Générer un rapport de test détaillé
+      - name: Générer un rapport de test
+        if: always()
+        run: |
+          cd nextjs-blog
+          echo "## 📊 Rapport de Tests" > test-report.md
+          echo "### Tests Unitaires" >> test-report.md
+          if [ -f "test-reports/junit.xml" ]; then
+            echo "✅ Résultats des tests unitaires:" >> test-report.md
+            echo '```' >> test-report.md
+            cat test-reports/junit.xml | grep -E 'testsuites|testsuite' | head -n 5 >> test-report.md
+            echo '```' >> test-report.md
+          else
+            echo "❌ Rapport de tests unitaires non disponible" >> test-report.md
+          fi
+          
+          echo "### Couverture de Code" >> test-report.md
+          if [ -f "coverage/lcov-report/index.html" ]; then
+            echo "✅ Couverture de code:" >> test-report.md
+            echo '```' >> test-report.md
+            grep -A 5 -B 5 "<span class=\"strong\">Total</span>" coverage/lcov-report/index.html >> test-report.md
+            echo '```' >> test-report.md
+          else
+            echo "❌ Rapport de couverture non disponible" >> test-report.md
+          fi
+          
+          echo "### Tests E2E Cypress" >> test-report.md
+          if [ -d "cypress/reports/mochawesome" ]; then
+            echo "✅ Tests Cypress exécutés" >> test-report.md
+            echo '```' >> test-report.md
+            find cypress/reports/mochawesome -name "*.json" | xargs cat | grep -E '"passes":|"failures":' | head -n 4 >> test-report.md
+            echo '```' >> test-report.md
+          else
+            echo "❌ Rapport Cypress non disponible" >> test-report.md
+          fi
+          
+          echo "### Tests Playwright" >> test-report.md
+          if [ -f "test-reports/playwright-results.json" ]; then
+            echo "✅ Tests Playwright exécutés" >> test-report.md
+            echo '```' >> test-report.md
+            cat test-reports/playwright-results.json | grep -E '"passed":|"failed":' | head -n 4 >> test-report.md
+            echo '```' >> test-report.md
+          else
+            echo "❌ Rapport Playwright non disponible" >> test-report.md
+          fi
+      
+      # Poster le rapport comme commentaire sur la PR ou le commit
+      - name: Poster le rapport de test
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('nextjs-blog/test-report.md', 'utf8');
+            
+            // Pour les Pull Requests
+            if (context.payload.pull_request) {
+              github.rest.issues.createComment({
+                issue_number: context.payload.pull_request.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: report
+              });
+            } 
+            // Pour les commits sur une branche
+            else if (context.payload.after) {
+              github.rest.repos.createCommitComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                commit_sha: context.payload.after,
+                body: report
+              });
+            }

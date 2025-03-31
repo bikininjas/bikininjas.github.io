@@ -1,127 +1,86 @@
-# Next.js Markdown Blog
+# Blog Next.js
 
-A modern, customizable blog platform built with Next.js and Markdown. Perfect for creating a personal blog about gaming, technology, AI, and more. This blog features a clean, responsive design with a parallax scrolling effect, category navigation, and beautiful post cards with background images.
+Ce projet est un blog développé avec [Next.js](https://nextjs.org/), qui utilise des fichiers Markdown pour le contenu des articles et intègre des fonctionnalités modernes comme les embeds Twitter et Bluesky.
 
-![Blog Preview](https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=1200&q=80)
+## Fonctionnalités
 
-## 🌟 Features
+- Rendu de contenu Markdown en HTML
+- Support des catégories d'articles
+- Intégration d'embeds sociaux (Twitter, Bluesky)
+- Interface responsive avec effets de parallaxe
+- Tests automatisés complets
 
-- **Easy Content Management**: Write blog posts in Markdown with simple frontmatter
-- **Responsive Design**: Looks great on all devices from mobile to desktop
-- **Category System**: Organize posts with multiple categories
-- **Parallax Hero**: Eye-catching scrolling effect on the homepage
-- **Beautiful Post Cards**: Cards with background images based on post content
-- **Dark Theme**: Modern dark color scheme for better readability
-- **Automatic Deployment**: Set up with GitHub Actions for easy publishing
-- **SEO Friendly**: Optimized for search engines
-- **No Database Required**: All content is stored in Markdown files
-
-## 📚 Blog Categories
-
-This blog is set up with the following categories:
-
-- **AI**: Artificial intelligence topics and applications
-- **Game Development**: Creating and designing games
-- **Gaming**: Video game reviews, tips, and discussions
-- **Tech**: General technology topics
-- **Modding**: Customizing and extending games
-- **Mental Health**: Digital wellbeing and mental health in tech
-- **Society**: The impact of technology on society
-
-## 🚀 Getting Started
-
-### For Complete Beginners
-
-#### What You'll Need
-
-- **A Computer**: Windows, Mac, or Linux
-- **A Code Editor**: [Visual Studio Code](https://code.visualstudio.com/) is recommended (it's free!)
-- **Node.js**: A JavaScript runtime ([Download here](https://nodejs.org/) - choose the LTS version)
-- **Git**: Version control system ([Download here](https://git-scm.com/))
-
-#### Step-by-Step Setup
-
-1. **Install the prerequisites** mentioned above
-
-2. **Open your terminal/command prompt**:
-   - Windows: Search for "Command Prompt" or "PowerShell"
-   - Mac: Open the Terminal app
-   - Linux: Open your terminal application
-
-3. **Clone the repository** (download the code):
-
-   ```bash
-   git clone https://github.com/yourusername/your-blog-repo.git
-   cd your-blog-repo
-   ```
-
-   (Replace "yourusername/your-blog-repo" with your actual GitHub username and repository name)
-
-4. **Install dependencies** (all the required packages):
-
-   ```bash
-   npm install
-   ```
-
-   This might take a few minutes - it's downloading all the necessary components
-
-5. **Start the development server**:
-
-   ```bash
-   npm run dev
-   ```
-
-6. **View your blog**: Open [http://localhost:3000](http://localhost:3000) in your browser
-
-## Creating Blog Posts
-
-Blog posts are written in Markdown and stored in the `_posts` directory. Each post should include a YAML front matter with the following fields:
-
-
-```markdown
----
-title: 'Post Title'
-excerpt: 'Brief description of the post'
-coverImage: '/assets/blog/example/cover.jpg'
-date: '2025-03-10T05:35:07.322Z'
-author:
-  name: Author Name
-  picture: '/assets/blog/authors/profile.jpg'
-ogImage:
-  url: '/assets/blog/example/cover.jpg'
-category: 'Category Name'
----
-
-Post content in Markdown...
-```
-
-
-## Building for Production
-
-To build the site for production:
-
+## Installation
 
 ```bash
-npm run build
+# Installer les dépendances
+bun install
+
+# Démarrer le serveur de développement
+bun run dev
 ```
 
+Le site sera accessible à l'adresse [http://localhost:3000](http://localhost:3000).
 
-This will generate a static export in the `out` directory that can be deployed to GitHub Pages.
+## Structure du projet
 
-## Deployment
+- `/components` - Composants React réutilisables
+- `/lib` - Fonctions utilitaires
+- `/pages` - Pages du site
+- `/posts` - Articles en Markdown
+- `/public` - Fichiers statiques
+- `/styles` - Feuilles de style CSS
+- `/tests` - Tests unitaires et d'intégration
 
-The site is automatically deployed to GitHub Pages when changes are pushed to the master branch, using the GitHub Actions workflow defined in `.github/workflows/deploy-docs.yml`.
+## Tests
 
-## License
+Pour plus d'informations sur la gestion des tests, comment les modifier et en ajouter, consultez le [guide des tests](./TESTS.md).
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+## Résultats des tests
 
-## Acknowledgements
+### Tests unitaires
 
-- [Next.js](https://nextjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [ESLint](https://eslint.org/)
-- [Prettier](https://prettier.io/)
-- [Husky](https://typicode.github.io/husky/)
-- [Next SEO](https://github.com/garmeeh/next-seo)
+```bash
+PASS  tests/unit/deadcode.test.js
+PASS  tests/unit/layout.test.js
+PASS  tests/unit/posts.test.js
+
+Test Suites: 3 passed, 3 total
+Tests:       5 passed, 5 total
+Snapshots:   0 total
+Time:        1.463 s
+```
+
+### Tests Cypress (E2E)
+
+```text
+(Run Finished)
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ ✔  blog.cy.js                               00:05        4        4        -        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ✔  All specs passed!                        00:05        4        4        -        -        -  
+```
+
+### Tests Playwright
+
+```text
+Running 4 tests using 4 workers
+[4/4] [chromium] › playwright/tests/navigation.spec.js:41:3 › Navigation Tests › should load Bluesky embeds
+  4 passed (3.8s)
+```
+
+## Scripts disponibles
+
+- `bun run dev` - Démarre le serveur de développement
+- `bun run build` - Construit l'application pour la production
+- `bun run start` - Démarre l'application en mode production
+- `bun run test:unit` - Exécute les tests unitaires
+- `bun run test:e2e:headless` - Exécute les tests Cypress en mode headless
+- `bun run test:playwright` - Exécute les tests Playwright
+- `bun run test:all` - Exécute tous les tests (unitaires, Cypress et Playwright)
+
+## Déploiement
+
+Le projet est configuré pour être déployé via GitHub Actions. Les tests sont exécutés automatiquement à chaque push sur la branche principale.
