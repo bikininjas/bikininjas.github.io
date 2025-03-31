@@ -5,21 +5,13 @@ import { slugify } from '../../lib/utils';
 
 // Mock next/link
 jest.mock('next/link', () => {
-  const MockLink = ({ children, href, className }) => {
+  return ({ children, href, className }) => {
     return (
       <a href={href} className={className}>
         {children}
       </a>
     );
   };
-  
-  MockLink.propTypes = {
-    children: PropTypes.node.isRequired,
-    href: PropTypes.string.isRequired,
-    className: PropTypes.string
-  };
-  
-  return MockLink;
 });
 
 describe('CategoryNav Component', () => {

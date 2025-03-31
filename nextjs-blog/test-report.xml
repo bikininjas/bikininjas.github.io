@@ -1,71 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
   <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postData.test.js">
-    <testCase name="getPostData function processes a post with multiple categories correctly" duration="7">
-      <failure message="Error: expect(received).toContain(expected) // indexOf"><![CDATA[Error: expect(received).toContain(expected) // indexOf
-
-Expected substring: "<h1>Test Content</h1>"
-Received string:    "<p>Contenu mockée</p><div class=\"embed-container video-container\"><iframe src=\"https://www.youtube.com/embed/abcdefg\" title=\"Test YouTube Video\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div><p>Contenu mockée</p>"
-    at Object.toContain (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postData.test.js:100:34)
-    at processTicksAndRejections (node:internal/process/task_queues:95:5)]]></failure>
-    </testCase>
+    <testCase name="getPostData function processes a post with multiple categories correctly" duration="6"/>
     <testCase name="getPostData function processes a post with a single category correctly" duration="1"/>
-    <testCase name="getPostData function processes a post without a category correctly" duration="1"/>
+    <testCase name="getPostData function processes a post without a category correctly" duration="2"/>
     <testCase name="getPostData function processes a post with Twitch embed correctly" duration="1"/>
-    <testCase name="getPostData function processes a post with Bluesky embed correctly" duration="1">
-      <failure message="Error: expect(received).toContain(expected) // indexOf"><![CDATA[Error: expect(received).toContain(expected) // indexOf
-
-Expected substring: "<div class=\"bluesky-embed-container\">"
-Received string:    "<p>Contenu mockée</p>"
-    at Object.toContain (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postData.test.js:136:34)
-    at processTicksAndRejections (node:internal/process/task_queues:95:5)]]></failure>
-    </testCase>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postCard.test.js">
-    <testCase name="PostCard Component renders post card with correct content" duration="30"/>
-    <testCase name="PostCard Component links to the correct post URL" duration="5"/>
-    <testCase name="PostCard Component uses provided cover image when available" duration="36"/>
-    <testCase name="PostCard Component uses category default image when no cover image is provided" duration="7"/>
-    <testCase name="PostCard Component uses fallback image when no cover image or matching category image is available" duration="6"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/categoryNav.test.js">
-    <testCase name="CategoryNav Component renders all categories correctly" duration="7"/>
-    <testCase name="CategoryNav Component marks current category as active" duration="33"/>
-    <testCase name="CategoryNav Component marks &quot;all&quot; as active when currentCategory is &quot;all&quot;" duration="11"/>
-    <testCase name="CategoryNav Component uses correct links for categories" duration="6"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/navbar.test.js">
-    <testCase name="Navbar Component renders the navbar with correct title" duration="5"/>
-    <testCase name="Navbar Component renders all navigation links" duration="3"/>
-    <testCase name="Navbar Component has correct href attributes for links" duration="4"/>
-    <testCase name="Navbar Component throws error when title prop is missing" duration="9">
-      <failure message="Error: expect(received).toThrow()"><![CDATA[Error: expect(received).toThrow()
-
-Received function did not throw
-    at Object.toThrow (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/navbar.test.js:58:8)
-    at Promise.then.completed (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/utils.js:298:28)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/utils.js:231:10)
-    at _callCircusTest (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/run.js:316:40)
-    at _runTest (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/run.js:252:3)
-    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/run.js:126:9)
-    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/run.js:121:9)
-    at run (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/run.js:71:3)
-    at runAndTransformResultsToJestFormat (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
-    at jestAdapter (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
-    at runTestInternal (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-runner/build/runTest.js:367:16)
-    at runTest (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)]]></failure>
-    </testCase>
+    <testCase name="getPostData function processes a post with Bluesky embed correctly" duration="1"/>
   </file>
   <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/deadcode.test.js">
-    <testCase name="Dead Code Detection should not have unused functions or variables" duration="336"/>
+    <testCase name="Dead Code Detection should not have unused functions or variables" duration="319"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/navbar.test.js">
+    <testCase name="Navbar Component renders the navbar with correct title" duration="31"/>
+    <testCase name="Navbar Component renders all navigation links" duration="5"/>
+    <testCase name="Navbar Component has correct href attributes for links" duration="5"/>
+    <testCase name="Navbar Component renders without crashing when title prop is missing" duration="3"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postCard.test.js">
+    <testCase name="PostCard Component renders post card with correct content" duration="9"/>
+    <testCase name="PostCard Component links to the correct post URL" duration="4"/>
+    <testCase name="PostCard Component uses provided cover image when available" duration="39"/>
+    <testCase name="PostCard Component uses category default image when no cover image is provided" duration="9"/>
+    <testCase name="PostCard Component uses fallback image when no cover image or matching category image is available" duration="7"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/categoryNav.test.js">
+    <testCase name="CategoryNav Component renders all categories correctly" duration="6"/>
+    <testCase name="CategoryNav Component marks current category as active" duration="26"/>
+    <testCase name="CategoryNav Component marks &quot;all&quot; as active when currentCategory is &quot;all&quot;" duration="11"/>
+    <testCase name="CategoryNav Component uses correct links for categories" duration="5"/>
   </file>
   <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/layout.test.js">
-    <testCase name="Layout Component renders layout with children" duration="8"/>
-    <testCase name="Layout Component renders with custom title" duration="13"/>
+    <testCase name="Layout Component renders layout with children" duration="16"/>
+    <testCase name="Layout Component renders with custom title" duration="4"/>
   </file>
   <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/posts.test.js">
-    <testCase name="Posts Library getSortedPostsData returns sorted posts data" duration="2"/>
+    <testCase name="Posts Library getSortedPostsData returns sorted posts data" duration="3"/>
     <testCase name="Posts Library getAllPostIds returns formatted post ids" duration="1"/>
   </file>
 </testExecutions>

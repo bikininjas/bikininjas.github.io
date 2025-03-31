@@ -1,12 +1,12 @@
-<testsuites id="" name="" tests="4" failures="0" skipped="0" errors="0" time="9.655841">
-<testsuite name="navigation.spec.js" timestamp="2025-03-31T09:07:25.097Z" hostname="chromium" tests="4" failures="0" skipped="0" time="29.503" errors="0">
-<testcase name="Navigation Tests › should navigate to the home page" classname="navigation.spec.js" time="6.557">
+<testsuites id="" name="" tests="4" failures="0" skipped="0" errors="0" time="3.290851">
+<testsuite name="navigation.spec.js" timestamp="2025-03-31T09:32:56.174Z" hostname="chromium" tests="4" failures="0" skipped="0" time="7.316" errors="0">
+<testcase name="Navigation Tests › should navigate to the home page" classname="navigation.spec.js" time="1.529">
 </testcase>
-<testcase name="Navigation Tests › should navigate to a blog post" classname="navigation.spec.js" time="6.982">
+<testcase name="Navigation Tests › should navigate to a blog post" classname="navigation.spec.js" time="1.907">
 </testcase>
-<testcase name="Navigation Tests › should load Twitter embeds" classname="navigation.spec.js" time="7.999">
+<testcase name="Navigation Tests › should load Twitter embeds" classname="navigation.spec.js" time="1.97">
 </testcase>
-<testcase name="Navigation Tests › should load Bluesky embeds" classname="navigation.spec.js" time="7.965">
+<testcase name="Navigation Tests › should load Bluesky embeds" classname="navigation.spec.js" time="1.91">
 </testcase>
 </testsuite>
 </testsuites>
