@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="5" failures="0" errors="0" time="1.464">
+  <testsuite name="Dead Code Detection" errors="0" failures="0" skipped="0" timestamp="2025-03-31T08:57:22" time="0.763" tests="1">
+    <testcase classname="Dead Code Detection should not have unused functions or variables" name="Dead Code Detection should not have unused functions or variables" time="0.312">
+    </testcase>
+  </testsuite>
+  <testsuite name="Layout Component" errors="0" failures="0" skipped="0" timestamp="2025-03-31T08:57:23" time="0.239" tests="2">
+    <testcase classname="Layout Component renders layout with children" name="Layout Component renders layout with children" time="0.036">
+    </testcase>
+    <testcase classname="Layout Component renders with custom title" name="Layout Component renders with custom title" time="0.005">
+    </testcase>
+  </testsuite>
+  <testsuite name="Posts Library" errors="0" failures="0" skipped="0" timestamp="2025-03-31T08:57:23" time="0.135" tests="2">
+    <testcase classname="Posts Library getSortedPostsData returns sorted posts data" name="Posts Library getSortedPostsData returns sorted posts data" time="0.006">
+    </testcase>
+    <testcase classname="Posts Library getAllPostIds returns formatted post ids" name="Posts Library getAllPostIds returns formatted post ids" time="0.001">
+    </testcase>
+  </testsuite>
+</testsuites>
