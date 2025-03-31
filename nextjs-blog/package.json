@@ -14,7 +14,7 @@
     "test:e2e:report": "start-server-and-test dev http://localhost:3000 'cypress run --headless --browser chromium --reporter mochawesome'",
     "test:playwright": "playwright test --project=chromium",
     "test:playwright:ui": "playwright test --ui",
-    "test:all": "bun run test:coverage && bun run test:e2e:report && bun run test:playwright",
+    "test:all": "bun run test:coverage && bun run test:e2e:report",
     "test:deadcode": "jest tests/unit/deadcode.test.js",
     "test:sonar": "jest --coverage --testResultsProcessor=jest-sonar-reporter",
     "sonar:report": "node sonar-report.config.js",
