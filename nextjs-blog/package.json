@@ -7,16 +7,20 @@
     "test": "jest --coverage",
     "test:unit": "jest tests/unit --coverage",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
+    "test:coverage": "jest --coverage --coverageReporters=lcov --coverageReporters=text --coverageReporters=cobertura --coverageReporters=json-summary",
     "test:e2e": "cypress run",
     "test:e2e:open": "cypress open",
     "test:e2e:headless": "start-server-and-test dev http://localhost:3000 'cypress run --headless --browser chromium'",
     "test:e2e:report": "start-server-and-test dev http://localhost:3000 'cypress run --headless --browser chromium --reporter mochawesome'",
     "test:playwright": "start-server-and-test dev http://localhost:3000 'playwright test --project=chromium'",
     "test:playwright:ui": "playwright test --ui",
-    "test:all": "bun run test:unit && bun run test:e2e:report && bun run test:playwright",
+    "test:all": "bun run test:coverage && bun run test:e2e:report && bun run test:playwright",
     "test:deadcode": "jest tests/unit/deadcode.test.js",
-    "test:sonar": "jest --coverage --testResultsProcessor=jest-sonar-reporter"
+    "test:sonar": "jest --coverage --testResultsProcessor=jest-sonar-reporter",
+    "sonar:report": "node sonar-report.config.js",
+    "sonar:prepare": "bun run test:coverage && bun run sonar:report",
+    "sonar:local": "sonar-scanner",
+    "coverage:summary": "cat ./coverage/coverage-summary.json | jq '.total'"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

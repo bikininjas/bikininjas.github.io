@@ -26,7 +26,30 @@ const customJestConfig = {
   // Configuration pour les rapports de couverture
   collectCoverage: true,
   coverageDirectory: 'coverage',
-  coverageReporters: ['lcov', 'text', 'text-summary'],
+  coverageReporters: ['lcov', 'text', 'text-summary', 'json', 'json-summary', 'html', 'cobertura'],
+  collectCoverageFrom: [
+    '**/*.{js,jsx,ts,tsx}',
+    '!**/*.d.ts',
+    '!**/node_modules/**',
+    '!**/.next/**',
+    '!**/out/**',
+    '!**/coverage/**',
+    '!**/tests/**',
+    '!**/cypress/**',
+    '!**/playwright/**',
+    '!jest.config.js',
+    '!next.config.js',
+    '!postcss.config.js',
+    '!tailwind.config.js',
+  ],
+  coverageThreshold: {
+    global: {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+  },
   // Configuration pour les rapports de test
   reporters: [
     'default',
@@ -36,6 +59,9 @@ const customJestConfig = {
     }],
   ],
   testResultsProcessor: 'jest-sonar-reporter',
+  // Options pour jest-sonar-reporter
+  testMatch: ['**/__tests__/**/*.js?(x)', '**/?(*.)+(spec|test).js?(x)', '**/?(*.)+(spec|test).ts?(x)', '**/?(*.)+(spec|test).tsx?(x)'],
+  verbose: true,
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
