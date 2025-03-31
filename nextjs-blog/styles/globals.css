@@ -1,3 +1,5 @@
+/* Import embed styles */
+@import './embeds.css';
 
 /* Dark Grey Theme Variables */
 :root {
