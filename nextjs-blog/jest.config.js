@@ -16,8 +16,8 @@ const customJestConfig = {
     '^@/lib/(.*)$': '<rootDir>/lib/$1',
   },
   transform: {
-    // Transformer pour les modules ESM
-    '^.+\\.(js|jsx|ts|tsx|mjs)$': ['babel-jest', { presets: ['next/babel'] }]
+    // Transformer pour les modules ESM avec la nouvelle transformation JSX
+    '^.+\\.(js|jsx|ts|tsx|mjs)$': ['babel-jest', { configFile: './babel.config.js' }]
   },
   transformIgnorePatterns: [
     // Ne pas ignorer les modules ESM dans node_modules

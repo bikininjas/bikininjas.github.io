@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/deadcode.test.js">
-    <testCase name="Dead Code Detection should not have unused functions or variables" duration="312"/>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/posts.test.js">
+    <testCase name="Posts Library getSortedPostsData returns sorted posts data" duration="9"/>
+    <testCase name="Posts Library getAllPostIds returns formatted post ids" duration="1"/>
   </file>
   <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/layout.test.js">
-    <testCase name="Layout Component renders layout with children" duration="36"/>
-    <testCase name="Layout Component renders with custom title" duration="5"/>
+    <testCase name="Layout Component renders layout with children" duration="37"/>
+    <testCase name="Layout Component renders with custom title" duration="6"/>
   </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/posts.test.js">
-    <testCase name="Posts Library getSortedPostsData returns sorted posts data" duration="6"/>
-    <testCase name="Posts Library getAllPostIds returns formatted post ids" duration="1"/>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/deadcode.test.js">
+    <testCase name="Dead Code Detection should not have unused functions or variables" duration="366"/>
   </file>
 </testExecutions>
