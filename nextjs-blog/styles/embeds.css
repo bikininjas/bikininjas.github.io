@@ -28,6 +28,47 @@
   border: 0;
 }
 
+/* Styles pour lite-youtube-embed */
+.video-container lite-youtube {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Personnalisation des contrôles lite-youtube */
+lite-youtube::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=);
+  background-position: center;
+  background-size: cover;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .video-container {
+    width: 80%;
+    padding-bottom: 45%; /* 80% * 56.25% */
+  }
+}
+
+@media (max-width: 480px) {
+  .video-container {
+    width: 100%;
+    padding-bottom: 56.25%;
+  }
+}
+
 /* Twitch embeds */
 .twitch-container {
   position: relative;

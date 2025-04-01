@@ -1,8 +1,8 @@
 ---
-title: 'Débuter avec Unreal Engine 5 : Guide pour les Débutants'
-date: '2025-03-25'
-excerpt: 'Apprenez les fondamentaux d''Unreal Engine 5 et commencez à créer votre premier jeu avec ce guide complet pour débutants.'
-categories: ['Développement de Jeux', 'Unreal Engine']
+title: "Guide du débutant pour Unreal Engine 5.4"
+date: "2025-03-25"
+excerpt: "Un guide complet pour les débutants qui souhaitent apprendre Unreal Engine 5.4, couvrant l'interface, les bases du Blueprint et les fondamentaux de la création de jeux."
+categories: ["Développement de Jeux", "Unreal Engine", "Tutoriel"]
 ---
 
 Unreal Engine 5 a révolutionné le développement de jeux vidéo grâce à ses fonctionnalités puissantes et son workflow accessible. Que vous soyez un débutant complet ou que vous passiez d'un autre moteur, ce guide vous aidera à démarrer votre parcours dans le développement de jeux.

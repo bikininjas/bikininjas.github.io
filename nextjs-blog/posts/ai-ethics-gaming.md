@@ -1,8 +1,8 @@
 ---
-title: 'Éthique de l''IA dans les jeux vidéo : Équilibrer innovation et responsabilité'
-date: '2025-03-24'
-excerpt: 'Explorez les implications éthiques de l''intelligence artificielle dans les jeux vidéo modernes, de la génération procédurale au comportement des PNJ et à la collecte de données des joueurs.'
-categories: ['Technologie', 'Société', 'Jeux Vidéo']
+title: "Éthique de l'IA dans les jeux vidéo : Équilibrer innovation et responsabilité"
+date: "2025-03-24"
+excerpt: "Exploration des considérations éthiques entourant l'utilisation de l'IA dans les jeux vidéo, des PNJ intelligents à la collecte de données et au-delà."
+categories: ["IA", "Jeux Vidéo", "Éthique"]
 ---
 
 # Éthique de l'IA dans les jeux vidéo : Équilibrer innovation et responsabilité

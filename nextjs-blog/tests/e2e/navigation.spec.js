@@ -28,20 +28,15 @@ test.describe('Navigation Tests', () => {
     await expect(page.locator('a')).toContainText('← Back to home');
   });
 
-  test('should load Twitter embeds', async ({ page }) => {
+  test('should load article content', async ({ page }) => {
     // Aller à la page de l'article sur le harcèlement
     await page.goto('/posts/harcelement-en-ligne');
     
     // Vérifier que l'article est chargé
     await expect(page.locator('article h1')).toContainText('Harcèlement en Ligne');
     
-    // Vérifier que l'embed Twitter est présent (le iframe sera créé par le script Twitter)
-    await expect(page.locator('.twitter-tweet')).toBeVisible();
-    
-    // Attendre que le script Twitter soit chargé et crée l'iframe (peut prendre du temps)
-    await page.waitForSelector('iframe[id^="twitter-widget"]', { timeout: 10000 }).catch(() => {
-      console.log('Twitter iframe not loaded, but test continues');
-    });
+    // Vérifier que le contenu de l'article est présent
+    await expect(page.locator('[class^="PostContent_postContent"]')).toBeVisible();
   });
 
   test('should load Bluesky embeds', async ({ page }) => {

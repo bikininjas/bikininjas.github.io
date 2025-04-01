@@ -1,11 +1,11 @@
 ---
-title: 'Digital Wellbeing: Finding Balance in a Gaming Lifestyle'
-date: '2025-03-28'
-excerpt: 'Discover practical strategies for maintaining mental health while enjoying video games, and learn how to create healthy gaming habits.'
-categories: ['Mental Health', 'Gaming']
+title: "Bien-être Numérique : Trouver l'Équilibre dans un Mode de Vie de Gamer"
+date: "2025-03-28"
+excerpt: "Découvrez des stratégies pratiques pour maintenir une bonne santé mentale tout en profitant des jeux vidéo, et apprenez à créer des habitudes de jeu saines."
+categories: ["Santé Mentale", "Jeux Vidéo"]
 ---
 
-# Bien-être Numérique : Trouver l'Équilibre dans un Mode de Vie de Gamer
+## Introduction
 
 Le gaming a évolué d'un passe-temps de niche à une forme de divertissement et de connexion sociale grand public. Bien que les jeux offrent de nombreux avantages—de l'amélioration cognitive aux connexions sociales—ils peuvent également présenter des défis pour notre bien-être mental s'ils ne sont pas abordés de manière réfléchie.
 

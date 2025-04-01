@@ -5,18 +5,39 @@ import { remark } from 'remark';
 import html from 'remark-html';
 
 // Custom function to process embeds
-function processEmbeds(content) {
+export function processEmbeds(content) {
   let processedContent = content;
   
   // Process YouTube embeds
   processedContent = processedContent.replace(
     /!\[youtube\]\(([^)]+)\)/g,
     (match, url) => {
-      // Extract video ID and title
+      // Extract video ID, title and options
       const parts = url.split(' "');
       const videoUrl = parts[0];
-      const title = parts.length > 1 ? parts[1].replace('"', '') : '';
+      const titlePart = parts.length > 1 ? parts[1].replace('"', '') : '';
       
+      // Check if there are options in the title part (format: "Title|option1=value1,option2=value2")
+      let title = titlePart;
+      let options = {};
+      
+      if (titlePart.includes('|')) {
+        const titleAndOptions = titlePart.split('|');
+        title = titleAndOptions[0].trim();
+        
+        // Parse options
+        if (titleAndOptions.length > 1) {
+          const optionsStr = titleAndOptions[1].trim();
+          optionsStr.split(',').forEach(opt => {
+            if (opt.includes('=')) {
+              const [key, value] = opt.split('=');
+              options[key.trim()] = value.trim();
+            }
+          });
+        }
+      }
+      
+      // Extract video ID
       let videoId = videoUrl;
       if (videoUrl.includes('youtu.be/')) {
         videoId = videoUrl.split('youtu.be/')[1].split('?')[0];
@@ -24,8 +45,15 @@ function processEmbeds(content) {
         videoId = videoUrl.split('v=')[1].split('&')[0];
       }
       
-      const titleAttr = title ? ` title="${title}"` : '';
-      return `<div class="embed-container video-container"><iframe src="https://www.youtube.com/embed/${videoId}"${titleAttr} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+      // Apply options
+      const startTime = options.start ? `start=${options.start}` : '';
+      const autoplay = options.autoplay === 'true' ? 'autoplay' : '';
+      const playsInline = options.playsInline === 'true' ? 'playsinline' : '';
+      
+      // Use lite-youtube-embed format if available, otherwise fallback to iframe
+      return `<div class="embed-container video-container">
+        <lite-youtube videoid="${videoId}" playlabel="${title}" ${autoplay} ${playsInline} ${startTime ? `params="${startTime}"` : ''}></lite-youtube>
+      </div>`;
     }
   );
   
@@ -140,11 +168,11 @@ export async function getPostData(id) {
   const markdownWithEmbeds = processEmbeds(matterResult.content);
   
   // Now convert the markdown parts to HTML while preserving our custom HTML
-  const parts = markdownWithEmbeds.split(/(<div class="(embed-container|tweet-embed).*?<\/div>)/gs);
+  const parts = markdownWithEmbeds.split(/(<div class="embed-container.*?<\/div>)/gs);
   let finalHtml = '';
   
   for (const part of parts) {
-    if (part.startsWith('<div class="embed-container') || part.startsWith('<div class="tweet-embed')) {
+    if (part.startsWith('<div class="embed-container')) {
       // This is already HTML (our custom embed), keep it as is
       finalHtml += part;
     } else {
@@ -193,15 +221,19 @@ export function getAllCategories() {
   const categories = new Set();
   
   allPosts.forEach(post => {
-    if (post.categories && Array.isArray(post.categories)) {
-      post.categories.forEach(category => {
-        categories.add(category);
-      });
+    // Simplification: normaliser le traitement des catégories
+    const postCategories = [];
+    
+    if (post.categories && Array.isArray(post.categories) && post.categories.length > 0) {
+      postCategories.push(...post.categories);
     } else if (post.category) {
-      categories.add(post.category);
+      postCategories.push(post.category);
     } else {
-      categories.add('Uncategorized');
+      postCategories.push('Uncategorized');
     }
+    
+    // Ajouter chaque catégorie à l'ensemble
+    postCategories.forEach(category => categories.add(category));
   });
   
   return Array.from(categories).sort((a, b) => a.localeCompare(b));
@@ -209,20 +241,14 @@ export function getAllCategories() {
 
 // Get all category slugs
 export function getAllCategorySlugs() {
-  const allPosts = getSortedPostsData();
+  // Utiliser getAllCategories pour obtenir toutes les catégories
+  const allCategories = getAllCategories();
   const categorySlugMap = new Map();
   
-  allPosts.forEach(post => {
-    if (post.categories && Array.isArray(post.categories)) {
-      post.categories.forEach(category => {
-        const slug = slugify(category);
-        categorySlugMap.set(slug, category);
-      });
-    } else {
-      const category = post.category || 'Uncategorized';
-      const slug = slugify(category);
-      categorySlugMap.set(slug, category);
-    }
+  // Créer un slug pour chaque catégorie
+  allCategories.forEach(category => {
+    const slug = slugify(category);
+    categorySlugMap.set(slug, category);
   });
   
   return Array.from(categorySlugMap.keys());
@@ -230,18 +256,13 @@ export function getAllCategorySlugs() {
 
 // Get category name from slug
 export function getCategoryFromSlug(slug) {
-  const allPosts = getSortedPostsData();
+  // Utiliser getAllCategories pour obtenir toutes les catégories
+  const allCategories = getAllCategories();
   const categoryMap = new Map();
   
-  allPosts.forEach(post => {
-    if (post.categories && Array.isArray(post.categories)) {
-      post.categories.forEach(category => {
-        categoryMap.set(slugify(category), category);
-      });
-    } else {
-      const category = post.category || 'Uncategorized';
-      categoryMap.set(slugify(category), category);
-    }
+  // Créer un mapping entre slug et catégorie
+  allCategories.forEach(category => {
+    categoryMap.set(slugify(category), category);
   });
   
   return categoryMap.get(slug) || null;
@@ -256,12 +277,18 @@ export function getPostsByCategory(category) {
   }
   
   return allPosts.filter(post => {
-    if (post.categories && Array.isArray(post.categories)) {
-      return post.categories.includes(category);
+    // Normaliser le traitement des catégories
+    const postCategories = [];
+    
+    if (post.categories && Array.isArray(post.categories) && post.categories.length > 0) {
+      postCategories.push(...post.categories);
+    } else if (post.category) {
+      postCategories.push(post.category);
     } else {
-      const postCategory = post.category || 'Uncategorized';
-      return postCategory === category;
+      postCategories.push('Uncategorized');
     }
+    
+    return postCategories.includes(category);
   });
 }
 

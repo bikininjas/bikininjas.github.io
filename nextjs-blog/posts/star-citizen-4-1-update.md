@@ -1,11 +1,8 @@
 ---
-title: 'Mise à jour Star Citizen 4.1 : Une nouvelle ère d''exploration spatiale'
-date: '2025-03-29'
-excerpt: 'Découvrez les fonctionnalités révolutionnaires et les améliorations de la dernière mise à jour 4.1 de Star Citizen par Roberts Space Industries.'
-categories: ['Star Citizen', 'Jeux Vidéo', 'Technologie']
-coverImage: '/images/star-citizen/space-banner.jpg'
-author: 'Commander Shepard'
-authorHtml: "<p><strong>Écrit par :</strong> RedPikPik</p><p><em>Pilote spatial vétéran et passionné de Star Citizen avec plus de 1 000 heures de vol à travers l'univers.</em></p>"
+title: "Star Citizen 4.1 : Tout ce que vous devez savoir sur la dernière mise à jour"
+date: "2025-03-29"
+excerpt: "Une analyse détaillée de la mise à jour 4.1 de Star Citizen, couvrant les nouvelles fonctionnalités, les améliorations de performance et les changements de gameplay."
+categories: ["Star Citizen", "Mises à Jour", "Analyse"]
 ---
 
 La très attendue mise à jour Star Citizen 4.1 est enfin arrivée, apportant une multitude de nouvelles fonctionnalités, d'améliorations de gameplay et d'améliorations techniques au jeu de simulation spatiale ambitieux de Roberts Space Industries. Cette mise à jour représente une avancée significative pour le projet, résolvant des problèmes de longue date tout en introduisant du nouveau contenu passionnant à explorer pour les joueurs.

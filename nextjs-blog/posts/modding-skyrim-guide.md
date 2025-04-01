@@ -1,64 +1,62 @@
 ---
-title: 'The Ultimate Skyrim Modding Guide for 2025'
-date: '2025-03-27'
-excerpt: 'Transform your Skyrim experience with this comprehensive modding guide covering essential tools, top mods, and troubleshooting tips.'
-categories: ['Gaming', 'Modding']
-author: 'Lydia Dragonborn'
-authorHtml: "<p><strong>Written by:</strong> Lydia Dragonborn</p><p><em>Veteran Skyrim modder with over 500 mods created and a decade of experience transforming Tamriel.</em></p>"
+title: "Guide Complet de Modding pour Skyrim en 2025"
+date: "2025-03-27"
+excerpt: "Un guide étape par étape pour transformer votre expérience Skyrim avec les meilleurs mods de 2025, des améliorations graphiques aux nouvelles quêtes et mécaniques de jeu."
+categories: ["Modding", "Skyrim", "Tutoriel"]
 ---
 
-Even after more than a decade since its release, The Elder Scrolls V: Skyrim remains one of the most modded games of all time. With the right combination of mods, you can transform the aging game into a modern masterpiece with enhanced graphics, expanded gameplay, and entirely new experiences.
+Même après plus d'une décennie depuis sa sortie, The Elder Scrolls V: Skyrim reste l'un des jeux les plus moddés de tous les temps. Avec la bonne combinaison de mods, vous pouvez transformer ce jeu vieillissant en un chef-d'œuvre moderne avec des graphismes améliorés, un gameplay étendu et des expériences entièrement nouvelles.
 
-## Understanding Modding Fundamentals
+## Comprendre les Fondamentaux du Modding
 
-Before diving into the world of Skyrim modding, it's important to understand some key concepts:
+Avant de plonger dans le monde du modding de Skyrim, il est important de comprendre quelques concepts clés :
 
-### Mod Managers
+### Gestionnaires de Mods
 
-A mod manager is essential for organizing and installing mods without breaking your game. The two most popular options are:
+Un gestionnaire de mods est essentiel pour organiser et installer des mods sans casser votre jeu. Les deux options les plus populaires sont :
 
-- **Mod Organizer 2 (MO2)** - Features a virtual file system that keeps your Skyrim directory clean and allows for easy mod organization
-- **Vortex** - Nexus Mods' official mod manager with a user-friendly interface and automatic conflict resolution
+- **Mod Organizer 2 (MO2)** - Propose un système de fichiers virtuel qui garde votre répertoire Skyrim propre et permet une organisation facile des mods
+- **Vortex** - Le gestionnaire de mods officiel de Nexus Mods avec une interface conviviale et une résolution automatique des conflits
 
-For this guide, we recommend Mod Organizer 2 for its powerful features and superior conflict management.
+Pour ce guide, nous recommandons Mod Organizer 2 pour ses fonctionnalités puissantes et sa gestion supérieure des conflits.
 
-### Load Order
+### Ordre de Chargement
 
-The order in which mods load is crucial for compatibility. Mods that load later will overwrite conflicting changes from earlier mods. Tools like LOOT (Load Order Optimization Tool) can automatically sort your load order to minimize conflicts.
+L'ordre dans lequel les mods se chargent est crucial pour la compatibilité. Les mods qui se chargent plus tard écraseront les modifications conflictuelles des mods précédents. Des outils comme LOOT (Load Order Optimization Tool) peuvent automatiquement trier votre ordre de chargement pour minimiser les conflits.
 
-### Essential Tools
+### Outils Essentiels
 
-Before installing any mods, set up these essential tools:
+Avant d'installer des mods, configurez ces outils essentiels :
 
-1. **Skyrim Script Extender (SKSE)** - Expands Skyrim's scripting capabilities, required by many mods
-2. **SkyUI** - Improves the user interface and provides the Mod Configuration Menu (MCM)
-3. **LOOT** - Sorts your load order automatically
-4. **SSEEdit** - Helps identify and resolve conflicts between mods
-5. **BethINI** - Optimizes your INI files for better performance
+1. **Skyrim Script Extender (SKSE)** - Étend les capacités de script de Skyrim, requis par de nombreux mods
+2. **SkyUI** - Améliore l'interface utilisateur et fournit le Menu de Configuration des Mods (MCM)
+3. **LOOT** - Trie automatiquement votre ordre de chargement
+4. **SSEEdit** - Aide à identifier et résoudre les conflits entre mods
+5. **BethINI** - Optimise vos fichiers INI pour de meilleures performances
 
-## Setting Up Your Modding Environment
+## Configuration de Votre Environnement de Modding
 
-### Step 1: Clean Installation
+### Étape 1 : Installation Propre
 
-Start with a clean installation of Skyrim Special Edition:
+Commencez par une installation propre de Skyrim Special Edition :
 
-1. Back up your saves if you have an existing installation
-2. Uninstall Skyrim completely
-3. Delete any remaining files in the Skyrim directory
-4. Reinstall Skyrim through Steam
-5. Launch the game once to generate INI files, then exit
+1. Sauvegardez vos parties si vous avez déjà une installation existante
+2. Désinstallez complètement Skyrim
+3. Supprimez tous les fichiers restants dans le répertoire Skyrim
+4. Réinstallez Skyrim via Steam
+5. Lancez le jeu une fois pour générer les fichiers INI, puis quittez
 
-### Step 2: Install Mod Organizer 2
+### Étape 2 : Installer Mod Organizer 2
 
-1. Download Mod Organizer 2 from [GitHub](https://github.com/ModOrganizer2/modorganizer/releases)
-2. Install it to a location outside your Skyrim directory
-3. Run MO2 and point it to your Skyrim Special Edition installation
-4. Set up the basic configuration following the setup wizard
+1. Téléchargez Mod Organizer 2 depuis [GitHub](https://github.com/ModOrganizer2/modorganizer/releases)
+2. Installez-le dans un emplacement en dehors de votre répertoire Skyrim
+3. Exécutez MO2 et pointez-le vers votre installation de Skyrim Special Edition
+4. Configurez la configuration de base en suivant l'assistant d'installation
 
-### Step 3: Install SKSE
+### Étape 3 : Installer SKSE
 
-1. Download the appropriate version of SKSE for your Skyrim version from [skse.silverlock.org](http://skse.silverlock.org/)
-2. Extract the files to your Skyrim directory
+1. Téléchargez la version appropriée de SKSE pour votre version de Skyrim depuis [skse.silverlock.org](http://skse.silverlock.org/)
+2. Extrayez les fichiers dans votre répertoire Skyrim
 3. In MO2, add SKSE as an executable and use it to launch Skyrim
 
 ## Essential Mods by Category

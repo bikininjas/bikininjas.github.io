@@ -1,8 +1,8 @@
 ---
-title: 'Le Harcèlement en Ligne : Comprendre et Combattre ce Fléau Numérique'
-date: '2025-03-31'
-excerpt: 'Une analyse approfondie du harcèlement en ligne, ses conséquences sur la santé mentale et les moyens de protection disponibles.'
-categories: ['Santé Mentale', 'Société']
+title: "Harcèlement en ligne dans les jeux : Comprendre et combattre la toxicité"
+date: "2025-03-31"
+excerpt: "Une analyse approfondie du harcèlement dans les communautés de jeux en ligne, ses effets sur les joueurs et les stratégies pour créer des espaces plus sûrs et plus inclusifs."
+categories: ["Communauté", "Jeux Vidéo", "Sécurité En Ligne"]
 ---
 
 Le harcèlement en ligne, également connu sous le nom de cyberharcèlement, est devenu un problème majeur dans notre société numérique. Avec l'omniprésence des réseaux sociaux et des plateformes de communication, les opportunités de harcèlement se sont multipliées, touchant des personnes de tous âges et de tous horizons.

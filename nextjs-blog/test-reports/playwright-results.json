@@ -129,12 +129,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1529,
+                      "duration": 6198,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-03-31T09:32:56.735Z",
+                      "startTime": "2025-03-31T17:45:09.000Z",
                       "attachments": []
                     }
                   ],
@@ -162,12 +162,12 @@
                       "workerIndex": 1,
                       "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 1907,
+                      "duration": 6912,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-03-31T09:32:56.726Z",
+                      "startTime": "2025-03-31T17:45:09.011Z",
                       "attachments": []
                     }
                   ],
@@ -180,7 +180,7 @@
               "column": 3
             },
             {
-              "title": "should load Twitter embeds",
+              "title": "should load article content",
               "ok": true,
               "tags": [],
               "tests": [
@@ -195,19 +195,19 @@
                       "workerIndex": 2,
                       "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 1970,
+                      "duration": 8729,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-03-31T09:32:56.740Z",
+                      "startTime": "2025-03-31T17:45:08.995Z",
                       "attachments": []
                     }
                   ],
                   "status": "expected"
                 }
               ],
-              "id": "ce7c070a851ea64285fd-d2f3b9b26ae21a08ffe5",
+              "id": "ce7c070a851ea64285fd-29f285c143453f5bc468",
               "file": "navigation.spec.js",
               "line": 30,
               "column": 3
@@ -228,12 +228,12 @@
                       "workerIndex": 3,
                       "parallelIndex": 3,
                       "status": "passed",
-                      "duration": 1910,
+                      "duration": 8728,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-03-31T09:32:56.728Z",
+                      "startTime": "2025-03-31T17:45:09.010Z",
                       "attachments": []
                     }
                   ],
@@ -252,8 +252,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2025-03-31T09:32:56.144Z",
-    "duration": 3290.851,
+    "startTime": "2025-03-31T17:45:07.372Z",
+    "duration": 11141.385,
     "expected": 4,
     "skipped": 0,
     "unexpected": 0,

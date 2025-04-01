@@ -1,9 +1,8 @@
 ---
-title: 'AI-Assisted Game Design: Tools and Techniques for Modern Developers'
-date: '2025-03-25'
-excerpt: 'Discover how AI tools are empowering game designers to create more immersive worlds, complex systems, and engaging player experiences.'
-categories: ['AI', 'Game Development', 'Tech']
-coverImage: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=800&q=80'
+title: "Conception de Jeux Assistée par IA : Outils et Techniques pour les Développeurs Modernes"
+date: "2025-03-25"
+excerpt: "Découvrez comment les outils d'IA permettent aux concepteurs de jeux de créer des mondes plus immersifs, des systèmes complexes et des expériences de jeu captivantes."
+categories: ["IA", "Développement de Jeux", "Technologie"]
 ---
 
 L'intelligence artificielle ne change pas seulement la manière dont les jeux se comportent—elle transforme leur conception. Les concepteurs de jeux modernes ont désormais accès à des outils alimentés par l'IA qui peuvent les aider dans divers aspects, de la conception des niveaux à l'équilibrage des économies de jeu. Cet article explore les outils et techniques d'IA de pointe qui redéfinissent les flux de travail de la conception de jeux.
