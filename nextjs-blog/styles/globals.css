@@ -1,3 +1,6 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Turret+Road:wght@400;500;600;700&display=swap');
+
 /* Import embed styles */
 @import './embeds.css';
 
@@ -6,19 +9,19 @@
   --background-color: #2a2a2a;
   --card-bg: #333333;
   --header-bg: #222222;
-  --text-color: #f5f5f5;
+  --text-color: #cac2c2;
   --text-muted: #c0c0c0;
-  --accent-color: #0070f3;
+  --accent-color: #f30000;
   --accent-hover: #0060df;
   --border-color: #444444;
+  --font-family: 'Turret Road', sans-serif;
 }
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: var(--font-family);
   background-color: var(--background-color);
   color: var(--text-color);
 }
@@ -627,4 +630,30 @@ footer a {
 .author-footer .markdown p {
   font-size: 0.95rem;
   line-height: 1.6;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+p {
+  font-family: var(--font-family);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* Button styles */
+button,
+input[type="submit"] {
+  font-family: var(--font-family);
+  font-weight: 500;
+}
+
+/* Link styles */
+a {
+  font-family: var(--font-family);
+  font-weight: 500;
 }

@@ -28,7 +28,13 @@ const ParallaxHero = ({ title, subtitle, backgroundImage }) => {
         }}
       />
       <div className={styles.parallaxContent}>
-        <h1 className={styles.title}>{title || 'BikiNinjas'}</h1>
+        <div className={styles.logoContainer}>
+          <img 
+            src="/images/bikininjas-logo.png" 
+            alt="BikiNinjas Logo" 
+            className={styles.logo}
+          />
+        </div>
         <p className={styles.subtitle}>{subtitle || 'Gaming, Development & Digital Wellbeing'}</p>
       </div>
     </div>
