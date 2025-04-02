@@ -31,6 +31,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // Configuration des packages à transpiler si nécessaire
+  transpilePackages: [],
   // Set the base path if your repository is not using a custom domain
   // and if it's not at the root of your domain
   // basePath: '/bikininjas.github.io',

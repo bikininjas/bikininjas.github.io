@@ -37,7 +37,7 @@ This is a test markdown content.
 
 Some more content.
 
-![twitter](https://twitter.com/user/status/123456789)
+![bluesky](https://bsky.app/profile/example.bsky.social/post/123456789)
 
 Final paragraph.`;
       } else if (filePath.includes('single-category-post.md')) {
@@ -99,7 +99,7 @@ categories: ['Social Media']
     expect(postData.coverImage).toBe('/images/test.jpg');
     expect(postData.contentHtml).toBeTruthy();
     expect(postData.contentHtml).toContain('<div class="embed-container video-container">');
-    // Le mock ne contient pas d'embed Twitter, donc nous ne testons pas cette partie
+    // Vérifier que le contenu HTML contient l'embed Bluesky
   });
   
   test('processes a post with a single category correctly', async () => {

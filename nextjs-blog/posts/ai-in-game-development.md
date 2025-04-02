@@ -1,11 +1,8 @@
 ---
-title: 'AI in Game Development: Revolutionizing the Industry'
-date: '2025-03-28'
-excerpt: 'Explore how artificial intelligence is transforming game development, from procedural content generation to advanced NPC behaviors.'
-categories: ['AI', 'Game Development', 'Tech']
-coverImage: 'https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&w=800&q=80'
-author: 'Dr. Maya Rodriguez'
-authorHtml: "<p><strong>Written by:</strong> Dr. Maya Rodriguez</p><p><em>AI researcher and game developer specializing in procedural generation and NPC behavior systems.</em></p>"
+title: "L'IA dans le Développement de Jeux : Révolutionner l'Industrie"
+date: "2025-03-28"
+excerpt: "Découvrez comment l'intelligence artificielle transforme le développement de jeux, de la génération procédurale de contenu aux comportements avancés des PNJ."
+categories: ["IA", "Développement de Jeux", "Technologie"]
 ---
 
 L'intelligence artificielle est devenue un véritable changement de jeu dans le monde du développement de jeux vidéo. De la création de mondes dynamiques à l'animation de personnages non-joueurs (PNJ) avec des comportements réalistes, les technologies d'IA révolutionnent la manière dont les jeux sont conçus et joués. Cet article explore l'état actuel de l'IA dans le développement de jeux et ce que l'avenir pourrait réserver.

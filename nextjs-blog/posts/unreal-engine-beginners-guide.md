@@ -1,8 +1,8 @@
 ---
-title: 'Débuter avec Unreal Engine 5 : Guide pour les Débutants'
-date: '2025-03-25'
-excerpt: 'Apprenez les fondamentaux d''Unreal Engine 5 et commencez à créer votre premier jeu avec ce guide complet pour débutants.'
-categories: ['Développement de Jeux', 'Unreal Engine']
+title: "Guide du débutant pour Unreal Engine 5.4"
+date: "2025-03-25"
+excerpt: "Un guide complet pour les débutants qui souhaitent apprendre Unreal Engine 5.4, couvrant l'interface, les bases du Blueprint et les fondamentaux de la création de jeux."
+categories: ["Développement de Jeux", "Unreal Engine", "Tutoriel"]
 ---
 
 Unreal Engine 5 a révolutionné le développement de jeux vidéo grâce à ses fonctionnalités puissantes et son workflow accessible. Que vous soyez un débutant complet ou que vous passiez d'un autre moteur, ce guide vous aidera à démarrer votre parcours dans le développement de jeux.
@@ -34,10 +34,6 @@ Voici un tutoriel vidéo qui vous guide à travers le processus d'installation :
 
 ![youtube](https://www.youtube.com/watch?v=k-zMkzmduqI "Tutoriel pour débutants Unreal Engine 5 - Cours de démarrage UE5")
 
-Vous pouvez également suivre le compte Twitter officiel d'Unreal Engine pour les dernières mises à jour :
-
-![twitter](https://twitter.com/UnrealEngine/status/1507007146692558848 "Tweet d'Unreal Engine")
-
 De nombreux développeurs diffusent leur processus de développement Unreal Engine sur Twitch :
 
 ![twitch](https://www.twitch.tv/unrealengine "Chaîne officielle d'Unreal Engine")
@@ -68,8 +64,6 @@ L'interface de l'éditeur Unreal peut sembler complexe au premier abord, mais el
 - **Viewport** - La fenêtre centrale où vous pouvez voir et manipuler votre monde de jeu
 - **Navigateur de contenu** - Où vous gérez tous vos éléments (modèles, textures, matériaux, etc.)
 - **World Outliner** - Liste tous les acteurs dans votre scène
-
-L'équipe d'Unreal Engine partage souvent des mises à jour sur [Twitter](https://twitter.com/UnrealEngine).
 
 Vous pouvez également suivre les discussions sur Unreal Engine sur [Bluesky](https://bsky.app/profile/unrealengine.bsky.social).
 

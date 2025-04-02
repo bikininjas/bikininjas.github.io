@@ -144,4 +144,73 @@ describe('PostParallax Component', () => {
     const backgroundDiv = document.querySelector('[class^="parallaxBackground"]');
     expect(backgroundDiv.style.backgroundImage).toContain('unsplash.com');
   });
+
+  test('uses default image when no background image, categories, or category is provided', () => {
+    render(
+      <PostParallax 
+        title="Test Post Title" 
+      />
+    );
+    
+    // Check if the background has the default fallback image
+    const backgroundDiv = document.querySelector('[class^="parallaxBackground"]');
+    expect(backgroundDiv.style.backgroundImage).toContain('unsplash.com');
+  });
+
+  test('uses first category image from categories array when available', () => {
+    render(
+      <PostParallax 
+        title="Test Post Title" 
+        categories={['AI', 'Tech']}
+      />
+    );
+    
+    // Check if the background has the AI category image
+    const backgroundDiv = document.querySelector('[class^="parallaxBackground"]');
+    expect(backgroundDiv.style.backgroundImage).toContain('unsplash.com');
+    
+    // Check that the first category is displayed
+    expect(screen.getByText('AI')).toBeInTheDocument();
+  });
+
+  test('uses category image when categories array is empty but category is provided', () => {
+    render(
+      <PostParallax 
+        title="Test Post Title" 
+        categories={[]}
+        category="Tech"
+      />
+    );
+    
+    // Check if the background has the Tech category image
+    const backgroundDiv = document.querySelector('[class^="parallaxBackground"]');
+    expect(backgroundDiv.style.backgroundImage).toContain('unsplash.com');
+    
+    // Check that the category is displayed
+    expect(screen.getByText('Tech')).toBeInTheDocument();
+  });
+
+  test('does not display date when not provided', () => {
+    render(
+      <PostParallax 
+        title="Test Post Title" 
+      />
+    );
+    
+    // Check that no time element is present
+    const timeElements = document.querySelectorAll('time');
+    expect(timeElements.length).toBe(0);
+  });
+
+  test('does not display category when neither categories nor category is provided', () => {
+    render(
+      <PostParallax 
+        title="Test Post Title" 
+      />
+    );
+    
+    // Check that no category span is present
+    const categoryElements = document.querySelectorAll('[class^="category"]');
+    expect(categoryElements.length).toBe(0);
+  });
 });

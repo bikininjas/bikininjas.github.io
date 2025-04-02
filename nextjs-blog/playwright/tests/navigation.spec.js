@@ -27,15 +27,15 @@ test.describe('Navigation Tests', () => {
     await expect(page.locator('main')).toBeVisible();
   });
 
-  test('should load Twitter embeds', async ({ page }) => {
+  test('should load article content', async ({ page }) => {
     // Aller à la page de l'article sur le harcèlement
     await page.goto('/posts/harcelement-en-ligne');
     
     // Vérifier que la page est chargée
     await expect(page.locator('h1')).toBeVisible();
     
-    // Vérifier que le contenu principal est présent
-    await expect(page.locator('main')).toBeVisible();
+    // Vérifier que le contenu de l'article est présent
+    await expect(page.locator('[class^="PostContent_postContent"]')).toBeVisible();
   });
 
   test('should load Bluesky embeds', async ({ page }) => {

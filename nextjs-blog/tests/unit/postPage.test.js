@@ -18,21 +18,18 @@ jest.mock('next/link', () => {
   return MockLink;
 });
 
-jest.mock('next/script', () => {
-  const MockScript = ({ onLoad }) => {
-    // Simuler le chargement du script
-    jest.requireActual('react').useEffect(() => {
-      if (onLoad) onLoad();
-    }, [onLoad]);
-    
-    return null;
+jest.mock('../../components/PostContent', () => {
+  const MockPostContent = ({ content }) => {
+    return (
+      <div className="PostContent_postContent__test" dangerouslySetInnerHTML={{ __html: content }} />
+    );
   };
   
-  MockScript.propTypes = {
-    onLoad: jest.requireActual('prop-types').func
+  MockPostContent.propTypes = {
+    content: jest.requireActual('prop-types').string.isRequired
   };
   
-  return MockScript;
+  return MockPostContent;
 });
 
 jest.mock('../../components/layout', () => {
@@ -101,12 +98,6 @@ jest.mock('../../components/PostParallax', () => {
 });
 
 describe('Post Page', () => {
-  // Mock global Twitter widget
-  global.twttr = {
-    widgets: {
-      load: jest.fn()
-    }
-  };
   
   const mockPostId = 'test-post';
   const mockCategories = ['Gaming', 'Tech', 'AI'];
@@ -115,7 +106,7 @@ describe('Post Page', () => {
     id: mockPostId,
     title: 'Test Post Title',
     date: '2025-03-31',
-    contentHtml: '<p>Test content</p><div class="twitter-embed-container"></div>',
+    contentHtml: '<p>Test content</p>',
     category: 'Gaming',
     categorySlug: 'gaming',
     categories: ['Gaming', 'Tech'],
@@ -138,9 +129,6 @@ describe('Post Page', () => {
     jest.spyOn(postsLib, 'getAllPostIds').mockReturnValue(mockPaths);
     jest.spyOn(postsLib, 'getPostData').mockResolvedValue(mockPostData);
     jest.spyOn(postsLib, 'getAllCategories').mockReturnValue(mockCategories);
-    
-    // Reset du mock de Twitter
-    global.twttr.widgets.load.mockClear();
   });
 
   afterEach(() => {
@@ -209,7 +197,7 @@ describe('Post Page', () => {
     expect(backLink.closest('a')).toHaveAttribute('href', '/');
     
     // Vérifier que le contenu HTML est rendu
-    const contentElement = document.querySelector('.post-content');
+    const contentElement = document.querySelector('.PostContent_postContent__test');
     expect(contentElement).toBeInTheDocument();
     expect(contentElement.innerHTML).toBe(mockPostData.contentHtml);
     
@@ -239,32 +227,5 @@ describe('Post Page', () => {
     const authorElement = document.querySelector('.author-footer .markdown');
     expect(authorElement).toBeInTheDocument();
     expect(authorElement.innerHTML).toBe(mockPostWithAuthorHtml.authorHtml);
-  });
-
-  test('handles Twitter widget loading correctly', async () => {
-    // Créer un mock pour twttr.widgets.load
-    global.twttr = {
-      widgets: {
-        load: jest.fn()
-      }
-    };
-    
-    // Simuler un post avec un embed Twitter
-    const postWithTwitter = {
-      ...mockPostData,
-      contentHtml: '<p>Test content</p><div class="twitter-embed-container"></div>'
-    };
-    
-    // Rendre le composant
-    render(<Post postData={postWithTwitter} categories={mockCategories} />);
-    
-    // Simuler le chargement du script Twitter
-    await act(async () => {
-      // Simuler l'appel à twttr.widgets.load qui se produit après le chargement du script
-      global.twttr?.widgets?.load();
-    });
-    
-    // Vérifier que Twitter widgets.load a été appelé
-    expect(global.twttr.widgets.load).toHaveBeenCalled();
   });
 });

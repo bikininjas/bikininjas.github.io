@@ -1,75 +1,193 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/posts.test.js">
-    <testCase name="Posts Library getSortedPostsData returns sorted posts data" duration="16"/>
-    <testCase name="Posts Library getAllPostIds returns formatted post ids" duration="6"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postData.test.js">
-    <testCase name="getPostData function processes a post with multiple categories correctly" duration="18"/>
-    <testCase name="getPostData function processes a post with a single category correctly" duration="5"/>
-    <testCase name="getPostData function processes a post without a category correctly" duration="4"/>
-    <testCase name="getPostData function processes a post with Twitch embed correctly" duration="2"/>
-    <testCase name="getPostData function processes a post with Bluesky embed correctly" duration="1"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/layout.test.js">
-    <testCase name="Layout Component renders layout with children" duration="80"/>
-    <testCase name="Layout Component renders with custom title" duration="21"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/app.test.js">
-    <testCase name="MyApp Component renders the component with pageProps" duration="63"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/navbar.test.js">
-    <testCase name="Navbar Component renders the navbar with correct title" duration="84"/>
-    <testCase name="Navbar Component renders all navigation links" duration="18"/>
-    <testCase name="Navbar Component has correct href attributes for links" duration="14"/>
-    <testCase name="Navbar Component renders without crashing when title prop is missing" duration="8"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/categoryNav.test.js">
-    <testCase name="CategoryNav Component renders all categories correctly" duration="91"/>
-    <testCase name="CategoryNav Component marks current category as active" duration="128"/>
-    <testCase name="CategoryNav Component marks &quot;all&quot; as active when currentCategory is &quot;all&quot;" duration="23"/>
-    <testCase name="CategoryNav Component uses correct links for categories" duration="12"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/homePage.test.js">
-    <testCase name="Home Page getStaticProps returns the correct data" duration="15"/>
-    <testCase name="Home Page renders the home page with all components" duration="65"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postPage.test.js">
-    <testCase name="Post Page getStaticPaths returns the correct paths" duration="14"/>
-    <testCase name="Post Page getStaticProps returns the correct data" duration="3"/>
-    <testCase name="Post Page renders the post page with all components" duration="91"/>
-    <testCase name="Post Page renders with authorHtml when provided" duration="14"/>
-    <testCase name="Post Page handles Twitter widget loading correctly" duration="8"/>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postsSpecificBranches.test.js">
+    <testCase name="Posts Functions Specific Branches Coverage getAllCategories - branch coverage handles posts with only string category property" duration="70"/>
+    <testCase name="Posts Functions Specific Branches Coverage getAllCategorySlugs - branch coverage handles posts with only string category property" duration="2"/>
+    <testCase name="Posts Functions Specific Branches Coverage getCategoryFromSlug - branch coverage handles posts with only string category property" duration="1"/>
+    <testCase name="Posts Functions Specific Branches Coverage getPostsByCategory - branch coverage handles posts with only string category property" duration="3"/>
+    <testCase name="Posts Functions Specific Branches Coverage getPostsByCategory - branch coverage handles posts with categories array" duration="5"/>
   </file>
   <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/parallaxHero.test.js">
-    <testCase name="ParallaxHero Component renders with default props" duration="52"/>
-    <testCase name="ParallaxHero Component renders with custom props" duration="10"/>
+    <testCase name="ParallaxHero Component renders with default props" duration="64"/>
+    <testCase name="ParallaxHero Component renders with custom props" duration="11"/>
     <testCase name="ParallaxHero Component handles scroll events" duration="8"/>
-    <testCase name="ParallaxHero Component cleans up event listener on unmount" duration="7"/>
+    <testCase name="ParallaxHero Component cleans up event listener on unmount" duration="5"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/navbar.test.js">
+    <testCase name="Navbar Component renders the navbar with correct title" duration="66"/>
+    <testCase name="Navbar Component renders all navigation links" duration="12"/>
+    <testCase name="Navbar Component has correct href attributes for links" duration="18"/>
+    <testCase name="Navbar Component renders without crashing when title prop is missing" duration="9"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postContent.test.js">
+    <testCase name="PostContent Component renders HTML content correctly" duration="72"/>
+    <testCase name="PostContent Component renders complex HTML with multiple elements" duration="17"/>
+    <testCase name="PostContent Component renders embedded content correctly" duration="14"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/firstPost.test.js">
+    <testCase name="FirstPost Component renders the first post heading" duration="122"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/layout.test.js">
+    <testCase name="Layout Component renders layout with children" duration="97"/>
+    <testCase name="Layout Component renders with custom title" duration="11"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/homePage.test.js">
+    <testCase name="Home Page getStaticProps returns the correct data" duration="10"/>
+    <testCase name="Home Page renders the home page with all components" duration="72"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postPage.test.js">
+    <testCase name="Post Page getStaticPaths returns the correct paths" duration="8"/>
+    <testCase name="Post Page getStaticProps returns the correct data" duration="2"/>
+    <testCase name="Post Page renders the post page with all components" duration="93"/>
+    <testCase name="Post Page renders with authorHtml when provided" duration="20"/>
   </file>
   <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/categoryPage.test.js">
-    <testCase name="Category Page getStaticPaths returns the correct paths" duration="9"/>
-    <testCase name="Category Page getStaticProps returns the correct data" duration="3"/>
-    <testCase name="Category Page renders the category page with posts" duration="65"/>
-    <testCase name="Category Page renders the category page with no posts" duration="10"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postCard.test.js">
-    <testCase name="PostCard Component renders post card with correct content" duration="64"/>
-    <testCase name="PostCard Component links to the correct post URL" duration="10"/>
-    <testCase name="PostCard Component uses provided cover image when available" duration="50"/>
-    <testCase name="PostCard Component uses category default image when no cover image is provided" duration="13"/>
-    <testCase name="PostCard Component uses fallback image when no cover image or matching category image is available" duration="11"/>
+    <testCase name="Category Page getStaticPaths returns the correct paths" duration="8"/>
+    <testCase name="Category Page getStaticProps returns the correct data" duration="4"/>
+    <testCase name="Category Page renders the category page with posts" duration="95"/>
+    <testCase name="Category Page renders the category page with no posts" duration="15"/>
   </file>
   <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postParallax.test.js">
-    <testCase name="PostParallax Component renders with required props" duration="55"/>
-    <testCase name="PostParallax Component renders with date and category" duration="9"/>
-    <testCase name="PostParallax Component renders with multiple categories" duration="8"/>
+    <testCase name="PostParallax Component renders with required props" duration="72"/>
+    <testCase name="PostParallax Component renders with date and category" duration="21"/>
+    <testCase name="PostParallax Component renders with multiple categories" duration="9"/>
     <testCase name="PostParallax Component uses custom background image when provided" duration="5"/>
-    <testCase name="PostParallax Component handles scroll events" duration="6"/>
-    <testCase name="PostParallax Component cleans up event listener on unmount" duration="5"/>
-    <testCase name="PostParallax Component falls back to default image when category is not recognized" duration="5"/>
+    <testCase name="PostParallax Component handles scroll events" duration="12"/>
+    <testCase name="PostParallax Component cleans up event listener on unmount" duration="7"/>
+    <testCase name="PostParallax Component falls back to default image when category is not recognized" duration="18"/>
+    <testCase name="PostParallax Component uses default image when no background image, categories, or category is provided" duration="10"/>
+    <testCase name="PostParallax Component uses first category image from categories array when available" duration="12"/>
+    <testCase name="PostParallax Component uses category image when categories array is empty but category is provided" duration="6"/>
+    <testCase name="PostParallax Component does not display date when not provided" duration="18"/>
+    <testCase name="PostParallax Component does not display category when neither categories nor category is provided" duration="18"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/app.test.js">
+    <testCase name="MyApp Component renders the component with pageProps" duration="70"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/categoryNav.test.js">
+    <testCase name="CategoryNav Component renders all categories correctly" duration="77"/>
+    <testCase name="CategoryNav Component marks current category as active" duration="131"/>
+    <testCase name="CategoryNav Component marks &quot;all&quot; as active when currentCategory is &quot;all&quot;" duration="48"/>
+    <testCase name="CategoryNav Component uses correct links for categories" duration="20"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/document.test.js">
+    <testCase name="MyDocument Component renders document structure correctly" duration="213"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postCard.test.js">
+    <testCase name="PostCard Component renders post card with correct content" duration="77"/>
+    <testCase name="PostCard Component links to the correct post URL" duration="16"/>
+    <testCase name="PostCard Component uses provided cover image when available" duration="70"/>
+    <testCase name="PostCard Component uses category default image when no cover image is provided" duration="27"/>
+    <testCase name="PostCard Component uses fallback image when no cover image or matching category image is available" duration="65"/>
+    <testCase name="PostCard Component uses fallback image when no cover image and no categories are provided" duration="28"/>
+    <testCase name="PostCard Component uses fallback image when no cover image and empty categories array" duration="16"/>
+    <testCase name="PostCard Component uses second category image when first category has no matching image" duration="19"/>
+    <testCase name="PostCard Component limits displayed categories to two even if more are provided" duration="13"/>
+    <testCase name="PostCard Component does not display categories section when no categories are provided" duration="9"/>
+    <testCase name="PostCard Component does not display categories section when empty categories array is provided" duration="8"/>
+    <testCase name="PostCard Component displays excerpt when provided" duration="11"/>
+    <testCase name="PostCard Component handles post without excerpt" duration="8"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postDataEdgeCases.test.js">
+    <testCase name="getPostData function edge cases handles posts with embedded content correctly" duration="97"/>
+    <testCase name="getPostData function edge cases handles posts with multiple categories as array" duration="6"/>
+    <testCase name="getPostData function edge cases handles posts with a single category as string" duration="4"/>
+    <testCase name="getPostData function edge cases handles posts with no category" duration="4"/>
+    <testCase name="getPostData function edge cases handles posts with category as array but using for backward compatibility" duration="11"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/categories.test.js">
+    <testCase name="Category Functions getSortedPostsData returns mock data" duration="2"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postsDirectBranchCoverage.test.js">
+    <testCase name="Posts Direct Branch Coverage getAllCategories - specific branch coverage handles posts with only category property (string)" duration="22"/>
+    <testCase name="Posts Direct Branch Coverage getAllCategorySlugs - specific branch coverage handles posts with only category property (string)" duration="2"/>
+    <testCase name="Posts Direct Branch Coverage getCategoryFromSlug - specific branch coverage handles posts with only category property (string)" duration="1"/>
+    <testCase name="Posts Direct Branch Coverage getPostsByCategory - specific branch coverage handles posts with only category property (string)" duration="8"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postData.test.js">
+    <testCase name="getPostData function processes a post with multiple categories correctly" duration="11"/>
+    <testCase name="getPostData function processes a post with a single category correctly" duration="2"/>
+    <testCase name="getPostData function processes a post without a category correctly" duration="8"/>
+    <testCase name="getPostData function processes a post with Twitch embed correctly" duration="1"/>
+    <testCase name="getPostData function processes a post with Bluesky embed correctly" duration="2"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/posts.test.js">
+    <testCase name="Posts Library getSortedPostsData returns sorted posts data" duration="7"/>
+    <testCase name="Posts Library getAllPostIds returns formatted post ids" duration="1"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postsEdgeCases.test.js">
+    <testCase name="Posts Functions Edge Cases getSortedPostsData sorts posts by date correctly" duration="7"/>
+    <testCase name="Posts Functions Edge Cases getAllCategories handles posts with no categories" duration="15"/>
+    <testCase name="Posts Functions Edge Cases getAllCategorySlugs handles posts with no categories" duration="1"/>
+    <testCase name="Posts Functions Edge Cases getCategoryFromSlug returns null for non-existent slugs" duration="1"/>
+    <testCase name="Posts Functions Edge Cases getCategoryFromSlug handles posts with no categories" duration="1"/>
+    <testCase name="Posts Functions Edge Cases getPostsByCategory returns all posts when category is &quot;all&quot;" duration="1"/>
+    <testCase name="Posts Functions Edge Cases getPostsByCategory returns posts with matching category" duration="1"/>
+    <testCase name="Posts Functions Edge Cases getPostsByCategory returns posts with matching category from categories array" duration="1"/>
+    <testCase name="Posts Functions Edge Cases getPostsByCategory returns uncategorized posts" duration="1"/>
+    <testCase name="Posts Functions Edge Cases getPostsByCategorySlug returns empty array for non-existent category slug" duration="6"/>
+    <testCase name="Posts Functions Edge Cases getPostsByCategorySlug returns posts for a valid category slug" duration="22"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/getPostData.test.js">
+    <testCase name="getPostData function processes a simple post without embeds" duration="10"/>
+    <testCase name="getPostData function processes a post with a single category" duration="2"/>
+    <testCase name="getPostData function processes a post with multiple categories" duration="8"/>
+    <testCase name="getPostData function processes a post with YouTube embed" duration="3"/>
+    <testCase name="getPostData function processes a post with Twitch embed" duration="1"/>
+    <testCase name="getPostData function processes a post with Bluesky embed" duration="2"/>
+    <testCase name="getPostData function processes a post with multiple embeds and markdown content" duration="2"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/categoriesEdgeCases.test.js">
+    <testCase name="Category Functions Edge Cases getAllCategories handles posts with different category formats" duration="2"/>
+    <testCase name="Category Functions Edge Cases getAllCategorySlugs handles posts with different category formats" duration="2"/>
+    <testCase name="Category Functions Edge Cases getCategoryFromSlug returns the correct category for a slug" duration="10"/>
+    <testCase name="Category Functions Edge Cases getCategoryFromSlug returns null for non-existent slugs" duration="2"/>
+    <testCase name="Category Functions Edge Cases getPostsByCategory returns all posts when category is &quot;all&quot;" duration="1"/>
+    <testCase name="Category Functions Edge Cases getPostsByCategory returns posts filtered by category with different category formats" duration="1"/>
+    <testCase name="Category Functions Edge Cases getPostsByCategory returns empty array for non-existent categories" duration="0"/>
+    <testCase name="Category Functions Edge Cases getPostsByCategorySlug returns posts filtered by category slug" duration="1"/>
+    <testCase name="Category Functions Edge Cases getPostsByCategorySlug returns empty array for non-existent category slugs" duration="1"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postsBranchCoverage.test.js">
+    <testCase name="Posts Functions Branch Coverage getAllCategories with only uncategorized posts returns only Uncategorized when no posts have categories" duration="8"/>
+    <testCase name="Posts Functions Branch Coverage getAllCategories with only category property handles posts with only category property" duration="21"/>
+    <testCase name="Posts Functions Branch Coverage getAllCategorySlugs with only uncategorized posts returns only uncategorized slug when no posts have categories" duration="3"/>
+    <testCase name="Posts Functions Branch Coverage getAllCategorySlugs with only category property handles posts with only category property" duration="3"/>
+    <testCase name="Posts Functions Branch Coverage getCategoryFromSlug with only uncategorized posts returns Uncategorized for uncategorized slug" duration="2"/>
+    <testCase name="Posts Functions Branch Coverage getCategoryFromSlug with only category property handles posts with only category property" duration="1"/>
+    <testCase name="Posts Functions Branch Coverage getPostsByCategory with only uncategorized posts returns all posts for Uncategorized category" duration="1"/>
+    <testCase name="Posts Functions Branch Coverage getPostsByCategory with only category property returns posts with matching category property" duration="1"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/utils.test.js">
+    <testCase name="Utility Functions slugify function converts a string to a URL-friendly slug" duration="3"/>
+    <testCase name="Utility Functions slugify function handles edge cases correctly" duration="1"/>
+    <testCase name="Utility Functions formatDate function formats dates correctly" duration="110"/>
+    <testCase name="Utility Functions formatDate function handles different date formats" duration="3"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/processEmbeds.test.js">
+    <testCase name="processEmbeds function processes YouTube embeds correctly" duration="2"/>
+    <testCase name="processEmbeds function processes YouTube embeds with options correctly" duration="2"/>
+    <testCase name="processEmbeds function processes YouTube embeds with v= format correctly" duration="0"/>
+    <testCase name="processEmbeds function processes Twitch embeds correctly in development environment" duration="1"/>
+    <testCase name="processEmbeds function processes Twitch embeds correctly in production environment" duration="2"/>
+    <testCase name="processEmbeds function processes Bluesky embeds correctly" duration="1"/>
+    <testCase name="processEmbeds function handles content with multiple embeds correctly" duration="0"/>
+    <testCase name="processEmbeds function returns the original content when no embeds are present" duration="0"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postsRemainingCoverage.test.js">
+    <testCase name="Posts Remaining Coverage getAllCategories - edge cases handles empty categories array" duration="13"/>
+    <testCase name="Posts Remaining Coverage getPostsByCategory - edge cases handles empty categories array" duration="1"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postsLib.test.js">
+    <testCase name="Posts Library getSortedPostsData returns posts sorted by date" duration="2"/>
+    <testCase name="Posts Library getAllPostIds returns formatted post ids" duration="2"/>
+    <testCase name="Posts Library Category functions getAllCategories returns an array" duration="1"/>
+    <testCase name="Posts Library Category functions getAllCategorySlugs returns an array" duration="1"/>
+    <testCase name="Posts Library Category functions getCategoryFromSlug returns a string or null" duration="0"/>
+    <testCase name="Posts Library Category functions getPostsByCategory returns an array" duration="1"/>
+    <testCase name="Posts Library Category functions getPostsByCategorySlug returns an array" duration="1"/>
   </file>
   <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/deadcode.test.js">
-    <testCase name="Dead Code Detection should not have unused functions or variables" duration="1480"/>
+    <testCase name="Dead Code Detection should not have unused functions or variables" duration="1744"/>
   </file>
 </testExecutions>

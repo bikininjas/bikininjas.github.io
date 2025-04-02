@@ -20,6 +20,7 @@ export default function Navbar({ title }) {
               Blog
             </Link>
           </li>
+
           <li className="navbar-item">
             <a 
               href="https://github.com/bikininjas/bikininjas.github.io" 

@@ -1,8 +1,8 @@
 ---
-title: 'Le Harcèlement en Ligne : Comprendre et Combattre ce Fléau Numérique'
-date: '2025-03-31'
-excerpt: 'Une analyse approfondie du harcèlement en ligne, ses conséquences sur la santé mentale et les moyens de protection disponibles.'
-categories: ['Santé Mentale', 'Société']
+title: "Harcèlement en ligne dans les jeux : Comprendre et combattre la toxicité"
+date: "2025-03-31"
+excerpt: "Une analyse approfondie du harcèlement dans les communautés de jeux en ligne, ses effets sur les joueurs et les stratégies pour créer des espaces plus sûrs et plus inclusifs."
+categories: ["Communauté", "Jeux Vidéo", "Sécurité En Ligne"]
 ---
 
 Le harcèlement en ligne, également connu sous le nom de cyberharcèlement, est devenu un problème majeur dans notre société numérique. Avec l'omniprésence des réseaux sociaux et des plateformes de communication, les opportunités de harcèlement se sont multipliées, touchant des personnes de tous âges et de tous horizons.
@@ -35,8 +35,6 @@ Des études montrent que les adolescents sont particulièrement vulnérables, le
 
 ## Cadre juridique en France
 
-![twitter](https://x.com/ZeratoR/status/1646862265952370688 "ZeratoR s'exprime sur la ZLAN 2025 et son harcèlement en ligne")
-
 En France, le harcèlement en ligne est puni par la loi. Depuis la loi du 3 août 2018, le cyberharcèlement en meute (plusieurs personnes s'attaquant à une même victime) est considéré comme une circonstance aggravante.
 
 Les peines peuvent aller jusqu'à :
@@ -64,8 +62,6 @@ Si vous êtes victime de harcèlement en ligne, plusieurs ressources sont dispon
 - **Net Écoute** : 0800 200 000, ligne d'écoute gratuite
 - **Associations spécialisées** : e-Enfance, Respect Zone, etc.
 - **Plateformes de signalement** : PHAROS pour signaler les contenus illicites
-
-![twitter](https://x.com/e_enfance/status/1499682506651348993 "Association e-Enfance")
 
 ## L'importance de l'éducation numérique
 

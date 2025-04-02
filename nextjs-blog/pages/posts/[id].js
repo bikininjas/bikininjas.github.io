@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import Layout from '../../components/layout';
 import CategoryNav from '../../components/CategoryNav';
 import PostParallax from '../../components/PostParallax';
+import PostContent from '../../components/PostContent';
 import { getAllPostIds, getPostData, getAllCategories } from '../../lib/posts';
-import Script from 'next/script';
 
 export async function getStaticPaths() {
   const paths = getAllPostIds();
@@ -27,15 +27,6 @@ export async function getStaticProps({ params }) {
 }
 
 export default function Post({ postData, categories }) {
-  const contentRef = useRef(null);
-
-  // Process embeds after component mounts
-  useEffect(() => {
-    // Force Twitter widgets to load if they exist
-    if (contentRef.current?.querySelector('.twitter-embed-container') && window.twttr?.widgets) {
-      window.twttr.widgets.load(contentRef.current);
-    }
-  }, [postData.contentHtml]);
   
   return (
     <Layout title={postData.title}>
@@ -58,22 +49,7 @@ export default function Post({ postData, categories }) {
           <div className="blog-main-content">
             <article className="post-article">
           
-          <div 
-            ref={contentRef}
-            className="markdown post-content"
-            dangerouslySetInnerHTML={{ __html: postData.contentHtml }} 
-          />
-          
-          {/* Load Twitter widgets script */}
-          <Script 
-            src="https://platform.twitter.com/widgets.js" 
-            strategy="afterInteractive"
-            onLoad={() => {
-              if (contentRef.current && window.twttr?.widgets) {
-                window.twttr.widgets.load(contentRef.current);
-              }
-            }}
-          />
+          <PostContent content={postData.contentHtml} />
             {postData.author && (
               <div className="author-footer">
                 <hr />

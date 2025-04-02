@@ -1,0 +1,38 @@
+.postContent {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-color, #f5f5f5);
+}
+
+.postContent h1,
+.postContent h2,
+.postContent h3,
+.postContent h4,
+.postContent h5,
+.postContent h6 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: var(--text-color, #f5f5f5);
+}
+
+.postContent p {
+  margin-bottom: 1.5rem;
+}
+
+.postContent a {
+  color: #1d9bf0;
+  text-decoration: none;
+}
+
+.postContent a:hover {
+  text-decoration: underline;
+}
+
+.postContent img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
+
