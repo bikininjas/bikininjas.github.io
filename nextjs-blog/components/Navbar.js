@@ -1,13 +1,20 @@
 import React from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import styles from './Logo.module.css';
 
 export default function Navbar({ title }) {
   return (
     <nav className="navbar">
       <div className="navbar-container">
         <Link href="/" className="navbar-logo">
-          {title}
+          <div className={styles.logoContainer}>
+            <img 
+              src="/images/bikininjas-logo.png" 
+              alt="BikiNinjas Logo" 
+              className={styles.logo}
+            />
+          </div>
         </Link>
         <ul className="navbar-menu">
           <li className="navbar-item">
@@ -20,7 +27,6 @@ export default function Navbar({ title }) {
               Blog
             </Link>
           </li>
-
           <li className="navbar-item">
             <a 
               href="https://github.com/bikininjas/bikininjas.github.io" 

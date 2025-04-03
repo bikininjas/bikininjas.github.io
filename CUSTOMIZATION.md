@@ -15,6 +15,106 @@ This guide will help you customize your Next.js Markdown blog, even if you're a 
 - [Customizing Post Cards](#customizing-post-cards)
 - [Deployment](#deployment)
 
+## Customizing Fonts
+
+### Using Google Fonts
+
+1. **Add a New Font**:
+   - Open [/styles/globals.css](cci:7://file:///home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/styles/globals.css:0:0-0:0)
+   - Replace the Google Fonts import with your desired font
+   - Update the `--font-family` CSS variable
+
+2. **Current Font Settings**:
+
+   
+   ```css
+   /* Import Google Fonts */
+   @import url('https://fonts.googleapis.com/css2?family=Turret+Road:wght@400;500;600;700&display=swap');
+
+   /* Font variable */
+   --font-family: 'Turret Road', sans-serif;
+   ```
+
+   
+3. **Typography Hierarchy**:
+   - Headings (h1-h6): 600 weight
+   - Paragraphs: 400 weight
+   - Buttons and Links: 500 weight
+
+## Modifying Colors
+
+### Color Variables
+
+All colors are defined as CSS variables in [/styles/globals.css](cci:7://file:///home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/styles/globals.css:0:0-0:0). Modify these to change the entire theme:
+
+   
+   ```css
+   :root {
+     --background-color: #2a2a2a;    /* Dark grey background */
+     --card-bg: #333333;             /* Card background */
+     --header-bg: #222222;           /* Header and footer background */
+     --text-color: #cac2c2;          /* Main text color */
+     --text-muted: #c0c0c0;          /* Muted text color */
+     --accent-color: #f30000;        /* Accent color (red) */
+     --accent-hover: #0060df;        /* Hover state for accent */
+     --border-color: #444444;        /* Border color */
+   }
+   ```
+
+   
+### Applying Colors
+
+Colors are automatically applied throughout the site using these variables. To change a specific element's color, use the appropriate CSS variable.
+
+## Customizing the Logo
+
+### Logo Sizing
+
+1. **Hero Section Logo** (ParallaxHero):
+   - Uses viewport-based sizing with `clamp()`
+   - Current settings: `clamp(150px, 40vw, 350px)`
+   - Adjusts based on screen size while maintaining minimum and maximum sizes
+
+2. **Navigation Logo**:
+   - Fixed size of 100px
+   - Responsive hover effect
+
+### Logo Positioning
+
+The logo is centered in both the navigation bar and hero section. To adjust positioning:
+
+1. **Navigation Logo**:
+
+   
+   ```css
+   .logoContainer {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+   }
+   ```
+
+   
+2. **Hero Section Logo**:
+
+   
+   ```css
+   .parallaxContent {
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+   }
+   ```
+
+   
+### Logo Hover Effects
+
+1. **Scale Effect**: Increase size on hover
+2. **Rotation Effect**: Rotate 360 degrees on hover
+
+To modify these effects, edit the transform properties in the respective CSS modules.
+
 ## Adding Blog Posts
 
 ### Creating a New Post
@@ -23,18 +123,20 @@ This guide will help you customize your Next.js Markdown blog, even if you're a 
 2. Create a new Markdown file (`.md`) with a descriptive name (e.g., `my-first-post.md`)
 3. Add the following "front matter" at the top of your file:
 
-```markdown
----
-title: 'Your Post Title Here'
-date: '2025-04-01'
-excerpt: 'A brief description of your post that will appear on the homepage'
-categories: ['Category1', 'Category2']
-coverImage: 'https://example.com/your-image.jpg'
----
+   
+   ```markdown
+   ---
+   title: 'Your Post Title Here'
+   date: '2025-04-01'
+   excerpt: 'A brief description of your post that will appear on the homepage'
+   categories: ['Category1', 'Category2']
+   coverImage: 'https://example.com/your-image.jpg'
+   ---
 
-Your post content goes here...
-```
+   Your post content goes here...
+   ```
 
+   
 ### Front Matter Explained
 
 - **title**: The title of your blog post
@@ -49,22 +151,22 @@ Your post content goes here...
 
 After the front matter, write your post content using Markdown:
 
-```markdown
-## My First Heading
+   
+   ```markdown
+   ## My First Heading
 
-This is a paragraph with **bold text** and *italic text*.
+   This is a paragraph with **bold text** and *italic text*.
 
-### A Subheading
+   ### A Subheading
 
-- This is a bullet point
-- Another bullet point
+   - This is a bullet point
+   - Another bullet point
 
-1. This is a numbered list
-2. Second item in the list
+   1. This is a numbered list
+   2. Second item in the list
 
-[This is a link](https://example.com)
-```
-
+   [This is a link](https://example.com)
+   ```
 
 ## Working with Images
 
@@ -74,6 +176,7 @@ You can include images in your posts in two ways:
 
 1. **External Images**: Link to images hosted elsewhere
 
+   
    ```markdown
    ![Alt text](https://example.com/image.jpg)
    ```
@@ -81,6 +184,7 @@ You can include images in your posts in two ways:
 
 2. **Local Images**: Store images in the `public/images` folder
 
+   
    ```markdown
    ![Alt text](/images/my-image.jpg)
    ```
@@ -92,6 +196,7 @@ Each post card can have a background image:
 
 1. **Specific Image**: Add a `coverImage` field to your post's front matter
 
+   
    ```markdown
    coverImage: 'https://example.com/your-image.jpg'
    ```
@@ -100,28 +205,6 @@ Each post card can have a background image:
 2. **Category-Based Images**: If no coverImage is specified, the system will use a default image based on the post's first category
 
 3. **Default Image**: If no category image is available, a generic tech image will be used
-
-## Customizing Fonts
-
-To change the fonts used in your blog:
-
-1. Open `/styles/globals.css`
-2. Find the `:root` section with CSS variables
-3. Update the font-family variables:
-
-   ```css
-   :root {
-     --font-main: 'Your Main Font', sans-serif;
-     --font-headings: 'Your Heading Font', serif;
-   }
-   ```
-
-4. To use Google Fonts, add the font import at the top of the file:
-
-   ```css
-   @import url('https://fonts.googleapis.com/css2?family=Your+Font+Name:wght@400;700&display=swap');
-   ```
-
 
 ## Changing the Layout
 
@@ -136,6 +219,7 @@ To change the fonts used in your blog:
 2. Find the `.grid` class
 3. Adjust the grid properties:
 
+   
    ```css
    .grid {
      display: grid;
@@ -151,32 +235,12 @@ To change the fonts used in your blog:
 2. Find the `.container` class
 3. Adjust the max-width and width properties:
 
+   
    ```css
    .container {
      width: 90%;
      max-width: 1200px;
      margin: 0 auto;
-   }
-   ```
-
-
-## Modifying Colors
-
-To change the color theme of your blog:
-
-1. Open `/styles/globals.css`
-2. Find the `:root` section with CSS variables
-3. Update the color variables:
-
-   ```css
-   :root {
-     --background-color: #2a2a2a;
-     --card-bg: #333333;
-     --header-bg: #222222;
-     --text-color: #f5f5f5;
-     --text-muted: #c0c0c0;
-     --accent-color: #61dafb;
-     --link-color: #61dafb;
    }
    ```
 
@@ -189,6 +253,7 @@ To change the color theme of your blog:
 2. Find the line with the background image URL
 3. Replace it with your own image URL:
 
+   
    ```javascript
    const backgroundImage = 'https://example.com/your-image.jpg';
    ```
@@ -199,6 +264,7 @@ To change the color theme of your blog:
 1. In the same file, find the `handleScroll` function
 2. Modify the speed factor (higher values = slower movement):
 
+   
    ```javascript
    const offset = window.scrollY;
    const parallaxOffset = offset * 0.5; // Change 0.5 to adjust speed
@@ -211,6 +277,7 @@ To change the color theme of your blog:
 2. Find the `.parallaxContainer` class
 3. Adjust the height property:
 
+   
    ```css
    .parallaxContainer {
      height: 60vh; /* Change to your preferred height */
@@ -226,17 +293,19 @@ You can add author information to your blog posts that will appear as a footer a
 
 1. In your post's front matter, add the `author` and optionally the `authorHtml` properties:
 
-```markdown
----
-title: 'Your Post Title'
-date: '2025-04-01'
-excerpt: 'A brief description'
-categories: ['Category1']
-author: 'Your Name'
-authorHtml: "<p><strong>Written by:</strong> Your Name</p><p><em>Your bio or credentials here.</em></p>"
----
-```
+   
+   ```markdown
+   ---
+   title: 'Your Post Title'
+   date: '2025-04-01'
+   excerpt: 'A brief description'
+   categories: ['Category1']
+   author: 'Your Name'
+   authorHtml: "<p><strong>Written by:</strong> Your Name</p><p><em>Your bio or credentials here.</em></p>"
+   ---
+   ```
 
+   
 1. The `author` property is used for the author's name.
 2. The `authorHtml` property allows you to add formatted HTML content to the author footer, such as credentials, social media links, or a short bio.
 3. If you only specify `author` without `authorHtml`, a simple "Written by: [Author Name]" will be displayed.
@@ -249,20 +318,21 @@ To customize the appearance of the author footer:
 2. Find the `.author-footer` class
 3. Modify the styling as needed:
 
-```css
-.author-footer {
-  margin-top: 3rem;
-  padding-top: 1rem;
-  color: var(--text-muted);
-}
+   
+   ```css
+   .author-footer {
+     margin-top: 3rem;
+     padding-top: 1rem;
+     color: var(--text-muted);
+   }
 
-.author-footer hr {
-  border: 0;
-  height: 1px;
-  background-color: var(--border-color);
-  margin-bottom: 1.5rem;
-}
-```
+   .author-footer hr {
+     border: 0;
+     height: 1px;
+     background-color: var(--border-color);
+     margin-bottom: 1.5rem;
+   }
+   ```
 
 ## Adding New Categories
 
@@ -277,6 +347,7 @@ To customize category-specific images:
 2. Find the `categoryImages` object
 3. Add or update entries for your categories:
 
+   
    ```javascript
    const categoryImages = {
      'Your Category': 'https://example.com/category-image.jpg',
@@ -319,6 +390,7 @@ If you prefer to deploy manually:
 
 1. Build the site:
 
+   
    ```bash
    npm run build && npm run export
    ```

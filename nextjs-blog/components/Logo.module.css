@@ -1,0 +1,17 @@
+.logo {
+  display: inline-block;
+  width: 100px;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.15);
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
