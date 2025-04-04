@@ -138,6 +138,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ steps.branch-name.outputs.BRANCH_NAME }}
           title: "feat: ${GITHUB_REF##*/}"
+          base: master
           body: |
             This pull request was automatically created by GitHub Actions.
             
