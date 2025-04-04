@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="3.910" tests="3" failures="0">
+  <testsuite name="Root Suite" timestamp="2025-04-04T07:17:41" tests="0" file="cypress/e2e/categories.cy.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Categories Tests" timestamp="2025-04-04T07:17:41" tests="3" time="3.905" failures="0">
+    <testcase name="Categories Tests should have a navigation menu" time="1.348" classname="should have a navigation menu">
+    </testcase>
+    <testcase name="Categories Tests should have articles on the homepage" time="1.287" classname="should have articles on the homepage">
+    </testcase>
+    <testcase name="Categories Tests should have clickable post links" time="1.132" classname="should have clickable post links">
+    </testcase>
+  </testsuite>
+</testsuites>

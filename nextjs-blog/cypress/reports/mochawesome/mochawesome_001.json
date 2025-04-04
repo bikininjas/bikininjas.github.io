@@ -1,0 +1,144 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 3,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-04-04T07:17:41.519Z",
+    "end": "2025-04-04T07:17:45.429Z",
+    "duration": 3910,
+    "testsRegistered": 3,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "56bd5e33-28d2-4dd0-964d-77ff701eed8c",
+      "title": "",
+      "fullFile": "cypress/e2e/categories.cy.js",
+      "file": "cypress/e2e/categories.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "8e694621-f874-4946-9039-594de548e096",
+          "title": "Categories Tests",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should have a navigation menu",
+              "fullTitle": "Categories Tests should have a navigation menu",
+              "timedOut": null,
+              "duration": 1348,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/');\ncy.wait(1000);\n// Check that navigation exists\ncy.get('nav').should('exist');",
+              "err": {},
+              "uuid": "08e181f3-69aa-436e-957c-a93254939c4d",
+              "parentUUID": "8e694621-f874-4946-9039-594de548e096",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should have articles on the homepage",
+              "fullTitle": "Categories Tests should have articles on the homepage",
+              "timedOut": null,
+              "duration": 1287,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/');\ncy.wait(1000);\n// Check that articles exist on the homepage\ncy.get('article').should('exist');",
+              "err": {},
+              "uuid": "3466ea36-ea16-489a-a013-5fe878dacbda",
+              "parentUUID": "8e694621-f874-4946-9039-594de548e096",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should have clickable post links",
+              "fullTitle": "Categories Tests should have clickable post links",
+              "timedOut": null,
+              "duration": 1132,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/');\ncy.wait(1000);\n// Check that post links exist\ncy.get('a[href^=\"/posts/\"]').should('exist');",
+              "err": {},
+              "uuid": "dda0069a-76c6-429d-b2c3-fb02cbb88540",
+              "parentUUID": "8e694621-f874-4946-9039-594de548e096",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "08e181f3-69aa-436e-957c-a93254939c4d",
+            "3466ea36-ea16-489a-a013-5fe878dacbda",
+            "dda0069a-76c6-429d-b2c3-fb02cbb88540"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 3767,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": true,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

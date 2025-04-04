@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="5.158" tests="3" failures="0">
+  <testsuite name="Root Suite" timestamp="2025-04-04T07:17:58" tests="0" file="cypress/e2e/navigation.cy.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Navigation Tests" timestamp="2025-04-04T07:17:58" tests="3" time="5.152" failures="0">
+    <testcase name="Navigation Tests should navigate to the home page from the navbar" time="1.340" classname="should navigate to the home page from the navbar">
+    </testcase>
+    <testcase name="Navigation Tests should navigate between blog posts" time="2.498" classname="should navigate between blog posts">
+    </testcase>
+    <testcase name="Navigation Tests should have a navbar with navigation links" time="1.192" classname="should have a navbar with navigation links">
+    </testcase>
+  </testsuite>
+</testsuites>

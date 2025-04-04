@@ -1,8 +1,8 @@
 /**
  * Script pour nettoyer les rapports de test et ne conserver que les plus récents
  */
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 // Chemins des répertoires de rapports
 const MOCHAWESOME_DIR = path.join(process.cwd(), 'cypress', 'reports', 'mochawesome');
@@ -49,3 +49,5 @@ export function cleanReports(reportsDir) {
 cleanReports(path.join(process.cwd(), 'cypress', 'reports'));
 
 console.log('Nettoyage des rapports terminé !');
+
+export { cleanReports, cleanDirectory };

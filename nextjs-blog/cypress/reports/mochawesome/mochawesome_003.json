@@ -1,0 +1,144 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 3,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-04-04T07:17:58.108Z",
+    "end": "2025-04-04T07:18:03.266Z",
+    "duration": 5158,
+    "testsRegistered": 3,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "538df5b6-cc6a-49b0-afc0-76ec32a6e423",
+      "title": "",
+      "fullFile": "cypress/e2e/navigation.cy.js",
+      "file": "cypress/e2e/navigation.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "4c42831e-c2af-4a77-bb6d-c9cd54b9665a",
+          "title": "Navigation Tests",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should navigate to the home page from the navbar",
+              "fullTitle": "Navigation Tests should navigate to the home page from the navbar",
+              "timedOut": null,
+              "duration": 1340,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/posts/harcelement-en-ligne');\ncy.wait(1000);\ncy.get('a[href=\"/\"]').first().click({\n  force: true\n});\ncy.url().should('eq', Cypress.config().baseUrl + '/');\ncy.get('h1.ParallaxHero_title__K8rqy').should('exist');",
+              "err": {},
+              "uuid": "8acd8ca7-8fb3-4a70-8084-9f9a28f43a3f",
+              "parentUUID": "4c42831e-c2af-4a77-bb6d-c9cd54b9665a",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should navigate between blog posts",
+              "fullTitle": "Navigation Tests should navigate between blog posts",
+              "timedOut": null,
+              "duration": 2498,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/');\ncy.wait(1000);\n// Get the first post link and store its URL\ncy.get('a[href^=\"/posts/\"]').first().then($firstLink => {\n  const firstPostUrl = $firstLink.attr('href');\n  // Click on the first post\n  cy.get('a[href^=\"/posts/\"]').first().click({\n    force: true\n  });\n  cy.url().should('include', firstPostUrl);\n  // Go back to home\n  cy.visit('/');\n  cy.wait(1000);\n  // Click on the second post\n  cy.get('a[href^=\"/posts/\"]').eq(1).then($secondLink => {\n    const secondPostUrl = $secondLink.attr('href');\n    // Make sure it's different from the first post\n    expect(secondPostUrl).not.to.eq(firstPostUrl);\n    cy.get('a[href^=\"/posts/\"]').eq(1).click({\n      force: true\n    });\n    cy.url().should('include', secondPostUrl);\n  });\n});",
+              "err": {},
+              "uuid": "5ba53181-41bd-405f-8da3-a63ce6fe3a83",
+              "parentUUID": "4c42831e-c2af-4a77-bb6d-c9cd54b9665a",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should have a navbar with navigation links",
+              "fullTitle": "Navigation Tests should have a navbar with navigation links",
+              "timedOut": null,
+              "duration": 1192,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/');\ncy.wait(1000);\n// Verify the navbar exists\ncy.get('nav').should('exist');\n// Verify that there are navigation links\ncy.get('nav a').should('exist');",
+              "err": {},
+              "uuid": "cede1099-0e0f-46dc-b88b-580b47f2f5b8",
+              "parentUUID": "4c42831e-c2af-4a77-bb6d-c9cd54b9665a",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "8acd8ca7-8fb3-4a70-8084-9f9a28f43a3f",
+            "5ba53181-41bd-405f-8da3-a63ce6fe3a83",
+            "cede1099-0e0f-46dc-b88b-580b47f2f5b8"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 5030,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": true,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}
