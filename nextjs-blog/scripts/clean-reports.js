@@ -38,7 +38,7 @@ function cleanDirectory(dir, { keepLatest = 1, extensions = [] } = {}) {
   });
 }
 
-export function cleanReports(reportsDir) {
+function cleanReports(reportsDir) {
   const mochawesomeDir = path.join(reportsDir, 'mochawesome');
   const junitDir = path.join(reportsDir, 'junit');
   cleanDirectory(mochawesomeDir, { keepLatest: 1, extensions: ['.json'] });
