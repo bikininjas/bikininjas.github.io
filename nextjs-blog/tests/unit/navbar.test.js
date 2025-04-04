@@ -14,7 +14,7 @@ jest.mock('next/link', () => {
 });
 
 describe('Navbar Component', () => {
-  const title = 'Test Blog';
+  const title = 'BikiNinjas Blog';
   
   test('renders the navbar with correct title', () => {
     render(<Navbar title={title} />);

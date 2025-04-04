@@ -16,6 +16,7 @@ export default function Navbar({ title }) {
             />
           </div>
         </Link>
+        <h1 className="navbar-title">{title}</h1>
         <ul className="navbar-menu">
           <li className="navbar-item">
             <Link href="/" className="navbar-link">

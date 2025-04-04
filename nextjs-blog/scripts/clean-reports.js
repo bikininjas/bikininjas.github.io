@@ -13,82 +13,39 @@ const JUNIT_DIR = path.join(process.cwd(), 'cypress', 'reports', 'junit');
  * @param {string} dir - Chemin du répertoire à nettoyer
  * @param {Object} options - Options de nettoyage
  * @param {number} options.keepLatest - Nombre de fichiers récents à conserver par type
- * @param {Array<string>} options.excludeDirs - Répertoires à exclure du nettoyage
+ * @param {Array<string>} options.extensions - Extensions de fichiers à prendre en compte
  */
-function cleanDirectory(dir, options = { keepLatest: 1, excludeDirs: [] }) {
-  if (!fs.existsSync(dir)) {
-    console.log(`Le répertoire ${dir} n'existe pas.`);
-    return;
-  }
+function cleanDirectory(dir, { keepLatest = 1, extensions = [] } = {}) {
+  if (!fs.existsSync(dir)) return;
 
-  console.log(`Nettoyage du répertoire: ${dir}`);
-  
-  // Lire tous les fichiers du répertoire
-  const files = fs.readdirSync(dir);
-  
-  // Regrouper les fichiers par type (basé sur l'extension ou le préfixe)
-  const fileGroups = {};
-  
-  files.forEach(file => {
-    const filePath = path.join(dir, file);
-    const stats = fs.statSync(filePath);
-    
-    // Si c'est un répertoire et qu'il n'est pas dans la liste d'exclusion
-    if (stats.isDirectory()) {
-      if (!options.excludeDirs.includes(file)) {
-        // Nettoyer récursivement les sous-répertoires
-        cleanDirectory(filePath, options);
-      }
-      return;
-    }
-    
-    // Déterminer le type de fichier (extension ou préfixe)
-    let fileType;
-    
-    if (file.startsWith('mochawesome_')) {
-      // Pour les fichiers mochawesome_XXX.html et mochawesome_XXX.json
-      fileType = 'mochawesome_' + path.extname(file);
-    } else if (file.startsWith('results-')) {
-      // Pour les fichiers results-XXXX.xml
-      fileType = 'results';
-    } else {
-      // Pour les autres fichiers, utiliser l'extension
-      fileType = path.extname(file);
-    }
-    
-    if (!fileGroups[fileType]) {
-      fileGroups[fileType] = [];
-    }
-    
-    fileGroups[fileType].push({
-      name: file,
-      path: filePath,
-      mtime: stats.mtime.getTime()
+  const files = fs.readdirSync(dir)
+    .filter(file => extensions.length === 0 || extensions.includes(path.extname(file)))
+    .map(file => ({ file, mtime: fs.statSync(path.join(dir, file)).mtime }))
+    .sort((a, b) => b.mtime - a.mtime);
+
+  // Group files by base name (without extension)
+  const groupedFiles = files.reduce((acc, { file, mtime }) => {
+    const baseName = path.basename(file, path.extname(file));
+    if (!acc[baseName]) acc[baseName] = [];
+    acc[baseName].push({ file, mtime });
+    return acc;
+  }, {});
+  // Keep only the latest files for each base name
+  Object.values(groupedFiles).forEach(fileGroup => {
+    fileGroup.slice(keepLatest).forEach(({ file }) => {
+      fs.unlinkSync(path.join(dir, file));
     });
-  });
-  
-  // Pour chaque groupe, trier par date de modification et supprimer les plus anciens
-  Object.keys(fileGroups).forEach(type => {
-    const group = fileGroups[type];
-    
-    // Trier par date de modification (du plus récent au plus ancien)
-    group.sort((a, b) => b.mtime - a.mtime);
-    
-    // Garder uniquement les N plus récents
-    const toDelete = group.slice(options.keepLatest);
-    
-    // Supprimer les fichiers plus anciens
-    toDelete.forEach(file => {
-      fs.unlinkSync(file.path);
-      console.log(`Supprimé: ${file.path}`);
-    });
-    
-    console.log(`Conservé ${options.keepLatest} fichier(s) de type ${type}`);
   });
 }
 
+export function cleanReports(reportsDir) {
+  const mochawesomeDir = path.join(reportsDir, 'mochawesome');
+  const junitDir = path.join(reportsDir, 'junit');
+  cleanDirectory(mochawesomeDir, { keepLatest: 1, extensions: ['.json'] });
+  cleanDirectory(junitDir, { keepLatest: 1, extensions: ['.xml'] });
+}
+
 // Nettoyer les répertoires de rapports
-cleanDirectory(MOCHAWESOME_DIR, { keepLatest: 1, excludeDirs: ['assets'] });
-cleanDirectory(JUNIT_DIR, { keepLatest: 1 });
+cleanReports(path.join(process.cwd(), 'cypress', 'reports'));
 
 console.log('Nettoyage des rapports terminé !');

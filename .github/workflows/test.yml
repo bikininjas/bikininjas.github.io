@@ -37,16 +37,6 @@ jobs:
       - name: Run unit tests with coverage
         run: cd nextjs-blog && bun run test:coverage
 
-      # Nous n'avons plus besoin de démarrer l'application séparément car c'est géré par start-server-and-test
-
-      # # Run Cypress E2E tests
-      # - name: Run Cypress E2E tests
-      #   run: cd nextjs-blog && bun run test:e2e:headless
-      #   env:
-      #     CYPRESS_BASE_URL: http://localhost:3000
-      #     # Note: Si vous souhaitez utiliser Cypress Dashboard à l'avenir, vous devrez ajouter
-      #     # la variable CYPRESS_RECORD_KEY dans les secrets GitHub
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Revenir à l'approche simple pour les tests Cypress
       - name: Run Cypress E2E tests
@@ -81,6 +71,7 @@ jobs:
             -Dsonar.qualitygate.wait=false
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.coverage.jacoco.xmlReportPaths=coverage/coverage-final.xml
+            -Dsonar.exclusions=**/playwright-report/**
         continue-on-error: true
 
       # Upload test reports as artifacts
