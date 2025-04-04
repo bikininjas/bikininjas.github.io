@@ -1,177 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="137" failures="1" errors="0" time="3.829">
-  <testsuite name="Navbar Component" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:07" time="1.7" tests="4">
-    <testcase classname="Navbar Component renders the navbar with correct title" name="Navbar Component renders the navbar with correct title" time="0.07">
+<testsuites name="jest tests" tests="134" failures="0" errors="0" time="8.759">
+  <testsuite name="Category Functions Edge Cases" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:06:55" time="3.598" tests="9">
+    <testcase classname="Category Functions Edge Cases getAllCategories handles posts with different category formats" name="Category Functions Edge Cases getAllCategories handles posts with different category formats" time="0.009">
     </testcase>
-    <testcase classname="Navbar Component renders all navigation links" name="Navbar Component renders all navigation links" time="0.023">
+    <testcase classname="Category Functions Edge Cases getAllCategorySlugs handles posts with different category formats" name="Category Functions Edge Cases getAllCategorySlugs handles posts with different category formats" time="0.002">
     </testcase>
-    <testcase classname="Navbar Component has correct href attributes for links" name="Navbar Component has correct href attributes for links" time="0.012">
+    <testcase classname="Category Functions Edge Cases getCategoryFromSlug returns the correct category for a slug" name="Category Functions Edge Cases getCategoryFromSlug returns the correct category for a slug" time="0.002">
     </testcase>
-    <testcase classname="Navbar Component renders without crashing when title prop is missing" name="Navbar Component renders without crashing when title prop is missing" time="0.011">
+    <testcase classname="Category Functions Edge Cases getCategoryFromSlug returns null for non-existent slugs" name="Category Functions Edge Cases getCategoryFromSlug returns null for non-existent slugs" time="0.003">
     </testcase>
-  </testsuite>
-  <testsuite name="FirstPost Component" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:07" time="1.714" tests="1">
-    <testcase classname="FirstPost Component renders the first post heading" name="FirstPost Component renders the first post heading" time="0.098">
+    <testcase classname="Category Functions Edge Cases getPostsByCategory returns all posts when category is &quot;all&quot;" name="Category Functions Edge Cases getPostsByCategory returns all posts when category is &quot;all&quot;" time="0.002">
     </testcase>
-  </testsuite>
-  <testsuite name="MyApp Component" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:07" time="1.664" tests="1">
-    <testcase classname="MyApp Component renders the component with pageProps" name="MyApp Component renders the component with pageProps" time="0.058">
+    <testcase classname="Category Functions Edge Cases getPostsByCategory returns posts filtered by category with different category formats" name="Category Functions Edge Cases getPostsByCategory returns posts filtered by category with different category formats" time="0.002">
     </testcase>
-  </testsuite>
-  <testsuite name="PostContent Component" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:07" time="1.7" tests="3">
-    <testcase classname="PostContent Component renders HTML content correctly" name="PostContent Component renders HTML content correctly" time="0.056">
+    <testcase classname="Category Functions Edge Cases getPostsByCategory returns empty array for non-existent categories" name="Category Functions Edge Cases getPostsByCategory returns empty array for non-existent categories" time="0.001">
     </testcase>
-    <testcase classname="PostContent Component renders complex HTML with multiple elements" name="PostContent Component renders complex HTML with multiple elements" time="0.016">
+    <testcase classname="Category Functions Edge Cases getPostsByCategorySlug returns posts filtered by category slug" name="Category Functions Edge Cases getPostsByCategorySlug returns posts filtered by category slug" time="0.001">
     </testcase>
-    <testcase classname="PostContent Component renders embedded content correctly" name="PostContent Component renders embedded content correctly" time="0.02">
+    <testcase classname="Category Functions Edge Cases getPostsByCategorySlug returns empty array for non-existent category slugs" name="Category Functions Edge Cases getPostsByCategorySlug returns empty array for non-existent category slugs" time="0">
     </testcase>
   </testsuite>
-  <testsuite name="MyDocument Component" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:07" time="1.765" tests="1">
-    <testcase classname="MyDocument Component renders document structure correctly" name="MyDocument Component renders document structure correctly" time="0.117">
+  <testsuite name="processEmbeds function" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:06:55" time="4.485" tests="8">
+    <testcase classname="processEmbeds function processes YouTube embeds correctly" name="processEmbeds function processes YouTube embeds correctly" time="0.032">
+    </testcase>
+    <testcase classname="processEmbeds function processes YouTube embeds with options correctly" name="processEmbeds function processes YouTube embeds with options correctly" time="0.002">
+    </testcase>
+    <testcase classname="processEmbeds function processes YouTube embeds with v= format correctly" name="processEmbeds function processes YouTube embeds with v= format correctly" time="0.001">
+    </testcase>
+    <testcase classname="processEmbeds function processes Twitch embeds correctly in development environment" name="processEmbeds function processes Twitch embeds correctly in development environment" time="0.001">
+    </testcase>
+    <testcase classname="processEmbeds function processes Twitch embeds correctly in production environment" name="processEmbeds function processes Twitch embeds correctly in production environment" time="0.018">
+    </testcase>
+    <testcase classname="processEmbeds function processes Bluesky embeds correctly" name="processEmbeds function processes Bluesky embeds correctly" time="0.001">
+    </testcase>
+    <testcase classname="processEmbeds function handles content with multiple embeds correctly" name="processEmbeds function handles content with multiple embeds correctly" time="0.001">
+    </testcase>
+    <testcase classname="processEmbeds function returns the original content when no embeds are present" name="processEmbeds function returns the original content when no embeds are present" time="0">
     </testcase>
   </testsuite>
-  <testsuite name="ParallaxHero Component" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:07" time="1.765" tests="4">
-    <testcase classname="ParallaxHero Component renders with default props" name="ParallaxHero Component renders with default props" time="0.066">
+  <testsuite name="getPostData function" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:06:55" time="4.437" tests="7">
+    <testcase classname="getPostData function processes a simple post without embeds" name="getPostData function processes a simple post without embeds" time="0.019">
     </testcase>
-    <testcase classname="ParallaxHero Component renders with custom props" name="ParallaxHero Component renders with custom props" time="0.012">
+    <testcase classname="getPostData function processes a post with a single category" name="getPostData function processes a post with a single category" time="0.005">
     </testcase>
-    <testcase classname="ParallaxHero Component handles scroll events" name="ParallaxHero Component handles scroll events" time="0.022">
+    <testcase classname="getPostData function processes a post with multiple categories" name="getPostData function processes a post with multiple categories" time="0.012">
     </testcase>
-    <testcase classname="ParallaxHero Component cleans up event listener on unmount" name="ParallaxHero Component cleans up event listener on unmount" time="0.01">
+    <testcase classname="getPostData function processes a post with YouTube embed" name="getPostData function processes a post with YouTube embed" time="0.002">
     </testcase>
-  </testsuite>
-  <testsuite name="Home Page" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:07" time="1.806" tests="2">
-    <testcase classname="Home Page getStaticProps returns the correct data" name="Home Page getStaticProps returns the correct data" time="0.009">
+    <testcase classname="getPostData function processes a post with Twitch embed" name="getPostData function processes a post with Twitch embed" time="0.004">
     </testcase>
-    <testcase classname="Home Page renders the home page with all components" name="Home Page renders the home page with all components" time="0.094">
+    <testcase classname="getPostData function processes a post with Bluesky embed" name="getPostData function processes a post with Bluesky embed" time="0.001">
     </testcase>
-  </testsuite>
-  <testsuite name="Layout Component" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:07" time="1.802" tests="2">
-    <testcase classname="Layout Component renders layout with children" name="Layout Component renders layout with children" time="0.081">
-    </testcase>
-    <testcase classname="Layout Component renders with custom title" name="Layout Component renders with custom title" time="0.017">
+    <testcase classname="getPostData function processes a post with multiple embeds and markdown content" name="getPostData function processes a post with multiple embeds and markdown content" time="0.003">
     </testcase>
   </testsuite>
-  <testsuite name="CategoryNav Component" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:07" time="1.814" tests="4">
-    <testcase classname="CategoryNav Component renders all categories correctly" name="CategoryNav Component renders all categories correctly" time="0.056">
+  <testsuite name="Posts Functions Edge Cases" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:06:55" time="4.305" tests="11">
+    <testcase classname="Posts Functions Edge Cases getSortedPostsData sorts posts by date correctly" name="Posts Functions Edge Cases getSortedPostsData sorts posts by date correctly" time="0.024">
     </testcase>
-    <testcase classname="CategoryNav Component marks current category as active" name="CategoryNav Component marks current category as active" time="0.11">
+    <testcase classname="Posts Functions Edge Cases getAllCategories handles posts with no categories" name="Posts Functions Edge Cases getAllCategories handles posts with no categories" time="0.026">
     </testcase>
-    <testcase classname="CategoryNav Component marks &quot;all&quot; as active when currentCategory is &quot;all&quot;" name="CategoryNav Component marks &quot;all&quot; as active when currentCategory is &quot;all&quot;" time="0.042">
+    <testcase classname="Posts Functions Edge Cases getAllCategorySlugs handles posts with no categories" name="Posts Functions Edge Cases getAllCategorySlugs handles posts with no categories" time="0.001">
     </testcase>
-    <testcase classname="CategoryNav Component uses correct links for categories" name="CategoryNav Component uses correct links for categories" time="0.01">
+    <testcase classname="Posts Functions Edge Cases getCategoryFromSlug returns null for non-existent slugs" name="Posts Functions Edge Cases getCategoryFromSlug returns null for non-existent slugs" time="0.002">
     </testcase>
-  </testsuite>
-  <testsuite name="Category Page" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:07" time="1.824" tests="4">
-    <testcase classname="Category Page getStaticPaths returns the correct paths" name="Category Page getStaticPaths returns the correct paths" time="0.01">
+    <testcase classname="Posts Functions Edge Cases getCategoryFromSlug handles posts with no categories" name="Posts Functions Edge Cases getCategoryFromSlug handles posts with no categories" time="0.002">
     </testcase>
-    <testcase classname="Category Page getStaticProps returns the correct data" name="Category Page getStaticProps returns the correct data" time="0.002">
+    <testcase classname="Posts Functions Edge Cases getPostsByCategory returns all posts when category is &quot;all&quot;" name="Posts Functions Edge Cases getPostsByCategory returns all posts when category is &quot;all&quot;" time="0.003">
     </testcase>
-    <testcase classname="Category Page renders the category page with posts" name="Category Page renders the category page with posts" time="0.108">
+    <testcase classname="Posts Functions Edge Cases getPostsByCategory returns posts with matching category" name="Posts Functions Edge Cases getPostsByCategory returns posts with matching category" time="0.001">
     </testcase>
-    <testcase classname="Category Page renders the category page with no posts" name="Category Page renders the category page with no posts" time="0.01">
+    <testcase classname="Posts Functions Edge Cases getPostsByCategory returns posts with matching category from categories array" name="Posts Functions Edge Cases getPostsByCategory returns posts with matching category from categories array" time="0.023">
     </testcase>
-  </testsuite>
-  <testsuite name="cleanReports" errors="0" failures="1" skipped="0" timestamp="2025-04-03T09:03:07" time="1.91" tests="3">
-    <testcase classname="cleanReports should keep one .html and .json file in mochawesome directory" name="cleanReports should keep one .html and .json file in mochawesome directory" time="0.025">
-      <failure>Error: expect(received).toHaveLength(expected)
-
-Expected length: 2
-Received length: 4
-Received array:  [&quot;mochawesome.html&quot;, &quot;mochawesome.json&quot;, &quot;mochawesome_.html&quot;, &quot;mochawesome_.json&quot;]
-    at Object.toHaveLength (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/cleanReports.test.js:37:19)
-    at Promise.then.completed (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/utils.js:298:28)
-    at new Promise (&lt;anonymous&gt;)
-    at callAsyncCircusFn (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/utils.js:231:10)
-    at _callCircusTest (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/run.js:316:40)
-    at processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at _runTest (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/run.js:252:3)
-    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/run.js:126:9)
-    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/run.js:121:9)
-    at run (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/run.js:71:3)
-    at runAndTransformResultsToJestFormat (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
-    at jestAdapter (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
-    at runTestInternal (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-runner/build/runTest.js:367:16)
-    at runTest (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)
-    at Object.worker (/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)</failure>
+    <testcase classname="Posts Functions Edge Cases getPostsByCategory returns uncategorized posts" name="Posts Functions Edge Cases getPostsByCategory returns uncategorized posts" time="0">
     </testcase>
-    <testcase classname="cleanReports should keep one file in junit directory" name="cleanReports should keep one file in junit directory" time="0.019">
+    <testcase classname="Posts Functions Edge Cases getPostsByCategorySlug returns empty array for non-existent category slug" name="Posts Functions Edge Cases getPostsByCategorySlug returns empty array for non-existent category slug" time="0.001">
     </testcase>
-    <testcase classname="cleanReports should handle non-existent directories gracefully" name="cleanReports should handle non-existent directories gracefully" time="0.002">
+    <testcase classname="Posts Functions Edge Cases getPostsByCategorySlug returns posts for a valid category slug" name="Posts Functions Edge Cases getPostsByCategorySlug returns posts for a valid category slug" time="0.012">
     </testcase>
   </testsuite>
-  <testsuite name="PostParallax Component" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:07" time="1.854" tests="12">
-    <testcase classname="PostParallax Component renders with required props" name="PostParallax Component renders with required props" time="0.062">
+  <testsuite name="Posts Functions Specific Branches Coverage" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:06:55" time="4.535" tests="5">
+    <testcase classname="Posts Functions Specific Branches Coverage getAllCategories - branch coverage handles posts with only string category property" name="Posts Functions Specific Branches Coverage getAllCategories - branch coverage handles posts with only string category property" time="0.107">
     </testcase>
-    <testcase classname="PostParallax Component renders with date and category" name="PostParallax Component renders with date and category" time="0.017">
+    <testcase classname="Posts Functions Specific Branches Coverage getAllCategorySlugs - branch coverage handles posts with only string category property" name="Posts Functions Specific Branches Coverage getAllCategorySlugs - branch coverage handles posts with only string category property" time="0.001">
     </testcase>
-    <testcase classname="PostParallax Component renders with multiple categories" name="PostParallax Component renders with multiple categories" time="0.013">
+    <testcase classname="Posts Functions Specific Branches Coverage getCategoryFromSlug - branch coverage handles posts with only string category property" name="Posts Functions Specific Branches Coverage getCategoryFromSlug - branch coverage handles posts with only string category property" time="0.001">
     </testcase>
-    <testcase classname="PostParallax Component uses custom background image when provided" name="PostParallax Component uses custom background image when provided" time="0.006">
+    <testcase classname="Posts Functions Specific Branches Coverage getPostsByCategory - branch coverage handles posts with only string category property" name="Posts Functions Specific Branches Coverage getPostsByCategory - branch coverage handles posts with only string category property" time="0.002">
     </testcase>
-    <testcase classname="PostParallax Component handles scroll events" name="PostParallax Component handles scroll events" time="0.01">
-    </testcase>
-    <testcase classname="PostParallax Component cleans up event listener on unmount" name="PostParallax Component cleans up event listener on unmount" time="0.008">
-    </testcase>
-    <testcase classname="PostParallax Component falls back to default image when category is not recognized" name="PostParallax Component falls back to default image when category is not recognized" time="0.014">
-    </testcase>
-    <testcase classname="PostParallax Component uses default image when no background image, categories, or category is provided" name="PostParallax Component uses default image when no background image, categories, or category is provided" time="0.01">
-    </testcase>
-    <testcase classname="PostParallax Component uses first category image from categories array when available" name="PostParallax Component uses first category image from categories array when available" time="0.03">
-    </testcase>
-    <testcase classname="PostParallax Component uses category image when categories array is empty but category is provided" name="PostParallax Component uses category image when categories array is empty but category is provided" time="0.008">
-    </testcase>
-    <testcase classname="PostParallax Component does not display date when not provided" name="PostParallax Component does not display date when not provided" time="0.005">
-    </testcase>
-    <testcase classname="PostParallax Component does not display category when neither categories nor category is provided" name="PostParallax Component does not display category when neither categories nor category is provided" time="0.007">
+    <testcase classname="Posts Functions Specific Branches Coverage getPostsByCategory - branch coverage handles posts with categories array" name="Posts Functions Specific Branches Coverage getPostsByCategory - branch coverage handles posts with categories array" time="0.013">
     </testcase>
   </testsuite>
-  <testsuite name="Post Page" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:07" time="1.908" tests="4">
-    <testcase classname="Post Page getStaticPaths returns the correct paths" name="Post Page getStaticPaths returns the correct paths" time="0.008">
+  <testsuite name="Posts Functions Branch Coverage" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:06:55" time="4.58" tests="8">
+    <testcase classname="Posts Functions Branch Coverage getAllCategories with only uncategorized posts returns only Uncategorized when no posts have categories" name="Posts Functions Branch Coverage getAllCategories with only uncategorized posts returns only Uncategorized when no posts have categories" time="0.033">
     </testcase>
-    <testcase classname="Post Page getStaticProps returns the correct data" name="Post Page getStaticProps returns the correct data" time="0.003">
+    <testcase classname="Posts Functions Branch Coverage getAllCategories with only category property handles posts with only category property" name="Posts Functions Branch Coverage getAllCategories with only category property handles posts with only category property" time="0.035">
     </testcase>
-    <testcase classname="Post Page renders the post page with all components" name="Post Page renders the post page with all components" time="0.104">
+    <testcase classname="Posts Functions Branch Coverage getAllCategorySlugs with only uncategorized posts returns only uncategorized slug when no posts have categories" name="Posts Functions Branch Coverage getAllCategorySlugs with only uncategorized posts returns only uncategorized slug when no posts have categories" time="0.008">
     </testcase>
-    <testcase classname="Post Page renders with authorHtml when provided" name="Post Page renders with authorHtml when provided" time="0.03">
-    </testcase>
-  </testsuite>
-  <testsuite name="PostCard Component" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:07" time="2.015" tests="13">
-    <testcase classname="PostCard Component renders post card with correct content" name="PostCard Component renders post card with correct content" time="0.069">
-    </testcase>
-    <testcase classname="PostCard Component links to the correct post URL" name="PostCard Component links to the correct post URL" time="0.01">
-    </testcase>
-    <testcase classname="PostCard Component uses provided cover image when available" name="PostCard Component uses provided cover image when available" time="0.081">
-    </testcase>
-    <testcase classname="PostCard Component uses category default image when no cover image is provided" name="PostCard Component uses category default image when no cover image is provided" time="0.024">
-    </testcase>
-    <testcase classname="PostCard Component uses fallback image when no cover image or matching category image is available" name="PostCard Component uses fallback image when no cover image or matching category image is available" time="0.048">
-    </testcase>
-    <testcase classname="PostCard Component uses fallback image when no cover image and no categories are provided" name="PostCard Component uses fallback image when no cover image and no categories are provided" time="0.022">
-    </testcase>
-    <testcase classname="PostCard Component uses fallback image when no cover image and empty categories array" name="PostCard Component uses fallback image when no cover image and empty categories array" time="0.018">
-    </testcase>
-    <testcase classname="PostCard Component uses second category image when first category has no matching image" name="PostCard Component uses second category image when first category has no matching image" time="0.014">
-    </testcase>
-    <testcase classname="PostCard Component limits displayed categories to two even if more are provided" name="PostCard Component limits displayed categories to two even if more are provided" time="0.013">
-    </testcase>
-    <testcase classname="PostCard Component does not display categories section when no categories are provided" name="PostCard Component does not display categories section when no categories are provided" time="0.014">
-    </testcase>
-    <testcase classname="PostCard Component does not display categories section when empty categories array is provided" name="PostCard Component does not display categories section when empty categories array is provided" time="0.008">
-    </testcase>
-    <testcase classname="PostCard Component displays excerpt when provided" name="PostCard Component displays excerpt when provided" time="0.02">
-    </testcase>
-    <testcase classname="PostCard Component handles post without excerpt" name="PostCard Component handles post without excerpt" time="0.006">
-    </testcase>
-  </testsuite>
-  <testsuite name="Posts Functions Branch Coverage" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:09" time="0.389" tests="8">
-    <testcase classname="Posts Functions Branch Coverage getAllCategories with only uncategorized posts returns only Uncategorized when no posts have categories" name="Posts Functions Branch Coverage getAllCategories with only uncategorized posts returns only Uncategorized when no posts have categories" time="0.007">
-    </testcase>
-    <testcase classname="Posts Functions Branch Coverage getAllCategories with only category property handles posts with only category property" name="Posts Functions Branch Coverage getAllCategories with only category property handles posts with only category property" time="0.016">
-    </testcase>
-    <testcase classname="Posts Functions Branch Coverage getAllCategorySlugs with only uncategorized posts returns only uncategorized slug when no posts have categories" name="Posts Functions Branch Coverage getAllCategorySlugs with only uncategorized posts returns only uncategorized slug when no posts have categories" time="0.002">
-    </testcase>
-    <testcase classname="Posts Functions Branch Coverage getAllCategorySlugs with only category property handles posts with only category property" name="Posts Functions Branch Coverage getAllCategorySlugs with only category property handles posts with only category property" time="0.002">
+    <testcase classname="Posts Functions Branch Coverage getAllCategorySlugs with only category property handles posts with only category property" name="Posts Functions Branch Coverage getAllCategorySlugs with only category property handles posts with only category property" time="0.006">
     </testcase>
     <testcase classname="Posts Functions Branch Coverage getCategoryFromSlug with only uncategorized posts returns Uncategorized for uncategorized slug" name="Posts Functions Branch Coverage getCategoryFromSlug with only uncategorized posts returns Uncategorized for uncategorized slug" time="0.002">
     </testcase>
@@ -179,177 +105,223 @@ Received array:  [&quot;mochawesome.html&quot;, &quot;mochawesome.json&quot;, &q
     </testcase>
     <testcase classname="Posts Functions Branch Coverage getPostsByCategory with only uncategorized posts returns all posts for Uncategorized category" name="Posts Functions Branch Coverage getPostsByCategory with only uncategorized posts returns all posts for Uncategorized category" time="0.002">
     </testcase>
-    <testcase classname="Posts Functions Branch Coverage getPostsByCategory with only category property returns posts with matching category property" name="Posts Functions Branch Coverage getPostsByCategory with only category property returns posts with matching category property" time="0.005">
+    <testcase classname="Posts Functions Branch Coverage getPostsByCategory with only category property returns posts with matching category property" name="Posts Functions Branch Coverage getPostsByCategory with only category property returns posts with matching category property" time="0.014">
     </testcase>
   </testsuite>
-  <testsuite name="Utility Functions" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:09" time="0.323" tests="4">
-    <testcase classname="Utility Functions slugify function converts a string to a URL-friendly slug" name="Utility Functions slugify function converts a string to a URL-friendly slug" time="0.002">
+  <testsuite name="Posts Direct Branch Coverage" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:06:55" time="4.591" tests="4">
+    <testcase classname="Posts Direct Branch Coverage getAllCategories - specific branch coverage handles posts with only category property (string)" name="Posts Direct Branch Coverage getAllCategories - specific branch coverage handles posts with only category property (string)" time="0.124">
     </testcase>
-    <testcase classname="Utility Functions slugify function handles edge cases correctly" name="Utility Functions slugify function handles edge cases correctly" time="0.001">
+    <testcase classname="Posts Direct Branch Coverage getAllCategorySlugs - specific branch coverage handles posts with only category property (string)" name="Posts Direct Branch Coverage getAllCategorySlugs - specific branch coverage handles posts with only category property (string)" time="0.013">
     </testcase>
-    <testcase classname="Utility Functions formatDate function formats dates correctly" name="Utility Functions formatDate function formats dates correctly" time="0.033">
+    <testcase classname="Posts Direct Branch Coverage getCategoryFromSlug - specific branch coverage handles posts with only category property (string)" name="Posts Direct Branch Coverage getCategoryFromSlug - specific branch coverage handles posts with only category property (string)" time="0.002">
     </testcase>
-    <testcase classname="Utility Functions formatDate function handles different date formats" name="Utility Functions formatDate function handles different date formats" time="0.005">
+    <testcase classname="Posts Direct Branch Coverage getPostsByCategory - specific branch coverage handles posts with only category property (string)" name="Posts Direct Branch Coverage getPostsByCategory - specific branch coverage handles posts with only category property (string)" time="0.013">
     </testcase>
   </testsuite>
-  <testsuite name="getPostData function" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:09" time="0.423" tests="5">
-    <testcase classname="getPostData function processes a post with multiple categories correctly" name="getPostData function processes a post with multiple categories correctly" time="0.013">
+  <testsuite name="Post Page" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:06:55" time="4.853" tests="4">
+    <testcase classname="Post Page getStaticPaths returns the correct paths" name="Post Page getStaticPaths returns the correct paths" time="0.016">
     </testcase>
-    <testcase classname="getPostData function processes a post with a single category correctly" name="getPostData function processes a post with a single category correctly" time="0.002">
+    <testcase classname="Post Page getStaticProps returns the correct data" name="Post Page getStaticProps returns the correct data" time="0.003">
     </testcase>
-    <testcase classname="getPostData function processes a post without a category correctly" name="getPostData function processes a post without a category correctly" time="0.01">
+    <testcase classname="Post Page renders the post page with all components" name="Post Page renders the post page with all components" time="0.189">
+    </testcase>
+    <testcase classname="Post Page renders with authorHtml when provided" name="Post Page renders with authorHtml when provided" time="0.034">
+    </testcase>
+  </testsuite>
+  <testsuite name="Posts Library" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:06:55" time="4.829" tests="7">
+    <testcase classname="Posts Library getSortedPostsData returns posts sorted by date" name="Posts Library getSortedPostsData returns posts sorted by date" time="0.031">
+    </testcase>
+    <testcase classname="Posts Library getAllPostIds returns formatted post ids" name="Posts Library getAllPostIds returns formatted post ids" time="0.003">
+    </testcase>
+    <testcase classname="Posts Library Category functions getAllCategories returns an array" name="Posts Library Category functions getAllCategories returns an array" time="0.029">
+    </testcase>
+    <testcase classname="Posts Library Category functions getAllCategorySlugs returns an array" name="Posts Library Category functions getAllCategorySlugs returns an array" time="0.001">
+    </testcase>
+    <testcase classname="Posts Library Category functions getCategoryFromSlug returns a string or null" name="Posts Library Category functions getCategoryFromSlug returns a string or null" time="0.001">
+    </testcase>
+    <testcase classname="Posts Library Category functions getPostsByCategory returns an array" name="Posts Library Category functions getPostsByCategory returns an array" time="0.002">
+    </testcase>
+    <testcase classname="Posts Library Category functions getPostsByCategorySlug returns an array" name="Posts Library Category functions getPostsByCategorySlug returns an array" time="0.016">
+    </testcase>
+  </testsuite>
+  <testsuite name="Home Page" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:06:55" time="4.832" tests="2">
+    <testcase classname="Home Page getStaticProps returns the correct data" name="Home Page getStaticProps returns the correct data" time="0.02">
+    </testcase>
+    <testcase classname="Home Page renders the home page with all components" name="Home Page renders the home page with all components" time="0.105">
+    </testcase>
+  </testsuite>
+  <testsuite name="getPostData function" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:06:58" time="1.317" tests="5">
+    <testcase classname="getPostData function processes a post with multiple categories correctly" name="getPostData function processes a post with multiple categories correctly" time="0.036">
+    </testcase>
+    <testcase classname="getPostData function processes a post with a single category correctly" name="getPostData function processes a post with a single category correctly" time="0.014">
+    </testcase>
+    <testcase classname="getPostData function processes a post without a category correctly" name="getPostData function processes a post without a category correctly" time="0.03">
     </testcase>
     <testcase classname="getPostData function processes a post with Twitch embed correctly" name="getPostData function processes a post with Twitch embed correctly" time="0.002">
     </testcase>
     <testcase classname="getPostData function processes a post with Bluesky embed correctly" name="getPostData function processes a post with Bluesky embed correctly" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="Posts Remaining Coverage" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:09" time="0.389" tests="2">
-    <testcase classname="Posts Remaining Coverage getAllCategories - edge cases handles empty categories array" name="Posts Remaining Coverage getAllCategories - edge cases handles empty categories array" time="0.044">
+  <testsuite name="Category Page" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:06:55" time="4.979" tests="4">
+    <testcase classname="Category Page getStaticPaths returns the correct paths" name="Category Page getStaticPaths returns the correct paths" time="0.01">
+    </testcase>
+    <testcase classname="Category Page getStaticProps returns the correct data" name="Category Page getStaticProps returns the correct data" time="0.003">
+    </testcase>
+    <testcase classname="Category Page renders the category page with posts" name="Category Page renders the category page with posts" time="0.164">
+    </testcase>
+    <testcase classname="Category Page renders the category page with no posts" name="Category Page renders the category page with no posts" time="0.03">
+    </testcase>
+  </testsuite>
+  <testsuite name="PostParallax Component" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:06:55" time="4.998" tests="12">
+    <testcase classname="PostParallax Component renders with required props" name="PostParallax Component renders with required props" time="0.109">
+    </testcase>
+    <testcase classname="PostParallax Component renders with date and category" name="PostParallax Component renders with date and category" time="0.045">
+    </testcase>
+    <testcase classname="PostParallax Component renders with multiple categories" name="PostParallax Component renders with multiple categories" time="0.021">
+    </testcase>
+    <testcase classname="PostParallax Component uses custom background image when provided" name="PostParallax Component uses custom background image when provided" time="0.006">
+    </testcase>
+    <testcase classname="PostParallax Component handles scroll events" name="PostParallax Component handles scroll events" time="0.015">
+    </testcase>
+    <testcase classname="PostParallax Component cleans up event listener on unmount" name="PostParallax Component cleans up event listener on unmount" time="0.025">
+    </testcase>
+    <testcase classname="PostParallax Component falls back to default image when category is not recognized" name="PostParallax Component falls back to default image when category is not recognized" time="0.044">
+    </testcase>
+    <testcase classname="PostParallax Component uses default image when no background image, categories, or category is provided" name="PostParallax Component uses default image when no background image, categories, or category is provided" time="0.007">
+    </testcase>
+    <testcase classname="PostParallax Component uses first category image from categories array when available" name="PostParallax Component uses first category image from categories array when available" time="0.013">
+    </testcase>
+    <testcase classname="PostParallax Component uses category image when categories array is empty but category is provided" name="PostParallax Component uses category image when categories array is empty but category is provided" time="0.027">
+    </testcase>
+    <testcase classname="PostParallax Component does not display date when not provided" name="PostParallax Component does not display date when not provided" time="0.021">
+    </testcase>
+    <testcase classname="PostParallax Component does not display category when neither categories nor category is provided" name="PostParallax Component does not display category when neither categories nor category is provided" time="0.021">
+    </testcase>
+  </testsuite>
+  <testsuite name="PostCard Component" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:06:55" time="5.147" tests="13">
+    <testcase classname="PostCard Component renders post card with correct content" name="PostCard Component renders post card with correct content" time="0.13">
+    </testcase>
+    <testcase classname="PostCard Component links to the correct post URL" name="PostCard Component links to the correct post URL" time="0.016">
+    </testcase>
+    <testcase classname="PostCard Component uses provided cover image when available" name="PostCard Component uses provided cover image when available" time="0.103">
+    </testcase>
+    <testcase classname="PostCard Component uses category default image when no cover image is provided" name="PostCard Component uses category default image when no cover image is provided" time="0.032">
+    </testcase>
+    <testcase classname="PostCard Component uses fallback image when no cover image or matching category image is available" name="PostCard Component uses fallback image when no cover image or matching category image is available" time="0.036">
+    </testcase>
+    <testcase classname="PostCard Component uses fallback image when no cover image and no categories are provided" name="PostCard Component uses fallback image when no cover image and no categories are provided" time="0.026">
+    </testcase>
+    <testcase classname="PostCard Component uses fallback image when no cover image and empty categories array" name="PostCard Component uses fallback image when no cover image and empty categories array" time="0.018">
+    </testcase>
+    <testcase classname="PostCard Component uses second category image when first category has no matching image" name="PostCard Component uses second category image when first category has no matching image" time="0.027">
+    </testcase>
+    <testcase classname="PostCard Component limits displayed categories to two even if more are provided" name="PostCard Component limits displayed categories to two even if more are provided" time="0.028">
+    </testcase>
+    <testcase classname="PostCard Component does not display categories section when no categories are provided" name="PostCard Component does not display categories section when no categories are provided" time="0.011">
+    </testcase>
+    <testcase classname="PostCard Component does not display categories section when empty categories array is provided" name="PostCard Component does not display categories section when empty categories array is provided" time="0.009">
+    </testcase>
+    <testcase classname="PostCard Component displays excerpt when provided" name="PostCard Component displays excerpt when provided" time="0.019">
+    </testcase>
+    <testcase classname="PostCard Component handles post without excerpt" name="PostCard Component handles post without excerpt" time="0.038">
+    </testcase>
+  </testsuite>
+  <testsuite name="getPostData function edge cases" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:06:55" time="5.089" tests="5">
+    <testcase classname="getPostData function edge cases handles posts with embedded content correctly" name="getPostData function edge cases handles posts with embedded content correctly" time="0.121">
+    </testcase>
+    <testcase classname="getPostData function edge cases handles posts with multiple categories as array" name="getPostData function edge cases handles posts with multiple categories as array" time="0.007">
+    </testcase>
+    <testcase classname="getPostData function edge cases handles posts with a single category as string" name="getPostData function edge cases handles posts with a single category as string" time="0.009">
+    </testcase>
+    <testcase classname="getPostData function edge cases handles posts with no category" name="getPostData function edge cases handles posts with no category" time="0.008">
+    </testcase>
+    <testcase classname="getPostData function edge cases handles posts with category as array but using for backward compatibility" name="getPostData function edge cases handles posts with category as array but using for backward compatibility" time="0.02">
+    </testcase>
+  </testsuite>
+  <testsuite name="Posts Remaining Coverage" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:06:59" time="0.675" tests="2">
+    <testcase classname="Posts Remaining Coverage getAllCategories - edge cases handles empty categories array" name="Posts Remaining Coverage getAllCategories - edge cases handles empty categories array" time="0.003">
     </testcase>
     <testcase classname="Posts Remaining Coverage getPostsByCategory - edge cases handles empty categories array" name="Posts Remaining Coverage getPostsByCategory - edge cases handles empty categories array" time="0.013">
     </testcase>
   </testsuite>
-  <testsuite name="Posts Functions Edge Cases" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:09" time="0.488" tests="11">
-    <testcase classname="Posts Functions Edge Cases getSortedPostsData sorts posts by date correctly" name="Posts Functions Edge Cases getSortedPostsData sorts posts by date correctly" time="0.029">
-    </testcase>
-    <testcase classname="Posts Functions Edge Cases getAllCategories handles posts with no categories" name="Posts Functions Edge Cases getAllCategories handles posts with no categories" time="0.016">
-    </testcase>
-    <testcase classname="Posts Functions Edge Cases getAllCategorySlugs handles posts with no categories" name="Posts Functions Edge Cases getAllCategorySlugs handles posts with no categories" time="0.002">
-    </testcase>
-    <testcase classname="Posts Functions Edge Cases getCategoryFromSlug returns null for non-existent slugs" name="Posts Functions Edge Cases getCategoryFromSlug returns null for non-existent slugs" time="0.001">
-    </testcase>
-    <testcase classname="Posts Functions Edge Cases getCategoryFromSlug handles posts with no categories" name="Posts Functions Edge Cases getCategoryFromSlug handles posts with no categories" time="0.001">
-    </testcase>
-    <testcase classname="Posts Functions Edge Cases getPostsByCategory returns all posts when category is &quot;all&quot;" name="Posts Functions Edge Cases getPostsByCategory returns all posts when category is &quot;all&quot;" time="0">
-    </testcase>
-    <testcase classname="Posts Functions Edge Cases getPostsByCategory returns posts with matching category" name="Posts Functions Edge Cases getPostsByCategory returns posts with matching category" time="0.001">
-    </testcase>
-    <testcase classname="Posts Functions Edge Cases getPostsByCategory returns posts with matching category from categories array" name="Posts Functions Edge Cases getPostsByCategory returns posts with matching category from categories array" time="0.001">
-    </testcase>
-    <testcase classname="Posts Functions Edge Cases getPostsByCategory returns uncategorized posts" name="Posts Functions Edge Cases getPostsByCategory returns uncategorized posts" time="0.009">
-    </testcase>
-    <testcase classname="Posts Functions Edge Cases getPostsByCategorySlug returns empty array for non-existent category slug" name="Posts Functions Edge Cases getPostsByCategorySlug returns empty array for non-existent category slug" time="0.014">
-    </testcase>
-    <testcase classname="Posts Functions Edge Cases getPostsByCategorySlug returns posts for a valid category slug" name="Posts Functions Edge Cases getPostsByCategorySlug returns posts for a valid category slug" time="0.001">
-    </testcase>
-  </testsuite>
-  <testsuite name="getPostData function" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:09" time="0.399" tests="7">
-    <testcase classname="getPostData function processes a simple post without embeds" name="getPostData function processes a simple post without embeds" time="0.019">
-    </testcase>
-    <testcase classname="getPostData function processes a post with a single category" name="getPostData function processes a post with a single category" time="0.002">
-    </testcase>
-    <testcase classname="getPostData function processes a post with multiple categories" name="getPostData function processes a post with multiple categories" time="0.002">
-    </testcase>
-    <testcase classname="getPostData function processes a post with YouTube embed" name="getPostData function processes a post with YouTube embed" time="0.001">
-    </testcase>
-    <testcase classname="getPostData function processes a post with Twitch embed" name="getPostData function processes a post with Twitch embed" time="0.002">
-    </testcase>
-    <testcase classname="getPostData function processes a post with Bluesky embed" name="getPostData function processes a post with Bluesky embed" time="0.001">
-    </testcase>
-    <testcase classname="getPostData function processes a post with multiple embeds and markdown content" name="getPostData function processes a post with multiple embeds and markdown content" time="0.002">
-    </testcase>
-  </testsuite>
-  <testsuite name="Posts Functions Specific Branches Coverage" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:09" time="0.402" tests="5">
-    <testcase classname="Posts Functions Specific Branches Coverage getAllCategories - branch coverage handles posts with only string category property" name="Posts Functions Specific Branches Coverage getAllCategories - branch coverage handles posts with only string category property" time="0.059">
-    </testcase>
-    <testcase classname="Posts Functions Specific Branches Coverage getAllCategorySlugs - branch coverage handles posts with only string category property" name="Posts Functions Specific Branches Coverage getAllCategorySlugs - branch coverage handles posts with only string category property" time="0.001">
-    </testcase>
-    <testcase classname="Posts Functions Specific Branches Coverage getCategoryFromSlug - branch coverage handles posts with only string category property" name="Posts Functions Specific Branches Coverage getCategoryFromSlug - branch coverage handles posts with only string category property" time="0">
-    </testcase>
-    <testcase classname="Posts Functions Specific Branches Coverage getPostsByCategory - branch coverage handles posts with only string category property" name="Posts Functions Specific Branches Coverage getPostsByCategory - branch coverage handles posts with only string category property" time="0">
-    </testcase>
-    <testcase classname="Posts Functions Specific Branches Coverage getPostsByCategory - branch coverage handles posts with categories array" name="Posts Functions Specific Branches Coverage getPostsByCategory - branch coverage handles posts with categories array" time="0.007">
-    </testcase>
-  </testsuite>
-  <testsuite name="getPostData function edge cases" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:09" time="0.557" tests="5">
-    <testcase classname="getPostData function edge cases handles posts with embedded content correctly" name="getPostData function edge cases handles posts with embedded content correctly" time="0.074">
-    </testcase>
-    <testcase classname="getPostData function edge cases handles posts with multiple categories as array" name="getPostData function edge cases handles posts with multiple categories as array" time="0.011">
-    </testcase>
-    <testcase classname="getPostData function edge cases handles posts with a single category as string" name="getPostData function edge cases handles posts with a single category as string" time="0.004">
-    </testcase>
-    <testcase classname="getPostData function edge cases handles posts with no category" name="getPostData function edge cases handles posts with no category" time="0.004">
-    </testcase>
-    <testcase classname="getPostData function edge cases handles posts with category as array but using for backward compatibility" name="getPostData function edge cases handles posts with category as array but using for backward compatibility" time="0.005">
-    </testcase>
-  </testsuite>
-  <testsuite name="Category Functions Edge Cases" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:09" time="0.301" tests="9">
-    <testcase classname="Category Functions Edge Cases getAllCategories handles posts with different category formats" name="Category Functions Edge Cases getAllCategories handles posts with different category formats" time="0.001">
-    </testcase>
-    <testcase classname="Category Functions Edge Cases getAllCategorySlugs handles posts with different category formats" name="Category Functions Edge Cases getAllCategorySlugs handles posts with different category formats" time="0.001">
-    </testcase>
-    <testcase classname="Category Functions Edge Cases getCategoryFromSlug returns the correct category for a slug" name="Category Functions Edge Cases getCategoryFromSlug returns the correct category for a slug" time="0.001">
-    </testcase>
-    <testcase classname="Category Functions Edge Cases getCategoryFromSlug returns null for non-existent slugs" name="Category Functions Edge Cases getCategoryFromSlug returns null for non-existent slugs" time="0.005">
-    </testcase>
-    <testcase classname="Category Functions Edge Cases getPostsByCategory returns all posts when category is &quot;all&quot;" name="Category Functions Edge Cases getPostsByCategory returns all posts when category is &quot;all&quot;" time="0.001">
-    </testcase>
-    <testcase classname="Category Functions Edge Cases getPostsByCategory returns posts filtered by category with different category formats" name="Category Functions Edge Cases getPostsByCategory returns posts filtered by category with different category formats" time="0">
-    </testcase>
-    <testcase classname="Category Functions Edge Cases getPostsByCategory returns empty array for non-existent categories" name="Category Functions Edge Cases getPostsByCategory returns empty array for non-existent categories" time="0.001">
-    </testcase>
-    <testcase classname="Category Functions Edge Cases getPostsByCategorySlug returns posts filtered by category slug" name="Category Functions Edge Cases getPostsByCategorySlug returns posts filtered by category slug" time="0.001">
-    </testcase>
-    <testcase classname="Category Functions Edge Cases getPostsByCategorySlug returns empty array for non-existent category slugs" name="Category Functions Edge Cases getPostsByCategorySlug returns empty array for non-existent category slugs" time="0.001">
-    </testcase>
-  </testsuite>
-  <testsuite name="Posts Direct Branch Coverage" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:09" time="0.495" tests="4">
-    <testcase classname="Posts Direct Branch Coverage getAllCategories - specific branch coverage handles posts with only category property (string)" name="Posts Direct Branch Coverage getAllCategories - specific branch coverage handles posts with only category property (string)" time="0.041">
-    </testcase>
-    <testcase classname="Posts Direct Branch Coverage getAllCategorySlugs - specific branch coverage handles posts with only category property (string)" name="Posts Direct Branch Coverage getAllCategorySlugs - specific branch coverage handles posts with only category property (string)" time="0.002">
-    </testcase>
-    <testcase classname="Posts Direct Branch Coverage getCategoryFromSlug - specific branch coverage handles posts with only category property (string)" name="Posts Direct Branch Coverage getCategoryFromSlug - specific branch coverage handles posts with only category property (string)" time="0.002">
-    </testcase>
-    <testcase classname="Posts Direct Branch Coverage getPostsByCategory - specific branch coverage handles posts with only category property (string)" name="Posts Direct Branch Coverage getPostsByCategory - specific branch coverage handles posts with only category property (string)" time="0.018">
-    </testcase>
-  </testsuite>
-  <testsuite name="processEmbeds function" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:09" time="0.431" tests="8">
-    <testcase classname="processEmbeds function processes YouTube embeds correctly" name="processEmbeds function processes YouTube embeds correctly" time="0.002">
-    </testcase>
-    <testcase classname="processEmbeds function processes YouTube embeds with options correctly" name="processEmbeds function processes YouTube embeds with options correctly" time="0.001">
-    </testcase>
-    <testcase classname="processEmbeds function processes YouTube embeds with v= format correctly" name="processEmbeds function processes YouTube embeds with v= format correctly" time="0">
-    </testcase>
-    <testcase classname="processEmbeds function processes Twitch embeds correctly in development environment" name="processEmbeds function processes Twitch embeds correctly in development environment" time="0.001">
-    </testcase>
-    <testcase classname="processEmbeds function processes Twitch embeds correctly in production environment" name="processEmbeds function processes Twitch embeds correctly in production environment" time="0.001">
-    </testcase>
-    <testcase classname="processEmbeds function processes Bluesky embeds correctly" name="processEmbeds function processes Bluesky embeds correctly" time="0.001">
-    </testcase>
-    <testcase classname="processEmbeds function handles content with multiple embeds correctly" name="processEmbeds function handles content with multiple embeds correctly" time="0">
-    </testcase>
-    <testcase classname="processEmbeds function returns the original content when no embeds are present" name="processEmbeds function returns the original content when no embeds are present" time="0.001">
-    </testcase>
-  </testsuite>
-  <testsuite name="Posts Library" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:09" time="0.42" tests="7">
-    <testcase classname="Posts Library getSortedPostsData returns posts sorted by date" name="Posts Library getSortedPostsData returns posts sorted by date" time="0.003">
-    </testcase>
-    <testcase classname="Posts Library getAllPostIds returns formatted post ids" name="Posts Library getAllPostIds returns formatted post ids" time="0.001">
-    </testcase>
-    <testcase classname="Posts Library Category functions getAllCategories returns an array" name="Posts Library Category functions getAllCategories returns an array" time="0.001">
-    </testcase>
-    <testcase classname="Posts Library Category functions getAllCategorySlugs returns an array" name="Posts Library Category functions getAllCategorySlugs returns an array" time="0">
-    </testcase>
-    <testcase classname="Posts Library Category functions getCategoryFromSlug returns a string or null" name="Posts Library Category functions getCategoryFromSlug returns a string or null" time="0.001">
-    </testcase>
-    <testcase classname="Posts Library Category functions getPostsByCategory returns an array" name="Posts Library Category functions getPostsByCategory returns an array" time="0.001">
-    </testcase>
-    <testcase classname="Posts Library Category functions getPostsByCategorySlug returns an array" name="Posts Library Category functions getPostsByCategorySlug returns an array" time="0">
-    </testcase>
-  </testsuite>
-  <testsuite name="Posts Library" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:09" time="0.346" tests="2">
-    <testcase classname="Posts Library getSortedPostsData returns sorted posts data" name="Posts Library getSortedPostsData returns sorted posts data" time="0.005">
-    </testcase>
-    <testcase classname="Posts Library getAllPostIds returns formatted post ids" name="Posts Library getAllPostIds returns formatted post ids" time="0.001">
-    </testcase>
-  </testsuite>
-  <testsuite name="Category Functions" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:09" time="0.283" tests="1">
+  <testsuite name="Category Functions" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:07:00" time="0.362" tests="1">
     <testcase classname="Category Functions getSortedPostsData returns mock data" name="Category Functions getSortedPostsData returns mock data" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="Dead Code Detection" errors="0" failures="0" skipped="0" timestamp="2025-04-03T09:03:07" time="3.031" tests="1">
-    <testcase classname="Dead Code Detection should not have unused functions or variables" name="Dead Code Detection should not have unused functions or variables" time="1.662">
+  <testsuite name="Posts Library" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:07:00" time="0.407" tests="2">
+    <testcase classname="Posts Library getSortedPostsData returns sorted posts data" name="Posts Library getSortedPostsData returns sorted posts data" time="0.01">
+    </testcase>
+    <testcase classname="Posts Library getAllPostIds returns formatted post ids" name="Posts Library getAllPostIds returns formatted post ids" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="FirstPost Component" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:07:00" time="0.75" tests="1">
+    <testcase classname="FirstPost Component renders the first post heading" name="FirstPost Component renders the first post heading" time="0.182">
+    </testcase>
+  </testsuite>
+  <testsuite name="Navbar Component" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:06:59" time="1.213" tests="4">
+    <testcase classname="Navbar Component renders the navbar with correct title" name="Navbar Component renders the navbar with correct title" time="0.108">
+    </testcase>
+    <testcase classname="Navbar Component renders all navigation links" name="Navbar Component renders all navigation links" time="0.03">
+    </testcase>
+    <testcase classname="Navbar Component has correct href attributes for links" name="Navbar Component has correct href attributes for links" time="0.012">
+    </testcase>
+    <testcase classname="Navbar Component renders without crashing when title prop is missing" name="Navbar Component renders without crashing when title prop is missing" time="0.011">
+    </testcase>
+  </testsuite>
+  <testsuite name="Utility Functions" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:07:00" time="0.824" tests="4">
+    <testcase classname="Utility Functions slugify function converts a string to a URL-friendly slug" name="Utility Functions slugify function converts a string to a URL-friendly slug" time="0.012">
+    </testcase>
+    <testcase classname="Utility Functions slugify function handles edge cases correctly" name="Utility Functions slugify function handles edge cases correctly" time="0.001">
+    </testcase>
+    <testcase classname="Utility Functions formatDate function formats dates correctly" name="Utility Functions formatDate function formats dates correctly" time="0.159">
+    </testcase>
+    <testcase classname="Utility Functions formatDate function handles different date formats" name="Utility Functions formatDate function handles different date formats" time="0.011">
+    </testcase>
+  </testsuite>
+  <testsuite name="MyApp Component" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:06:59" time="1.368" tests="1">
+    <testcase classname="MyApp Component renders the component with pageProps" name="MyApp Component renders the component with pageProps" time="0.057">
+    </testcase>
+  </testsuite>
+  <testsuite name="Layout Component" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:07:00" time="1.046" tests="2">
+    <testcase classname="Layout Component renders layout with children" name="Layout Component renders layout with children" time="0.046">
+    </testcase>
+    <testcase classname="Layout Component renders with custom title" name="Layout Component renders with custom title" time="0.018">
+    </testcase>
+  </testsuite>
+  <testsuite name="ParallaxHero Component" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:06:59" time="1.488" tests="4">
+    <testcase classname="ParallaxHero Component renders with default props" name="ParallaxHero Component renders with default props" time="0.084">
+    </testcase>
+    <testcase classname="ParallaxHero Component renders with custom props" name="ParallaxHero Component renders with custom props" time="0.028">
+    </testcase>
+    <testcase classname="ParallaxHero Component handles scroll events" name="ParallaxHero Component handles scroll events" time="0.02">
+    </testcase>
+    <testcase classname="ParallaxHero Component cleans up event listener on unmount" name="ParallaxHero Component cleans up event listener on unmount" time="0.006">
+    </testcase>
+  </testsuite>
+  <testsuite name="PostContent Component" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:07:00" time="1.105" tests="3">
+    <testcase classname="PostContent Component renders HTML content correctly" name="PostContent Component renders HTML content correctly" time="0.069">
+    </testcase>
+    <testcase classname="PostContent Component renders complex HTML with multiple elements" name="PostContent Component renders complex HTML with multiple elements" time="0.019">
+    </testcase>
+    <testcase classname="PostContent Component renders embedded content correctly" name="PostContent Component renders embedded content correctly" time="0.009">
+    </testcase>
+  </testsuite>
+  <testsuite name="CategoryNav Component" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:06:59" time="1.521" tests="4">
+    <testcase classname="CategoryNav Component renders all categories correctly" name="CategoryNav Component renders all categories correctly" time="0.097">
+    </testcase>
+    <testcase classname="CategoryNav Component marks current category as active" name="CategoryNav Component marks current category as active" time="0.126">
+    </testcase>
+    <testcase classname="CategoryNav Component marks &quot;all&quot; as active when currentCategory is &quot;all&quot;" name="CategoryNav Component marks &quot;all&quot; as active when currentCategory is &quot;all&quot;" time="0.032">
+    </testcase>
+    <testcase classname="CategoryNav Component uses correct links for categories" name="CategoryNav Component uses correct links for categories" time="0.016">
+    </testcase>
+  </testsuite>
+  <testsuite name="MyDocument Component" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:06:59" time="1.434" tests="1">
+    <testcase classname="MyDocument Component renders document structure correctly" name="MyDocument Component renders document structure correctly" time="0.102">
+    </testcase>
+  </testsuite>
+  <testsuite name="Dead Code Detection" errors="0" failures="0" skipped="0" timestamp="2025-04-04T05:06:55" time="6.65" tests="1">
+    <testcase classname="Dead Code Detection should not have unused functions or variables" name="Dead Code Detection should not have unused functions or variables" time="3.05">
     </testcase>
   </testsuite>
 </testsuites>
