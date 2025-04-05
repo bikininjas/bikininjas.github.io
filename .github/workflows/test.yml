@@ -107,6 +107,14 @@ jobs:
           reporter: jest-junit
           fail-on-error: false
 
+      - name: Code Review GPT
+        uses: mattzcarey/code-review-gpt@main
+        with:
+          GITHUB_TOKEN: ${{ github.token }}
+          OPENAI_API_KEY: ${{ secrets.OPENAPI_KEY }}
+          MODEL: "gpt-4o-mini"
+          REVIEW_LANGUAGE: "English"
+
   create-pull-request:
     runs-on: ubuntu-latest
     needs: test
