@@ -17,7 +17,15 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for better SonarCloud analysis
-
+      - name: Code Review GPT
+        uses: mattzcarey/code-review-gpt@main
+        with:
+          GITHUB_TOKEN: ${{ github.token }}
+          OPENAI_API_KEY: ${{ secrets.OPENAPI_KEY }}
+          MODEL: "gpt-4o-mini"
+          REVIEW_LANGUAGE: "English"
+          BASE_SHA: ${{ github.sha }} 
+          
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -106,14 +114,6 @@ jobs:
           path: nextjs-blog/cypress/reports/junit/results-*.xml
           reporter: jest-junit
           fail-on-error: false
-
-      - name: Code Review GPT
-        uses: mattzcarey/code-review-gpt@main
-        with:
-          GITHUB_TOKEN: ${{ github.token }}
-          OPENAI_API_KEY: ${{ secrets.OPENAPI_KEY }}
-          MODEL: "gpt-4o-mini"
-          REVIEW_LANGUAGE: "English"
 
   create-pull-request:
     runs-on: ubuntu-latest
