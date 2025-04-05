@@ -24,8 +24,8 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAPI_KEY }}
           MODEL: "gpt-4o-mini"
           REVIEW_LANGUAGE: "English"
-          BASE_SHA: ${{ github.sha }} 
-          
+          BASE_SHA: ${{ github.GITHUB_SHA }} 
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
