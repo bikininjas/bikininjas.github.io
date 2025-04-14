@@ -1,66 +1,71 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import ErrorBoundary from './ErrorBoundary';
 
-export default function SocialShareButtons({ url, title }) {
-  const [copied, setCopied] = useState(false);
+const SocialShareButtons = ({ url, title }) => {
+  const [copyStatus, setCopyStatus] = useState('');
+  const statusRef = useRef(null);
 
-  const handleCopy = async () => {
+  const handleCopyLink = async () => {
     try {
       await navigator.clipboard.writeText(url);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setCopyStatus('Link copied to clipboard!');
+      
+      // Clear the message after 3 seconds
+      setTimeout(() => {
+        setCopyStatus('');
+      }, 3000);
     } catch (err) {
-      console.error('Failed to copy URL:', err);
+      setCopyStatus('Failed to copy link. Please try again.');
     }
   };
 
-  const shareTargets = [
-    {
-      name: 'Twitter',
-      url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`,
-      icon: '🐦'
-    },
-    {
-      name: 'Facebook',
-      url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
-      icon: '📘'
-    },
-    {
-      name: 'LinkedIn',
-      url: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`,
-      icon: '💼'
-    }
-  ];
+  const openSocialShare = (socialUrl) => {
+    window.open(socialUrl, '_blank', 'noopener,noreferrer');
+  };
 
   return (
     <ErrorBoundary>
-      <div 
-        className="social-share-buttons"
-        role="group"
-        aria-label="Share this article"
-      >
-        {shareTargets.map(({ name, url: shareUrl, icon }) => (
-          <button
-            key={name}
-            onClick={() => window.open(shareUrl, '_blank', 'noopener,noreferrer')}
-            aria-label={`Share on ${name}`}
-            className="share-button"
-          >
-            {icon}
-          </button>
-        ))}
-        <button
-          onClick={handleCopy}
-          aria-label="Copy link to clipboard"
-          className="copy-button"
-          aria-pressed={copied}
+      <div className="social-share-buttons" role="group" aria-label="Share this article">
+        <button 
+          className="share-button"
+          aria-label="Share on Twitter"
+          onClick={() => openSocialShare(`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`)}
         >
-          {copied ? '✅' : '📋'}
+          🐦
+        </button>
+        <button 
+          className="share-button"
+          aria-label="Share on Facebook"
+          onClick={() => openSocialShare(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`)}
+        >
+          📘
+        </button>
+        <button 
+          className="share-button"
+          aria-label="Share on LinkedIn"
+          onClick={() => openSocialShare(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`)}
+        >
+          💼
+        </button>
+        <button 
+          className="copy-button"
+          aria-label="Copy link to clipboard"
+          aria-pressed={copyStatus === 'Link copied to clipboard!'}
+          onClick={handleCopyLink}
+        >
+          📋
         </button>
       </div>
-      <div role="status" aria-live="polite" className="sr-only">
-        {copied && 'Link copied to clipboard'}
+      <div 
+        role="status" 
+        aria-live="polite" 
+        className={copyStatus ? "status-message" : "sr-only"}
+        ref={statusRef}
+      >
+        {copyStatus}
       </div>
     </ErrorBoundary>
   );
-}
+};
+
+export default SocialShareButtons;

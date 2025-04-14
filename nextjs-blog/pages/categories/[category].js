@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Layout from '../../components/layout';
 import CategoryNav from '../../components/CategoryNav';
 import { getAllCategories, getAllCategorySlugs, getCategoryFromSlug, getPostsByCategorySlug } from '../../lib/posts';
+import SEO from '../../components/SEO';
 
 export async function getStaticPaths() {
   const categorySlugs = getAllCategorySlugs();
@@ -36,47 +37,57 @@ export async function getStaticProps({ params }) {
   };
 }
 
-export default function CategoryPage({ category, categorySlug, postsData, categories }) {
+export default function CategoryPage({ 
+  categoryPosts = [], 
+  category = '', 
+  allCategories = [] 
+}) {
+  // Ensure categoryPosts is an array
+  const posts = Array.isArray(categoryPosts) ? categoryPosts : [];
+  
   return (
-    <Layout title={`${category} - BikiNinjas Blog`}>
-      <section className="blog-section">
-        <div className="blog-layout">
-          <aside className="blog-sidebar">
-            <CategoryNav categories={categories} currentCategory={category} />
-          </aside>
+    <>
+      <SEO 
+        title={`${category || 'Category'} - My Blog`} 
+        description={`All posts in the ${category || 'selected'} category`}
+      />
+      
+      <Layout>
+        <section className="container">
+          <div data-testid="post-parallax" className="category-header">
+            <h1 className="category-title">{category}</h1>
+          </div>
           
-          <div className="blog-main-content">
-            <h2 className="section-title">Posts in {category}</h2>
+          <CategoryNav 
+            categories={allCategories} 
+            activeCategory={category} 
+          />
+          
+          <div className="posts-grid">
+            {posts.map(post => (
+              <Link href={`/posts/${post.slug}`} key={post.slug}>
+                <div key={post.id} data-testid="post-card">
+                  <PostCard 
+                    title={post.title}
+                    date={post.date}
+                    excerpt={post.excerpt}
+                    coverImage={post.coverImage}
+                    slug={post.slug}
+                    category={post.category}
+                  />
+                </div>
+              </Link>
+            ))}
             
-            {postsData.length > 0 ? (
-              <div className="grid">
-                {postsData.map(({ id, date, title, excerpt }) => (
-                  <Link href={`/posts/${id}`} key={id} className="card-link">
-                    <article className="card">
-                      <div className="card-content">
-                        <h3 className="card-title">{title}</h3>
-                        <time className="card-date">{date}</time>
-                        <p className="card-excerpt">{excerpt}</p>
-                      </div>
-                      <div className="card-arrow">
-                        <span>&rarr;</span>
-                      </div>
-                    </article>
-                  </Link>
-                ))}
-              </div>
-            ) : (
-              <div className="no-posts">
+            {posts.length === 0 && (
+              <div className="no-results">
                 <p>No posts found in this category.</p>
-                <Link href="/" className="back-link">
-                  &larr; Back to all posts
-                </Link>
               </div>
             )}
           </div>
-        </div>
-      </section>
-    </Layout>
+        </section>
+      </Layout>
+    </>
   );
 }
 

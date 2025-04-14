@@ -1,61 +1,80 @@
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
+import React, { useState, useEffect, useRef } from 'react';
+import styles from './ImagePreview.module.css';
 
-export default function ImagePreview({ src, alt = '' }) {
-  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-
+const ImagePreview = ({ src, alt, ...props }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const modalRef = useRef(null);
+  const modalOverlayRef = useRef(null);
+  
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+  
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  
+  // Close on escape key press
   useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === 'Escape') {
-        setIsPreviewOpen(false);
+    const handleEscPress = (e) => {
+      if (isModalOpen && e.key === 'Escape') {
+        closeModal();
       }
     };
-
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
-  }, []);
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      setIsPreviewOpen(true);
-    }
-  };
-
+    
+    window.addEventListener('keydown', handleEscPress);
+    return () => window.removeEventListener('keydown', handleEscPress);
+  }, [isModalOpen]);
+  
+  // Close on click outside
+  useEffect(() => {
+    if (!isModalOpen) return;
+    
+    const handleOutsideClick = (e) => {
+      if (modalRef.current && !modalRef.current.contains(e.target) && 
+          modalOverlayRef.current && modalOverlayRef.current.contains(e.target)) {
+        closeModal();
+      }
+    };
+    
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
+  }, [isModalOpen]);
+  
   return (
     <>
-      <div
-        className={`aspect-ratio-box cursor-pointer transition-transform duration-300 ${isHovered ? 'hover:scale-105' : ''}`}
-        data-testid="image-preview"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <Image
-          src={src}
-          alt={alt}
-          width={300}
-          height={200}
-          onClick={() => setIsPreviewOpen(true)}
-          onKeyDown={handleKeyDown}
-          tabIndex={0}
-        />
-      </div>
-
-      {isPreviewOpen && (
-        <div
+      <img 
+        src={src} 
+        alt={alt} 
+        loading="lazy"
+        onClick={() => setIsModalOpen(true)} 
+        {...props} 
+      />
+      
+      {isModalOpen && (
+        <div 
+          className={`image-modal ${isModalOpen ? 'open' : ''}`}
+          data-testid="image-modal" 
           role="dialog"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75"
-          onClick={() => setIsPreviewOpen(false)}
+          aria-modal="true"
+          aria-labelledby="image-preview-title"
         >
-          <Image
-            src={src}
-            alt={`${alt} (preview)`}
-            width={800}
-            height={600}
-            className="max-h-[90vh] w-auto"
+          <button 
+            className={styles.closeButton} 
+            onClick={closeModal}
+            aria-label="Close image preview"
+          >
+            &times;
+          </button>
+          <img 
+            src={src} 
+            alt={alt} 
+            className={styles.modalImage} 
           />
         </div>
       )}
     </>
   );
-}
+};
+
+export default ImagePreview;

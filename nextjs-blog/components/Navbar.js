@@ -5,6 +5,8 @@ import Image from 'next/image';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const router = useRouter();
   const navRef = useRef(null);
   const buttonRef = useRef(null);
@@ -29,14 +31,24 @@ export default function Navbar() {
       }
     };
 
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
     window.addEventListener('resize', handleResize);
     document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('keydown', handleEscape);
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
       window.removeEventListener('resize', handleResize);
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleEscape);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -57,34 +69,97 @@ export default function Navbar() {
   };
 
   return (
-    <header className="navbar" ref={navRef}>
+    <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="logo" onClick={handleLogoClick}>
-        <Image src="/images/logo.png" alt="Logo" width={50} height={50} />
+        <Link href="/" role="link" aria-label="Your Site Name">
+          <Image src="/images/logo.png" alt="Logo" width={50} height={50} />
+        </Link>
       </div>
 
       <button
         ref={buttonRef}
         className="menu-button"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => setMenuOpen(!menuOpen)}
         onKeyDown={handleKeyDown}
         aria-label="toggle menu"
       >
-        <span className={`hamburger ${isOpen ? 'open' : ''}`}></span>
+        <span className={`hamburger ${menuOpen ? 'active' : ''}`}></span>
       </button>
 
-      <nav className={`nav-links ${isOpen ? 'show' : ''}`} role="navigation">
+      <nav 
+        role="navigation" 
+        className={`nav-links ${menuOpen ? 'open' : ''} ${scrolled ? 'scrolled' : ''}`}
+      >
         <ul>
           <li className={router.pathname === '/' ? 'active' : ''}>
-            <a onClick={() => handleLinkClick('/')}>Home</a>
+            <Link 
+              href="/" 
+              role="link" 
+              aria-current={router.pathname === '/' ? 'page' : undefined}
+            >
+              Home
+            </Link>
           </li>
           <li className={router.pathname === '/blog' ? 'active' : ''}>
-            <a onClick={() => handleLinkClick('/blog')}>Blog</a>
+            <Link 
+              href="/blog" 
+              role="link" 
+              aria-current={router.pathname === '/blog' ? 'page' : undefined}
+            >
+              Blog
+            </Link>
           </li>
           <li className={router.pathname === '/about' ? 'active' : ''}>
-            <a onClick={() => handleLinkClick('/about')}>About</a>
+            <Link 
+              href="/about" 
+              role="link" 
+              aria-current={router.pathname === '/about' ? 'page' : undefined}
+            >
+              About
+            </Link>
           </li>
         </ul>
+        <div data-testid="theme-toggle">
+          <ThemeToggle />
+        </div>
       </nav>
     </header>
   );
 }
+
+// Add the ThemeToggle component definition
+const ThemeToggle = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Check initial theme from localStorage or system preference
+    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const savedTheme = localStorage.getItem('theme');
+    
+    if (savedTheme === 'dark' || (!savedTheme && darkModeMediaQuery.matches)) {
+      setIsDarkMode(true);
+      document.documentElement.classList.add('dark-theme');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+    if (!isDarkMode) {
+      document.documentElement.classList.add('dark-theme');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark-theme');
+      localStorage.setItem('theme', 'light');
+    }
+  };
+
+  return (
+    <button 
+      onClick={toggleTheme} 
+      className="theme-toggle"
+      aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+    >
+      {isDarkMode ? '☀️' : '🌙'}
+    </button>
+  );
+};

@@ -62,7 +62,7 @@ export default function LiteYouTubeEmbed({ id, title = '', params = {} }) {
   return (
     <div
       ref={containerRef}
-      data-testid="lite-youtube"
+      data-testid="lite-youtube-embed"
       onClick={activate}
       onKeyDown={handleKeyDown}
       className="yt-lite"
@@ -81,3 +81,42 @@ export default function LiteYouTubeEmbed({ id, title = '', params = {} }) {
     </div>
   );
 }
+
+const LiteYouTubeEmbed = ({ videoId, title, startTime = 0 }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  
+  const playVideo = () => {
+    setIsPlaying(true);
+  };
+  
+  const thumbnailUrl = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+  
+  return (
+    <div 
+      className="lite-youtube-embed"
+      data-videoid={videoId}
+      style={{ backgroundImage: `url(${thumbnailUrl})` }}
+    >
+      {!isPlaying ? (
+        <button 
+          type="button"
+          className="play-button"
+          aria-label={`Play: ${title}`}
+          onClick={playVideo}
+        >
+          ▶️
+        </button>
+      ) : (
+        <iframe
+          width="560"
+          height="315"
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1${startTime ? `&start=${startTime}` : ''}`}
+          title={title}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      )}
+    </div>
+  );
+};

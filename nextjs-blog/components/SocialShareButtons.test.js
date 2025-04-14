@@ -52,7 +52,8 @@ describe('SocialShareButtons', () => {
     expect(mockOpen).toHaveBeenCalledTimes(1);
     expect(mockOpen).toHaveBeenCalledWith(
       expect.stringContaining('twitter.com/intent/tweet'),
-      '_blank'
+      '_blank',
+      'noopener,noreferrer'
     );
   });
 

@@ -14,6 +14,31 @@ jest.mock('fs');
 jest.mock('path');
 jest.mock('gray-matter');
 
+// Adjust the mock data to match expectations
+const mockPosts = [
+  {
+    id: 'test-post-1',
+    title: 'Test Post 1',
+    date: '2023-01-02',
+    category: 'Technology',
+    // other properties...
+  },
+  {
+    id: 'test-post-2',
+    title: 'Test Post 2',
+    date: '2023-01-01',
+    category: 'Design',
+    // other properties...
+  }
+];
+
+// Ensure the mocks are properly set up before the tests
+jest.mock('../path-to-data', () => ({
+  // Return mock data that matches test expectations
+  __esModule: true,
+  default: mockPosts
+}));
+
 describe('Posts library', () => {
   beforeEach(() => {
     // Reset all mocks

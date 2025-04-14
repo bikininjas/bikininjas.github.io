@@ -146,9 +146,13 @@ export async function getPostData(id) {
   }
   
   // For debugging
-  console.log('Post ID:', id);
-  console.log('Contains embeds:', markdownWithEmbeds.includes('embed-container'));
-  console.log('Final HTML contains embeds:', finalHtml.includes('embed-container'));
+  const log = (message) => {
+    console.log(message);
+  }
+
+  log('Post ID:', id);
+  log('Contains embeds:', markdownWithEmbeds.includes('embed-container'));
+  log('Final HTML contains embeds:', finalHtml.includes('embed-container'));
   
   // Use the final HTML with embeds
   let contentHtml = finalHtml;
@@ -234,25 +238,7 @@ export function getCategoryFromSlug(slug) {
 // Get posts filtered by category
 export function getPostsByCategory(category) {
   const allPosts = getSortedPostsData();
-  
-  if (category === 'all') {
-    return allPosts;
-  }
-  
-  return allPosts.filter(post => {
-    // Normaliser le traitement des catégories
-    const postCategories = [];
-    
-    if (post.categories && Array.isArray(post.categories) && post.categories.length > 0) {
-      postCategories.push(...post.categories);
-    } else if (post.category) {
-      postCategories.push(post.category);
-    } else {
-      postCategories.push('Uncategorized');
-    }
-    
-    return postCategories.includes(category);
-  });
+  return allPosts.filter(post => post.category === category);
 }
 
 // Get posts filtered by category slug
@@ -263,4 +249,23 @@ export function getPostsByCategorySlug(slug) {
   }
   
   return getPostsByCategory(category);
+}
+
+/**
+ * Get all categories with their post count
+ */
+export function getCategoriesWithCount() {
+  const allPosts = getSortedPostsData();
+  const categories = {};
+  
+  allPosts.forEach(post => {
+    if (post.category) {
+      categories[post.category] = (categories[post.category] || 0) + 1;
+    }
+  });
+  
+  return Object.entries(categories).map(([name, count]) => ({
+    name,
+    count
+  }));
 }

@@ -95,13 +95,17 @@ export default function PostCard({ post }) {
             )}
             <h3 className={styles.cardTitle}>{title}</h3>
             <div className={styles.cardMeta}>
-              <time 
-                dateTime={date}
-                aria-label={`Published on ${formattedDate}`}
-                className={styles.cardDate}
-              >
-                {formattedDate}
-              </time>
+              <div>
+                <time 
+                  dateTime={date} 
+                  aria-label={`Published on ${formattedDate}`}
+                >
+                  {formattedDate}
+                </time>
+                {categories && categories.length > 0 && (
+                  <span className="category-badge">{categories[0]}</span>
+                )}
+              </div>
               {categories && categories.length > 0 && (
                 <>
                   <span className={styles.separator} aria-hidden="true">•</span>
@@ -118,6 +122,19 @@ export default function PostCard({ post }) {
             >
               Read more →
             </span>
+          </div>
+          <div>
+            <h3>{title}</h3>
+            <div>
+              <div>
+                <time datetime={date} aria-label={`Published on ${formattedDate}`}>{formattedDate}</time>
+                {categories && categories.length > 0 && (
+                  <span className="category">{categories[0]}</span>
+                )}
+              </div>
+            </div>
+            <p>{excerpt}</p>
+            <span aria-hidden="true">Read more →</span>
           </div>
         </Link>
       </article>

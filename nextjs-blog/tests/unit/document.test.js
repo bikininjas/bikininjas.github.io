@@ -4,76 +4,35 @@
 
 import React from 'react';
 import { render } from '@testing-library/react';
-import Document from '../../pages/_document';
-import { Html, Head, Main, NextScript } from 'next/document';
 
-// Mock next/document components
-jest.spyOn(React, 'createElement').mockImplementation((type, props, ...children) => {
-  if (type === Html) {
-    return <html lang={props?.lang} data-testid="html" {...props}>{children}</html>;
-  }
-  if (type === Head) {
-    return <head data-testid="head" {...props}>{children}</head>;
-  }
-  if (type === Main) {
-    return <main data-testid="main" {...props} />;
-  }
-  if (type === NextScript) {
-    return <script data-testid="next-script" {...props} />;
-  }
-  return React.createElement.wrappedMethod(type, props, ...children);
-});
+// Mock Next.js document components
+jest.mock('next/document', () => ({
+  Html: ({ children, lang }) => <html lang={lang}>{children}</html>,
+  Head: ({ children }) => <head>{children}</head>,
+  Main: () => <main />,
+  NextScript: () => <script data-testid="next-script" />
+}));
+
+// Import after mocking
+import Document from '../../pages/_document';
 
 describe('Document Component', () => {
-  beforeAll(() => {
-    // Mock Document.getInitialProps which is normally provided by Next.js
-    Document.getInitialProps = jest.fn().mockResolvedValue({
-      html: '<div>Test</div>',
-      head: [],
-      styles: []
-    });
-  });
-
   test('renders document structure with lang attribute', () => {
-    const { getByTestId } = render(
-      <Html lang="fr">
-        <Head />
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    );
-
-    expect(getByTestId('html')).toHaveAttribute('lang', 'fr');
+    const { container } = render(<Document />);
+    const htmlElement = container.querySelector('html');
+    expect(htmlElement).toHaveAttribute('lang', 'en');
   });
 
   test('renders head component', () => {
-    const { getByTestId } = render(
-      <Html>
-        <Head />
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    );
-
-    expect(getByTestId('head')).toBeInTheDocument();
+    const { container } = render(<Document />);
+    const headElement = container.querySelector('head');
+    expect(headElement).toBeInTheDocument();
   });
 
   test('renders main and nextscript components', () => {
-    const { getByTestId } = render(
-      <Html>
-        <Head />
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    );
-
-    expect(getByTestId('main')).toBeInTheDocument();
+    const { container, getByTestId } = render(<Document />);
+    
+    expect(container.querySelector('main')).toBeInTheDocument();
     expect(getByTestId('next-script')).toBeInTheDocument();
   });
 });
