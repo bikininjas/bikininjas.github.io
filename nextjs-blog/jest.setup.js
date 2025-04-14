@@ -1,3 +1,7 @@
+// Add any global Jest setup here
+// This will run before each test file
+
+// Import jest-dom for additional matchers
 import '@testing-library/jest-dom';
 
 // Mock CSS modules

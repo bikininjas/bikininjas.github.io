@@ -17,6 +17,10 @@ const customJestConfig = {
     '^@/(.*)$': '<rootDir>/$1',
     '\\.(css|less|sass|scss)$': '<rootDir>/__mocks__/styleMock.js',
     '\\.(gif|ttf|eot|svg)$': '<rootDir>/__mocks__/fileMock.js',
+    // Handle CSS imports (if you use them)
+    '^.+\\.(css|less|scss|sass)$': '<rootDir>/__mocks__/styleMock.js',
+    // Handle image imports
+    '^.+\\.(png|jpg|jpeg|gif|webp|avif|ico|bmp|svg)$': '<rootDir>/__mocks__/fileMock.js'
   },
   transform: {
     // Transformer pour les modules ESM avec la nouvelle transformation JSX
