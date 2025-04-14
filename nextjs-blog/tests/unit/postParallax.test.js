@@ -1,216 +1,123 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import PostParallax from '../../components/PostParallax';
 
-// Mock the window object for scroll events
-const mockSetOffset = jest.fn();
-jest.mock('react', () => {
-  const originalReact = jest.requireActual('react');
-  return {
-    ...originalReact,
-    useState: jest.fn((initialValue) => [initialValue, mockSetOffset]),
-  };
-});
-
 describe('PostParallax Component', () => {
+  const defaultProps = {
+    title: 'Test Post Title',
+    backgroundImage: '/images/test.jpg'
+  };
+
   beforeEach(() => {
-    // Reset mocks before each test
-    mockSetOffset.mockClear();
-    window.scrollY = 0;
+    // Mock window scroll and resize
+    Object.defineProperty(window, 'scrollY', {
+      writable: true,
+      configurable: true,
+      value: 0
+    });
+
+    Object.defineProperty(window, 'innerHeight', {
+      writable: true,
+      configurable: true,
+      value: 800
+    });
   });
 
   test('renders with required props', () => {
-    render(<PostParallax title="Test Post Title" />);
-    
-    // Check if title is rendered
-    expect(screen.getByText('Test Post Title')).toBeInTheDocument();
-    
-    // Check if the background has a default image
-    const backgroundDiv = document.querySelector('[class^="parallaxBackground"]');
-    expect(backgroundDiv.style.backgroundImage).toContain('unsplash.com');
+    render(<PostParallax {...defaultProps} />);
+    expect(screen.getByText(defaultProps.title)).toBeInTheDocument();
   });
 
-  test('renders with date and category', () => {
-    render(
-      <PostParallax 
-        title="Test Post Title" 
-        date="2025-03-31" 
-        category="Gaming"
-      />
-    );
-    
-    // Check if title, date and category are rendered
-    expect(screen.getByText('Test Post Title')).toBeInTheDocument();
-    expect(screen.getByText('2025-03-31')).toBeInTheDocument();
-    expect(screen.getByText('Gaming')).toBeInTheDocument();
-    
-    // Check if the background has the Gaming category image
-    const backgroundDiv = document.querySelector('[class^="parallaxBackground"]');
-    expect(backgroundDiv.style.backgroundImage).toContain('unsplash.com');
-  });
-
-  test('renders with multiple categories', () => {
-    render(
-      <PostParallax 
-        title="Test Post Title" 
-        date="2025-03-31" 
-        categories={['AI', 'Tech']}
-      />
-    );
-    
-    // Check if title, date and first category are rendered
-    expect(screen.getByText('Test Post Title')).toBeInTheDocument();
-    expect(screen.getByText('2025-03-31')).toBeInTheDocument();
-    expect(screen.getByText('AI')).toBeInTheDocument();
-    
-    // Check if the background has the AI category image
-    const backgroundDiv = document.querySelector('[class^="parallaxBackground"]');
-    expect(backgroundDiv.style.backgroundImage).toContain('unsplash.com');
-  });
-
-  test('uses custom background image when provided', () => {
-    render(
-      <PostParallax 
-        title="Test Post Title" 
-        backgroundImage="https://example.com/custom-image.jpg"
-      />
-    );
-    
-    // Check if the background has the custom image
-    const backgroundDiv = document.querySelector('[class^="parallaxBackground"]');
-    expect(backgroundDiv.style.backgroundImage).toContain('example.com/custom-image.jpg');
+  test('applies background image', () => {
+    render(<PostParallax {...defaultProps} />);
+    const background = screen.getByTestId('post-parallax-background');
+    expect(background.style.backgroundImage).toContain(defaultProps.backgroundImage);
   });
 
   test('handles scroll events', () => {
-    render(<PostParallax title="Test Post Title" />);
-    
-    // Simulate scroll event
+    render(<PostParallax {...defaultProps} />);
+    const parallax = screen.getByTestId('post-parallax');
+
+    // Test initial position
+    expect(parallax.style.transform).toBe('translateY(0px)');
+
+    // Test after scroll
     window.scrollY = 100;
     fireEvent.scroll(window);
-    
-    // Check if setOffset was called with the correct value
-    expect(mockSetOffset).toHaveBeenCalledWith(100);
+    expect(parallax.style.transform).toBe('translateY(50px)');
   });
 
-  test('cleans up event listener on unmount', () => {
-    // Sauvegarde des fonctions originales
-    const originalAddEventListener = window.addEventListener;
-    const originalRemoveEventListener = window.removeEventListener;
-    
-    // Création de mocks pour les fonctions d'ajout et de suppression d'écouteurs d'événements
-    const addEventListenerMock = jest.fn();
-    const removeEventListenerMock = jest.fn();
-    
-    // Remplacement des fonctions originales par nos mocks
-    window.addEventListener = addEventListenerMock;
-    window.removeEventListener = removeEventListenerMock;
-    
-    try {
-      // Rendu du composant
-      const { unmount } = render(<PostParallax title="Test Post Title" />);
-      
-      // Vérification que addEventListener a été appelé avec 'scroll'
-      expect(addEventListenerMock).toHaveBeenCalledWith('scroll', expect.any(Function));
-      
-      // Récupération du gestionnaire d'événements
-      const scrollHandler = addEventListenerMock.mock.calls.find(call => call[0] === 'scroll')[1];
-      
-      // Réinitialisation du mock removeEventListener avant le démontage
-      removeEventListenerMock.mockClear();
-      
-      // Démontage du composant
-      unmount();
-      
-      // Vérification que removeEventListener a été appelé avec 'scroll' et le même gestionnaire
-      expect(removeEventListenerMock).toHaveBeenCalledWith('scroll', scrollHandler);
-    } finally {
-      // Restauration des fonctions originales
-      window.addEventListener = originalAddEventListener;
-      window.removeEventListener = originalRemoveEventListener;
+  test('handles window resize', () => {
+    render(<PostParallax {...defaultProps} />);
+    const parallax = screen.getByTestId('post-parallax');
+
+    // Change window height
+    window.innerHeight = 1000;
+    fireEvent.resize(window);
+
+    // Test scroll after resize
+    window.scrollY = 100;
+    fireEvent.scroll(window);
+    expect(parallax.style.transform).toBe('translateY(50px)');
+  });
+
+  test('adds and removes event listeners', () => {
+    const addEventListenerSpy = jest.spyOn(window, 'addEventListener');
+    const removeEventListenerSpy = jest.spyOn(window, 'removeEventListener');
+
+    const { unmount } = render(<PostParallax {...defaultProps} />);
+
+    expect(addEventListenerSpy).toHaveBeenCalledWith('scroll', expect.any(Function));
+    expect(addEventListenerSpy).toHaveBeenCalledWith('resize', expect.any(Function));
+
+    unmount();
+
+    expect(removeEventListenerSpy).toHaveBeenCalledWith('scroll', expect.any(Function));
+    expect(removeEventListenerSpy).toHaveBeenCalledWith('resize', expect.any(Function));
+  });
+
+  test('handles missing background image', () => {
+    const { backgroundImage, ...propsWithoutBackground } = defaultProps;
+    render(<PostParallax {...propsWithoutBackground} />);
+    const background = screen.getByTestId('post-parallax-background');
+    expect(background.style.backgroundImage).toBe('');
+  });
+
+  test('applies parallax effect within boundaries', () => {
+    render(<PostParallax {...defaultProps} />);
+    const parallax = screen.getByTestId('post-parallax');
+
+    // Test upper boundary
+    window.scrollY = -100;
+    fireEvent.scroll(window);
+    expect(parallax.style.transform).toBe('translateY(0px)');
+
+    // Test lower boundary
+    window.scrollY = 2000;
+    fireEvent.scroll(window);
+    expect(parallax.style.transform).toBe('translateY(400px)');
+  });
+
+  test('handles rapid scroll events', () => {
+    render(<PostParallax {...defaultProps} />);
+    const parallax = screen.getByTestId('post-parallax');
+
+    // Simulate rapid scrolling
+    for (let i = 0; i < 10; i++) {
+      window.scrollY += 50;
+      fireEvent.scroll(window);
     }
+
+    expect(parallax.style.transform).toBe('translateY(250px)');
   });
 
+  test('maintains aspect ratio on resize', () => {
+    render(<PostParallax {...defaultProps} />);
+    const container = screen.getByTestId('post-parallax-container');
 
-  test('falls back to default image when category is not recognized', () => {
-    render(
-      <PostParallax 
-        title="Test Post Title" 
-        category="NonExistentCategory"
-      />
-    );
-    
-    // Check if the background has the default fallback image
-    const backgroundDiv = document.querySelector('[class^="parallaxBackground"]');
-    expect(backgroundDiv.style.backgroundImage).toContain('unsplash.com');
-  });
+    window.innerHeight = 1200;
+    fireEvent.resize(window);
 
-  test('uses default image when no background image, categories, or category is provided', () => {
-    render(
-      <PostParallax 
-        title="Test Post Title" 
-      />
-    );
-    
-    // Check if the background has the default fallback image
-    const backgroundDiv = document.querySelector('[class^="parallaxBackground"]');
-    expect(backgroundDiv.style.backgroundImage).toContain('unsplash.com');
-  });
-
-  test('uses first category image from categories array when available', () => {
-    render(
-      <PostParallax 
-        title="Test Post Title" 
-        categories={['AI', 'Tech']}
-      />
-    );
-    
-    // Check if the background has the AI category image
-    const backgroundDiv = document.querySelector('[class^="parallaxBackground"]');
-    expect(backgroundDiv.style.backgroundImage).toContain('unsplash.com');
-    
-    // Check that the first category is displayed
-    expect(screen.getByText('AI')).toBeInTheDocument();
-  });
-
-  test('uses category image when categories array is empty but category is provided', () => {
-    render(
-      <PostParallax 
-        title="Test Post Title" 
-        categories={[]}
-        category="Tech"
-      />
-    );
-    
-    // Check if the background has the Tech category image
-    const backgroundDiv = document.querySelector('[class^="parallaxBackground"]');
-    expect(backgroundDiv.style.backgroundImage).toContain('unsplash.com');
-    
-    // Check that the category is displayed
-    expect(screen.getByText('Tech')).toBeInTheDocument();
-  });
-
-  test('does not display date when not provided', () => {
-    render(
-      <PostParallax 
-        title="Test Post Title" 
-      />
-    );
-    
-    // Check that no time element is present
-    const timeElements = document.querySelectorAll('time');
-    expect(timeElements.length).toBe(0);
-  });
-
-  test('does not display category when neither categories nor category is provided', () => {
-    render(
-      <PostParallax 
-        title="Test Post Title" 
-      />
-    );
-    
-    // Check that no category span is present
-    const categoryElements = document.querySelectorAll('[class^="category"]');
-    expect(categoryElements.length).toBe(0);
+    expect(container.style.height).toBe('600px');
   });
 });

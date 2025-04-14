@@ -1,62 +1,106 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Layout from '../../components/layout';
+import { useRouter } from 'next/router';
 
-// Mock des composants Next.js
-jest.mock('next/head', () => {
-  return {
-    __esModule: true,
-    default: ({ children }) => <div data-testid="mock-head">{children}</div>,
-  };
-});
+jest.mock('next/router', () => ({
+  useRouter: jest.fn()
+}));
 
-// Mock du composant Navbar
 jest.mock('../../components/Navbar', () => {
-  return {
-    __esModule: true,
-    default: ({ title }) => <nav data-testid="mock-navbar">{title}</nav>,
+  return function MockNavbar({ title }) {
+    return <div data-testid="mock-navbar">{title}</div>;
   };
 });
 
-jest.mock('next/link', () => {
-  return {
-    __esModule: true,
-    default: ({ children, href }) => <a href={href} data-testid="mock-link">{children}</a>,
+jest.mock('../../components/CategoryNav', () => {
+  return function MockCategoryNav({ categories }) {
+    return <div data-testid="mock-category-nav">{categories?.join(', ')}</div>;
+  };
+});
+
+jest.mock('next/head', () => {
+  return function MockHead({ children }) {
+    return <div data-testid="mock-head">{children}</div>;
   };
 });
 
 describe('Layout Component', () => {
-  test('renders layout with children', () => {
-    render(
-      <Layout home>
-        <div data-testid="test-child">Test Content</div>
-      </Layout>
-    );
+  const defaultProps = {
+    children: <div>Test Content</div>,
+    categories: ['Tech', 'Gaming']
+  };
 
-    // Vérifier que le contenu enfant est rendu
-    expect(screen.getByTestId('test-child')).toBeInTheDocument();
-    expect(screen.getByText('Test Content')).toBeInTheDocument();
-    
-    // Vérifier que la navbar est présente
-    expect(screen.getByTestId('mock-navbar')).toBeInTheDocument();
-    
-    // Vérifier que le footer est présent
-    expect(screen.getByText(/Créé avec Next.js/)).toBeInTheDocument();
+  beforeEach(() => {
+    useRouter.mockReturnValue({ pathname: '/' });
   });
 
-  test('renders with custom title', () => {
+  test('renders children content', () => {
+    render(<Layout {...defaultProps} />);
+    expect(screen.getByText('Test Content')).toBeInTheDocument();
+  });
+
+  test('renders navbar with correct title', () => {
+    render(<Layout {...defaultProps} />);
+    expect(screen.getByTestId('mock-navbar')).toHaveTextContent('BikiNinjas');
+  });
+
+  test('renders category navigation when provided', () => {
+    render(<Layout {...defaultProps} />);
+    expect(screen.getByTestId('mock-category-nav')).toHaveTextContent('Tech, Gaming');
+  });
+
+  test('sets custom page title when provided', () => {
+    render(<Layout {...defaultProps} title="Custom Title" />);
+    expect(screen.getByTestId('mock-head')).toHaveTextContent('Custom Title');
+  });
+
+  test('uses default page title when not provided', () => {
+    render(<Layout {...defaultProps} />);
+    expect(screen.getByTestId('mock-head')).toHaveTextContent('BikiNinjas Blog');
+  });
+
+  test('sets custom description when provided', () => {
+    const description = 'Custom description';
+    render(<Layout {...defaultProps} description={description} />);
+    const meta = screen.getByTestId('mock-head');
+    expect(meta).toHaveTextContent(description);
+  });
+
+  test('handles missing categories prop', () => {
+    const { children } = defaultProps;
+    render(<Layout>{children}</Layout>);
+    expect(screen.getByTestId('mock-category-nav')).toBeInTheDocument();
+  });
+
+  test('applies dark mode class when enabled', () => {
+    render(<Layout {...defaultProps} darkMode />);
+    expect(screen.getByTestId('layout-container')).toHaveClass('dark');
+  });
+
+  test('handles different page routes', () => {
+    useRouter.mockReturnValue({ pathname: '/posts/[id]' });
+    render(<Layout {...defaultProps} />);
+    expect(screen.getByTestId('layout-container')).toHaveClass('post-page');
+  });
+
+  test('renders footer content', () => {
+    render(<Layout {...defaultProps} />);
+    expect(screen.getByRole('contentinfo')).toBeInTheDocument();
+    expect(screen.getByText(/© 2023/)).toBeInTheDocument();
+  });
+
+  test('renders error boundary', () => {
+    const ThrowError = () => {
+      throw new Error('Test error');
+    };
+
     render(
-      <Layout title="Test Title">
-        <div>Test Content</div>
+      <Layout {...defaultProps}>
+        <ThrowError />
       </Layout>
     );
 
-    // Vérifier que le titre est passé au Head (via data-testid="mock-head")
-    const head = screen.getByTestId('mock-head');
-    expect(head).toBeInTheDocument();
-    
-    // Vérifier que la navbar est présente avec le titre
-    const navbar = screen.getByTestId('mock-navbar');
-    expect(navbar).toBeInTheDocument();
-    expect(navbar).toHaveTextContent('BikiNinjas');
+    expect(screen.getByText('Something went wrong')).toBeInTheDocument();
   });
 });

@@ -4,19 +4,19 @@
     "build": "next build",
     "dev": "next dev",
     "start": "serve out -p 3000",
-    "test": "jest --coverage && node scripts/clean-reports.js",
-    "test:unit": "jest tests/unit --coverage && node scripts/clean-reports.js",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage --coverageReporters=lcov --coverageReporters=text --coverageReporters=cobertura --coverageReporters=json-summary && node scripts/clean-reports.js",
+    "test": "bun test --coverage && node scripts/clean-reports.js",
+    "test:unit": "bun test tests/unit --coverage && node scripts/clean-reports.js",
+    "test:watch": "bun test --watch",
+    "test:coverage": "bun test --coverage --coverageReporters=lcov --coverageReporters=text --coverageReporters=cobertura --coverageReporters=json-summary && node scripts/clean-reports.js",
     "test:e2e": "cypress run && node scripts/clean-reports.js",
     "test:e2e:open": "cypress open",
     "test:e2e:headless": "bun run build && start-server-and-test 'serve out -p 3000' http://localhost:3000 'cypress run --headless --browser chromium' && node scripts/clean-reports.js",
     "test:e2e:report": "bun run build && start-server-and-test 'serve out -p 3000' http://localhost:3000 'cypress run --headless --browser chromium --reporter mochawesome' && node scripts/clean-reports.js",
     "test:playwright": "playwright test --project=chromium && node scripts/clean-reports.js",
     "test:playwright:ui": "playwright test --ui",
-    "test:all": "bun run test:coverage && bun run test:e2e:report && node scripts/clean-reports.js",
-    "test:deadcode": "jest tests/unit/deadcode.test.js",
-    "test:sonar": "jest --coverage --testResultsProcessor=jest-sonar-reporter && node scripts/clean-reports.js",
+    "test:all": "bun run test:coverage && bun run test:e2e:report && bun run test:playwright && node scripts/clean-reports.js",
+    "test:deadcode": "bun test tests/unit/deadcode.test.js",
+    "test:sonar": "bun test --coverage --testResultsProcessor=jest-sonar-reporter && node scripts/clean-reports.js",
     "sonar:report": "node sonar-report.config.js",
     "sonar:prepare": "bun run test:coverage && bun run sonar:report",
     "sonar:local": "sonar-scanner",
@@ -57,5 +57,15 @@
     "mochawesome-report-generator": "^6.2.0",
     "serve": "^14.2.4",
     "start-server-and-test": "^2.0.11"
+  },
+  "trustedDependencies": [
+    "gray-matter",
+    "jest-environment-jsdom"
+  ],
+  "jest": {
+    "testEnvironment": "jsdom",
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/$1"
+    }
   }
 }

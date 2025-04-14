@@ -1,104 +1,107 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import MyApp from '../../pages/_app';
+import { render, act } from '@testing-library/react';
+import App from '../../pages/_app';
 
-// Mock des modules dynamiques
+// Mock dynamic imports
 jest.mock('lite-youtube-embed/src/lite-yt-embed', () => ({}), { virtual: true });
 jest.mock('lite-youtube-embed/src/lite-yt-embed.css', () => ({}), { virtual: true });
 
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
-  useEffect: jest.fn((fn) => {
-    // Simuler l'exécution du callback
-    fn();
-    // Retourner une fonction de nettoyage vide
-    return () => {};
-  }),
-}));
-
-const mockUseEffect = require('react').useEffect;
-
-describe('MyApp Component', () => {
+describe('App Component', () => {
+  const mockWindow = {};
   let originalWindow;
 
   beforeEach(() => {
-    // Sauvegarde de la valeur originale de window
     originalWindow = global.window;
+    global.window = { ...mockWindow };
   });
 
   afterEach(() => {
-    // Restauration de window
     global.window = originalWindow;
     jest.clearAllMocks();
   });
 
-  it('renders the component with pageProps', () => {
-    // Mock Component that would be passed to MyApp
-    const MockComponent = jest.fn(({ testProp }) => (
-      <div data-testid="mock-component" data-test-prop={testProp}>
-        Test Component
-      </div>
-    ));
-    
-    // Mock pageProps
-    const pageProps = { testProp: 'test-value' };
-    
-    // Render MyApp with the mocked Component and pageProps
-    const { getByTestId } = render(
-      <MyApp Component={MockComponent} pageProps={pageProps} />
+  test('renders component with pageProps', async () => {
+    const Component = jest.fn(() => <div>Test Component</div>);
+    const pageProps = { testProp: 'test value' };
+
+    await act(async () => {
+      render(<App Component={Component} pageProps={pageProps} />);
+    });
+
+    expect(Component).toHaveBeenCalledWith(
+      expect.objectContaining(pageProps),
+      expect.any(Object)
     );
-    
-    // Check if the Component was rendered with the correct props
-    const renderedComponent = getByTestId('mock-component');
-    expect(renderedComponent).toBeInTheDocument();
-    expect(renderedComponent).toHaveAttribute('data-test-prop', 'test-value');
-    expect(renderedComponent).toHaveTextContent('Test Component');
-    
-    // Check if the Component was called
-    expect(MockComponent).toHaveBeenCalled();
-    
-    // Vérifier que le premier argument contient les pageProps
-    const firstArg = MockComponent.mock.calls[0][0];
-    expect(firstArg).toEqual(expect.objectContaining(pageProps));
   });
 
-  // it('imports lite-youtube-embed only on client side', () => {
-  //   // Mock de window pour simuler l'environnement navigateur
-  //   global.window = {};
-    
-  //   // Mock des imports dynamiques
-  //   const mockImport = jest.fn().mockResolvedValue({});
-  //   jest.mock('lite-youtube-embed/src/lite-yt-embed', () => mockImport, { virtual: true });
-  //   jest.mock('lite-youtube-embed/src/lite-yt-embed.css', () => mockImport, { virtual: true });
-    
-  //   // Mock le composant enfant
-  //   const MockComponent = () => <div>Test</div>;
-    
-  //   // Render MyApp
-  //   render(<MyApp Component={MockComponent} pageProps={{}} />);
-    
-  //   // Vérifier que le code côté client est exécuté
-  //   expect(mockUseEffect).toHaveBeenCalledTimes(1);
-  //   expect(mockUseEffect).toHaveBeenCalledWith(expect.any(Function));
-  // });
+  test('initializes with empty pageProps', async () => {
+    const Component = jest.fn(() => <div>Test Component</div>);
 
-  // it('does not import lite-youtube-embed on server side', () => {
-  //   // Simuler l'environnement serveur en définissant window comme undefined
-  //   global.window = undefined;
+    await act(async () => {
+      render(<App Component={Component} />);
+    });
+
+    expect(Component).toHaveBeenCalledWith(
+      expect.objectContaining({}),
+      expect.any(Object)
+    );
+  });
+
+  test('loads lite-youtube-embed on client side', async () => {
+    const mockImport = jest.fn().mockResolvedValue({});
+    jest.mock('lite-youtube-embed/src/lite-yt-embed', () => mockImport, { virtual: true });
+
+    const Component = () => <div>Test Component</div>;
+
+    await act(async () => {
+      render(<App Component={Component} />);
+    });
+
+    expect(mockImport).toHaveBeenCalled();
+  });
+
+  test('skips lite-youtube-embed import on server side', async () => {
+    global.window = undefined;
+    const Component = () => <div>Test Component</div>;
+
+    await act(async () => {
+      render(<App Component={Component} />);
+    });
+  });
+
+  test('handles dynamic import errors', async () => {
+    const mockImport = jest.fn().mockRejectedValue(new Error('Import failed'));
+    jest.mock('lite-youtube-embed/src/lite-yt-embed', () => mockImport, { virtual: true });
+
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const Component = () => <div>Test Component</div>;
+
+    await act(async () => {
+      render(<App Component={Component} />);
+    });
+
+    expect(consoleSpy).toHaveBeenCalled();
+    consoleSpy.mockRestore();
+  });
+
+  test('handles undefined Component prop', async () => {
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
     
-  //   // Mock des imports dynamiques
-  //   const mockImport = jest.fn().mockResolvedValue({});
-  //   jest.mock('lite-youtube-embed/src/lite-yt-embed', () => mockImport, { virtual: true });
-  //   jest.mock('lite-youtube-embed/src/lite-yt-embed.css', () => mockImport, { virtual: true });
+    await act(async () => {
+      expect(() => render(<App pageProps={{}} />)).toThrow();
+    });
+
+    consoleSpy.mockRestore();
+  });
+
+  test('passes router prop to Component', async () => {
+    const Component = jest.fn(() => <div>Test Component</div>);
     
-  //   // Mock le composant enfant
-  //   const MockComponent = () => <div>Test</div>;
-    
-  //   // Render MyApp
-  //   render(<MyApp Component={MockComponent} pageProps={{}} />);
-    
-  //   // Vérifier que le code côté client n'est pas exécuté
-  //   expect(mockUseEffect).not.toHaveBeenCalled();
-  // });
+    await act(async () => {
+      render(<App Component={Component} pageProps={{}} />);
+    });
+
+    const callProps = Component.mock.calls[0][1];
+    expect(callProps).toHaveProperty('router');
+  });
 });

@@ -4,7 +4,13 @@ import '@testing-library/jest-dom';
 import CategoryPage, { getStaticProps, getStaticPaths } from '../../pages/categories/[category]';
 import * as postsLib from '../../lib/posts';
 
-// Mock des dépendances
+jest.mock('../../lib/posts', () => ({
+  getAllCategories: jest.fn(),
+  getAllCategorySlugs: jest.fn(),
+  getCategoryFromSlug: jest.fn(),
+  getPostsByCategorySlug: jest.fn()
+}));
+
 jest.mock('next/link', () => {
   const MockLink = ({ children, href }) => {
     return <a href={href} data-testid="mock-link">{children}</a>;
@@ -19,39 +25,20 @@ jest.mock('next/link', () => {
 });
 
 jest.mock('../../components/layout', () => {
-  const MockLayout = ({ children, title }) => {
-    return (
-      <div data-testid="mock-layout" data-title={title}>
-        {children}
-      </div>
-    );
+  return function MockLayout({ children }) {
+    return <div data-testid="mock-layout">{children}</div>;
   };
-  
-  MockLayout.propTypes = {
-    children: jest.requireActual('prop-types').node.isRequired,
-    title: jest.requireActual('prop-types').string
-  };
-  
-  return MockLayout;
 });
 
 jest.mock('../../components/CategoryNav', () => {
-  const MockCategoryNav = ({ categories, currentCategory }) => {
+  return function MockCategoryNav({ categories, currentCategory }) {
     return (
-      <div data-testid="mock-category-nav" data-current-category={currentCategory}>
-        {categories.join(', ')}
+      <div data-testid="mock-category-nav">
+        <span>Current: {currentCategory}</span>
+        <span>Categories: {categories.join(', ')}</span>
       </div>
     );
   };
-  
-  MockCategoryNav.propTypes = {
-    categories: jest.requireActual('prop-types').arrayOf(
-      jest.requireActual('prop-types').string
-    ).isRequired,
-    currentCategory: jest.requireActual('prop-types').string.isRequired
-  };
-  
-  return MockCategoryNav;
 });
 
 describe('Category Page', () => {
@@ -179,5 +166,183 @@ describe('Category Page', () => {
     const backLink = screen.getByText('← Back to all posts');
     expect(backLink).toBeInTheDocument();
     expect(backLink.closest('a')).toHaveAttribute('href', '/');
+  });
+
+  test('renders category page with posts', () => {
+    render(
+      <CategoryPage 
+        category={mockCategory}
+        categorySlug={mockCategorySlug}
+        postsData={mockPosts}
+        categories={mockCategories}
+      />
+    );
+
+    expect(screen.getByTestId('mock-layout')).toBeInTheDocument();
+    expect(screen.getByTestId('mock-category-nav')).toBeInTheDocument();
+    expect(screen.getByText(`Posts in ${mockCategory}`)).toBeInTheDocument();
+    mockPosts.forEach(post => {
+      expect(screen.getByText(post.title)).toBeInTheDocument();
+    });
+  });
+
+  test('getStaticPaths returns all category slugs', async () => {
+    const mockCategorySlugs = ['gaming', 'tech', 'ai'];
+    postsLib.getAllCategories.mockResolvedValue(['Gaming', 'Tech', 'AI']);
+
+    const { paths, fallback } = await getStaticPaths();
+    
+    expect(paths).toEqual(mockCategorySlugs.map(slug => ({ params: { category: slug } })));
+    expect(fallback).toBe(false);
+  });
+
+  test('getStaticProps returns category data', async () => {
+    const context = { params: { category: mockCategorySlug } };
+    const { props } = await getStaticProps(context);
+    
+    expect(props).toEqual({
+      category: mockCategory,
+      categorySlug: mockCategorySlug,
+      postsData: mockPosts,
+      categories: mockCategories
+    });
+    
+    expect(postsLib.getCategoryFromSlug).toHaveBeenCalledWith(mockCategorySlug);
+    expect(postsLib.getPostsByCategorySlug).toHaveBeenCalledWith(mockCategorySlug);
+    expect(postsLib.getAllCategories).toHaveBeenCalled();
+  });
+
+  test('renders empty state when no posts', () => {
+    render(
+      <CategoryPage 
+        category={mockCategory}
+        categorySlug={mockCategorySlug}
+        postsData={[]}
+        categories={mockCategories}
+      />
+    );
+    
+    expect(screen.getByText('No posts found in this category.')).toBeInTheDocument();
+    expect(screen.getByText('← Back to all posts')).toBeInTheDocument();
+  });
+
+  test('handles missing props', () => {
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    
+    expect(() => render(
+      <CategoryPage 
+        categories={mockCategories}
+        postsData={mockPosts}
+      />
+    )).toThrow();
+    
+    consoleSpy.mockRestore();
+  });
+
+  const mockProps = {
+    category: 'Technology',
+    categorySlug: 'technology',
+    categories: ['Technology', 'Gaming', 'Development'],
+    postsData: [
+      {
+        id: 'post-1',
+        title: 'Tech Post 1',
+        date: '2023-01-01',
+        excerpt: 'First tech post',
+        category: 'Technology'
+      },
+      {
+        id: 'post-2',
+        title: 'Tech Post 2',
+        date: '2023-01-02',
+        excerpt: 'Second tech post',
+        category: 'Technology'
+      }
+    ]
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test('renders category page with posts', () => {
+    render(<CategoryPage {...mockProps} />);
+    
+    expect(screen.getByTestId('mock-layout')).toBeInTheDocument();
+    expect(screen.getByTestId('mock-category-nav')).toBeInTheDocument();
+    expect(screen.getByText('Posts in Technology')).toBeInTheDocument();
+    
+    mockProps.postsData.forEach(post => {
+      expect(screen.getByText(post.title)).toBeInTheDocument();
+      expect(screen.getByText(post.excerpt)).toBeInTheDocument();
+    });
+  });
+
+  test('getStaticPaths returns all category paths', async () => {
+    const mockSlugs = ['technology', 'gaming'];
+    postsLib.getAllCategorySlugs.mockResolvedValue(mockSlugs);
+
+    const { paths, fallback } = await getStaticPaths();
+    
+    expect(paths).toEqual([
+      { params: { category: 'technology' } },
+      { params: { category: 'gaming' } }
+    ]);
+    expect(fallback).toBe(false);
+  });
+
+  test('getStaticProps returns category data', async () => {
+    postsLib.getCategoryFromSlug.mockReturnValue('Technology');
+    postsLib.getPostsByCategorySlug.mockReturnValue(mockProps.postsData);
+    postsLib.getAllCategories.mockReturnValue(mockProps.categories);
+
+    const context = { params: { category: 'technology' } };
+    const { props } = await getStaticProps(context);
+    
+    expect(props).toEqual({
+      category: 'Technology',
+      categorySlug: 'technology',
+      postsData: mockProps.postsData,
+      categories: mockProps.categories
+    });
+  });
+
+  test('renders empty state when no posts', () => {
+    const propsWithNoPosts = {
+      ...mockProps,
+      postsData: []
+    };
+    
+    render(<CategoryPage {...propsWithNoPosts} />);
+    expect(screen.getByText('No posts found in this category.')).toBeInTheDocument();
+  });
+
+  test('navigates back to home when no posts', () => {
+    const propsWithNoPosts = {
+      ...mockProps,
+      postsData: []
+    };
+    
+    render(<CategoryPage {...propsWithNoPosts} />);
+    const backLink = screen.getByText('← Back to all posts');
+    expect(backLink).toHaveAttribute('href', '/');
+  });
+
+  test('handles invalid category slug', async () => {
+    postsLib.getCategoryFromSlug.mockReturnValue(null);
+    postsLib.getPostsByCategorySlug.mockReturnValue([]);
+    postsLib.getAllCategories.mockReturnValue(mockProps.categories);
+
+    const context = { params: { category: 'invalid' } };
+    const { props } = await getStaticProps(context);
+    
+    expect(props.category).toBeNull();
+    expect(props.postsData).toEqual([]);
+  });
+
+  test('throws error when required props are missing', () => {
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    expect(() => render(<CategoryPage />)).toThrow();
+    consoleSpy.mockRestore();
   });
 });

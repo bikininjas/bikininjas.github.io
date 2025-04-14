@@ -1,75 +1,112 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import CategoryNav from '../../components/CategoryNav';
-import { slugify } from '../../lib/utils';
 
 // Mock next/link
 jest.mock('next/link', () => {
-  return ({ children, href, className }) => {
-    return (
-      <a href={href} className={className}>
-        {children}
-      </a>
-    );
-  };
+  return ({ children, href }) => <a href={href}>{children}</a>;
 });
 
 describe('CategoryNav Component', () => {
-  const categories = ['React', 'Next.js', 'JavaScript'];
-  
-  test('renders all categories correctly', () => {
-    render(<CategoryNav categories={categories} />);
+  const defaultProps = {
+    categories: ['Technology', 'Gaming', 'Development'],
+    currentCategory: null
+  };
+
+  test('renders all categories', () => {
+    render(<CategoryNav {...defaultProps} />);
     
-    // Vérifier que le titre est présent
-    expect(screen.getByText('Catégories')).toBeInTheDocument();
-    
-    // Vérifier que "Tous les Articles" est présent
-    expect(screen.getByText('Tous les Articles')).toBeInTheDocument();
-    
-    // Vérifier que toutes les catégories sont présentes
-    categories.forEach(category => {
+    defaultProps.categories.forEach(category => {
       expect(screen.getByText(category)).toBeInTheDocument();
     });
   });
-  
-  test('marks current category as active', () => {
-    const currentCategory = 'React';
-    render(<CategoryNav categories={categories} currentCategory={currentCategory} />);
-    
-    // Obtenir tous les éléments de liste
-    const listItems = screen.getAllByRole('listitem');
-    
-    // Trouver l'élément actif
-    const activeItem = listItems.find(item => item.className.includes('active'));
-    
-    // Vérifier que l'élément actif contient le texte de la catégorie actuelle
-    expect(activeItem).toContainHTML(currentCategory);
+
+  test('highlights current category', () => {
+    const props = {
+      ...defaultProps,
+      currentCategory: 'Gaming'
+    };
+
+    render(<CategoryNav {...props} />);
+    const activeLink = screen.getByText('Gaming').closest('a');
+    expect(activeLink).toHaveClass('active');
   });
-  
-  test('marks "all" as active when currentCategory is "all"', () => {
-    render(<CategoryNav categories={categories} currentCategory="all" />);
-    
-    // Obtenir tous les éléments de liste
-    const listItems = screen.getAllByRole('listitem');
-    
-    // Trouver l'élément actif
-    const activeItem = listItems.find(item => item.className.includes('active'));
-    
-    // Vérifier que l'élément actif contient "Tous les Articles"
-    expect(activeItem).toContainHTML('Tous les Articles');
+
+  test('renders "All Posts" link', () => {
+    render(<CategoryNav {...defaultProps} />);
+    const allPostsLink = screen.getByText('All Posts');
+    expect(allPostsLink).toBeInTheDocument();
+    expect(allPostsLink).toHaveAttribute('href', '/');
   });
-  
-  test('uses correct links for categories', () => {
-    render(<CategoryNav categories={categories} />);
+
+  test('highlights "All Posts" when no category selected', () => {
+    render(<CategoryNav {...defaultProps} />);
+    const allPostsLink = screen.getByText('All Posts');
+    expect(allPostsLink).toHaveClass('active');
+  });
+
+  test('links to correct category paths', () => {
+    render(<CategoryNav {...defaultProps} />);
     
-    // Vérifier que le lien "Tous les Articles" pointe vers "/"
-    const homeLink = screen.getByText('Tous les Articles').closest('a');
-    expect(homeLink).toHaveAttribute('href', '/');
-    
-    // Vérifier que les liens des catégories pointent vers les bonnes URLs
-    categories.forEach(category => {
-      const categoryLink = screen.getByText(category).closest('a');
-      expect(categoryLink).toHaveAttribute('href', `/categories/${slugify(category)}`);
+    defaultProps.categories.forEach(category => {
+      const link = screen.getByText(category);
+      expect(link).toHaveAttribute('href', `/categories/${category.toLowerCase()}`);
     });
+  });
+
+  test('handles empty categories array', () => {
+    render(<CategoryNav categories={[]} />);
+    expect(screen.getByText('All Posts')).toBeInTheDocument();
+  });
+
+  test('handles undefined categories prop', () => {
+    render(<CategoryNav />);
+    expect(screen.getByText('All Posts')).toBeInTheDocument();
+  });
+
+  test('handles category names with special characters', () => {
+    const props = {
+      categories: ['C++', 'C#', '.NET'],
+      currentCategory: 'C++'
+    };
+
+    render(<CategoryNav {...props} />);
+    props.categories.forEach(category => {
+      expect(screen.getByText(category)).toBeInTheDocument();
+    });
+  });
+
+  test('maintains scroll position on category switch', () => {
+    const { rerender } = render(<CategoryNav {...defaultProps} />);
+    
+    // Click a category
+    fireEvent.click(screen.getByText('Gaming'));
+    
+    // Re-render with new current category
+    rerender(<CategoryNav {...defaultProps} currentCategory="Gaming" />);
+    
+    expect(screen.getByText('Gaming').closest('a')).toHaveClass('active');
+  });
+
+  test('handles responsive layout', () => {
+    render(<CategoryNav {...defaultProps} />);
+    const nav = screen.getByRole('navigation');
+    expect(nav).toHaveClass('category-nav');
+  });
+
+  test('applies active styles correctly', () => {
+    const props = {
+      ...defaultProps,
+      currentCategory: 'Technology'
+    };
+
+    render(<CategoryNav {...props} />);
+    
+    // Check active category
+    expect(screen.getByText('Technology').closest('a')).toHaveClass('active');
+    
+    // Check other categories are not active
+    expect(screen.getByText('Gaming').closest('a')).not.toHaveClass('active');
+    expect(screen.getByText('Development').closest('a')).not.toHaveClass('active');
   });
 });

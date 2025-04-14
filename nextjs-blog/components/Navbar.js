@@ -1,49 +1,83 @@
-import React from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import PropTypes from 'prop-types';
-import styles from './Logo.module.css';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
 
-export default function Navbar({ title }) {
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+  const navRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setIsOpen(false);
+      }
+    };
+
+    const handleClickOutside = (event) => {
+      if (navRef.current && !navRef.current.contains(event.target) &&
+          buttonRef.current && !buttonRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, []);
+
+  const handleLogoClick = () => {
+    router.push('/');
+    setIsOpen(false);
+  };
+
+  const handleLinkClick = (path) => {
+    router.push(path);
+    setIsOpen(false);
+  };
+
   return (
-    <nav className="navbar">
-      <div className="navbar-container">
-        <Link href="/" className="navbar-logo">
-          <div className={styles.logoContainer}>
-            <img 
-              src="/images/bikininjas-logo.png" 
-              alt="BikiNinjas Logo" 
-              className={styles.logo}
-            />
-          </div>
-        </Link>
-        <h1 className="navbar-title">{title}</h1>
-        <ul className="navbar-menu">
-          <li className="navbar-item">
-            <Link href="/" className="navbar-link">
-              Accueil
-            </Link>
+    <header className="navbar">
+      <div className="logo" onClick={handleLogoClick}>
+        <Image src="/images/logo.png" alt="Logo" width={50} height={50} />
+      </div>
+
+      <button
+        ref={buttonRef}
+        className="menu-button"
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label="toggle menu"
+      >
+        <span className="hamburger"></span>
+      </button>
+
+      <nav ref={navRef} className={`nav-links ${isOpen ? 'show' : ''}`} role="navigation">
+        <ul>
+          <li className={router.pathname === '/' ? 'active' : ''}>
+            <a onClick={() => handleLinkClick('/')}>Home</a>
           </li>
-          <li className="navbar-item">
-            <Link href="/posts/unreal-engine-beginners-guide" className="navbar-link">
-              Blog
-            </Link>
+          <li className={router.pathname === '/blog' ? 'active' : ''}>
+            <a onClick={() => handleLinkClick('/blog')}>Blog</a>
           </li>
-          <li className="navbar-item">
-            <a 
-              href="https://github.com/bikininjas/bikininjas.github.io" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="navbar-link"
-            >
-              GitHub
-            </a>
+          <li className={router.pathname === '/about' ? 'active' : ''}>
+            <a onClick={() => handleLinkClick('/about')}>About</a>
           </li>
         </ul>
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 }
-
-Navbar.propTypes = {
-  title: PropTypes.string.isRequired
-};

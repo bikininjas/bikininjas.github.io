@@ -14,89 +14,128 @@ jest.mock('react', () => {
 });
 
 describe('ParallaxHero Component', () => {
+  const defaultProps = {
+    title: 'Welcome to My Blog',
+    subtitle: 'A journey through code and technology',
+    backgroundImage: '/images/hero.jpg'
+  };
+
   beforeEach(() => {
     // Reset mocks before each test
     mockSetOffset.mockClear();
     window.scrollY = 0;
+
+    // Mock window scroll event
+    Object.defineProperty(window, 'scrollY', {
+      value: 0,
+      writable: true,
+      configurable: true
+    });
+
+    Object.defineProperty(window, 'innerHeight', {
+      writable: true,
+      configurable: true,
+      value: 800
+    });
   });
 
-  test('renders with default props', () => {
-    render(<ParallaxHero />);
-    
-    // Check if default title and subtitle are rendered
-    expect(screen.getByText('BikiNinjas')).toBeInTheDocument();
-    expect(screen.getByText('Gaming, Development & Digital Wellbeing')).toBeInTheDocument();
-    
-    // Check if the background has the default image
-    const backgroundDiv = document.querySelector('[class^="parallaxBackground"]');
-    expect(backgroundDiv.style.backgroundImage).toContain('unsplash.com');
+  test('renders hero content', () => {
+    render(<ParallaxHero {...defaultProps} />);
+    expect(screen.getByText(defaultProps.title)).toBeInTheDocument();
+    expect(screen.getByText(defaultProps.subtitle)).toBeInTheDocument();
   });
 
-  test('renders with custom props', () => {
-    const customProps = {
-      title: 'Custom Title',
-      subtitle: 'Custom Subtitle',
-      backgroundImage: 'https://example.com/image.jpg'
-    };
-    
-    render(<ParallaxHero {...customProps} />);
-    
-    // Check if custom title and subtitle are rendered
-    expect(screen.getByText('Custom Title')).toBeInTheDocument();
-    expect(screen.getByText('Custom Subtitle')).toBeInTheDocument();
-    
-    // Check if the background has the custom image
-    const backgroundDiv = document.querySelector('[class^="parallaxBackground"]');
-    expect(backgroundDiv.style.backgroundImage).toContain('example.com/image.jpg');
+  test('applies background image', () => {
+    render(<ParallaxHero {...defaultProps} />);
+    const background = screen.getByTestId('hero-background');
+    expect(background.style.backgroundImage).toContain(defaultProps.backgroundImage);
   });
 
   test('handles scroll events', () => {
-    render(<ParallaxHero />);
-    
-    // Simulate scroll event
+    render(<ParallaxHero {...defaultProps} />);
+    const parallax = screen.getByTestId('hero-parallax');
+
+    // Test initial position
+    expect(parallax.style.transform).toBe('translateY(0px)');
+
+    // Test after scroll
     window.scrollY = 100;
     fireEvent.scroll(window);
-    
-    // Check if setOffset was called with the correct value
-    expect(mockSetOffset).toHaveBeenCalledWith(100);
+    expect(parallax.style.transform).toBe('translateY(50px)');
   });
 
-  test('cleans up event listener on unmount', () => {
-    // Sauvegarde des fonctions originales
-    const originalAddEventListener = window.addEventListener;
-    const originalRemoveEventListener = window.removeEventListener;
-    
-    // Création de mocks pour les fonctions d'ajout et de suppression d'écouteurs d'événements
-    const addEventListenerMock = jest.fn();
-    const removeEventListenerMock = jest.fn();
-    
-    // Remplacement des fonctions originales par nos mocks
-    window.addEventListener = addEventListenerMock;
-    window.removeEventListener = removeEventListenerMock;
-    
-    try {
-      // Rendu du composant
-      const { unmount } = render(<ParallaxHero />);
-      
-      // Vérification que addEventListener a été appelé avec 'scroll'
-      expect(addEventListenerMock).toHaveBeenCalledWith('scroll', expect.any(Function));
-      
-      // Récupération du gestionnaire d'événements
-      const scrollHandler = addEventListenerMock.mock.calls.find(call => call[0] === 'scroll')[1];
-      
-      // Réinitialisation du mock removeEventListener avant le démontage
-      removeEventListenerMock.mockClear();
-      
-      // Démontage du composant
-      unmount();
-      
-      // Vérification que removeEventListener a été appelé avec 'scroll' et le même gestionnaire
-      expect(removeEventListenerMock).toHaveBeenCalledWith('scroll', scrollHandler);
-    } finally {
-      // Restauration des fonctions originales
-      window.addEventListener = originalAddEventListener;
-      window.removeEventListener = originalRemoveEventListener;
+  test('handles window resize', () => {
+    render(<ParallaxHero {...defaultProps} />);
+    const hero = screen.getByTestId('hero-container');
+
+    // Change window height
+    window.innerHeight = 1000;
+    fireEvent.resize(window);
+
+    expect(hero.style.height).toBe('500px');
+  });
+
+  test('adds and removes event listeners', () => {
+    const addEventListenerSpy = jest.spyOn(window, 'addEventListener');
+    const removeEventListenerSpy = jest.spyOn(window, 'removeEventListener');
+
+    const { unmount } = render(<ParallaxHero {...defaultProps} />);
+
+    expect(addEventListenerSpy).toHaveBeenCalledWith('scroll', expect.any(Function));
+    expect(addEventListenerSpy).toHaveBeenCalledWith('resize', expect.any(Function));
+
+    unmount();
+
+    expect(removeEventListenerSpy).toHaveBeenCalledWith('scroll', expect.any(Function));
+    expect(removeEventListenerSpy).toHaveBeenCalledWith('resize', expect.any(Function));
+  });
+
+  test('handles missing background image', () => {
+    const { backgroundImage, ...propsWithoutBackground } = defaultProps;
+    render(<ParallaxHero {...propsWithoutBackground} />);
+    const background = screen.getByTestId('hero-background');
+    expect(background.style.backgroundImage).toBe('');
+  });
+
+  test('applies parallax effect within boundaries', () => {
+    render(<ParallaxHero {...defaultProps} />);
+    const parallax = screen.getByTestId('hero-parallax');
+
+    // Test upper boundary
+    window.scrollY = -100;
+    fireEvent.scroll(window);
+    expect(parallax.style.transform).toBe('translateY(0px)');
+
+    // Test lower boundary
+    window.scrollY = 2000;
+    fireEvent.scroll(window);
+    expect(parallax.style.transform).toBe('translateY(400px)');
+  });
+
+  test('maintains aspect ratio on resize', () => {
+    render(<ParallaxHero {...defaultProps} />);
+    const container = screen.getByTestId('hero-container');
+
+    // Test different window heights
+    const heights = [600, 800, 1000, 1200];
+    heights.forEach(height => {
+      window.innerHeight = height;
+      fireEvent.resize(window);
+      expect(container.style.height).toBe(`${height / 2}px`);
+    });
+  });
+
+  test('handles rapid scroll events', () => {
+    render(<ParallaxHero {...defaultProps} />);
+    const parallax = screen.getByTestId('hero-parallax');
+
+    // Simulate rapid scrolling
+    for (let i = 0; i < 10; i++) {
+      window.scrollY += 50;
+      fireEvent.scroll(window);
     }
+
+    expect(parallax.style.transform).toBe('translateY(250px)');
   });
 
 });
