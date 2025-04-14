@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { getPostData, getSortedPostsData } from '../../lib/posts';
 import fs from 'fs';
 import path from 'path';
