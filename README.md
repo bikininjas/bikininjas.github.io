@@ -1,86 +1,63 @@
-# Blog Next.js
+# Blog Personnel
 
-Ce projet est un blog développé avec [Next.js](https://nextjs.org/), qui utilise des fichiers Markdown pour le contenu des articles et intègre des fonctionnalités modernes comme les embeds Twitter et Bluesky.
+Blog personnel construit avec Next.js et déployé sur GitHub Pages.
+
+## Technologies Utilisées
+
+- [Next.js](https://nextjs.org/) - Framework React pour la production
+- [TypeScript](https://www.typescriptlang.org/) - Pour le typage statique
+- [Tailwind CSS](https://tailwindcss.com/) - Pour le styling
+- [MDX](https://mdxjs.com/) - Pour écrire les articles en Markdown
+- [Jest](https://jestjs.io/) - Pour les tests unitaires
 
 ## Fonctionnalités
 
-- Rendu de contenu Markdown en HTML
-- Support des catégories d'articles
-- Intégration d'embeds sociaux (Twitter, Bluesky)
-- Interface responsive avec effets de parallaxe
-- Tests automatisés complets
+- Site statique généré avec `next export`
+- Support du mode sombre/clair
+- Optimisation des images avec next/image
+- Posts en Markdown avec MDX
+- Système de métadonnées pour les articles
+- Intégration continue avec GitHub Actions
+
+## Structure du Projet
+
+```
+.
+├── components/     # Composants React réutilisables
+├── lib/           # Utilitaires et fonctions d'aide
+├── pages/         # Pages de l'application Next.js
+├── posts/         # Articles de blog en markdown
+├── public/        # Assets statiques
+├── styles/        # Feuilles de style CSS
+└── tests/         # Tests unitaires
+```
 
 ## Installation
 
 ```bash
+# Cloner le projet
+git clone https://github.com/bikininjas/bikininjas.github.io.git
+cd bikininjas.github.io
+
 # Installer les dépendances
-bun install
+npm install
 
-# Démarrer le serveur de développement
-bun run dev
+# Lancer en développement
+npm run dev
 ```
 
-Le site sera accessible à l'adresse [http://localhost:3000](http://localhost:3000).
+## Scripts Disponibles
 
-## Structure du projet
-
-- `/components` - Composants React réutilisables
-- `/lib` - Fonctions utilitaires
-- `/pages` - Pages du site
-- `/posts` - Articles en Markdown
-- `/public` - Fichiers statiques
-- `/styles` - Feuilles de style CSS
-- `/tests` - Tests unitaires et d'intégration
-
-## Tests
-
-Pour plus d'informations sur la gestion des tests, comment les modifier et en ajouter, consultez le [guide des tests](./TESTS.md).
-
-## Résultats des tests
-
-### Tests unitaires
-
-```bash
-PASS  tests/unit/deadcode.test.js
-PASS  tests/unit/layout.test.js
-PASS  tests/unit/posts.test.js
-
-Test Suites: 3 passed, 3 total
-Tests:       5 passed, 5 total
-Snapshots:   0 total
-Time:        1.463 s
-```
-
-### Tests Cypress (E2E)
-
-```text
-(Run Finished)
-
-       Spec                                              Tests  Passing  Failing  Pending  Skipped  
-  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │ ✔  blog.cy.js                               00:05        4        4        -        -        - │
-  └────────────────────────────────────────────────────────────────────────────────────────────────┘
-    ✔  All specs passed!                        00:05        4        4        -        -        -  
-```
-
-### Tests Playwright
-
-```text
-Running 4 tests using 4 workers
-[4/4] [chromium] › playwright/tests/navigation.spec.js:41:3 › Navigation Tests › should load Bluesky embeds
-  4 passed (3.8s)
-```
-
-## Scripts disponibles
-
-- `bun run dev` - Démarre le serveur de développement
-- `bun run build` - Construit l'application pour la production
-- `bun run start` - Démarre l'application en mode production
-- `bun run test:unit` - Exécute les tests unitaires
-- `bun run test:e2e:headless` - Exécute les tests Cypress en mode headless
-- `bun run test:playwright` - Exécute les tests Playwright
-- `bun run test:all` - Exécute tous les tests (unitaires, Cypress et Playwright)
+- `npm run dev` - Lance le serveur de développement
+- `npm run build` - Construit le projet pour la production
+- `npm run export` - Exporte le site en statique
+- `npm test` - Lance les tests
+- `npm run lint` - Vérifie le code avec ESLint
 
 ## Déploiement
 
-Le projet est configuré pour être déployé via GitHub Actions. Les tests sont exécutés automatiquement à chaque push sur la branche principale.
+Le site est automatiquement déployé sur GitHub Pages via GitHub Actions lorsqu'un push est effectué sur la branche main.
+
+## Licence
+
+MIT
