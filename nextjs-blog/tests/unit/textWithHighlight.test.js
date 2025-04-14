@@ -2,8 +2,8 @@
  * @jest-environment jsdom
  */
 
-import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { render, screen, waitFor } from '@testing-library/react';
 import TextWithHighlight from '../../components/TextWithHighlight';
 
 describe('TextWithHighlight Component', () => {
