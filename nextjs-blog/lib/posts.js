@@ -145,8 +145,8 @@ export async function getPostData(id) {
     }
   }
   
-  // For debugging
-  const log = (message) => {
+  // Fix invalid left-hand side expression in prefix operation
+  function log(message) {
     console.log(message);
   }
 

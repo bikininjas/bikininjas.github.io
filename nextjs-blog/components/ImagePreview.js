@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './ImagePreview.module.css';
 
-const ImagePreview = ({ src, alt, ...props }) => {
+const ImagePreview = ({ src, alt, loading = 'lazy' }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalRef = useRef(null);
   const modalOverlayRef = useRef(null);
@@ -42,12 +42,14 @@ const ImagePreview = ({ src, alt, ...props }) => {
   }, [isModalOpen]);
   
   return (
-    <>
+    <div className="image-preview">
       <img 
         src={src} 
         alt={alt} 
-        loading="lazy"
-        onClick={() => setIsModalOpen(true)} 
+        loading={loading} 
+        onClick={openModal} 
+        className="preview-image"
+        data-testid="preview-image"
         {...props} 
       />
       
@@ -73,7 +75,7 @@ const ImagePreview = ({ src, alt, ...props }) => {
           />
         </div>
       )}
-    </>
+    </div>
   );
 };
 

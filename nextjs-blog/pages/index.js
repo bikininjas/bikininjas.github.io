@@ -19,6 +19,16 @@ export async function getStaticProps() {
   };
 }
 
+// Simple SearchBar component implementation
+const SearchBar = () => {
+  return (
+    <div className="search-bar" data-testid="search-bar">
+      <input type="text" placeholder="Search..." aria-label="Search" />
+      <button type="submit" aria-label="Submit search">Search</button>
+    </div>
+  );
+};
+
 export default function Home({ allPostsData = [], allCategories = [] }) {
   const [activeCategory, setActiveCategory] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');

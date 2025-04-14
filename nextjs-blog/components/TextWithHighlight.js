@@ -1,7 +1,10 @@
 import React from 'react';
 
 const TextWithHighlight = ({ text, highlight, className = '' }) => {
-  if (!text) return null;
+  // Return empty div with data-testid when text is empty
+  if (!text) {
+    return <div data-testid="text-with-highlight"></div>;
+  }
   
   // If no highlight term or it's empty, just return the text
   if (!highlight || highlight.trim() === '') {

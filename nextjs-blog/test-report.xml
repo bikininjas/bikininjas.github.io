@@ -3,21 +3,38 @@
   <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/lib/__tests__/posts.test.js">
   </file>
   <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/tests/unit/utils.test.js">
-    <testCase name="Utils slugify converts strings to lowercase" duration="8"/>
+    <testCase name="Utils slugify converts strings to lowercase" duration="7"/>
     <testCase name="Utils slugify replaces spaces with hyphens" duration="1"/>
-    <testCase name="Utils slugify removes special characters" duration="0"/>
-    <testCase name="Utils slugify handles accented characters" duration="1"/>
-    <testCase name="Utils slugify removes trailing hyphens" duration="1"/>
+    <testCase name="Utils slugify removes special characters" duration="1"/>
+    <testCase name="Utils slugify handles accented characters" duration="0"/>
+    <testCase name="Utils slugify removes trailing hyphens" duration="0"/>
     <testCase name="Utils slugify handles empty strings" duration="1"/>
-    <testCase name="Utils slugify handles null or undefined" duration="0"/>
-    <testCase name="Utils formatDate function formats dates correctly" duration="66"/>
-    <testCase name="Utils formatDate function handles different date formats" duration="0"/>
-    <testCase name="Utils formatDate function handles invalid dates" duration="0"/>
+    <testCase name="Utils slugify handles null or undefined" duration="1"/>
+    <testCase name="Utils formatDate function formats dates correctly" duration="25"/>
+    <testCase name="Utils formatDate function handles different date formats" duration="2"/>
+    <testCase name="Utils formatDate function handles invalid dates" duration="1"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/tests/unit/document.test.js">
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/__tests__/ThemeToggle.test.js">
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/pages/__tests__/_app.test.js">
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/SocialShareButtons.test.js">
+    <testCase name="SocialShareButtons renders all share buttons with proper accessibility attributes" duration="252"/>
+    <testCase name="SocialShareButtons opens share links in new window when clicked" duration="23"/>
+    <testCase name="SocialShareButtons copies link to clipboard and shows confirmation" duration="36"/>
+    <testCase name="SocialShareButtons handles clipboard errors gracefully" duration="25"/>
+  </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/__tests__/ErrorBoundary.test.js">
+    <testCase name="ErrorBoundary renders children when there is no error" duration="49"/>
+    <testCase name="ErrorBoundary renders error UI when child component throws" duration="71"/>
+    <testCase name="ErrorBoundary calls componentDidCatch when an error occurs" duration="18"/>
   </file>
   <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/tests/unit/lib/posts.test.js">
-    <testCase name="Posts Library getSortedPostsData returns posts sorted by date" duration="12"/>
-    <testCase name="Posts Library getAllPostIds returns formatted ids" duration="4"/>
-    <testCase name="Posts Library getPostData returns post data with content" duration="47">
+    <testCase name="Posts Library getSortedPostsData returns posts sorted by date" duration="14"/>
+    <testCase name="Posts Library getAllPostIds returns formatted ids" duration="3"/>
+    <testCase name="Posts Library getPostData returns post data with content" duration="19">
       <failure message="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-message-util/build/index.js:1"><![CDATA[/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-message-util/build/index.js:1
 ---
 
@@ -28,7 +45,7 @@ SyntaxError: Invalid left-hand side expression in prefix operation
     at Module.load (node:internal/modules/cjs/loader:1288:32)
     at Function.Module._load (node:internal/modules/cjs/loader:1104:12)
     at Module.require (node:internal/modules/cjs/loader:1311:19)
-    at Module.mod.require (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/next/dist/server/require-hook.js:65:28)
+    at Module.call [as require] (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/next/src/server/require-hook.ts:70:26)
     at require (node:internal/modules/helpers:179:18)
     at _jestMessageUtil (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@jest/console/build/getConsoleOutput.js:15:16)
     at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@jest/console/build/getConsoleOutput.js:58:37
@@ -43,46 +60,31 @@ SyntaxError: Invalid left-hand side expression in prefix operation
     at Object.<anonymous> (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/tests/unit/lib/posts.test.js:66:20)]]></failure>
     </testCase>
   </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/__tests__/ErrorBoundary.test.js">
-    <testCase name="ErrorBoundary renders children when there is no error" duration="47"/>
-    <testCase name="ErrorBoundary renders error UI when child component throws" duration="63"/>
-    <testCase name="ErrorBoundary calls componentDidCatch when an error occurs" duration="12"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/tests/unit/document.test.js">
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/__tests__/ThemeToggle.test.js">
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/pages/__tests__/_app.test.js">
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/SocialShareButtons.test.js">
-    <testCase name="SocialShareButtons renders all share buttons with proper accessibility attributes" duration="187"/>
-    <testCase name="SocialShareButtons opens share links in new window when clicked" duration="17"/>
-    <testCase name="SocialShareButtons copies link to clipboard and shows confirmation" duration="26"/>
-    <testCase name="SocialShareButtons handles clipboard errors gracefully" duration="17"/>
+  <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/__tests__/Navbar.test.js">
+    <testCase name="Navbar renders the site title" duration="255"/>
+    <testCase name="Navbar toggles mobile menu when hamburger is clicked" duration="58"/>
+    <testCase name="Navbar changes navbar style on scroll" duration="19"/>
+    <testCase name="Navbar renders ThemeToggle component" duration="9"/>
+    <testCase name="Navbar renders navigation links" duration="33"/>
   </file>
   <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/__tests__/TextWithHighlight.test.js">
-    <testCase name="TextWithHighlight renders text without highlight when no highlight term is provided" duration="108"/>
-    <testCase name="TextWithHighlight renders text with highlighted term when highlight term matches" duration="9">
-      <failure message="TestingLibraryElementError: Unable to find an element by: [data-testid=&quot;highlight&quot;]"><![CDATA[TestingLibraryElementError: Unable to find an element by: [data-testid="highlight"]
+    <testCase name="TextWithHighlight renders text without highlight when no highlight term is provided" duration="99"/>
+    <testCase name="TextWithHighlight renders text with highlighted term when highlight term matches" duration="7"/>
+    <testCase name="TextWithHighlight handles case insensitive highlighting" duration="8"/>
+    <testCase name="TextWithHighlight highlights multiple occurrences of the term" duration="4"/>
+    <testCase name="TextWithHighlight renders correctly when highlight term is not found" duration="3"/>
+    <testCase name="TextWithHighlight handles empty text gracefully" duration="6">
+      <failure message="TestingLibraryElementError: Unable to find an element by: [data-testid=&quot;text-with-highlight&quot;]"><![CDATA[TestingLibraryElementError: Unable to find an element by: [data-testid="text-with-highlight"]
 
 Ignored nodes: comments, script, style
 <body>
-  <div>
-    <span
-      aria-busy="false"
-      class="text-with-highlight "
-      data-testid="text-with-highlight"
-      role="text"
-    >
-      This is a test text
-    </span>
-  </div>
+  <div />
 </body>
     at Object.getElementError (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/config.js:37:19)
     at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
     at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
     at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
-    at Object.getByTestId (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/__tests__/TextWithHighlight.test.js:17:30)
+    at Object.getByTestId (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/__tests__/TextWithHighlight.test.js:50:30)
     at Promise.then.completed (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:298:28)
     at new Promise (<anonymous>)
     at callAsyncCircusFn (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:231:10)
@@ -98,90 +100,10 @@ Ignored nodes: comments, script, style
     at runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)
     at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
     </testCase>
-    <testCase name="TextWithHighlight handles case insensitive highlighting" duration="7">
-      <failure message="TestingLibraryElementError: Unable to find an element by: [data-testid=&quot;highlight&quot;]"><![CDATA[TestingLibraryElementError: Unable to find an element by: [data-testid="highlight"]
-
-Ignored nodes: comments, script, style
-<body>
-  <div>
-    <span
-      aria-busy="false"
-      class="text-with-highlight "
-      data-testid="text-with-highlight"
-      role="text"
-    >
-      This is a Test text
-    </span>
-  </div>
-</body>
-    at Object.getElementError (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/config.js:37:19)
-    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
-    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
-    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
-    at Object.getByTestId (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/__tests__/TextWithHighlight.test.js:25:30)
-    at Promise.then.completed (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:298:28)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:231:10)
-    at _callCircusTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:316:40)
-    at processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at _runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:252:3)
-    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:126:9)
-    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:121:9)
-    at run (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:71:3)
-    at runAndTransformResultsToJestFormat (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
-    at jestAdapter (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
-    at runTestInternal (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:367:16)
-    at runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)
-    at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
-    </testCase>
-    <testCase name="TextWithHighlight highlights multiple occurrences of the term" duration="5">
-      <failure message="TestingLibraryElementError: Unable to find an element by: [data-testid=&quot;highlight&quot;]"><![CDATA[TestingLibraryElementError: Unable to find an element by: [data-testid="highlight"]
-
-Ignored nodes: comments, script, style
-<body>
-  <div>
-    <span
-      aria-busy="false"
-      class="text-with-highlight "
-      data-testid="text-with-highlight"
-      role="text"
-    >
-      Test this test again
-    </span>
-  </div>
-</body>
-    at Object.getElementError (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/config.js:37:19)
-    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
-    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:109:15
-    at Object.getAllByTestId (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/__tests__/TextWithHighlight.test.js:33:31)
-    at Promise.then.completed (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:298:28)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:231:10)
-    at _callCircusTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:316:40)
-    at processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at _runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:252:3)
-    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:126:9)
-    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:121:9)
-    at run (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:71:3)
-    at runAndTransformResultsToJestFormat (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
-    at jestAdapter (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
-    at runTestInternal (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:367:16)
-    at runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)
-    at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
-    </testCase>
-    <testCase name="TextWithHighlight renders correctly when highlight term is not found" duration="6"/>
-    <testCase name="TextWithHighlight handles empty text gracefully" duration="7"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/__tests__/Navbar.test.js">
-    <testCase name="Navbar renders the site title" duration="176"/>
-    <testCase name="Navbar toggles mobile menu when hamburger is clicked" duration="63"/>
-    <testCase name="Navbar changes navbar style on scroll" duration="23"/>
-    <testCase name="Navbar renders ThemeToggle component" duration="8"/>
-    <testCase name="Navbar renders navigation links" duration="32"/>
   </file>
   <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/__tests__/CategoryNav.test.js">
-    <testCase name="CategoryNav renders the category navigation" duration="109"/>
-    <testCase name="CategoryNav handles category selection correctly" duration="11">
+    <testCase name="CategoryNav renders the category navigation" duration="123"/>
+    <testCase name="CategoryNav handles category selection correctly" duration="12">
       <failure message="Error: expect(jest.fn()).toHaveBeenCalled()"><![CDATA[Error: expect(jest.fn()).toHaveBeenCalled()
 
 Expected number of calls: >= 1
@@ -202,7 +124,7 @@ Received number of calls:    0
     at runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)
     at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
     </testCase>
-    <testCase name="CategoryNav shows active category as selected" duration="5">
+    <testCase name="CategoryNav shows active category as selected" duration="8">
       <failure message="Error: expect(element).toHaveAttribute(&quot;aria-current&quot;, &quot;page&quot;) // element.getAttribute(&quot;aria-current&quot;) === &quot;page&quot;"><![CDATA[Error: expect(element).toHaveAttribute("aria-current", "page") // element.getAttribute("aria-current") === "page"
 
 Expected the element to have attribute:
@@ -226,10 +148,218 @@ Received:
     at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
     </testCase>
   </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/__tests__/LiteYouTubeEmbed.test.js">
+  </file>
   <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/__tests__/PostCard.test.js">
-    <testCase name="PostCard renders post title and excerpt" duration="113"/>
-    <testCase name="PostCard renders post date in formatted style" duration="9"/>
-    <testCase name="PostCard renders post category" duration="13">
+    <testCase name="PostCard renders post title and excerpt" duration="164">
+      <failure message="TestingLibraryElementError: Found multiple elements with the text: Test Post Title"><![CDATA[TestingLibraryElementError: Found multiple elements with the text: Test Post Title
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+<h3>
+  Test Post Title
+</h3>
+
+Ignored nodes: comments, script, style
+<h3>
+  Test Post Title
+</h3>
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <article
+      class="undefined  undefined"
+      style="--bg-image: url(/images/test-image.jpg);"
+    >
+      <div>
+        <img
+          alt="Featured image for Test Post Title"
+          loading="lazy"
+          src="/images/test-image.jpg"
+        />
+      </div>
+      <div>
+        <h3>
+          Test Post Title
+        </h3>
+        <div>
+          <div>
+            <time
+              aria-label="Published on January 1, 2023"
+              datetime="2023-01-01"
+            >
+              January 1, 2023
+            </time>
+          </div>
+        </div>
+        <p>
+          This is a test excerpt
+        </p>
+        <span
+          aria-hidden="true"
+        >
+          Read more →
+        </span>
+      </div>
+      <div>
+        <h3>
+          Test Post Title
+        </h3>
+        <div>
+          <div>
+            <time
+              aria-label="Published on January 1, 2023"
+              datetime="2023-01-01"
+            >
+              January 1, 2023
+            </time>
+          </div>
+        </div>
+        <p>
+          This is a test excerpt
+        </p>
+        <span
+          aria-hidden="true"
+        >
+          Read more →
+        </span>
+      </div>
+    </article>
+  </div>
+</body>
+    at Object.getElementError (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/config.js:37:19)
+    at getElementError (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:20:35)
+    at getMultipleElementsFoundError (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:23:10)
+    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+    at Object.getByText (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/__tests__/PostCard.test.js:21:19)
+    at Promise.then.completed (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:121:9)
+    at run (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)
+    at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
+    </testCase>
+    <testCase name="PostCard renders post date in formatted style" duration="8">
+      <failure message="TestingLibraryElementError: Found multiple elements with the text: /2023/"><![CDATA[TestingLibraryElementError: Found multiple elements with the text: /2023/
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+<time
+  aria-label="Published on January 1, 2023"
+  datetime="2023-01-01"
+>
+  January 1, 2023
+</time>
+
+Ignored nodes: comments, script, style
+<time
+  aria-label="Published on January 1, 2023"
+  datetime="2023-01-01"
+>
+  January 1, 2023
+</time>
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <article
+      class="undefined  undefined"
+      style="--bg-image: url(/images/test-image.jpg);"
+    >
+      <div>
+        <img
+          alt="Featured image for Test Post Title"
+          loading="lazy"
+          src="/images/test-image.jpg"
+        />
+      </div>
+      <div>
+        <h3>
+          Test Post Title
+        </h3>
+        <div>
+          <div>
+            <time
+              aria-label="Published on January 1, 2023"
+              datetime="2023-01-01"
+            >
+              January 1, 2023
+            </time>
+          </div>
+        </div>
+        <p>
+          This is a test excerpt
+        </p>
+        <span
+          aria-hidden="true"
+        >
+          Read more →
+        </span>
+      </div>
+      <div>
+        <h3>
+          Test Post Title
+        </h3>
+        <div>
+          <div>
+            <time
+              aria-label="Published on January 1, 2023"
+              datetime="2023-01-01"
+            >
+              January 1, 2023
+            </time>
+          </div>
+        </div>
+        <p>
+          This is a test excerpt
+        </p>
+        <span
+          aria-hidden="true"
+        >
+          Read more →
+        </span>
+      </div>
+    </article>
+  </div>
+</body>
+    at Object.getElementError (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/config.js:37:19)
+    at getElementError (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:20:35)
+    at getMultipleElementsFoundError (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:23:10)
+    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+    at Object.getByText (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/__tests__/PostCard.test.js:29:19)
+    at Promise.then.completed (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:121:9)
+    at run (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)
+    at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
+    </testCase>
+    <testCase name="PostCard renders post category" duration="7">
       <failure message="TestingLibraryElementError: Unable to find an element with the text: Technology. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible."><![CDATA[TestingLibraryElementError: Unable to find an element with the text: Technology. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
 
 Ignored nodes: comments, script, style
@@ -245,6 +375,29 @@ Ignored nodes: comments, script, style
           loading="lazy"
           src="/images/test-image.jpg"
         />
+      </div>
+      <div>
+        <h3>
+          Test Post Title
+        </h3>
+        <div>
+          <div>
+            <time
+              aria-label="Published on January 1, 2023"
+              datetime="2023-01-01"
+            >
+              January 1, 2023
+            </time>
+          </div>
+        </div>
+        <p>
+          This is a test excerpt
+        </p>
+        <span
+          aria-hidden="true"
+        >
+          Read more →
+        </span>
       </div>
       <div>
         <h3>
@@ -292,276 +445,17 @@ Ignored nodes: comments, script, style
     at runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)
     at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
     </testCase>
-    <testCase name="PostCard displays post cover image" duration="50"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/__tests__/LiteYouTubeEmbed.test.js">
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/__tests__/ImagePreview.test.js">
-    <testCase name="ImagePreview renders the image with correct attributes" duration="71"/>
-    <testCase name="ImagePreview opens modal when image is clicked" duration="78">
-      <failure message="TestingLibraryElementError: Unable to find an accessible element with the role &quot;dialog&quot;"><![CDATA[TestingLibraryElementError: Unable to find an accessible element with the role "dialog"
-
-Here are the accessible roles:
-
-  img:
-
-  Name "Test image":
-  <img
-    alt="Test image"
-    height="600"
-    loading="lazy"
-    src="/images/test-image.jpg"
-    width="800"
-  />
-
-  Name "Test image":
-  <img
-    alt="Test image"
-    src="/images/test-image.jpg"
-  />
-
-  --------------------------------------------------
-  button:
-
-  Name "Close image preview":
-  <button
-    aria-label="Close image preview"
-  />
-
-  --------------------------------------------------
-
-Ignored nodes: comments, script, style
-<body>
-  <div>
-    <img
-      alt="Test image"
-      height="600"
-      loading="lazy"
-      src="/images/test-image.jpg"
-      width="800"
-    />
-    <div
-      data-testid="image-modal"
-    >
-      <button
-        aria-label="Close image preview"
-      >
-        ×
-      </button>
-      <img
-        alt="Test image"
-        src="/images/test-image.jpg"
-      />
-    </div>
-  </div>
-</body>
-    at Object.getElementError (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/config.js:37:19)
-    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
-    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
-    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
-    at Object.getByRole (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/__tests__/ImagePreview.test.js:27:26)
-    at Promise.then.completed (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:298:28)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:231:10)
-    at _callCircusTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:316:40)
-    at processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at _runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:252:3)
-    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:126:9)
-    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:121:9)
-    at run (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:71:3)
-    at runAndTransformResultsToJestFormat (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
-    at jestAdapter (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
-    at runTestInternal (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:367:16)
-    at runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)
-    at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
-    </testCase>
-    <testCase name="ImagePreview closes modal when close button is clicked" duration="17">
-      <failure message="Error: expect(received).not.toHaveClass()"><![CDATA[Error: expect(received).not.toHaveClass()
-
-received value must be an HTMLElement or an SVGElement.
-Received has value: null
-    at __EXTERNAL_MATCHER_TRAP__ (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/expect/build/index.js:325:30)
-    at Object.throwingMatcher [as toHaveClass] (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/expect/build/index.js:326:15)
-    at Object.toHaveClass (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/__tests__/ImagePreview.test.js:45:23)
-    at Promise.then.completed (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:298:28)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:231:10)
-    at _callCircusTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:316:40)
-    at processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at _runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:252:3)
-    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:126:9)
-    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:121:9)
-    at run (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:71:3)
-    at runAndTransformResultsToJestFormat (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
-    at jestAdapter (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
-    at runTestInternal (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:367:16)
-    at runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)
-    at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
-    </testCase>
-    <testCase name="ImagePreview applies lazy loading by default" duration="4"/>
+    <testCase name="PostCard displays post cover image" duration="41"/>
   </file>
   <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/pages/categories/__tests__/[category].test.js">
-    <testCase name="Category page renders the category title" duration="145">
-      <failure message="TestingLibraryElementError: Unable to find an element by: [data-testid=&quot;post-parallax&quot;]"><![CDATA[TestingLibraryElementError: Unable to find an element by: [data-testid="post-parallax"]
+    <testCase name="Category page renders the category title" duration="150">
+      <failure message="Error: expect(element).toHaveTextContent()"><![CDATA[Error: expect(element).toHaveTextContent()
 
-Ignored nodes: comments, script, style
-<body>
-  <div>
-    <title
-      data-testid="seo"
-    >
-      Category - My Blog
-    </title>
-    <div
-      class="container"
-    >
-      <title>
-        BikiNinjas Blog
-      </title>
-      <meta
-        content="width=device-width, initial-scale=1"
-        name="viewport"
-      />
-      <meta
-        content="BikiNinjas Blog - Articles about tech, games, and development"
-        name="description"
-      />
-      <link
-        href="/favicon.ico"
-        rel="icon"
-      />
-      <header
-        class="navbar "
-      >
-        <div
-          class="logo"
-        >
-          <a
-            aria-label="Your Site Name"
-            href="/"
-            role="link"
-          >
-            <img
-              alt="Logo"
-              height="50"
-              src="/images/logo.png"
-              width="50"
-            />
-          </a>
-        </div>
-        <button
-          aria-label="toggle menu"
-          class="menu-button"
-        >
-          <span
-            class="hamburger "
-          />
-        </button>
-        <nav
-          class="nav-links  "
-          role="navigation"
-        >
-          <ul>
-            <li
-              class=""
-            >
-              <a
-                href="/"
-                role="link"
-              >
-                Home
-              </a>
-            </li>
-            <li
-              class=""
-            >
-              <a
-                href="/blog"
-                role="link"
-              >
-                Blog
-              </a>
-            </li>
-            <li
-              class=""
-            >
-              <a
-                href="/about"
-                role="link"
-              >
-                About
-              </a>
-            </li>
-          </ul>
-          <div
-            data-testid="theme-toggle"
-          >
-            <button
-              aria-label="Switch to dark mode"
-              class="theme-toggle"
-            >
-              🌙
-            </button>
-          </div>
-        </nav>
-      </header>
-      <main
-        class="main-content"
-        id="main-content"
-        role="main"
-      >
-        <aside
-          aria-label="Categories"
-          role="complementary"
-        >
-          <div
-            data-testid="category-nav"
-          />
-        </aside>
-        <div
-          class="content-wrapper"
-        >
-          <section
-            class="container"
-          >
-            <h1
-              class="category-title"
-            />
-            <div
-              data-testid="category-nav"
-            />
-            <div
-              class="posts-grid"
-            >
-              <div
-                class="no-results"
-              >
-                <p>
-                  No posts found in this category.
-                </p>
-              </div>
-            </div>
-          </section>
-        </div>
-      </main>
-      <footer
-        class="footer"
-        role="contentinfo"
-      >
-        <p>
-          © 
-          2025
-           BikiNinjas. All rights reserved.
-        </p>
-      </footer>
-    </div>
-  </div>
-</body>
-    at Object.getElementError (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/config.js:37:19)
-    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
-    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
-    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
-    at Object.getByTestId (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/pages/categories/__tests__/[category].test.js:69:19)
+Expected element to have text content:
+  Tech
+Received:
+
+    at Object.toHaveTextContent (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/pages/categories/__tests__/[category].test.js:69:49)
     at Promise.then.completed (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:298:28)
     at new Promise (<anonymous>)
     at callAsyncCircusFn (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:231:10)
@@ -577,7 +471,7 @@ Ignored nodes: comments, script, style
     at runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)
     at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
     </testCase>
-    <testCase name="Category page renders posts for the selected category" duration="13">
+    <testCase name="Category page renders posts for the selected category" duration="25">
       <failure message="TestingLibraryElementError: Unable to find an element by: [data-testid=&quot;post-card&quot;]"><![CDATA[TestingLibraryElementError: Unable to find an element by: [data-testid="post-card"]
 
 Ignored nodes: comments, script, style
@@ -700,9 +594,14 @@ Ignored nodes: comments, script, style
           <section
             class="container"
           >
-            <h1
-              class="category-title"
-            />
+            <div
+              class="category-header"
+              data-testid="post-parallax"
+            >
+              <h1
+                class="category-title"
+              />
+            </div>
             <div
               data-testid="category-nav"
             />
@@ -889,9 +788,14 @@ Ignored nodes: comments, script, style
           <section
             class="container"
           >
-            <h1
-              class="category-title"
-            />
+            <div
+              class="category-header"
+              data-testid="post-parallax"
+            >
+              <h1
+                class="category-title"
+              />
+            </div>
             <div
               data-testid="category-nav"
             />
@@ -943,7 +847,7 @@ Ignored nodes: comments, script, style
     at runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)
     at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
     </testCase>
-    <testCase name="Category page renders SEO component with correct title" duration="12">
+    <testCase name="Category page renders SEO component with correct title" duration="11">
       <failure message="Error: expect(element).toHaveTextContent()"><![CDATA[Error: expect(element).toHaveTextContent()
 
 Expected element to have text content:
@@ -967,166 +871,13 @@ Received:
     at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
     </testCase>
     <testCase name="Category page handles empty category results" duration="8">
-      <failure message="TestingLibraryElementError: Unable to find an element by: [data-testid=&quot;post-parallax&quot;]"><![CDATA[TestingLibraryElementError: Unable to find an element by: [data-testid="post-parallax"]
+      <failure message="Error: expect(element).toHaveTextContent()"><![CDATA[Error: expect(element).toHaveTextContent()
 
-Ignored nodes: comments, script, style
-<body>
-  <div>
-    <title
-      data-testid="seo"
-    >
-      Category - My Blog
-    </title>
-    <div
-      class="container"
-    >
-      <title>
-        BikiNinjas Blog
-      </title>
-      <meta
-        content="width=device-width, initial-scale=1"
-        name="viewport"
-      />
-      <meta
-        content="BikiNinjas Blog - Articles about tech, games, and development"
-        name="description"
-      />
-      <link
-        href="/favicon.ico"
-        rel="icon"
-      />
-      <header
-        class="navbar "
-      >
-        <div
-          class="logo"
-        >
-          <a
-            aria-label="Your Site Name"
-            href="/"
-            role="link"
-          >
-            <img
-              alt="Logo"
-              height="50"
-              src="/images/logo.png"
-              width="50"
-            />
-          </a>
-        </div>
-        <button
-          aria-label="toggle menu"
-          class="menu-button"
-        >
-          <span
-            class="hamburger "
-          />
-        </button>
-        <nav
-          class="nav-links  "
-          role="navigation"
-        >
-          <ul>
-            <li
-              class=""
-            >
-              <a
-                href="/"
-                role="link"
-              >
-                Home
-              </a>
-            </li>
-            <li
-              class=""
-            >
-              <a
-                href="/blog"
-                role="link"
-              >
-                Blog
-              </a>
-            </li>
-            <li
-              class=""
-            >
-              <a
-                href="/about"
-                role="link"
-              >
-                About
-              </a>
-            </li>
-          </ul>
-          <div
-            data-testid="theme-toggle"
-          >
-            <button
-              aria-label="Switch to dark mode"
-              class="theme-toggle"
-            >
-              🌙
-            </button>
-          </div>
-        </nav>
-      </header>
-      <main
-        class="main-content"
-        id="main-content"
-        role="main"
-      >
-        <aside
-          aria-label="Categories"
-          role="complementary"
-        >
-          <div
-            data-testid="category-nav"
-          />
-        </aside>
-        <div
-          class="content-wrapper"
-        >
-          <section
-            class="container"
-          >
-            <h1
-              class="category-title"
-            />
-            <div
-              data-testid="category-nav"
-            />
-            <div
-              class="posts-grid"
-            >
-              <div
-                class="no-results"
-              >
-                <p>
-                  No posts found in this category.
-                </p>
-              </div>
-            </div>
-          </section>
-        </div>
-      </main>
-      <footer
-        class="footer"
-        role="contentinfo"
-      >
-        <p>
-          © 
-          2025
-           BikiNinjas. All rights reserved.
-        </p>
-      </footer>
-    </div>
-  </div>
-</body>
-    at Object.getElementError (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/config.js:37:19)
-    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
-    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
-    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
-    at Object.getByTestId (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/pages/categories/__tests__/[category].test.js:97:19)
+Expected element to have text content:
+  Tech
+Received:
+
+    at Object.toHaveTextContent (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/pages/categories/__tests__/[category].test.js:97:49)
     at Promise.then.completed (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:298:28)
     at new Promise (<anonymous>)
     at callAsyncCircusFn (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:231:10)
@@ -1143,10 +894,38 @@ Ignored nodes: comments, script, style
     at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
     </testCase>
   </file>
+  <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/__tests__/ImagePreview.test.js">
+    <testCase name="ImagePreview renders the image with correct attributes" duration="64"/>
+    <testCase name="ImagePreview opens modal when image is clicked" duration="50"/>
+    <testCase name="ImagePreview closes modal when close button is clicked" duration="33">
+      <failure message="Error: expect(received).not.toHaveClass()"><![CDATA[Error: expect(received).not.toHaveClass()
+
+received value must be an HTMLElement or an SVGElement.
+Received has value: null
+    at __EXTERNAL_MATCHER_TRAP__ (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/expect/build/index.js:325:30)
+    at Object.throwingMatcher [as toHaveClass] (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/expect/build/index.js:326:15)
+    at Object.toHaveClass (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/__tests__/ImagePreview.test.js:45:23)
+    at Promise.then.completed (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:121:9)
+    at run (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)
+    at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
+    </testCase>
+    <testCase name="ImagePreview applies lazy loading by default" duration="3"/>
+  </file>
   <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/pages/__tests__/index.test.js">
-    <testCase name="Home page renders the hero component" duration="122">
-      <failure message="ReferenceError: Hero is not defined"><![CDATA[ReferenceError: Hero is not defined
-    at Hero (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/pages/index.js:42:10)
+    <testCase name="Home page renders the hero component" duration="130">
+      <failure message="ReferenceError: SearchBar is not defined"><![CDATA[ReferenceError: SearchBar is not defined
+    at SearchBar (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/pages/index.js:46:12)
     at renderWithHooks (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:15486:18)
     at mountIndeterminateComponent (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:20103:13)
     at beginWork (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:21626:16)
@@ -1178,9 +957,9 @@ Ignored nodes: comments, script, style
     at runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)
     at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
     </testCase>
-    <testCase name="Home page renders post cards for each post" duration="30">
-      <failure message="ReferenceError: Hero is not defined"><![CDATA[ReferenceError: Hero is not defined
-    at Hero (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/pages/index.js:42:10)
+    <testCase name="Home page renders post cards for each post" duration="29">
+      <failure message="ReferenceError: SearchBar is not defined"><![CDATA[ReferenceError: SearchBar is not defined
+    at SearchBar (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/pages/index.js:46:12)
     at renderWithHooks (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:15486:18)
     at mountIndeterminateComponent (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:20103:13)
     at beginWork (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:21626:16)
@@ -1212,9 +991,9 @@ Ignored nodes: comments, script, style
     at runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)
     at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
     </testCase>
-    <testCase name="Home page renders the category navigation" duration="31">
-      <failure message="ReferenceError: Hero is not defined"><![CDATA[ReferenceError: Hero is not defined
-    at Hero (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/pages/index.js:42:10)
+    <testCase name="Home page renders the category navigation" duration="39">
+      <failure message="ReferenceError: SearchBar is not defined"><![CDATA[ReferenceError: SearchBar is not defined
+    at SearchBar (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/pages/index.js:46:12)
     at renderWithHooks (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:15486:18)
     at mountIndeterminateComponent (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:20103:13)
     at beginWork (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:21626:16)
@@ -1246,9 +1025,9 @@ Ignored nodes: comments, script, style
     at runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)
     at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
     </testCase>
-    <testCase name="Home page renders SEO component with correct title" duration="23">
-      <failure message="ReferenceError: Hero is not defined"><![CDATA[ReferenceError: Hero is not defined
-    at Hero (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/pages/index.js:42:10)
+    <testCase name="Home page renders SEO component with correct title" duration="30">
+      <failure message="ReferenceError: SearchBar is not defined"><![CDATA[ReferenceError: SearchBar is not defined
+    at SearchBar (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/pages/index.js:46:12)
     at renderWithHooks (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:15486:18)
     at mountIndeterminateComponent (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:20103:13)
     at beginWork (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:21626:16)
@@ -1280,9 +1059,9 @@ Ignored nodes: comments, script, style
     at runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)
     at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
     </testCase>
-    <testCase name="Home page passes correct props to components" duration="28">
-      <failure message="ReferenceError: Hero is not defined"><![CDATA[ReferenceError: Hero is not defined
-    at Hero (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/pages/index.js:42:10)
+    <testCase name="Home page passes correct props to components" duration="20">
+      <failure message="ReferenceError: SearchBar is not defined"><![CDATA[ReferenceError: SearchBar is not defined
+    at SearchBar (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/pages/index.js:46:12)
     at renderWithHooks (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:15486:18)
     at mountIndeterminateComponent (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:20103:13)
     at beginWork (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:21626:16)

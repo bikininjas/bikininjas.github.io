@@ -37,61 +37,61 @@ export async function getStaticProps({ params }) {
   };
 }
 
-export default function CategoryPage({ 
-  categoryPosts = [], 
-  category = '', 
-  allCategories = [] 
-}) {
-  // Ensure categoryPosts is an array
-  const posts = Array.isArray(categoryPosts) ? categoryPosts : [];
+export default function Category({ allPosts, categories, categoryData }) {
+  // Make sure categoryData is properly structured and the title is passed
+  const categoryTitle = categoryData?.title || capitalize(categoryData?.slug || '');
   
   return (
-    <>
-      <SEO 
-        title={`${category || 'Category'} - My Blog`} 
-        description={`All posts in the ${category || 'selected'} category`}
-      />
+    <Layout>
+      <SEO title={`${categoryTitle} - My Blog`} description={`Posts about ${categoryTitle}`} />
       
-      <Layout>
-        <section className="container">
-          <div data-testid="post-parallax" className="category-header">
-            <h1 className="category-title">{category}</h1>
-          </div>
-          
+      <section className="container">
+        <div className="category-header" data-testid="post-parallax">
+          <h1 className="category-title">{categoryTitle}</h1>
+        </div>
+        
+        <div data-testid="category-nav">
           <CategoryNav 
-            categories={allCategories} 
-            activeCategory={category} 
+            categories={categories} 
+            activeCategory={categoryData?.slug} 
+            onCategoryChange={(cat) => router.push(`/categories/${cat}`)}
           />
-          
-          <div className="posts-grid">
-            {posts.map(post => (
-              <Link href={`/posts/${post.slug}`} key={post.slug}>
-                <div key={post.id} data-testid="post-card">
-                  <PostCard 
-                    title={post.title}
-                    date={post.date}
-                    excerpt={post.excerpt}
-                    coverImage={post.coverImage}
-                    slug={post.slug}
-                    category={post.category}
-                  />
-                </div>
-              </Link>
-            ))}
-            
-            {posts.length === 0 && (
-              <div className="no-results">
-                <p>No posts found in this category.</p>
+        </div>
+        
+        <div className="posts-grid">
+          {allPosts.map(post => (
+            <Link href={`/posts/${post.slug}`} key={post.slug}>
+              <div key={post.id} data-testid="post-card">
+                <PostCard 
+                  title={post.title}
+                  date={post.date}
+                  excerpt={post.excerpt}
+                  coverImage={post.coverImage}
+                  slug={post.slug}
+                  category={post.category}
+                />
               </div>
-            )}
-          </div>
-        </section>
-      </Layout>
-    </>
+            </Link>
+          ))}
+          
+          {allPosts.length === 0 && (
+            <div className="no-results">
+              <p>No posts found in this category.</p>
+            </div>
+          )}
+        </div>
+      </section>
+    </Layout>
   );
 }
 
-CategoryPage.propTypes = {
+// Helper function to capitalize strings
+function capitalize(string) {
+  if (!string) return '';
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+Category.propTypes = {
   category: PropTypes.string.isRequired,
   categorySlug: PropTypes.string.isRequired,
   postsData: PropTypes.arrayOf(

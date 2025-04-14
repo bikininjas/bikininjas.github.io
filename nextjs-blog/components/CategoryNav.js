@@ -2,45 +2,37 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './CategoryNav.module.css';
 
-const CategoryNav = ({ categories = [], activeCategory = '', onCategoryChange = () => {} }) => {
+const CategoryNav = ({ categories = [], activeCategory, onCategoryChange }) => {
   return (
-    <div className={`category-nav ${styles.categoryNav}`} data-testid="category-nav">
+    <nav className="category-nav" data-testid="category-nav">
       <ul>
-        <li>
-          <a 
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              onCategoryChange('');
-            }}
-            aria-current={!activeCategory ? "page" : undefined}
-            className={!activeCategory ? styles.active : ""}
-          >
-            All
-          </a>
-        </li>
         {categories.map((category) => (
-          <li key={category}>
-            <a 
-              href={`/categories/${category.toLowerCase()}`}
+          <li key={category.slug}>
+            <a
+              href={`/categories/${category.slug}`}
               onClick={(e) => {
                 e.preventDefault();
-                onCategoryChange(category);
+                if (onCategoryChange) {
+                  onCategoryChange(category.slug);
+                }
               }}
-              aria-current={activeCategory === category ? "page" : undefined}
-              className={activeCategory === category ? styles.active : ""}
+              className={category.slug === activeCategory ? 'active' : ''}
+              aria-current={category.slug === activeCategory ? 'page' : undefined}
             >
-              {category}
+              {category.name}
             </a>
           </li>
         ))}
       </ul>
-    </div>
+    </nav>
   );
 };
 
 CategoryNav.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+  categories: PropTypes.arrayOf(PropTypes.shape({
+    slug: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired
+  })).isRequired,
   activeCategory: PropTypes.string,
   onCategoryChange: PropTypes.func.isRequired
 };
