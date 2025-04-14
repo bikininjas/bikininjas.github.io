@@ -6,6 +6,9 @@ export default function LiteYouTubeEmbed({ id, title = '', params = {} }) {
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
+    // Only run this effect in browser environments
+    if (typeof window === 'undefined') return;
+    
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -33,7 +36,7 @@ export default function LiteYouTubeEmbed({ id, title = '', params = {} }) {
   };
 
   const activate = () => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || typeof document === 'undefined') return;
     
     containerRef.current.classList.add('lyt-activated');
     const iframe = document.createElement('iframe');

@@ -58,6 +58,11 @@ if (typeof window !== 'undefined') {
   });
 }
 
+// Make sure document is defined in test environment
+if (typeof document === 'undefined') {
+  require('./__mocks__/documentMock');
+}
+
 // Mock IntersectionObserver
 global.IntersectionObserver = class IntersectionObserver {
   constructor(callback) {

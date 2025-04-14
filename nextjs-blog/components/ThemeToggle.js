@@ -6,6 +6,9 @@ export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   useEffect(() => {
+    // Check if we're in a browser environment
+    if (typeof document === 'undefined') return;
+
     const handleKeyDown = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 't') {
         e.preventDefault();
