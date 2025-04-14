@@ -1,45 +1,71 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import ParallaxHero from '../../components/ParallaxHero';
 
-// Mock de useState pour pouvoir tester les mises à jour d'état
-const mockSetOffset = jest.fn();
-jest.mock('react', () => {
-  const originalReact = jest.requireActual('react');
-  return {
-    ...originalReact,
-    useState: jest.fn((initialValue) => [initialValue, mockSetOffset]),
-  };
-});
-
 describe('ParallaxHero Component', () => {
   const defaultProps = {
-    title: 'Welcome to My Blog',
-    subtitle: 'A journey through code and technology',
+    title: 'Welcome',
+    subtitle: 'Test Subtitle',
     backgroundImage: '/images/hero.jpg'
   };
 
+  let originalWindow;
+  let mockWindow;
+
   beforeEach(() => {
-    // Reset mocks before each test
-    mockSetOffset.mockClear();
-    window.scrollY = 0;
+    // Save original window
+    originalWindow = global.window;
 
-    // Mock window scroll event
-    Object.defineProperty(window, 'scrollY', {
-      value: 0,
-      writable: true,
-      configurable: true
+    // Create mock window with all required properties
+    mockWindow = {
+      ...originalWindow,
+      scrollY: 0,
+      innerHeight: 800,
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      requestAnimationFrame: jest.fn(cb => cb()),
+      cancelAnimationFrame: jest.fn()
+    };
+
+    // Mock window scroll and resize
+    Object.defineProperty(global, 'window', {
+      value: mockWindow,
+      writable: true
     });
 
-    Object.defineProperty(window, 'innerHeight', {
-      writable: true,
-      configurable: true,
-      value: 800
-    });
+    // Mock IntersectionObserver
+    global.IntersectionObserver = class IntersectionObserver {
+      constructor(callback) {
+        this.callback = callback;
+      }
+      observe() {
+        this.callback([{ isIntersecting: true }]);
+      }
+      disconnect() {}
+    };
+
+    // Reset all mocks
+    jest.clearAllMocks();
   });
 
-  test('renders hero content', () => {
+  afterEach(() => {
+    // Restore original window
+    global.window = originalWindow;
+  });
+
+  test('renders with default props', () => {
+    render(<ParallaxHero />);
+    expect(screen.getByRole('banner')).toBeInTheDocument();
+    expect(screen.getByText('Welcome')).toBeInTheDocument();
+    expect(screen.getByText('Explore our stories')).toBeInTheDocument();
+  });
+
+  test('renders with custom props', () => {
     render(<ParallaxHero {...defaultProps} />);
     expect(screen.getByText(defaultProps.title)).toBeInTheDocument();
     expect(screen.getByText(defaultProps.subtitle)).toBeInTheDocument();
@@ -51,43 +77,63 @@ describe('ParallaxHero Component', () => {
     expect(background.style.backgroundImage).toContain(defaultProps.backgroundImage);
   });
 
-  test('handles scroll events', () => {
+  test('applies parallax effect on scroll', () => {
     render(<ParallaxHero {...defaultProps} />);
     const parallax = screen.getByTestId('hero-parallax');
+    
+    window.scrollY = 100;
+    fireEvent.scroll(window);
+    
+    expect(parallax.style.transform).toBe('translateY(50px)');
+  });
 
-    // Test initial position
-    expect(parallax.style.transform).toBe('translateY(0px)');
+  test('updates container height on resize', () => {
+    render(<ParallaxHero {...defaultProps} />);
+    const container = screen.getByTestId('hero-container');
+    
+    Object.defineProperty(window, 'innerHeight', { value: 800 });
+    fireEvent.resize(window);
+    
+    expect(container.style.height).toBe('400px');
+  });
 
-    // Test after scroll
+  test('handles intersection observer callback', () => {
+    render(<ParallaxHero {...defaultProps} />);
+    const parallax = screen.getByTestId('hero-parallax');
     window.scrollY = 100;
     fireEvent.scroll(window);
     expect(parallax.style.transform).toBe('translateY(50px)');
   });
 
-  test('handles window resize', () => {
+  test('handles error cases gracefully', () => {
+    // Mock IntersectionObserver to throw error
+    global.IntersectionObserver = class {
+      constructor() {
+        throw new Error('Test error');
+      }
+    };
+
     render(<ParallaxHero {...defaultProps} />);
-    const hero = screen.getByTestId('hero-container');
-
-    // Change window height
-    window.innerHeight = 1000;
-    fireEvent.resize(window);
-
-    expect(hero.style.height).toBe('500px');
+    expect(screen.getByRole('banner')).toHaveClass('hero-fallback');
+    expect(screen.getByText(defaultProps.title)).toBeInTheDocument();
+    expect(screen.getByText(defaultProps.subtitle)).toBeInTheDocument();
   });
 
-  test('adds and removes event listeners', () => {
-    const addEventListenerSpy = jest.spyOn(window, 'addEventListener');
-    const removeEventListenerSpy = jest.spyOn(window, 'removeEventListener');
+  test('sets correct ARIA attributes', () => {
+    render(<ParallaxHero {...defaultProps} />);
+    const banner = screen.getByRole('banner');
+    expect(banner).toHaveAttribute('aria-label', 'Hero section');
+    expect(screen.getByTestId('hero-parallax')).toHaveAttribute('aria-hidden', 'true');
+  });
 
+  test('cleans up event listeners on unmount', () => {
+    const removeEventListener = jest.spyOn(window, 'removeEventListener');
     const { unmount } = render(<ParallaxHero {...defaultProps} />);
-
-    expect(addEventListenerSpy).toHaveBeenCalledWith('scroll', expect.any(Function));
-    expect(addEventListenerSpy).toHaveBeenCalledWith('resize', expect.any(Function));
-
+    
     unmount();
-
-    expect(removeEventListenerSpy).toHaveBeenCalledWith('scroll', expect.any(Function));
-    expect(removeEventListenerSpy).toHaveBeenCalledWith('resize', expect.any(Function));
+    
+    expect(removeEventListener).toHaveBeenCalledWith('scroll', expect.any(Function));
+    expect(removeEventListener).toHaveBeenCalledWith('resize', expect.any(Function));
   });
 
   test('handles missing background image', () => {
@@ -102,12 +148,12 @@ describe('ParallaxHero Component', () => {
     const parallax = screen.getByTestId('hero-parallax');
 
     // Test upper boundary
-    window.scrollY = -100;
+    mockWindow.scrollY = -100;
     fireEvent.scroll(window);
     expect(parallax.style.transform).toBe('translateY(0px)');
 
     // Test lower boundary
-    window.scrollY = 2000;
+    mockWindow.scrollY = 2000;
     fireEvent.scroll(window);
     expect(parallax.style.transform).toBe('translateY(400px)');
   });
@@ -119,7 +165,7 @@ describe('ParallaxHero Component', () => {
     // Test different window heights
     const heights = [600, 800, 1000, 1200];
     heights.forEach(height => {
-      window.innerHeight = height;
+      mockWindow.innerHeight = height;
       fireEvent.resize(window);
       expect(container.style.height).toBe(`${height / 2}px`);
     });
@@ -131,11 +177,12 @@ describe('ParallaxHero Component', () => {
 
     // Simulate rapid scrolling
     for (let i = 0; i < 10; i++) {
-      window.scrollY += 50;
+      mockWindow.scrollY += 50;
       fireEvent.scroll(window);
     }
 
     expect(parallax.style.transform).toBe('translateY(250px)');
+    expect(mockWindow.requestAnimationFrame).toHaveBeenCalled();
   });
 
 });

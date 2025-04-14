@@ -1,8 +1,19 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import FirstPost from '../../pages/posts/first-post';
 import { getAllCategories } from '../../lib/posts';
+
+// Mock next/head
+jest.mock('next/head', () => {
+  return function MockHead({ children }) {
+    return <div data-testid="mock-head">{children}</div>;
+  };
+});
 
 jest.mock('../../lib/posts', () => ({
   getAllCategories: jest.fn()

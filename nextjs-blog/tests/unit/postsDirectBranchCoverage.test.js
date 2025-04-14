@@ -1,30 +1,102 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import {
   getAllCategories,
   getAllCategorySlugs,
   getCategoryFromSlug,
-  getPostsByCategory
+  getPostsByCategory,
+  getSortedPostsData,
+  getPostData
 } from '../../lib/posts';
 import fs from 'fs';
 import path from 'path';
+import matter from 'gray-matter';
 
 // Mock des modules
-jest.mock('fs');
-jest.mock('path');
+jest.mock('fs', () => ({
+  readdirSync: jest.fn(),
+  readFileSync: jest.fn(),
+  existsSync: jest.fn()
+}));
+
+jest.mock('path', () => ({
+  join: jest.fn(),
+  resolve: jest.fn()
+}));
+
+jest.mock('gray-matter', () => jest.fn());
 
 // Mock de la fonction slugify pour contrôler son comportement
 jest.mock('../../lib/utils', () => ({
   slugify: (text) => text.toLowerCase().replace(/\s+/g, '-')
 }));
 
-describe('Posts Direct Branch Coverage', () => {
+describe('Posts Functions Direct Branch Coverage', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    
-    // Mock de fs.readdirSync
-    fs.readdirSync.mockReturnValue(['post-one.md', 'post-two.md']);
-    
-    // Mock de path.join
     path.join.mockImplementation((...args) => args.join('/'));
+  });
+
+  describe('getSortedPostsData direct paths', () => {
+    test('handles missing metadata fields', () => {
+      fs.readdirSync.mockReturnValue(['test-post.md']);
+      fs.readFileSync.mockReturnValue('---\ntitle: Test\n---\nContent');
+      matter.mockReturnValue({
+        data: { title: 'Test' },
+        content: 'Content'
+      });
+
+      const posts = getSortedPostsData();
+      expect(posts[0].category).toBe('Uncategorized');
+      expect(posts[0].categories).toEqual(['Uncategorized']);
+    });
+
+    test('handles posts without frontmatter', () => {
+      fs.readdirSync.mockReturnValue(['no-meta.md']);
+      fs.readFileSync.mockReturnValue('Just content');
+      matter.mockReturnValue({
+        data: {},
+        content: 'Just content'
+      });
+
+      const posts = getSortedPostsData();
+      expect(posts[0].category).toBe('Uncategorized');
+      expect(posts[0].categories).toEqual(['Uncategorized']);
+    });
+  });
+
+  describe('getPostData direct paths', () => {
+    test('handles markdown without embeds', async () => {
+      fs.readFileSync.mockReturnValue('---\ntitle: Test\n---\nRegular content');
+      matter.mockReturnValue({
+        data: { title: 'Test' },
+        content: 'Regular content'
+      });
+
+      const post = await getPostData('test-post');
+      expect(post.contentHtml).toContain('<p>Regular content</p>');
+    });
+
+    test('handles markdown with mixed content', async () => {
+      const content = `# Heading
+![youtube](https://youtu.be/abc123 "Test Video")
+Regular paragraph
+![youtube](invalid-url)`;
+
+      fs.readFileSync.mockReturnValue(`---\ntitle: Test\n---\n${content}`);
+      matter.mockReturnValue({
+        data: { title: 'Test' },
+        content
+      });
+
+      const post = await getPostData('test-post');
+      expect(post.contentHtml).toContain('<h1>Heading</h1>');
+      expect(post.contentHtml).toContain('lite-youtube');
+      expect(post.contentHtml).toContain('<p>Regular paragraph</p>');
+      expect(post.contentHtml).toContain('![youtube](invalid-url)');
+    });
   });
 
   describe('getAllCategories - specific branch coverage', () => {

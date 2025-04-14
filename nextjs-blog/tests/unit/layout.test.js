@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Layout from '../../components/layout';
@@ -102,5 +106,12 @@ describe('Layout Component', () => {
     );
 
     expect(screen.getByText('Something went wrong')).toBeInTheDocument();
+  });
+
+  test('includes proper ARIA landmarks', () => {
+    render(<Layout {...defaultProps} />);
+    expect(screen.getByRole('main')).toBeInTheDocument();
+    expect(screen.getByRole('complementary')).toHaveAttribute('aria-label', 'Categories');
+    expect(screen.getByRole('contentinfo')).toBeInTheDocument();
   });
 });

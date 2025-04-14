@@ -2,38 +2,44 @@ import React from 'react';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 import Navbar from './Navbar';
+import CategoryNav from './CategoryNav';
 
-export default function Layout({ children, home, title = 'BikiNinjas' }) {
+export default function Layout({ children, categories = [], title = 'BikiNinjas Blog' }) {
   return (
-    <div className="layout">
+    <div className="container">
       <Head>
         <title>{title}</title>
-        <meta name="description" content="Un blog Markdown avec Next.js" />
-        <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="BikiNinjas Blog - Articles about tech, games, and development" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navbar title="BikiNinjas" />
+      <Navbar />
 
-      <div className="container">
-        <main className="main">
+      <main role="main" className="main-content" id="main-content">
+        <aside role="complementary" aria-label="Categories">
+          <CategoryNav categories={categories} />
+        </aside>
+        
+        <div className="content-wrapper">
           {children}
-        </main>
+        </div>
+      </main>
 
-        <footer>
-          <p>© {new Date().getFullYear()} BikiNinjas. Créé avec Next.js</p>
-        </footer>
-      </div>
+      <footer role="contentinfo" className="footer">
+        <p>© {new Date().getFullYear()} BikiNinjas. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-  home: PropTypes.bool,
+  categories: PropTypes.array,
   title: PropTypes.string
 };
 
 Layout.defaultProps = {
-  home: false
+  categories: [],
+  title: 'BikiNinjas Blog'
 };

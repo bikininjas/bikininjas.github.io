@@ -1,8 +1,19 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Home, { getStaticProps } from '../../pages/index';
 import * as postsLib from '../../lib/posts';
+
+// Mock next/head
+jest.mock('next/head', () => {
+  return function MockHead({ children }) {
+    return <div data-testid="mock-head">{children}</div>;
+  };
+});
 
 // Mock des dépendances
 jest.mock('../../components/layout', () => {

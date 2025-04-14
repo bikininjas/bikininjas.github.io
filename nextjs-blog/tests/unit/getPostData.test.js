@@ -1,10 +1,19 @@
+/**
+ * @jest-environment jsdom
+ */
+
+import { getPostData } from '../../lib/posts';
 import fs from 'fs';
 import path from 'path';
-import { getPostData } from '../../lib/posts';
 
-// Mock the fs and path modules
-jest.mock('fs');
-jest.mock('path');
+jest.mock('fs', () => ({
+  readFileSync: jest.fn(),
+  existsSync: jest.fn()
+}));
+
+jest.mock('path', () => ({
+  join: jest.fn()
+}));
 
 // Mock remark and its process method
 jest.mock('remark', () => {

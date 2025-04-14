@@ -1,7 +1,10 @@
-import React from 'react';
+/**
+ * @jest-environment jsdom
+ */
+
 import { render, screen } from '@testing-library/react';
 import Post, { getStaticProps, getStaticPaths } from '../../pages/posts/[id]';
-import * as postsLib from '../../lib/posts';
+import { getAllPostIds, getPostData } from '../../lib/posts';
 
 jest.mock('../../lib/posts', () => ({
   getAllPostIds: jest.fn(),
@@ -9,6 +12,14 @@ jest.mock('../../lib/posts', () => ({
   getAllCategories: jest.fn()
 }));
 
+// Mock next/head
+jest.mock('next/head', () => {
+  return function MockHead({ children }) {
+    return <div data-testid="mock-head">{children}</div>;
+  };
+});
+
+// Mock components
 jest.mock('../../components/layout', () => {
   return function MockLayout({ children }) {
     return <div data-testid="mock-layout">{children}</div>;
@@ -16,8 +27,8 @@ jest.mock('../../components/layout', () => {
 });
 
 jest.mock('../../components/PostContent', () => {
-  return function MockPostContent({ post }) {
-    return <div data-testid="mock-post-content">{post.title}</div>;
+  return function MockPostContent(props) {
+    return <div data-testid="mock-post-content" {...props} />;
   };
 });
 
@@ -26,99 +37,93 @@ describe('Post Page', () => {
     id: 'test-post',
     title: 'Test Post',
     date: '2023-01-01',
-    contentHtml: '<p>Test content</p>',
-    category: 'Test Category',
-    categorySlug: 'test-category',
-    readTime: '5 min read'
+    contentHtml: '<p>Test content</p>'
   };
 
-  const mockCategories = ['Test Category', 'Other Category'];
+  const mockCategories = ['Tech', 'Gaming'];
 
   beforeEach(() => {
-    jest.clearAllMocks();
-    postsLib.getPostData.mockResolvedValue(mockPost);
-    postsLib.getAllCategories.mockResolvedValue(mockCategories);
-  });
-
-  test('renders post page with content', () => {
-    render(<Post postData={mockPost} categories={mockCategories} />);
-    
-    expect(screen.getByTestId('mock-layout')).toBeInTheDocument();
-    expect(screen.getByTestId('mock-post-content')).toHaveTextContent(mockPost.title);
+    getAllPostIds.mockReturnValue([
+      { params: { id: 'test-post' } },
+      { params: { id: 'another-post' } }
+    ]);
+    getPostData.mockResolvedValue(mockPost);
+    getAllCategories.mockReturnValue(mockCategories);
   });
 
   test('getStaticPaths returns all post paths', async () => {
-    const mockPaths = [
-      { params: { id: 'post-1' } },
-      { params: { id: 'post-2' } }
-    ];
-    postsLib.getAllPostIds.mockResolvedValue(mockPaths);
-
-    const { paths, fallback } = await getStaticPaths();
-    expect(paths).toEqual(mockPaths);
-    expect(fallback).toBe(false);
+    const paths = await getStaticPaths();
+    expect(paths).toEqual({
+      paths: [
+        { params: { id: 'test-post' } },
+        { params: { id: 'another-post' } }
+      ],
+      fallback: false
+    });
+    expect(getAllPostIds).toHaveBeenCalled();
   });
 
-  test('getStaticProps returns post data and categories', async () => {
-    const params = { id: 'test-post' };
-    const { props } = await getStaticProps({ params });
-
-    expect(props).toEqual({
-      postData: mockPost,
-      categories: mockCategories
+  test('getStaticProps returns post data', async () => {
+    const props = await getStaticProps({
+      params: { id: 'test-post' }
     });
 
-    expect(postsLib.getPostData).toHaveBeenCalledWith(params.id);
-    expect(postsLib.getAllCategories).toHaveBeenCalled();
+    expect(props).toEqual({
+      props: {
+        postData: mockPost,
+        categories: mockCategories
+      }
+    });
+    expect(getPostData).toHaveBeenCalledWith('test-post');
   });
 
-  test('handles metadata in post content', () => {
-    const postWithMetadata = {
-      ...mockPost,
-      author: 'Test Author',
-      description: 'Test Description'
-    };
+  test('renders post page with content', () => {
+    render(
+      <Post
+        postData={mockPost}
+        categories={mockCategories}
+      />
+    );
 
-    render(<Post postData={postWithMetadata} categories={mockCategories} />);
-    const layout = screen.getByTestId('mock-layout');
-    expect(layout).toBeInTheDocument();
-  });
-
-  test('handles missing optional metadata', () => {
-    const minimalPost = {
-      id: 'test-post',
-      title: 'Test Post',
-      contentHtml: '<p>Test content</p>'
-    };
-
-    render(<Post postData={minimalPost} categories={mockCategories} />);
+    expect(screen.getByTestId('mock-layout')).toBeInTheDocument();
     expect(screen.getByTestId('mock-post-content')).toBeInTheDocument();
   });
 
-  test('throws error when required props are missing', () => {
+  test('passes correct props to PostContent', () => {
+    render(
+      <Post
+        postData={mockPost}
+        categories={mockCategories}
+      />
+    );
+
+    const postContent = screen.getByTestId('mock-post-content');
+    expect(postContent).toHaveAttribute('title', mockPost.title);
+    expect(postContent).toHaveAttribute('date', mockPost.date);
+    expect(postContent).toHaveAttribute('contentHtml', mockPost.contentHtml);
+  });
+
+  test('sets page title correctly', () => {
+    render(
+      <Post
+        postData={mockPost}
+        categories={mockCategories}
+      />
+    );
+
+    const head = screen.getByTestId('mock-head');
+    expect(head).toHaveTextContent(mockPost.title);
+  });
+
+  test('handles missing post data', () => {
     const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-    expect(() => render(<Post />)).toThrow();
+    expect(() => render(<Post categories={mockCategories} />)).toThrow();
     consoleSpy.mockRestore();
   });
 
-  test('handles error in getStaticProps', async () => {
-    postsLib.getPostData.mockRejectedValue(new Error('Failed to fetch'));
+  test('handles missing categories', () => {
     const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-    
-    const params = { id: 'error-post' };
-    await expect(getStaticProps({ params })).rejects.toThrow('Failed to fetch');
-    
+    expect(() => render(<Post postData={mockPost} />)).toThrow();
     consoleSpy.mockRestore();
-  });
-
-  test('handles malformed post data', () => {
-    const malformedPost = {
-      id: 'test-post',
-      title: null,
-      contentHtml: undefined
-    };
-
-    render(<Post postData={malformedPost} categories={mockCategories} />);
-    expect(screen.getByTestId('mock-post-content')).toBeInTheDocument();
   });
 });

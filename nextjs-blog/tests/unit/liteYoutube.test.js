@@ -1,106 +1,165 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import LiteYouTube from '../../components/LiteYouTube';
+/**
+ * @jest-environment jsdom
+ */
 
-describe('LiteYouTube Component', () => {
+import React from 'react';
+import { render, fireEvent, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import LiteYouTubeEmbed from '../../components/LiteYouTubeEmbed';
+
+describe('LiteYouTubeEmbed Component', () => {
   const defaultProps = {
-    videoId: 'dQw4w9WgXcQ',
+    id: 'dQw4w9WgXcQ',
     title: 'Test Video'
   };
 
   beforeEach(() => {
     // Mock IntersectionObserver
-    const mockIntersectionObserver = jest.fn();
-    mockIntersectionObserver.mockReturnValue({
-      observe: () => null,
-      unobserve: () => null,
-      disconnect: () => null
-    });
-    window.IntersectionObserver = mockIntersectionObserver;
+    global.IntersectionObserver = class IntersectionObserver {
+      constructor(callback) {
+        this.callback = callback;
+      }
+      observe() {
+        // Simulate intersection immediately
+        this.callback([{ isIntersecting: true }]);
+      }
+      unobserve() {}
+      disconnect() {}
+    };
   });
 
   test('renders with required props', () => {
-    render(<LiteYouTube {...defaultProps} />);
+    render(<LiteYouTubeEmbed {...defaultProps} />);
     expect(screen.getByTestId('lite-youtube')).toBeInTheDocument();
-    expect(screen.getByText(defaultProps.title)).toBeInTheDocument();
+    expect(screen.getByAltText(`${defaultProps.title} thumbnail`)).toBeInTheDocument();
   });
 
-  test('loads video thumbnail', () => {
-    render(<LiteYouTube {...defaultProps} />);
+  test('loads thumbnail image', () => {
+    render(<LiteYouTubeEmbed {...defaultProps} />);
     const thumbnail = screen.getByAltText(`${defaultProps.title} thumbnail`);
-    expect(thumbnail).toHaveAttribute('src', `https://i.ytimg.com/vi/${defaultProps.videoId}/hqdefault.jpg`);
+    expect(thumbnail).toHaveAttribute('src', `https://i.ytimg.com/vi/${defaultProps.id}/hqdefault.jpg`);
   });
 
-  test('handles click event', () => {
-    render(<LiteYouTube {...defaultProps} />);
+  test('activates on click', () => {
+    render(<LiteYouTubeEmbed {...defaultProps} />);
     const container = screen.getByTestId('lite-youtube');
     fireEvent.click(container);
     expect(container).toHaveClass('lyt-activated');
   });
 
-  test('handles keyboard navigation', () => {
-    render(<LiteYouTube {...defaultProps} />);
+  test('activates on Enter key', () => {
+    render(<LiteYouTubeEmbed {...defaultProps} />);
     const container = screen.getByTestId('lite-youtube');
     fireEvent.keyDown(container, { key: 'Enter' });
     expect(container).toHaveClass('lyt-activated');
   });
 
-  test('handles missing title prop', () => {
-    const { videoId } = defaultProps;
-    render(<LiteYouTube videoId={videoId} />);
+  test('handles missing title', () => {
+    const { id } = defaultProps;
+    render(<LiteYouTubeEmbed id={id} />);
     expect(screen.getByTestId('lite-youtube')).toBeInTheDocument();
   });
 
-  test('handles invalid video ID', () => {
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-    render(<LiteYouTube {...defaultProps} videoId="invalid-id" />);
-    expect(screen.getByTestId('lite-youtube')).toHaveAttribute('data-videoid', 'invalid-id');
-    consoleSpy.mockRestore();
+  test('adds autoplay parameter when activated', () => {
+    render(<LiteYouTubeEmbed {...defaultProps} />);
+    const container = screen.getByTestId('lite-youtube');
+    fireEvent.click(container);
+    const iframe = screen.getByTitle(defaultProps.title);
+    expect(iframe.src).toContain('autoplay=1');
   });
 
-  test('loads high quality thumbnail when specified', () => {
-    render(<LiteYouTube {...defaultProps} quality="maxresdefault" />);
-    const thumbnail = screen.getByAltText(`${defaultProps.title} thumbnail`);
-    expect(thumbnail).toHaveAttribute('src', `https://i.ytimg.com/vi/${defaultProps.videoId}/maxresdefault.jpg`);
+  test('applies custom parameters', () => {
+    const params = {
+      start: '30',
+      controls: '0'
+    };
+    render(<LiteYouTubeEmbed {...defaultProps} params={params} />);
+    const container = screen.getByTestId('lite-youtube');
+    fireEvent.click(container);
+    const iframe = screen.getByTitle(defaultProps.title);
+    expect(iframe.src).toContain('start=30');
+    expect(iframe.src).toContain('controls=0');
   });
 
   test('handles intersection observer callback', () => {
-    render(<LiteYouTube {...defaultProps} />);
+    render(<LiteYouTubeEmbed {...defaultProps} />);
     const container = screen.getByTestId('lite-youtube');
-    
-    // Simulate intersection
-    const observerCallback = window.IntersectionObserver.mock.calls[0][0];
-    observerCallback([{ isIntersecting: true }]);
-    
     expect(container).toHaveClass('lyt-observed');
   });
 
-  test('cleans up observer on unmount', () => {
+  test('handles unmounting', () => {
     const disconnect = jest.fn();
-    window.IntersectionObserver.mockReturnValue({
-      observe: () => null,
-      unobserve: () => null,
-      disconnect
-    });
+    global.IntersectionObserver = class {
+      observe() {}
+      unobserve() {}
+      disconnect = disconnect;
+    };
 
-    const { unmount } = render(<LiteYouTube {...defaultProps} />);
+    const { unmount } = render(<LiteYouTubeEmbed {...defaultProps} />);
     unmount();
     expect(disconnect).toHaveBeenCalled();
   });
 
-  test('handles play button click', () => {
-    render(<LiteYouTube {...defaultProps} />);
-    const playButton = screen.getByLabelText('Play');
-    fireEvent.click(playButton);
-    expect(screen.getByTestId('lite-youtube')).toHaveClass('lyt-activated');
+  test('shows loading state initially', () => {
+    render(<LiteYouTubeEmbed {...defaultProps} />);
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
   });
 
-  test('sets correct iframe source', () => {
-    render(<LiteYouTube {...defaultProps} />);
+  test('removes loading state after image loads', () => {
+    render(<LiteYouTubeEmbed {...defaultProps} />);
+    const img = screen.getByAltText(`${defaultProps.title} thumbnail`);
+    fireEvent.load(img);
+    expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+  });
+
+  test('shows error state on image load failure', () => {
+    render(<LiteYouTubeEmbed {...defaultProps} />);
+    const img = screen.getByAltText(`${defaultProps.title} thumbnail`);
+    fireEvent.error(img);
+    expect(screen.getByText('Error loading video')).toBeInTheDocument();
+    expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+  });
+
+  test('sets correct ARIA label', () => {
+    render(<LiteYouTubeEmbed {...defaultProps} />);
+    const container = screen.getByTestId('lite-youtube');
+    expect(container).toHaveAttribute('aria-label', `Play ${defaultProps.title}`);
+  });
+
+  test('applies custom parameters to iframe src', () => {
+    const params = { start: '30', controls: '0' };
+    render(<LiteYouTubeEmbed {...defaultProps} params={params} />);
+    
     const container = screen.getByTestId('lite-youtube');
     fireEvent.click(container);
     
     const iframe = screen.getByTitle(defaultProps.title);
-    expect(iframe).toHaveAttribute('src', expect.stringContaining(defaultProps.videoId));
+    expect(iframe.src).toContain('start=30');
+    expect(iframe.src).toContain('controls=0');
+    expect(iframe.src).toContain('autoplay=1');
+  });
+
+  test('adds iframe with correct attributes', () => {
+    render(<LiteYouTubeEmbed {...defaultProps} />);
+    const container = screen.getByTestId('lite-youtube');
+    fireEvent.click(container);
+    
+    const iframe = screen.getByTitle(defaultProps.title);
+    expect(iframe).toHaveAttribute('allow', expect.stringContaining('accelerometer'));
+    expect(iframe).toHaveAttribute('allow', expect.stringContaining('autoplay'));
+    expect(iframe).toHaveAttribute('allowfullscreen');
+  });
+
+  test('handles keyboard interaction', () => {
+    render(<LiteYouTubeEmbed {...defaultProps} />);
+    const container = screen.getByTestId('lite-youtube');
+    
+    // Test non-Enter key
+    fireEvent.keyDown(container, { key: 'Space' });
+    expect(container).not.toHaveClass('lyt-activated');
+    
+    // Test Enter key
+    fireEvent.keyDown(container, { key: 'Enter' });
+    expect(container).toHaveClass('lyt-activated');
   });
 });

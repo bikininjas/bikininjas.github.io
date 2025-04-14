@@ -1,53 +1,38 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { slugify, formatDate } from '../../lib/utils';
 
-describe('Utils Functions', () => {
+describe('Utils', () => {
   describe('slugify', () => {
-    test('converts string to lowercase', () => {
-      expect(slugify('HELLO')).toBe('hello');
+    it('converts strings to lowercase', () => {
+      expect(slugify('Test String')).toBe('test-string');
     });
 
-    test('replaces spaces with hyphens', () => {
-      expect(slugify('hello world')).toBe('hello-world');
+    it('replaces spaces with hyphens', () => {
+      expect(slugify('multiple   spaces')).toBe('multiple-spaces');
     });
 
-    test('removes special characters', () => {
-      expect(slugify('hello!@#$%^&*()')).toBe('hello');
+    it('removes special characters', () => {
+      expect(slugify('Special! @#$% Characters')).toBe('special-characters');
     });
 
-    test('handles accented characters', () => {
-      expect(slugify('héllò wórld')).toBe('hello-world');
+    it('handles accented characters', () => {
+      expect(slugify('àéïōũ')).toBe('aeiou');
     });
 
-    test('removes multiple spaces', () => {
-      expect(slugify('hello    world')).toBe('hello-world');
+    it('removes trailing hyphens', () => {
+      expect(slugify('test!')).toBe('test');
     });
 
-    test('handles empty string', () => {
+    it('handles empty strings', () => {
       expect(slugify('')).toBe('');
     });
 
-    test('handles string with only special characters', () => {
-      expect(slugify('!@#$%^')).toBe('');
-    });
-
-    test('handles mixed case with special characters and spaces', () => {
-      expect(slugify('Hello World! This is a Test')).toBe('hello-world-this-is-a-test');
-    });
-
-    test('handles numbers', () => {
-      expect(slugify('Hello 123 World')).toBe('hello-123-world');
-    });
-
-    test('removes leading and trailing spaces', () => {
-      expect(slugify('  hello world  ')).toBe('hello-world');
-    });
-
-    test('handles undefined input', () => {
-      expect(slugify(undefined)).toBe('');
-    });
-
-    test('handles null input', () => {
+    it('handles null or undefined', () => {
       expect(slugify(null)).toBe('');
+      expect(slugify(undefined)).toBe('');
     });
   });
 

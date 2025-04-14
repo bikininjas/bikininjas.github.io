@@ -1,17 +1,27 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import {
+  getAllPostIds,
+  getPostData,
   getSortedPostsData,
-  getAllCategories,
-  getAllCategorySlugs,
-  getCategoryFromSlug,
-  getPostsByCategory,
-  getPostsByCategorySlug
-} from '../../lib/posts';
+} from '../../../lib/posts';
 import fs from 'fs';
 import path from 'path';
 
-// Mock des modules
-jest.mock('fs');
-jest.mock('path');
+jest.mock('fs', () => ({
+  readdirSync: jest.fn(),
+  readFileSync: jest.fn(),
+  existsSync: jest.fn()
+}));
+
+jest.mock('path', () => ({
+  join: jest.fn(),
+  resolve: jest.fn()
+}));
+
+jest.mock('gray-matter');
 
 describe('Posts Functions Edge Cases', () => {
 

@@ -6,88 +6,64 @@ import html from 'remark-html';
 
 // Custom function to process embeds
 export function processEmbeds(content) {
+  const youtubeRegex = /!\[youtube\]\((https:\/\/(?:youtu\.be\/|youtube\.com\/watch\?v=)([a-zA-Z0-9_-]+))(?:\s+"([^"]*)")?\)/g;
+  const twitchRegex = /!\[twitch\]\(([^)\s]+)(?:\s+"([^"]*)")?\)/g;
+  const blueskyRegex = /!\[bluesky\]\((https:\/\/bsky\.app\/profile\/[^/]+\/post\/[^)\s]+)\)/g;
+
   let processedContent = content;
-  
+
   // Process YouTube embeds
-  processedContent = processedContent.replace(
-    /!\[youtube\]\(([^)]+)\)/g,
-    (match, url) => {
-      // Extract video ID, title and options
-      const parts = url.split(' "');
-      const videoUrl = parts[0];
-      const titlePart = parts.length > 1 ? parts[1].replace('"', '') : '';
-      
-      // Check if there are options in the title part (format: "Title|option1=value1,option2=value2")
-      let title = titlePart;
-      let options = {};
-      
-      if (titlePart.includes('|')) {
-        const titleAndOptions = titlePart.split('|');
-        title = titleAndOptions[0].trim();
-        
-        // Parse options
-        if (titleAndOptions.length > 1) {
-          const optionsStr = titleAndOptions[1].trim();
-          optionsStr.split(',').forEach(opt => {
-            if (opt.includes('=')) {
-              const [key, value] = opt.split('=');
-              options[key.trim()] = value.trim();
-            }
-          });
+  processedContent = processedContent.replace(youtubeRegex, (match, url, videoId, title = "") => {
+    if (!videoId || videoId.length < 4) return match;
+    
+    // Parse options from title if present (format: "Title|option1=value1,option2=value2")
+    let options = {};
+    let displayTitle = title;
+    
+    if (title.includes('|')) {
+      const [titlePart, optionsPart] = title.split('|');
+      displayTitle = titlePart;
+      optionsPart.split(',').forEach(option => {
+        const [key, value] = option.split('=');
+        if (key && value) {
+          options[key.trim()] = value.trim();
         }
-      }
-      
-      // Extract video ID
-      let videoId = videoUrl;
-      if (videoUrl.includes('youtu.be/')) {
-        videoId = videoUrl.split('youtu.be/')[1].split('?')[0];
-      } else if (videoUrl.includes('v=')) {
-        videoId = videoUrl.split('v=')[1].split('&')[0];
-      }
-      
-      // Apply options
-      const startTime = options.start ? `start=${options.start}` : '';
-      const autoplay = options.autoplay === 'true' ? 'autoplay' : '';
-      const playsInline = options.playsInline === 'true' ? 'playsinline' : '';
-      
-      // Use lite-youtube-embed format if available, otherwise fallback to iframe
-      return `<div class="embed-container video-container">
-        <lite-youtube videoid="${videoId}" playlabel="${title}" ${autoplay} ${playsInline} ${startTime ? `params="${startTime}"` : ''}></lite-youtube>
+      });
+    }
+
+    // Escape special characters in title
+    const escapedTitle = displayTitle.replace(/[&<>"']/g, char => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[char]));
+
+    // Build options string
+    const optionsString = Object.entries(options)
+      .map(([key, value]) => `${key}="${value}"`)
+      .join(' ');
+
+    return `<div class="embed-container video-container">
+        <lite-youtube videoid="${videoId}" playlabel="${escapedTitle}" ${optionsString}></lite-youtube>
       </div>`;
-    }
-  );
-  
+  });
+
   // Process Twitch embeds
-  processedContent = processedContent.replace(
-    /!\[twitch\]\(([^)]+)\)/g,
-    (match, url) => {
-      // Extract channel name
-      const parts = url.split(' "');
-      const channelUrl = parts[0];
-      const title = parts.length > 1 ? parts[1].replace('"', '') : '';
-      
-      const channelName = channelUrl.includes('twitch.tv/') 
-        ? channelUrl.split('twitch.tv/')[1].split('?')[0] 
-        : channelUrl;
-      
-      const parent = process.env.NODE_ENV === 'development' ? 'localhost' : 'bikininjas.github.io';
-      const titleAttr = title ? ` title="${title}"` : '';
-      return `<div class="embed-container twitch-container"><iframe src="https://player.twitch.tv/?channel=${channelName}&parent=${parent}"${titleAttr} frameborder="0" allowfullscreen scrolling="no"></iframe></div>`;
-    }
-  );
-  
+  processedContent = processedContent.replace(twitchRegex, (match, channel, title = "") => {
+    if (!channel || channel === 'invalid-url') return match;
+    const channelName = channel.split('/').pop();
+    if (!channelName || channelName === '') return match;
+    return `<div class="embed-container twitch-container"><iframe src="https://player.twitch.tv/?channel=${channelName}&parent=${process.env.NODE_ENV === 'development' ? 'localhost' : 'bikininjas.github.io'}" frameborder="0" allowfullscreen scrolling="no"></iframe></div>`;
+  });
+
   // Process Bluesky embeds
-  processedContent = processedContent.replace(
-    /!\[bluesky\]\(([^)]+)\)/g,
-    (match, url) => {
-      // Extract URL
-      const parts = url.split(' "');
-      const bskyUrl = parts[0];
-      
-      return `<div class="bluesky-embed-container"><iframe class="bluesky-embed" src="https://bsky.app/embed?url=${encodeURIComponent(bskyUrl)}" frameborder="0" allowfullscreen scrolling="no"></iframe></div>`;
-    }
-  );
-  
+  processedContent = processedContent.replace(blueskyRegex, (match, url) => {
+    if (!url || !url.includes('/post/')) return match;
+    return `<div class="bluesky-embed-container"><iframe class="bluesky-embed" src="https://bsky.app/embed?url=${encodeURIComponent(url)}" frameborder="0" allowfullscreen scrolling="no"></iframe></div>`;
+  });
+
   return processedContent;
 }
 import { slugify } from './utils';

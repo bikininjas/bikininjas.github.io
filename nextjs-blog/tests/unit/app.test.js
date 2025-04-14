@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import React from 'react';
 import { render, act } from '@testing-library/react';
 import App from '../../pages/_app';
@@ -5,6 +9,15 @@ import App from '../../pages/_app';
 // Mock dynamic imports
 jest.mock('lite-youtube-embed/src/lite-yt-embed', () => ({}), { virtual: true });
 jest.mock('lite-youtube-embed/src/lite-yt-embed.css', () => ({}), { virtual: true });
+
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    pathname: '/',
+    route: '/',
+    query: {},
+    asPath: '/'
+  })
+}));
 
 describe('App Component', () => {
   const mockWindow = {};

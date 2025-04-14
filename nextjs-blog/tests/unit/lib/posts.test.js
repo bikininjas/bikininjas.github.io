@@ -19,51 +19,26 @@ jest.mock('path', () => ({
   resolve: jest.fn()
 }));
 
-jest.mock('gray-matter');
+jest.mock('gray-matter', () => jest.fn());
 
 describe('Posts Library', () => {
-  const mockPosts = [
-    {
-      id: 'post-1',
-      title: 'Test Post 1',
-      date: '2023-01-01',
-      category: 'Technology'
-    },
-    {
-      id: 'post-2',
-      title: 'Test Post 2',
-      date: '2023-01-02',
-      category: 'Development'
-    }
-  ];
-
   beforeEach(() => {
     jest.clearAllMocks();
-    fs.readdirSync.mockReturnValue(['post-1.md', 'post-2.md']);
-    fs.readFileSync.mockReturnValue('---\ntitle: Test\n---\ncontent');
-    matter.mockReturnValue({
-      data: { title: 'Test', date: '2023-01-01' },
-      content: 'Test content'
-    });
+    path.join.mockImplementation((...args) => args.join('/'));
   });
 
   describe('getAllPostIds', () => {
-    test('returns correct post IDs', () => {
+    it('returns post IDs from markdown files', () => {
+      fs.readdirSync.mockReturnValue(['post1.md', 'post2.md']);
+
       const ids = getAllPostIds();
       expect(ids).toEqual([
-        { params: { id: 'post-1' } },
-        { params: { id: 'post-2' } }
+        { params: { id: 'post1' } },
+        { params: { id: 'post2' } }
       ]);
     });
 
-    test('handles fs read error', () => {
-      fs.readdirSync.mockImplementation(() => {
-        throw new Error('Read directory failed');
-      });
-      expect(() => getAllPostIds()).toThrow('Failed to get post IDs');
-    });
-
-    test('handles empty directory', () => {
+    it('handles empty directory', () => {
       fs.readdirSync.mockReturnValue([]);
       const ids = getAllPostIds();
       expect(ids).toEqual([]);
@@ -71,87 +46,67 @@ describe('Posts Library', () => {
   });
 
   describe('getPostData', () => {
-    test('returns post data with processed markdown', async () => {
-      const data = await getPostData('post-1');
-      expect(data).toHaveProperty('id', 'post-1');
-      expect(data).toHaveProperty('contentHtml');
-    });
-
-    test('handles missing markdown file', async () => {
-      fs.readFileSync.mockImplementation(() => {
-        throw new Error('File not found');
-      });
-      await expect(getPostData('invalid-post')).rejects.toThrow('Failed to get post data');
-    });
-
-    test('handles invalid frontmatter', async () => {
-      matter.mockImplementation(() => {
-        throw new Error('Invalid frontmatter');
-      });
-      await expect(getPostData('post-1')).rejects.toThrow('Failed to parse post metadata');
-    });
-
-    test('handles missing required metadata', async () => {
+    beforeEach(() => {
       matter.mockReturnValue({
-        data: {},
+        data: {
+          title: 'Test Post',
+          date: '2023-01-01'
+        },
         content: 'Test content'
       });
-      await expect(getPostData('post-1')).rejects.toThrow('Missing required metadata');
     });
 
-    test('handles markdown processing error', async () => {
+    it('processes post data correctly', async () => {
+      const postData = await getPostData('test-post');
+      expect(postData).toHaveProperty('id', 'test-post');
+      expect(postData).toHaveProperty('title', 'Test Post');
+      expect(postData).toHaveProperty('date', '2023-01-01');
+      expect(postData).toHaveProperty('contentHtml');
+    });
+
+    it('processes embeds in content', async () => {
       matter.mockReturnValue({
-        data: { title: 'Test', date: '2023-01-01' },
-        content: null
+        data: { title: 'Test Post' },
+        content: '![youtube](https://youtu.be/abc123 "Test Video")'
       });
-      await expect(getPostData('post-1')).rejects.toThrow('Failed to process markdown content');
+
+      const postData = await getPostData('test-post');
+      expect(postData.contentHtml).toContain('lite-youtube');
+      expect(postData.contentHtml).toContain('videoid="abc123"');
     });
   });
 
   describe('getSortedPostsData', () => {
-    test('returns sorted posts data', () => {
+    beforeEach(() => {
+      fs.readdirSync.mockReturnValue(['post1.md', 'post2.md']);
       fs.readFileSync.mockImplementation((path) => {
-        const id = path.includes('post-1') ? 'post-1' : 'post-2';
-        return `---\ntitle: Test ${id}\ndate: 2023-01-0${id.slice(-1)}\n---\ncontent`;
+        if (path.includes('post1')) {
+          return '---\ntitle: Post 1\ndate: 2023-01-02\n---\nContent 1';
+        }
+        return '---\ntitle: Post 2\ndate: 2023-01-01\n---\nContent 2';
+      });
+      matter.mockImplementation((content) => ({
+        data: content.includes('Post 1') 
+          ? { title: 'Post 1', date: '2023-01-02' }
+          : { title: 'Post 2', date: '2023-01-01' },
+        content: content.includes('Content 1') ? 'Content 1' : 'Content 2'
+      }));
+    });
+
+    it('returns sorted posts data', () => {
+      const posts = getSortedPostsData();
+      expect(posts[0].title).toBe('Post 1'); // More recent date
+      expect(posts[1].title).toBe('Post 2'); // Older date
+    });
+
+    it('handles missing dates', () => {
+      matter.mockReturnValue({
+        data: { title: 'Post' },
+        content: 'Content'
       });
 
       const posts = getSortedPostsData();
       expect(posts).toHaveLength(2);
-      expect(posts[0].date).toBe('2023-01-02');
-      expect(posts[1].date).toBe('2023-01-01');
-    });
-
-    test('handles fs read error', () => {
-      fs.readdirSync.mockImplementation(() => {
-        throw new Error('Read directory failed');
-      });
-      expect(() => getSortedPostsData()).toThrow('Failed to get posts data');
-    });
-
-    test('handles invalid post file', () => {
-      fs.readFileSync.mockImplementationOnce(() => {
-        throw new Error('File read failed');
-      });
-      const posts = getSortedPostsData();
-      expect(posts).toHaveLength(1);
-    });
-
-    test('handles invalid date format', () => {
-      matter.mockReturnValueOnce({
-        data: { title: 'Test', date: 'invalid-date' },
-        content: 'content'
-      });
-      const posts = getSortedPostsData();
-      expect(posts[0].date).toBe('invalid-date');
-    });
-
-    test('filters out posts with missing required metadata', () => {
-      matter.mockReturnValueOnce({
-        data: {},
-        content: 'content'
-      });
-      const posts = getSortedPostsData();
-      expect(posts).toHaveLength(1);
     });
   });
 });

@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import {
   getAllCategories,
   getAllCategorySlugs,
@@ -7,9 +11,17 @@ import {
 import fs from 'fs';
 import path from 'path';
 
-// Mock des modules
-jest.mock('fs');
-jest.mock('path');
+// Mock modules before imports
+jest.mock('fs', () => ({
+  readdirSync: jest.fn(),
+  readFileSync: jest.fn(),
+  existsSync: jest.fn()
+}));
+
+jest.mock('path', () => ({
+  join: jest.fn(),
+  resolve: jest.fn()
+}));
 
 describe('Posts Functions Branch Coverage', () => {
 

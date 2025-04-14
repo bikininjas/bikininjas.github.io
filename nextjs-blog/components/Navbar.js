@@ -50,8 +50,14 @@ export default function Navbar() {
     setIsOpen(false);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      setIsOpen(!isOpen);
+    }
+  };
+
   return (
-    <header className="navbar">
+    <header className="navbar" ref={navRef}>
       <div className="logo" onClick={handleLogoClick}>
         <Image src="/images/logo.png" alt="Logo" width={50} height={50} />
       </div>
@@ -60,12 +66,13 @@ export default function Navbar() {
         ref={buttonRef}
         className="menu-button"
         onClick={() => setIsOpen(!isOpen)}
+        onKeyDown={handleKeyDown}
         aria-label="toggle menu"
       >
-        <span className="hamburger"></span>
+        <span className={`hamburger ${isOpen ? 'open' : ''}`}></span>
       </button>
 
-      <nav ref={navRef} className={`nav-links ${isOpen ? 'show' : ''}`} role="navigation">
+      <nav className={`nav-links ${isOpen ? 'show' : ''}`} role="navigation">
         <ul>
           <li className={router.pathname === '/' ? 'active' : ''}>
             <a onClick={() => handleLinkClick('/')}>Home</a>

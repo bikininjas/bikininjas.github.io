@@ -1,21 +1,45 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './ParallaxHero.module.css';
+import ErrorBoundary from './ErrorBoundary';
 
 const PostParallax = ({ title, date, category, categories, backgroundImage }) => {
-  const [offset, setOffset] = useState(0);
-  
+  const [isInView, setIsInView] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const containerRef = useRef(null);
+  const parallaxRef = useRef(null);
+
   useEffect(() => {
-    const handleScroll = () => {
-      setOffset(window.scrollY);
-    };
-    
-    window.addEventListener('scroll', handleScroll);
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+    try {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setIsInView(true);
+          }
+        });
+      });
+
+      if (containerRef.current) {
+        observer.observe(containerRef.current);
+      }
+
+      const handleScroll = () => {
+        if (!isInView || !parallaxRef.current) return;
+        const scrolled = window.scrollY;
+        parallaxRef.current.style.transform = `translateY(${scrolled * 0.3}px)`;
+      };
+
+      window.addEventListener('scroll', handleScroll);
+
+      return () => {
+        observer.disconnect();
+        window.removeEventListener('scroll', handleScroll);
+      };
+    } catch (error) {
+      setHasError(true);
+      console.error('PostParallax error:', error);
+    }
+  }, [isInView]);
 
   // Default category images - same as in PostCard component
   const categoryImages = {
@@ -49,32 +73,51 @@ const PostParallax = ({ title, date, category, categories, backgroundImage }) =>
     }
   }
 
+  if (hasError) {
+    return (
+      <div className="post-header-fallback" role="banner">
+        <h1>{title}</h1>
+      </div>
+    );
+  }
+
   return (
-    <div className={styles.parallaxContainer}>
+    <ErrorBoundary>
       <div 
-        className={styles.parallaxBackground}
-        style={{ 
-          backgroundImage: `url(${finalBackgroundImage})`,
-          transform: `translateY(${offset * 0.3}px)`,
-          backgroundPosition: '50% 50%'
-        }}
-      />
-      <div className={styles.parallaxContent}>
-        <h1 className={styles.title}>{title}</h1>
-        <div className={styles.postMeta}>
-          {date && <time className={styles.date}>{date}</time>}
-          {/* Display category information */}
-          {(() => {
-            if (categories && categories.length > 0) {
-              return <span className={styles.category}>{categories[0]}</span>;
-            } else if (category) {
-              return <span className={styles.category}>{category}</span>;
-            }
-            return null;
-          })()}
+        ref={containerRef}
+        className={styles.parallaxContainer}
+        role="banner"
+        aria-label="Post header image"
+      >
+        <div 
+          ref={parallaxRef}
+          className={styles.parallaxBackground}
+          style={{ 
+            backgroundImage: `url(${finalBackgroundImage})`,
+            backgroundPosition: '50% 50%'
+          }}
+          aria-hidden="true"
+        />
+        <div 
+          className={styles.parallaxContent}
+          aria-label="Post title"
+        >
+          <h1 className={styles.title}>{title}</h1>
+          <div className={styles.postMeta}>
+            {date && <time className={styles.date}>{date}</time>}
+            {/* Display category information */}
+            {(() => {
+              if (categories && categories.length > 0) {
+                return <span className={styles.category}>{categories[0]}</span>;
+              } else if (category) {
+                return <span className={styles.category}>{category}</span>;
+              }
+              return null;
+            })()}
+          </div>
         </div>
       </div>
-    </div>
+    </ErrorBoundary>
   );
 };
 

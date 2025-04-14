@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { processEmbeds } from '../../lib/posts';
 
 describe('processEmbeds function', () => {

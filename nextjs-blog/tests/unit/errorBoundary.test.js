@@ -1,15 +1,31 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import ErrorBoundary from '../../components/ErrorBoundary';
 
+const ThrowError = () => {
+  throw new Error('Test error');
+};
+
+const originalError = console.error;
+const originalEnv = process.env.NODE_ENV;
+
 describe('ErrorBoundary Component', () => {
-  const originalError = console.error;
   beforeAll(() => {
     console.error = jest.fn();
   });
 
   afterAll(() => {
     console.error = originalError;
+    process.env.NODE_ENV = originalEnv;
+  });
+
+  beforeEach(() => {
+    console.error.mockClear();
   });
 
   test('renders children when no error occurs', () => {
@@ -18,14 +34,69 @@ describe('ErrorBoundary Component', () => {
         <div>Test Content</div>
       </ErrorBoundary>
     );
-
     expect(screen.getByText('Test Content')).toBeInTheDocument();
   });
 
-  test('renders error message when error occurs', () => {
-    const ThrowError = () => {
-      throw new Error('Test error');
-    };
+  test('renders error UI when error occurs', () => {
+    render(
+      <ErrorBoundary>
+        <ThrowError />
+      </ErrorBoundary>
+    );
+
+    expect(screen.getByRole('alert')).toBeInTheDocument();
+    expect(screen.getByText('Something went wrong')).toBeInTheDocument();
+    expect(screen.getByRole('button')).toBeInTheDocument();
+  });
+
+  test('sets correct ARIA attributes', () => {
+    render(
+      <ErrorBoundary>
+        <ThrowError />
+      </ErrorBoundary>
+    );
+
+    const alert = screen.getByRole('alert');
+    expect(alert).toHaveAttribute('aria-live', 'assertive');
+  });
+
+  test('shows error details in development mode', () => {
+    process.env.NODE_ENV = 'development';
+    render(
+      <ErrorBoundary>
+        <ThrowError />
+      </ErrorBoundary>
+    );
+
+    expect(screen.getByText('Error details')).toBeInTheDocument();
+    expect(screen.getByText('Test error')).toBeInTheDocument();
+  });
+
+  test('hides error details in production mode', () => {
+    process.env.NODE_ENV = 'production';
+    render(
+      <ErrorBoundary>
+        <ThrowError />
+      </ErrorBoundary>
+    );
+
+    expect(screen.queryByText('Error details')).not.toBeInTheDocument();
+  });
+
+  test('logs error to console', () => {
+    render(
+      <ErrorBoundary>
+        <ThrowError />
+      </ErrorBoundary>
+    );
+
+    expect(console.error).toHaveBeenCalled();
+  });
+
+  test('refresh button reloads the page', () => {
+    const reloadMock = jest.fn();
+    delete window.location;
+    window.location = { reload: reloadMock };
 
     render(
       <ErrorBoundary>
@@ -33,8 +104,8 @@ describe('ErrorBoundary Component', () => {
       </ErrorBoundary>
     );
 
-    expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
-    expect(screen.getByText('Please try again later.')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button'));
+    expect(reloadMock).toHaveBeenCalled();
   });
 
   test('renders custom error message when provided', () => {

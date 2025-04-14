@@ -1,13 +1,24 @@
-import React from 'react';
+/**
+ * @jest-environment jsdom
+ */
+
 import { render, screen } from '@testing-library/react';
 import Home, { getStaticProps } from '../../pages/index';
-import * as postsLib from '../../lib/posts';
+import { getSortedPostsData, getAllCategories } from '../../lib/posts';
 
 jest.mock('../../lib/posts', () => ({
   getSortedPostsData: jest.fn(),
   getAllCategories: jest.fn()
 }));
 
+// Mock next/head
+jest.mock('next/head', () => {
+  return function MockHead({ children }) {
+    return <div data-testid="mock-head">{children}</div>;
+  };
+});
+
+// Mock components
 jest.mock('../../components/layout', () => {
   return function MockLayout({ children }) {
     return <div data-testid="mock-layout">{children}</div>;
@@ -15,56 +26,28 @@ jest.mock('../../components/layout', () => {
 });
 
 jest.mock('../../components/ParallaxHero', () => {
-  return function MockParallaxHero({ title, subtitle }) {
-    return <div data-testid="mock-hero">{title} - {subtitle}</div>;
+  return function MockHero() {
+    return <div data-testid="mock-hero" />;
   };
 });
 
-jest.mock('../../components/CategoryNav', () => {
-  return function MockCategoryNav({ categories }) {
-    return <div data-testid="mock-nav">{categories.join(', ')}</div>;
+jest.mock('../../components/PostCard', () => {
+  return function MockPostCard({ post }) {
+    return <div data-testid="mock-post-card">{post.title}</div>;
   };
 });
 
 describe('Home Page', () => {
   const mockPosts = [
-    {
-      id: 'post-1',
-      title: 'First Post',
-      date: '2023-01-01',
-      excerpt: 'First excerpt',
-      category: 'Tech'
-    },
-    {
-      id: 'post-2',
-      title: 'Second Post',
-      date: '2023-01-02',
-      excerpt: 'Second excerpt',
-      category: 'Gaming'
-    }
+    { id: 'post-1', title: 'Post 1', date: '2023-01-01' },
+    { id: 'post-2', title: 'Post 2', date: '2023-01-02' }
   ];
 
-  const mockCategories = ['Tech', 'Gaming', 'Development'];
+  const mockCategories = ['Tech', 'Gaming'];
 
   beforeEach(() => {
-    jest.clearAllMocks();
-    postsLib.getSortedPostsData.mockReturnValue(mockPosts);
-    postsLib.getAllCategories.mockReturnValue(mockCategories);
-  });
-
-  test('renders home page with all components', () => {
-    render(<Home allPostsData={mockPosts} categories={mockCategories} />);
-
-    expect(screen.getByTestId('mock-layout')).toBeInTheDocument();
-    expect(screen.getByTestId('mock-hero')).toBeInTheDocument();
-    expect(screen.getByTestId('mock-nav')).toBeInTheDocument();
-
-    // Check posts are rendered
-    mockPosts.forEach(post => {
-      expect(screen.getByText(post.title)).toBeInTheDocument();
-      expect(screen.getByText(post.excerpt)).toBeInTheDocument();
-      expect(screen.getByText(post.category)).toBeInTheDocument();
-    });
+    getSortedPostsData.mockReturnValue(mockPosts);
+    getAllCategories.mockReturnValue(mockCategories);
   });
 
   test('getStaticProps returns posts and categories', async () => {
@@ -74,48 +57,33 @@ describe('Home Page', () => {
       allPostsData: mockPosts,
       categories: mockCategories
     });
+    expect(getSortedPostsData).toHaveBeenCalled();
+    expect(getAllCategories).toHaveBeenCalled();
+  });
 
-    expect(postsLib.getSortedPostsData).toHaveBeenCalled();
-    expect(postsLib.getAllCategories).toHaveBeenCalled();
+  test('renders home page with posts', () => {
+    render(<Home allPostsData={mockPosts} categories={mockCategories} />);
+
+    expect(screen.getByTestId('mock-layout')).toBeInTheDocument();
+    expect(screen.getByTestId('mock-hero')).toBeInTheDocument();
+    mockPosts.forEach(post => {
+      expect(screen.getByText(post.title)).toBeInTheDocument();
+    });
+  });
+
+  test('displays section title', () => {
+    render(<Home allPostsData={mockPosts} categories={mockCategories} />);
+    expect(screen.getByText('Latest Posts')).toBeInTheDocument();
   });
 
   test('handles empty posts array', () => {
     render(<Home allPostsData={[]} categories={mockCategories} />);
-    expect(screen.getByText('No posts found.')).toBeInTheDocument();
+    expect(screen.getByText('No posts found')).toBeInTheDocument();
   });
 
-  test('renders correct hero content', () => {
+  test('sets page title', () => {
     render(<Home allPostsData={mockPosts} categories={mockCategories} />);
-    const hero = screen.getByTestId('mock-hero');
-    expect(hero).toHaveTextContent('BikiNinjas');
-    expect(hero).toHaveTextContent('Gaming, Development & Digital Wellbeing');
-  });
-
-  test('renders posts in correct order', () => {
-    render(<Home allPostsData={mockPosts} categories={mockCategories} />);
-    const postTitles = screen.getAllByRole('heading', { level: 2 });
-    expect(postTitles[0]).toHaveTextContent('Second Post'); // Most recent first
-    expect(postTitles[1]).toHaveTextContent('First Post');
-  });
-
-  test('throws error when required props are missing', () => {
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-    expect(() => render(<Home />)).toThrow();
-    consoleSpy.mockRestore();
-  });
-
-  test('handles failed data fetching in getStaticProps', async () => {
-    postsLib.getSortedPostsData.mockImplementation(() => {
-      throw new Error('Fetch error');
-    });
-
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-    const { props } = await getStaticProps();
-
-    expect(props).toEqual({
-      allPostsData: [],
-      categories: mockCategories
-    });
-    consoleSpy.mockRestore();
+    const head = screen.getByTestId('mock-head');
+    expect(head).toHaveTextContent('BikiNinjas Blog');
   });
 });

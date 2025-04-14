@@ -1,9 +1,22 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { getPostData, getSortedPostsData } from '../../lib/posts';
 import fs from 'fs';
 import path from 'path';
 
-jest.mock('fs');
-jest.mock('path');
+jest.mock('fs', () => ({
+  readdirSync: jest.fn(),
+  readFileSync: jest.fn(),
+  existsSync: jest.fn()
+}));
+
+jest.mock('path', () => ({
+  join: jest.fn(),
+  resolve: jest.fn()
+}));
+
 jest.mock('gray-matter');
 
 describe('Posts Date Handling', () => {

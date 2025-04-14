@@ -1,3 +1,22 @@
+/**
+ * @jest-environment jsdom
+ */
+
+import { getAllCategorySlugs, getCategoryFromSlug } from '../../lib/posts';
+import fs from 'fs';
+import path from 'path';
+
+jest.mock('fs', () => ({
+  readdirSync: jest.fn(),
+  readFileSync: jest.fn(),
+  existsSync: jest.fn()
+}));
+
+jest.mock('path', () => ({
+  join: jest.fn(),
+  resolve: jest.fn()
+}));
+
 // Import des fonctions depuis le module posts
 const postsModule = require('../../lib/posts');
 

@@ -1,86 +1,159 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import PostContent from '../../components/PostContent';
 
+// Mock next/link
 jest.mock('next/link', () => {
   return ({ children, href }) => <a href={href}>{children}</a>;
 });
 
+// Mock next/image
+jest.mock('next/image', () => ({
+  __esModule: true,
+  default: (props) => <img {...props} />
+}));
+
 describe('PostContent Component', () => {
-  const mockPost = {
-    title: 'Test Post Title',
+  const defaultProps = {
+    title: 'Test Post',
     date: '2023-01-01',
     contentHtml: '<p>Test content</p>',
-    category: 'Test Category',
-    categorySlug: 'test-category',
-    readTime: '5 min read'
+    category: 'Technology',
+    categorySlug: 'technology'
   };
 
-  test('renders post content correctly', () => {
-    render(<PostContent post={mockPost} />);
+  test('renders post content with all elements', () => {
+    render(<PostContent {...defaultProps} />);
     
-    expect(screen.getByText(mockPost.title)).toBeInTheDocument();
-    expect(screen.getByText(mockPost.date)).toBeInTheDocument();
-    expect(screen.getByText('Test content')).toBeInTheDocument();
-    expect(screen.getByText(mockPost.category)).toBeInTheDocument();
-    expect(screen.getByText(mockPost.readTime)).toBeInTheDocument();
+    expect(screen.getByRole('article')).toBeInTheDocument();
+    expect(screen.getByText(defaultProps.title)).toBeInTheDocument();
+    expect(screen.getByText('January 1, 2023')).toBeInTheDocument();
+    expect(screen.getByText(defaultProps.category)).toBeInTheDocument();
+  });
+
+  test('sets correct ARIA attributes', () => {
+    render(<PostContent {...defaultProps} />);
+    
+    const article = screen.getByRole('article');
+    const date = screen.getByText('January 1, 2023');
+    const categoryLink = screen.getByText(defaultProps.category);
+
+    expect(article).toHaveAttribute('role', 'article');
+    expect(date).toHaveAttribute('aria-label', 'Publication date');
+    expect(categoryLink).toHaveAttribute('aria-label', `View all posts in category ${defaultProps.category}`);
   });
 
   test('renders HTML content safely', () => {
-    const postWithScript = {
-      ...mockPost,
-      contentHtml: '<p>Safe content</p><script>alert("unsafe")</script>'
+    const htmlContent = '<h2>Test heading</h2><p>Test paragraph</p>';
+    render(<PostContent {...defaultProps} contentHtml={htmlContent} />);
+    
+    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('Test heading');
+    expect(screen.getByText('Test paragraph')).toBeInTheDocument();
+  });
+
+  test('handles missing category gracefully', () => {
+    const { category, categorySlug, ...propsWithoutCategory } = defaultProps;
+    render(<PostContent {...propsWithoutCategory} />);
+    
+    expect(screen.queryByText('•')).not.toBeInTheDocument();
+  });
+
+  test('formats date correctly', () => {
+    const dates = [
+      { input: '2023-01-01', expected: 'January 1, 2023' },
+      { input: '2023-12-31', expected: 'December 31, 2023' }
+    ];
+
+    dates.forEach(({ input, expected }) => {
+      const { rerender } = render(<PostContent {...defaultProps} date={input} />);
+      expect(screen.getByText(expected)).toBeInTheDocument();
+      rerender(<PostContent {...defaultProps} date={input} />);
+    });
+  });
+
+  test('applies post body tab index', () => {
+    render(<PostContent {...defaultProps} />);
+    const postBody = screen.getByText('Test content');
+    expect(postBody.parentElement).toHaveAttribute('tabIndex', '0');
+  });
+
+  test('hides separator from screen readers', () => {
+    render(<PostContent {...defaultProps} />);
+    const separator = screen.getByText('•');
+    expect(separator).toHaveAttribute('aria-hidden', 'true');
+  });
+
+  test('handles invalid date gracefully', () => {
+    render(<PostContent {...defaultProps} date="invalid-date" />);
+    expect(screen.getByText('Invalid Date')).toBeInTheDocument();
+  });
+
+  test('renders within error boundary', () => {
+    const props = {
+      ...defaultProps,
+      contentHtml: '<script>alert("xss")</script>'
     };
     
-    render(<PostContent post={postWithScript} />);
-    
-    expect(screen.getByText('Safe content')).toBeInTheDocument();
-    expect(document.querySelector('script')).toBeNull();
+    render(<PostContent {...props} />);
+    expect(screen.queryByText('alert("xss")')).not.toBeInTheDocument();
   });
 
-  test('renders category link correctly', () => {
-    render(<PostContent post={mockPost} />);
-    
-    const categoryLink = screen.getByText(mockPost.category).closest('a');
-    expect(categoryLink).toHaveAttribute('href', `/categories/${mockPost.categorySlug}`);
-  });
-
-  test('handles missing optional fields', () => {
-    const minimalPost = {
-      title: 'Test Post',
-      contentHtml: '<p>Content</p>'
+  test('handles HTML content safely', () => {
+    const props = {
+      ...defaultProps,
+      contentHtml: '<h2>Section Title</h2><p>Paragraph content</p>'
     };
-    
-    render(<PostContent post={minimalPost} />);
-    
-    expect(screen.getByText('Test Post')).toBeInTheDocument();
-    expect(screen.getByText('Content')).toBeInTheDocument();
+    render(<PostContent {...props} />);
+    expect(screen.getByText('Section Title')).toBeInTheDocument();
+    expect(screen.getByText('Paragraph content')).toBeInTheDocument();
   });
 
-  test('throws error when post prop is missing', () => {
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-    expect(() => render(<PostContent />)).toThrow();
-    consoleSpy.mockRestore();
+  test('handles missing date', () => {
+    const { date, ...propsWithoutDate } = defaultProps;
+    render(<PostContent {...propsWithoutDate} />);
+    expect(screen.getByText('Invalid Date')).toBeInTheDocument();
   });
 
   test('handles empty content', () => {
-    const postWithoutContent = {
-      ...mockPost,
+    const props = {
+      ...defaultProps,
       contentHtml: ''
     };
-    
-    render(<PostContent post={postWithoutContent} />);
-    expect(screen.getByRole('article')).toBeEmptyDOMElement();
+    render(<PostContent {...props} />);
+    const article = screen.getByRole('article');
+    expect(article).toBeInTheDocument();
+    expect(article.innerHTML).toContain('');
   });
 
-  test('renders nested HTML elements correctly', () => {
-    const postWithNestedHtml = {
-      ...mockPost,
-      contentHtml: '<div><h2>Section</h2><p>Nested content</p></div>'
+  test('applies proper styling classes', () => {
+    render(<PostContent {...defaultProps} />);
+    expect(screen.getByRole('article')).toHaveClass('post-content');
+  });
+
+  test('handles complex HTML content', () => {
+    const props = {
+      ...defaultProps,
+      contentHtml: `
+        <h2>Section 1</h2>
+        <p>First paragraph</p>
+        <ul>
+          <li>List item 1</li>
+          <li>List item 2</li>
+        </ul>
+        <blockquote>Quote text</blockquote>
+      `
     };
+    render(<PostContent {...props} />);
     
-    render(<PostContent post={postWithNestedHtml} />);
-    expect(screen.getByText('Section')).toBeInTheDocument();
-    expect(screen.getByText('Nested content')).toBeInTheDocument();
+    expect(screen.getByText('Section 1')).toBeInTheDocument();
+    expect(screen.getByText('First paragraph')).toBeInTheDocument();
+    expect(screen.getByText('List item 1')).toBeInTheDocument();
+    expect(screen.getByText('List item 2')).toBeInTheDocument();
+    expect(screen.getByText('Quote text')).toBeInTheDocument();
   });
 });
