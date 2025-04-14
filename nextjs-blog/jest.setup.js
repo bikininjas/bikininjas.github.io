@@ -1,3 +1,5 @@
+import '@testing-library/jest-dom';
+
 // Mock CSS modules
 jest.mock('*.module.css', () => ({}), { virtual: true });
 
@@ -36,5 +38,18 @@ if (typeof window !== 'undefined') {
   });
 }
 
-// Add testing library matchers
-import '@testing-library/jest-dom';
+// Mock IntersectionObserver
+global.IntersectionObserver = class IntersectionObserver {
+  constructor(callback) {
+    this.callback = callback;
+  }
+  observe() {
+    this.callback([{ isIntersecting: true }]);
+  }
+  unobserve() {}
+  disconnect() {}
+};
+
+// Mock window methods
+global.window.scrollTo = jest.fn();
+global.window.requestAnimationFrame = jest.fn(cb => cb());

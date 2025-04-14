@@ -14,10 +14,12 @@ const customJestConfig = {
     '^@/components/(.*)$': '<rootDir>/components/$1',
     '^@/pages/(.*)$': '<rootDir>/pages/$1',
     '^@/lib/(.*)$': '<rootDir>/lib/$1',
+    '^@/(.*)$': '<rootDir>/$1',
   },
   transform: {
     // Transformer pour les modules ESM avec la nouvelle transformation JSX
-    '^.+\\.(js|jsx|ts|tsx|mjs)$': ['babel-jest', { configFile: './babel.config.js' }]
+    '^.+\\.(js|jsx|ts|tsx|mjs)$': ['babel-jest', { configFile: './babel.config.js' }],
+    '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
   },
   transformIgnorePatterns: [
     // Ne pas ignorer les modules ESM dans node_modules

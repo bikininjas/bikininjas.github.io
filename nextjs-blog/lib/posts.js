@@ -6,65 +6,52 @@ import html from 'remark-html';
 
 // Custom function to process embeds
 export function processEmbeds(content) {
-  const youtubeRegex = /!\[youtube\]\((https:\/\/(?:youtu\.be\/|youtube\.com\/watch\?v=)([a-zA-Z0-9_-]+))(?:\s+"([^"]*)")?\)/g;
-  const twitchRegex = /!\[twitch\]\(([^)\s]+)(?:\s+"([^"]*)")?\)/g;
-  const blueskyRegex = /!\[bluesky\]\((https:\/\/bsky\.app\/profile\/[^/]+\/post\/[^)\s]+)\)/g;
+  // YouTube processing
+  content = content.replace(
+    /!\[youtube\]\((https:\/\/(?:www\.)?youtu\.be\/([a-zA-Z0-9_-]{11}))(?:\s+"([^"]+)")?\)/g,
+    (match, url, id, title = '') => {
+      if (!id || id.length !== 11) return match;
+      
+      const [label, ...optParts] = title.split('|');
+      const options = optParts.join('|').split(',').reduce((acc, opt) => {
+        const [key, value] = opt.split('=');
+        if (key && value) acc[key.trim()] = value.trim();
+        return acc;
+      }, {});
 
-  let processedContent = content;
+      const escapedLabel = label.replace(/[&<>"']/g, char => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      }[char]));
 
-  // Process YouTube embeds
-  processedContent = processedContent.replace(youtubeRegex, (match, url, videoId, title = "") => {
-    if (!videoId || videoId.length < 4) return match;
-    
-    // Parse options from title if present (format: "Title|option1=value1,option2=value2")
-    let options = {};
-    let displayTitle = title;
-    
-    if (title.includes('|')) {
-      const [titlePart, optionsPart] = title.split('|');
-      displayTitle = titlePart;
-      optionsPart.split(',').forEach(option => {
-        const [key, value] = option.split('=');
-        if (key && value) {
-          options[key.trim()] = value.trim();
-        }
-      });
+      return `<div class="embed-container video-container">
+ <lite-youtube videoid="${id}" playlabel="${escapedLabel}" ${Object.entries(options).map(([k,v]) => `${k}="${v}"`).join(' ')} ></lite-youtube>
+ </div>`;
     }
+  );
 
-    // Escape special characters in title
-    const escapedTitle = displayTitle.replace(/[&<>"']/g, char => ({
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#39;'
-    }[char]));
+  // Twitch processing
+  content = content.replace(
+    /!\[twitch\]\(([^)\s]+)(?:\s+"([^"]+)")?\)/g,
+    (match, channel, title) => {
+      if (!channel || channel === 'invalid-url' || channel.includes('twitch.tv')) return match;
+      return `<div class="embed-container twitch-container"><iframe src="https://player.twitch.tv/?channel=${channel}&parent=bikininjas.github.io" frameborder="0" allowfullscreen scrolling="no"></iframe></div>`;
+    }
+  );
 
-    // Build options string
-    const optionsString = Object.entries(options)
-      .map(([key, value]) => `${key}="${value}"`)
-      .join(' ');
+  // Bluesky processing
+  content = content.replace(
+    /!\[bluesky\]\((https:\/\/bsky\.app\/profile\/[^\/]+\/post\/[^)\s]+)\)/g,
+    (match, url) => {
+      if (!url.match(/^https:\/\/bsky\.app\/profile\/[^\/]+\/post\/[^\/]+$/)) return match;
+      return `<div class="bluesky-embed-container"><iframe class="bluesky-embed" src="https://bsky.app/embed?url=${encodeURIComponent(url)}" frameborder="0" allowfullscreen scrolling="no"></iframe></div>`;
+    }
+  );
 
-    return `<div class="embed-container video-container">
-        <lite-youtube videoid="${videoId}" playlabel="${escapedTitle}" ${optionsString}></lite-youtube>
-      </div>`;
-  });
-
-  // Process Twitch embeds
-  processedContent = processedContent.replace(twitchRegex, (match, channel, title = "") => {
-    if (!channel || channel === 'invalid-url') return match;
-    const channelName = channel.split('/').pop();
-    if (!channelName || channelName === '') return match;
-    return `<div class="embed-container twitch-container"><iframe src="https://player.twitch.tv/?channel=${channelName}&parent=${process.env.NODE_ENV === 'development' ? 'localhost' : 'bikininjas.github.io'}" frameborder="0" allowfullscreen scrolling="no"></iframe></div>`;
-  });
-
-  // Process Bluesky embeds
-  processedContent = processedContent.replace(blueskyRegex, (match, url) => {
-    if (!url || !url.includes('/post/')) return match;
-    return `<div class="bluesky-embed-container"><iframe class="bluesky-embed" src="https://bsky.app/embed?url=${encodeURIComponent(url)}" frameborder="0" allowfullscreen scrolling="no"></iframe></div>`;
-  });
-
-  return processedContent;
+  return content;
 }
 import { slugify } from './utils';
 

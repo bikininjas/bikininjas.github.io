@@ -3,42 +3,38 @@ import React from 'react';
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false, error: null };
+    this.state = { hasError: false, error: null, errorInfo: null };
   }
 
   static getDerivedStateFromError(error) {
-    return { hasError: true, error };
+    return { hasError: true };
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error('Error caught by boundary:', error);
-    console.error('Error info:', errorInfo);
+    this.setState({
+      error: error,
+      errorInfo: errorInfo
+    });
+    if (this.props.onError) {
+      this.props.onError(error, errorInfo);
+    }
   }
 
   render() {
     if (this.state.hasError) {
       return (
-        <div
-          role="alert"
-          aria-live="assertive"
-          className="error-boundary"
-          data-testid="error-boundary"
-        >
-          <h2>Something went wrong</h2>
-          <p>We apologize for the inconvenience. Please try refreshing the page.</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="refresh-button"
-            aria-label="Refresh page"
-          >
-            Refresh Page
-          </button>
+        <div role="alert" aria-live="assertive">
+          <h2>{this.props.errorMessage || 'Something went wrong.'}</h2>
           {process.env.NODE_ENV === 'development' && (
             <details>
               <summary>Error details</summary>
               <pre>{this.state.error?.toString()}</pre>
+              <pre>{this.state.errorInfo?.componentStack}</pre>
             </details>
           )}
+          <button onClick={() => window.location.reload()}>
+            Try again
+          </button>
         </div>
       );
     }
@@ -46,3 +42,5 @@ class ErrorBoundary extends React.Component {
     return this.props.children;
   }
 }
+
+export default ErrorBoundary;
