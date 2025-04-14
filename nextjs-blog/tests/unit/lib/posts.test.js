@@ -1,9 +1,24 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { getAllPostIds, getPostData, getSortedPostsData } from '../../../lib/posts';
 
-jest.mock('fs');
+// Mock modules before imports
+jest.mock('fs', () => ({
+  readdirSync: jest.fn(),
+  readFileSync: jest.fn(),
+  existsSync: jest.fn()
+}));
+
+jest.mock('path', () => ({
+  join: jest.fn(),
+  resolve: jest.fn()
+}));
+
 jest.mock('gray-matter');
 
 describe('Posts Library', () => {
