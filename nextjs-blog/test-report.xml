@@ -1,193 +1,241 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/categoriesEdgeCases.test.js">
-    <testCase name="Category Functions Edge Cases getAllCategories handles posts with different category formats" duration="9"/>
-    <testCase name="Category Functions Edge Cases getAllCategorySlugs handles posts with different category formats" duration="2"/>
-    <testCase name="Category Functions Edge Cases getCategoryFromSlug returns the correct category for a slug" duration="2"/>
-    <testCase name="Category Functions Edge Cases getCategoryFromSlug returns null for non-existent slugs" duration="3"/>
-    <testCase name="Category Functions Edge Cases getPostsByCategory returns all posts when category is &quot;all&quot;" duration="2"/>
-    <testCase name="Category Functions Edge Cases getPostsByCategory returns posts filtered by category with different category formats" duration="2"/>
-    <testCase name="Category Functions Edge Cases getPostsByCategory returns empty array for non-existent categories" duration="1"/>
-    <testCase name="Category Functions Edge Cases getPostsByCategorySlug returns posts filtered by category slug" duration="1"/>
-    <testCase name="Category Functions Edge Cases getPostsByCategorySlug returns empty array for non-existent category slugs" duration="0"/>
+  <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/tests/unit/utils.test.js">
+    <testCase name="Utils slugify converts strings to lowercase" duration="11"/>
+    <testCase name="Utils slugify replaces spaces with hyphens" duration="1"/>
+    <testCase name="Utils slugify removes special characters" duration="0"/>
+    <testCase name="Utils slugify handles accented characters" duration="1"/>
+    <testCase name="Utils slugify removes trailing hyphens" duration="0"/>
+    <testCase name="Utils slugify handles empty strings" duration="1"/>
+    <testCase name="Utils slugify handles null or undefined" duration="0"/>
+    <testCase name="Utils formatDate function formats dates correctly" duration="64"/>
+    <testCase name="Utils formatDate function handles different date formats" duration="0"/>
+    <testCase name="Utils formatDate function handles invalid dates" duration="1"/>
   </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/processEmbeds.test.js">
-    <testCase name="processEmbeds function processes YouTube embeds correctly" duration="32"/>
-    <testCase name="processEmbeds function processes YouTube embeds with options correctly" duration="2"/>
-    <testCase name="processEmbeds function processes YouTube embeds with v= format correctly" duration="1"/>
-    <testCase name="processEmbeds function processes Twitch embeds correctly in development environment" duration="1"/>
-    <testCase name="processEmbeds function processes Twitch embeds correctly in production environment" duration="18"/>
-    <testCase name="processEmbeds function processes Bluesky embeds correctly" duration="1"/>
-    <testCase name="processEmbeds function handles content with multiple embeds correctly" duration="1"/>
-    <testCase name="processEmbeds function returns the original content when no embeds are present" duration="0"/>
+  <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/tests/unit/lib/posts.test.js">
+    <testCase name="Posts Library getSortedPostsData returns posts sorted by date" duration="7"/>
+    <testCase name="Posts Library getAllPostIds returns formatted ids" duration="2"/>
+    <testCase name="Posts Library getPostData returns post data with content" duration="7">
+      <failure message="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-message-util/build/index.js:1"><![CDATA[/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-message-util/build/index.js:1
+---
+
+SyntaxError: Invalid left-hand side expression in prefix operation
+    at wrapSafe (node:internal/modules/cjs/loader:1378:20)
+    at Module._compile (node:internal/modules/cjs/loader:1428:41)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1548:10)
+    at Module.load (node:internal/modules/cjs/loader:1288:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:1104:12)
+    at Module.require (node:internal/modules/cjs/loader:1311:19)
+    at Module.call [as require] (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/next/src/server/require-hook.ts:70:26)
+    at require (node:internal/modules/helpers:179:18)
+    at _jestMessageUtil (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@jest/console/build/getConsoleOutput.js:15:16)
+    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@jest/console/build/getConsoleOutput.js:58:37
+    at Array.reduce (<anonymous>)
+    at getConsoleOutput (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@jest/console/build/getConsoleOutput.js:35:29)
+    at consoleFormatter [as _formatBuffer] (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:208:37)
+    at console._log (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@jest/console/build/CustomConsole.js:69:12)
+    at console.log (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@jest/console/build/CustomConsole.js:141:10)
+    at log (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/lib/posts.js:149:11)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at Object.<anonymous> (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/tests/unit/lib/posts.test.js:66:20)]]></failure>
+    </testCase>
   </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/getPostData.test.js">
-    <testCase name="getPostData function processes a simple post without embeds" duration="19"/>
-    <testCase name="getPostData function processes a post with a single category" duration="5"/>
-    <testCase name="getPostData function processes a post with multiple categories" duration="12"/>
-    <testCase name="getPostData function processes a post with YouTube embed" duration="2"/>
-    <testCase name="getPostData function processes a post with Twitch embed" duration="4"/>
-    <testCase name="getPostData function processes a post with Bluesky embed" duration="1"/>
-    <testCase name="getPostData function processes a post with multiple embeds and markdown content" duration="3"/>
+  <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/tests/unit/document.test.js">
+    <testCase name="Document Component renders document structure with lang attribute" duration="101">
+      <failure message="Error: &lt;Html&gt; should not be imported outside of pages/_document."><![CDATA[Error: <Html> should not be imported outside of pages/_document.
+Read more: https://nextjs.org/docs/messages/no-document-import-in-page
+    at useHtmlContext (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/next/src/shared/lib/html-context.shared-runtime.ts:65:11)
+    at Html (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/next/src/pages/_document.tsx:1155:21)
+    at renderWithHooks (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:15486:18)
+    at mountIndeterminateComponent (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:20103:13)
+    at beginWork (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:21626:16)
+    at beginWork$1 (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:27465:14)
+    at performUnitOfWork (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:26599:12)
+    at workLoopSync (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:26505:5)
+    at renderRootSync (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:26473:7)
+    at recoverFromConcurrentError (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:25889:20)
+    at performConcurrentWorkOnRoot (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:25789:22)
+    at flushActQueue (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react/cjs/react.development.js:2667:24)
+    at act (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react/cjs/react.development.js:2582:11)
+    at actWithWarning (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom-test-utils.development.js:1740:10)
+    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/react/dist/act-compat.js:63:25
+    at renderRoot (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/react/dist/pure.js:159:26)
+    at render (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/react/dist/pure.js:246:10)
+    at Object.<anonymous> (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/tests/unit/document.test.js:38:35)
+    at Promise.then.completed (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:121:9)
+    at run (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)
+    at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
+    </testCase>
+    <testCase name="Document Component renders head component" duration="30">
+      <failure message="Error: &lt;Html&gt; should not be imported outside of pages/_document."><![CDATA[Error: <Html> should not be imported outside of pages/_document.
+Read more: https://nextjs.org/docs/messages/no-document-import-in-page
+    at useHtmlContext (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/next/src/shared/lib/html-context.shared-runtime.ts:65:11)
+    at Html (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/next/src/pages/_document.tsx:1155:21)
+    at renderWithHooks (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:15486:18)
+    at mountIndeterminateComponent (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:20103:13)
+    at beginWork (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:21626:16)
+    at beginWork$1 (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:27465:14)
+    at performUnitOfWork (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:26599:12)
+    at workLoopSync (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:26505:5)
+    at renderRootSync (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:26473:7)
+    at recoverFromConcurrentError (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:25889:20)
+    at performConcurrentWorkOnRoot (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:25789:22)
+    at flushActQueue (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react/cjs/react.development.js:2667:24)
+    at act (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react/cjs/react.development.js:2582:11)
+    at actWithWarning (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom-test-utils.development.js:1740:10)
+    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/react/dist/act-compat.js:63:25
+    at renderRoot (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/react/dist/pure.js:159:26)
+    at render (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/react/dist/pure.js:246:10)
+    at Object.<anonymous> (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/tests/unit/document.test.js:52:35)
+    at Promise.then.completed (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:121:9)
+    at run (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)
+    at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
+    </testCase>
+    <testCase name="Document Component renders main and nextscript components" duration="24">
+      <failure message="Error: &lt;Html&gt; should not be imported outside of pages/_document."><![CDATA[Error: <Html> should not be imported outside of pages/_document.
+Read more: https://nextjs.org/docs/messages/no-document-import-in-page
+    at useHtmlContext (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/next/src/shared/lib/html-context.shared-runtime.ts:65:11)
+    at Html (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/next/src/pages/_document.tsx:1155:21)
+    at renderWithHooks (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:15486:18)
+    at mountIndeterminateComponent (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:20103:13)
+    at beginWork (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:21626:16)
+    at beginWork$1 (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:27465:14)
+    at performUnitOfWork (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:26599:12)
+    at workLoopSync (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:26505:5)
+    at renderRootSync (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:26473:7)
+    at recoverFromConcurrentError (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:25889:20)
+    at performConcurrentWorkOnRoot (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom.development.js:25789:22)
+    at flushActQueue (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react/cjs/react.development.js:2667:24)
+    at act (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react/cjs/react.development.js:2582:11)
+    at actWithWarning (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/react-dom/cjs/react-dom-test-utils.development.js:1740:10)
+    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/react/dist/act-compat.js:63:25
+    at renderRoot (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/react/dist/pure.js:159:26)
+    at render (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/react/dist/pure.js:246:10)
+    at Object.<anonymous> (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/tests/unit/document.test.js:66:35)
+    at Promise.then.completed (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:121:9)
+    at run (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)
+    at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
+    </testCase>
   </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postsEdgeCases.test.js">
-    <testCase name="Posts Functions Edge Cases getSortedPostsData sorts posts by date correctly" duration="24"/>
-    <testCase name="Posts Functions Edge Cases getAllCategories handles posts with no categories" duration="26"/>
-    <testCase name="Posts Functions Edge Cases getAllCategorySlugs handles posts with no categories" duration="1"/>
-    <testCase name="Posts Functions Edge Cases getCategoryFromSlug returns null for non-existent slugs" duration="2"/>
-    <testCase name="Posts Functions Edge Cases getCategoryFromSlug handles posts with no categories" duration="2"/>
-    <testCase name="Posts Functions Edge Cases getPostsByCategory returns all posts when category is &quot;all&quot;" duration="3"/>
-    <testCase name="Posts Functions Edge Cases getPostsByCategory returns posts with matching category" duration="1"/>
-    <testCase name="Posts Functions Edge Cases getPostsByCategory returns posts with matching category from categories array" duration="23"/>
-    <testCase name="Posts Functions Edge Cases getPostsByCategory returns uncategorized posts" duration="0"/>
-    <testCase name="Posts Functions Edge Cases getPostsByCategorySlug returns empty array for non-existent category slug" duration="1"/>
-    <testCase name="Posts Functions Edge Cases getPostsByCategorySlug returns posts for a valid category slug" duration="12"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postsSpecificBranches.test.js">
-    <testCase name="Posts Functions Specific Branches Coverage getAllCategories - branch coverage handles posts with only string category property" duration="107"/>
-    <testCase name="Posts Functions Specific Branches Coverage getAllCategorySlugs - branch coverage handles posts with only string category property" duration="1"/>
-    <testCase name="Posts Functions Specific Branches Coverage getCategoryFromSlug - branch coverage handles posts with only string category property" duration="1"/>
-    <testCase name="Posts Functions Specific Branches Coverage getPostsByCategory - branch coverage handles posts with only string category property" duration="2"/>
-    <testCase name="Posts Functions Specific Branches Coverage getPostsByCategory - branch coverage handles posts with categories array" duration="13"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postsBranchCoverage.test.js">
-    <testCase name="Posts Functions Branch Coverage getAllCategories with only uncategorized posts returns only Uncategorized when no posts have categories" duration="33"/>
-    <testCase name="Posts Functions Branch Coverage getAllCategories with only category property handles posts with only category property" duration="35"/>
-    <testCase name="Posts Functions Branch Coverage getAllCategorySlugs with only uncategorized posts returns only uncategorized slug when no posts have categories" duration="8"/>
-    <testCase name="Posts Functions Branch Coverage getAllCategorySlugs with only category property handles posts with only category property" duration="6"/>
-    <testCase name="Posts Functions Branch Coverage getCategoryFromSlug with only uncategorized posts returns Uncategorized for uncategorized slug" duration="2"/>
-    <testCase name="Posts Functions Branch Coverage getCategoryFromSlug with only category property handles posts with only category property" duration="1"/>
-    <testCase name="Posts Functions Branch Coverage getPostsByCategory with only uncategorized posts returns all posts for Uncategorized category" duration="2"/>
-    <testCase name="Posts Functions Branch Coverage getPostsByCategory with only category property returns posts with matching category property" duration="14"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postsDirectBranchCoverage.test.js">
-    <testCase name="Posts Direct Branch Coverage getAllCategories - specific branch coverage handles posts with only category property (string)" duration="124"/>
-    <testCase name="Posts Direct Branch Coverage getAllCategorySlugs - specific branch coverage handles posts with only category property (string)" duration="13"/>
-    <testCase name="Posts Direct Branch Coverage getCategoryFromSlug - specific branch coverage handles posts with only category property (string)" duration="2"/>
-    <testCase name="Posts Direct Branch Coverage getPostsByCategory - specific branch coverage handles posts with only category property (string)" duration="13"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postPage.test.js">
-    <testCase name="Post Page getStaticPaths returns the correct paths" duration="16"/>
-    <testCase name="Post Page getStaticProps returns the correct data" duration="3"/>
-    <testCase name="Post Page renders the post page with all components" duration="189"/>
-    <testCase name="Post Page renders with authorHtml when provided" duration="34"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postsLib.test.js">
-    <testCase name="Posts Library getSortedPostsData returns posts sorted by date" duration="31"/>
-    <testCase name="Posts Library getAllPostIds returns formatted post ids" duration="3"/>
-    <testCase name="Posts Library Category functions getAllCategories returns an array" duration="29"/>
-    <testCase name="Posts Library Category functions getAllCategorySlugs returns an array" duration="1"/>
-    <testCase name="Posts Library Category functions getCategoryFromSlug returns a string or null" duration="1"/>
-    <testCase name="Posts Library Category functions getPostsByCategory returns an array" duration="2"/>
-    <testCase name="Posts Library Category functions getPostsByCategorySlug returns an array" duration="16"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/homePage.test.js">
-    <testCase name="Home Page getStaticProps returns the correct data" duration="20"/>
-    <testCase name="Home Page renders the home page with all components" duration="105"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postData.test.js">
-    <testCase name="getPostData function processes a post with multiple categories correctly" duration="36"/>
-    <testCase name="getPostData function processes a post with a single category correctly" duration="14"/>
-    <testCase name="getPostData function processes a post without a category correctly" duration="30"/>
-    <testCase name="getPostData function processes a post with Twitch embed correctly" duration="2"/>
-    <testCase name="getPostData function processes a post with Bluesky embed correctly" duration="1"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/categoryPage.test.js">
-    <testCase name="Category Page getStaticPaths returns the correct paths" duration="10"/>
-    <testCase name="Category Page getStaticProps returns the correct data" duration="3"/>
-    <testCase name="Category Page renders the category page with posts" duration="164"/>
-    <testCase name="Category Page renders the category page with no posts" duration="30"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postParallax.test.js">
-    <testCase name="PostParallax Component renders with required props" duration="109"/>
-    <testCase name="PostParallax Component renders with date and category" duration="45"/>
-    <testCase name="PostParallax Component renders with multiple categories" duration="21"/>
-    <testCase name="PostParallax Component uses custom background image when provided" duration="6"/>
-    <testCase name="PostParallax Component handles scroll events" duration="15"/>
-    <testCase name="PostParallax Component cleans up event listener on unmount" duration="25"/>
-    <testCase name="PostParallax Component falls back to default image when category is not recognized" duration="44"/>
-    <testCase name="PostParallax Component uses default image when no background image, categories, or category is provided" duration="7"/>
-    <testCase name="PostParallax Component uses first category image from categories array when available" duration="13"/>
-    <testCase name="PostParallax Component uses category image when categories array is empty but category is provided" duration="27"/>
-    <testCase name="PostParallax Component does not display date when not provided" duration="21"/>
-    <testCase name="PostParallax Component does not display category when neither categories nor category is provided" duration="21"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postCard.test.js">
-    <testCase name="PostCard Component renders post card with correct content" duration="130"/>
-    <testCase name="PostCard Component links to the correct post URL" duration="16"/>
-    <testCase name="PostCard Component uses provided cover image when available" duration="103"/>
-    <testCase name="PostCard Component uses category default image when no cover image is provided" duration="32"/>
-    <testCase name="PostCard Component uses fallback image when no cover image or matching category image is available" duration="36"/>
-    <testCase name="PostCard Component uses fallback image when no cover image and no categories are provided" duration="26"/>
-    <testCase name="PostCard Component uses fallback image when no cover image and empty categories array" duration="18"/>
-    <testCase name="PostCard Component uses second category image when first category has no matching image" duration="27"/>
-    <testCase name="PostCard Component limits displayed categories to two even if more are provided" duration="28"/>
-    <testCase name="PostCard Component does not display categories section when no categories are provided" duration="11"/>
-    <testCase name="PostCard Component does not display categories section when empty categories array is provided" duration="9"/>
-    <testCase name="PostCard Component displays excerpt when provided" duration="19"/>
-    <testCase name="PostCard Component handles post without excerpt" duration="38"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postDataEdgeCases.test.js">
-    <testCase name="getPostData function edge cases handles posts with embedded content correctly" duration="121"/>
-    <testCase name="getPostData function edge cases handles posts with multiple categories as array" duration="7"/>
-    <testCase name="getPostData function edge cases handles posts with a single category as string" duration="9"/>
-    <testCase name="getPostData function edge cases handles posts with no category" duration="8"/>
-    <testCase name="getPostData function edge cases handles posts with category as array but using for backward compatibility" duration="20"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postsRemainingCoverage.test.js">
-    <testCase name="Posts Remaining Coverage getAllCategories - edge cases handles empty categories array" duration="3"/>
-    <testCase name="Posts Remaining Coverage getPostsByCategory - edge cases handles empty categories array" duration="13"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/categories.test.js">
-    <testCase name="Category Functions getSortedPostsData returns mock data" duration="1"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/posts.test.js">
-    <testCase name="Posts Library getSortedPostsData returns sorted posts data" duration="10"/>
-    <testCase name="Posts Library getAllPostIds returns formatted post ids" duration="2"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/firstPost.test.js">
-    <testCase name="FirstPost Component renders the first post heading" duration="182"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/navbar.test.js">
-    <testCase name="Navbar Component renders the navbar with correct title" duration="108"/>
-    <testCase name="Navbar Component renders all navigation links" duration="30"/>
-    <testCase name="Navbar Component has correct href attributes for links" duration="12"/>
-    <testCase name="Navbar Component renders without crashing when title prop is missing" duration="11"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/utils.test.js">
-    <testCase name="Utility Functions slugify function converts a string to a URL-friendly slug" duration="12"/>
-    <testCase name="Utility Functions slugify function handles edge cases correctly" duration="1"/>
-    <testCase name="Utility Functions formatDate function formats dates correctly" duration="159"/>
-    <testCase name="Utility Functions formatDate function handles different date formats" duration="11"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/app.test.js">
-    <testCase name="MyApp Component renders the component with pageProps" duration="57"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/layout.test.js">
-    <testCase name="Layout Component renders layout with children" duration="46"/>
-    <testCase name="Layout Component renders with custom title" duration="18"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/parallaxHero.test.js">
-    <testCase name="ParallaxHero Component renders with default props" duration="84"/>
-    <testCase name="ParallaxHero Component renders with custom props" duration="28"/>
-    <testCase name="ParallaxHero Component handles scroll events" duration="20"/>
-    <testCase name="ParallaxHero Component cleans up event listener on unmount" duration="6"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/postContent.test.js">
-    <testCase name="PostContent Component renders HTML content correctly" duration="69"/>
-    <testCase name="PostContent Component renders complex HTML with multiple elements" duration="19"/>
-    <testCase name="PostContent Component renders embedded content correctly" duration="9"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/categoryNav.test.js">
-    <testCase name="CategoryNav Component renders all categories correctly" duration="97"/>
-    <testCase name="CategoryNav Component marks current category as active" duration="126"/>
-    <testCase name="CategoryNav Component marks &quot;all&quot; as active when currentCategory is &quot;all&quot;" duration="32"/>
-    <testCase name="CategoryNav Component uses correct links for categories" duration="16"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/document.test.js">
-    <testCase name="MyDocument Component renders document structure correctly" duration="102"/>
-  </file>
-  <file path="/home/seb/GITRepos/bikininjas.github.io-1/nextjs-blog/tests/unit/deadcode.test.js">
-    <testCase name="Dead Code Detection should not have unused functions or variables" duration="3050"/>
+  <file path="/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/SocialShareButtons.test.js">
+    <testCase name="SocialShareButtons renders all share buttons with proper accessibility attributes" duration="93"/>
+    <testCase name="SocialShareButtons opens share links in new window when clicked" duration="17">
+      <failure message="Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)"><![CDATA[Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: StringContaining "twitter.com/intent/tweet", "_blank"
+Received: "https://twitter.com/intent/tweet?text=Test%20Title&url=https%3A%2F%2Fexample.com%2Ftest", "_blank", "noopener,noreferrer"
+
+Number of calls: 1
+    at Object.toHaveBeenCalledWith (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/SocialShareButtons.test.js:53:22)
+    at Promise.then.completed (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:121:9)
+    at run (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)
+    at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
+    </testCase>
+    <testCase name="SocialShareButtons copies link to clipboard and shows confirmation" duration="19"/>
+    <testCase name="SocialShareButtons handles clipboard errors gracefully" duration="1005">
+      <failure message="Error: Unable to find an element with the text: /failed to copy/i. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible."><![CDATA[Error: Unable to find an element with the text: /failed to copy/i. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      aria-label="Share this article"
+      class="social-share-buttons"
+      role="group"
+    >
+      <button
+        aria-label="Share on Twitter"
+        class="share-button"
+      >
+        🐦
+      </button>
+      <button
+        aria-label="Share on Facebook"
+        class="share-button"
+      >
+        📘
+      </button>
+      <button
+        aria-label="Share on LinkedIn"
+        class="share-button"
+      >
+        💼
+      </button>
+      <button
+        aria-label="Copy link to clipboard"
+        aria-pressed="false"
+        class="copy-button"
+      >
+        📋
+      </button>
+    </div>
+    <div
+      aria-live="polite"
+      class="sr-only"
+      role="status"
+    />
+  </div>
+</body>
+    at waitForWrapper (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/wait-for.js:166:27)
+    at /home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+    at Object.findByText (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/components/SocialShareButtons.test.js:85:39)
+    at Promise.then.completed (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:316:40)
+    at _runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:121:9)
+    at run (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/runTest.js:444:34)
+    at Object.worker (/home/seb/GITRepos/bikininjas.github.io/nextjs-blog/node_modules/jest-runner/build/testWorker.js:106:12)]]></failure>
+    </testCase>
   </file>
 </testExecutions>

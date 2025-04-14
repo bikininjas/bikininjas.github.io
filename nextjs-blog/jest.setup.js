@@ -1,7 +1,11 @@
-// Import any global settings for Jest here
 import '@testing-library/jest-dom';
 
-// Add any global mocks or setup needed for your tests
+// If needed, add global mocks here
+
+// Make Jest functions available globally
+global.jest = jest;
+
+// Global mocks or setup can be placed here
 
 // Mock CSS modules
 jest.mock('*.module.css', () => ({}), { virtual: true });
@@ -52,8 +56,8 @@ if (typeof window !== 'undefined') {
       matches: false,
       media: query,
       onchange: null,
-      addListener: jest.fn(),
-      removeListener: jest.fn(),
+      addListener: jest.fn(), // deprecated
+      removeListener: jest.fn(), // deprecated
       addEventListener: jest.fn(),
       removeEventListener: jest.fn(),
       dispatchEvent: jest.fn(),
@@ -67,16 +71,41 @@ if (typeof document === 'undefined') {
 }
 
 // Mock IntersectionObserver
-global.IntersectionObserver = class IntersectionObserver {
+class MockIntersectionObserver {
   constructor(callback) {
     this.callback = callback;
+    this.elements = new Set();
+    this.mockEntries = [];
   }
-  observe() {
-    this.callback([{ isIntersecting: true }]);
+
+  observe(element) {
+    this.elements.add(element);
   }
-  unobserve() {}
-  disconnect() {}
-};
+
+  unobserve(element) {
+    this.elements.delete(element);
+  }
+
+  disconnect() {
+    this.elements.clear();
+  }
+
+  // Simulate intersection change
+  simulateIntersection(isIntersecting) {
+    this.mockEntries = Array.from(this.elements).map(element => ({
+      isIntersecting,
+      target: element,
+      intersectionRatio: isIntersecting ? 1 : 0,
+      boundingClientRect: {},
+      intersectionRect: {},
+      rootBounds: null,
+    }));
+    
+    this.callback(this.mockEntries, this);
+  }
+}
+
+global.IntersectionObserver = MockIntersectionObserver;
 
 // Mock window methods
 global.window.scrollTo = jest.fn();

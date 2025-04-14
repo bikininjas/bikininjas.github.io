@@ -44,4 +44,33 @@ test.describe('Navigation Tests', () => {
     await expect(page.locator('.embed-container')).toBeVisible();
     await expect(page.locator('lite-youtube')).toBeVisible();
   });
+
+  test('should navigate to the home page', async ({ page }) => {
+    await page.goto('/');
+    await expect(page).toHaveTitle(/Biki Ninjas Blog/);
+  });
+
+  test('should navigate to the about page', async ({ page }) => {
+    await page.goto('/');
+    await page.click('text=About');
+    await expect(page.url()).toContain('/about');
+  });
+
+  test('should navigate to a blog post', async ({ page }) => {
+    await page.goto('/');
+    // Click on the first blog post
+    await page.click('.post-item a');
+    // Verify we're on a blog post page
+    await expect(page.locator('article.blog-post')).toBeVisible();
+  });
+
+  test('should navigate between pages using navbar', async ({ page }) => {
+    await page.goto('/');
+    // Test navigation links
+    await page.click('nav >> text=Blog');
+    await expect(page.url()).toContain('/blog');
+    
+    await page.click('nav >> text=Home');
+    await expect(page.url()).not.toContain('/blog');
+  });
 });

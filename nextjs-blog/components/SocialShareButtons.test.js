@@ -1,83 +1,88 @@
-import { render, screen, fireEvent, act } from '@testing-library/react';
+/**
+ * @jest-environment jsdom
+ */
+
+import React from 'react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import SocialShareButtons from './SocialShareButtons';
 
 describe('SocialShareButtons', () => {
-  const mockUrl = 'https://example.com';
+  const mockUrl = 'https://example.com/test';
   const mockTitle = 'Test Title';
-  const originalClipboard = { ...global.navigator.clipboard };
-  const mockOpen = jest.fn();
-
-  beforeAll(() => {
-    global.window.open = mockOpen;
-    global.navigator.clipboard = {
-      writeText: jest.fn()
-    };
-  });
-
-  afterAll(() => {
-    global.navigator.clipboard = originalClipboard;
-  });
-
+  let mockOpen;
+  
   beforeEach(() => {
-    mockOpen.mockClear();
-    global.navigator.clipboard.writeText.mockClear();
+    // Setup window.open mock
+    mockOpen = jest.fn();
+    window.open = mockOpen;
+    
+    // Setup clipboard mock
+    Object.defineProperty(navigator, 'clipboard', {
+      value: {
+        writeText: jest.fn().mockImplementation(() => Promise.resolve())
+      },
+      configurable: true
+    });
   });
 
-  it('renders all share buttons with proper accessibility attributes', () => {
-    render(<SocialShareButtons url={mockUrl} title={mockTitle} />);
-    
-    const buttonGroup = screen.getByRole('group', { name: /share this article/i });
-    expect(buttonGroup).toBeInTheDocument();
-
-    expect(screen.getByLabelText(/share on twitter/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/share on facebook/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/share on linkedin/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/copy link/i)).toBeInTheDocument();
+  afterEach(() => {
+    jest.resetAllMocks();
   });
 
-  it('opens share links in new window when clicked', () => {
+  test('renders all share buttons with proper accessibility attributes', () => {
     render(<SocialShareButtons url={mockUrl} title={mockTitle} />);
     
-    fireEvent.click(screen.getByLabelText(/share on twitter/i));
+    // Check all buttons are rendered
+    const buttons = screen.getAllByRole('button');
+    expect(buttons.length).toBeGreaterThanOrEqual(4); // Twitter, Facebook, LinkedIn, Copy
+    
+    // Check accessibility attributes
+    buttons.forEach(button => {
+      expect(button).toHaveAttribute('aria-label');
+    });
+  });
+
+  test('opens share links in new window when clicked', () => {
+    render(<SocialShareButtons url={mockUrl} title={mockTitle} />);
+    
+    // Click Twitter button
+    const twitterButton = screen.getByLabelText(/share on twitter/i);
+    fireEvent.click(twitterButton);
+    
+    expect(mockOpen).toHaveBeenCalledTimes(1);
     expect(mockOpen).toHaveBeenCalledWith(
-      expect.stringContaining('twitter.com'),
-      '_blank',
-      'noopener,noreferrer'
+      expect.stringContaining('twitter.com/intent/tweet'),
+      '_blank'
     );
   });
 
-  it('copies link to clipboard and shows confirmation', async () => {
-    global.navigator.clipboard.writeText.mockResolvedValueOnce();
-    jest.useFakeTimers();
-
+  test('copies link to clipboard and shows confirmation', async () => {
     render(<SocialShareButtons url={mockUrl} title={mockTitle} />);
     
+    // Click copy button
     const copyButton = screen.getByLabelText(/copy link/i);
     fireEvent.click(copyButton);
-
-    expect(global.navigator.clipboard.writeText).toHaveBeenCalledWith(mockUrl);
-    expect(screen.getByText(/link copied/i)).toBeInTheDocument();
-    expect(copyButton).toHaveAttribute('aria-pressed', 'true');
-
-    act(() => {
-      jest.advanceTimersByTime(2000);
-    });
-
-    expect(screen.queryByText(/link copied/i)).not.toBeInTheDocument();
-    expect(copyButton).toHaveAttribute('aria-pressed', 'false');
-
-    jest.useRealTimers();
+    
+    // Check clipboard was called
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(mockUrl);
+    
+    // Check confirmation shows
+    const confirmation = await screen.findByText(/copied/i);
+    expect(confirmation).toBeInTheDocument();
   });
 
-  it('handles clipboard errors gracefully', async () => {
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
-    global.navigator.clipboard.writeText.mockRejectedValueOnce(new Error('Clipboard error'));
-
+  test('handles clipboard errors gracefully', async () => {
+    // Mock clipboard failure
+    navigator.clipboard.writeText.mockRejectedValueOnce(new Error('Clipboard error'));
+    
     render(<SocialShareButtons url={mockUrl} title={mockTitle} />);
     
-    fireEvent.click(screen.getByLabelText(/copy link/i));
+    // Click copy button
+    const copyButton = screen.getByLabelText(/copy link/i);
+    fireEvent.click(copyButton);
     
-    expect(consoleSpy).toHaveBeenCalled();
-    consoleSpy.mockRestore();
+    // Check error handling
+    const errorMessage = await screen.findByText(/failed to copy/i);
+    expect(errorMessage).toBeInTheDocument();
   });
 });

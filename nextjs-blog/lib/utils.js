@@ -1,10 +1,17 @@
 // Utility function to convert a string to a URL-friendly slug
-export function slugify(string) {
-  if (!string) return '';
-  return string
+export function slugify(text) {
+  if (!text) return '';
+  
+  return text
+    .normalize('NFD')           // Normalize to decomposed form for handling accents
+    .replace(/[\u0300-\u036f]/g, '') // Remove diacritics/accents
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '');
+    .replace(/[^\w\s-]/g, '')  // Remove special characters
+    .trim()
+    .replace(/\s+/g, '-')      // Replace spaces with hyphens
+    .replace(/-+/g, '-')       // Replace multiple hyphens with single hyphen
+    .replace(/^-+/, '')        // Remove leading hyphens
+    .replace(/-+$/, '');       // Remove trailing hyphens
 }
 
 // Utility function to format a date
