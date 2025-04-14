@@ -1,8 +1,7 @@
-// Add any global Jest setup here
-// This will run before each test file
-
-// Import jest-dom for additional matchers
+// Import any global settings for Jest here
 import '@testing-library/jest-dom';
+
+// Add any global mocks or setup needed for your tests
 
 // Mock CSS modules
 jest.mock('*.module.css', () => ({}), { virtual: true });

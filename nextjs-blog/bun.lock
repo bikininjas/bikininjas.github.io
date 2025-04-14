@@ -18,7 +18,7 @@
         "@cypress/react": "^9.0.1",
         "@cypress/webpack-dev-server": "^4.0.2",
         "@playwright/test": "^1.51.1",
-        "@testing-library/jest-dom": "^6.6.3",
+        "@testing-library/jest-dom": "^6.1.5",
         "@testing-library/react": "^16.2.0",
         "babel-jest": "^29.7.0",
         "cypress": "^14.2.1",
