@@ -1,0 +1,23 @@
+name: Translate Markdown files
+
+on:
+  # Allow manual triggering
+  workflow_dispatch:
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Translate Markdown Documentation
+        id: translate
+        uses: KevinRohn/gh-action-markdown-translate-ai@v1
+        with:
+          api_key: ${{ secrets.OPENAPI_KEY }}
+          service_provider: 'openai'
+          model: 'gpt-4o-mini'
+          source_language: 'French'
+          target_language: 'English'
+          file_path: './docs/README.md'
+          output_file_path: './docs/README.en.md'

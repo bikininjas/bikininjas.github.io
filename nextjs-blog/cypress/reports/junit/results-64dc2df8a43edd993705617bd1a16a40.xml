@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="5.026" tests="4" failures="0">
+  <testsuite name="Root Suite" timestamp="2025-04-04T07:17:48" tests="0" file="cypress/e2e/embeds.cy.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Embeds Tests" timestamp="2025-04-04T07:17:48" tests="4" time="5.017" failures="0">
+    <testcase name="Embeds Tests should have post content on a specific post page" time="1.216" classname="should have post content on a specific post page">
+    </testcase>
+    <testcase name="Embeds Tests should have post links on the homepage" time="1.219" classname="should have post links on the homepage">
+    </testcase>
+    <testcase name="Embeds Tests should have a navigation menu" time="1.088" classname="should have a navigation menu">
+    </testcase>
+    <testcase name="Embeds Tests should have articles on the homepage" time="1.299" classname="should have articles on the homepage">
+    </testcase>
+  </testsuite>
+</testsuites>
