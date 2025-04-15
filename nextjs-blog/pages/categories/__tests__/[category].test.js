@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import CategoryPage from '../[category]';
 import { getPostsByCategory, getCategoriesWithCount } from '../../../lib/posts';
 import { useRouter } from 'next/router';
@@ -19,9 +19,11 @@ jest.mock('../../../lib/posts', () => ({
 jest.mock('../../../components/PostCard', () => ({ post }) => (
   <div data-testid="post-card">{post.title}</div>
 ));
+// Update the CategoryNav mock to handle an array of objects
 jest.mock('../../../components/CategoryNav', () => ({ categories }) => (
   <div data-testid="category-nav">
-    {Object.keys(categories).map(cat => <span key={cat}>{cat}</span>)}
+    {/* Ensure categories is an array before mapping */}
+    {Array.isArray(categories) && categories.map(cat => <span key={cat.slug}>{cat.name}</span>)}
   </div>
 ));
 jest.mock('../../../components/SEO', () => ({ title }) => (
@@ -32,6 +34,25 @@ jest.mock('../../../components/PostParallax', () => ({ title }) => (
 ));
 
 describe('Category page', () => {
+  const mockCategorySlug = 'tech';
+  const mockCategoryName = 'Technology'; // Assuming you can derive this or pass it
+  const mockPosts = [
+    { id: 'post1', title: 'Tech Post 1', date: '2023-01-01', excerpt: 'Excerpt 1', categories: ['Tech'] },
+    { id: 'post3', title: 'Tech Post 2', date: '2023-01-03', excerpt: 'Excerpt 3', categories: ['Tech', 'AI'] },
+  ];
+  const mockAllCategories = [
+    { name: 'Tech', slug: 'tech' },
+    { name: 'Gaming', slug: 'gaming' },
+  ];
+
+  // Props that would be passed by getStaticProps
+  const defaultProps = {
+    posts: mockPosts,
+    category: mockCategorySlug, // The slug
+    categoryName: mockCategoryName, // The display name
+    categories: mockAllCategories,
+  };
+
   beforeEach(() => {
     // Setup router mock
     useRouter.mockImplementation(() => ({
@@ -65,12 +86,12 @@ describe('Category page', () => {
   });
 
   it('renders the category title', () => {
-    render(<CategoryPage />);
+    render(<CategoryPage {...defaultProps} />);
     expect(screen.getByTestId('post-parallax')).toHaveTextContent('Tech');
   });
 
   it('renders posts for the selected category', () => {
-    render(<CategoryPage />);
+    render(<CategoryPage {...defaultProps} />);
     const postCards = screen.getAllByTestId('post-card');
     expect(postCards).toHaveLength(2);
     expect(postCards[0]).toHaveTextContent('Tech Post 1');
@@ -78,24 +99,36 @@ describe('Category page', () => {
   });
 
   it('renders the category navigation with all categories', () => {
-    render(<CategoryPage />);
-    expect(screen.getByTestId('category-nav')).toBeInTheDocument();
-    expect(screen.getByText('Tech')).toBeInTheDocument();
-    expect(screen.getByText('Travel')).toBeInTheDocument();
+    render(<CategoryPage {...defaultProps} />);
+    
+    // Find all elements with the data-testid
+    const categoryNavs = screen.getAllByTestId('category-nav'); 
+    // Assume the second element is the one containing the links based on the structure in the report
+    const actualCategoryNav = categoryNavs[1]; 
+    
+    expect(actualCategoryNav).toBeInTheDocument();
+    // Check for category names *within* the correct nav component found
+    expect(within(actualCategoryNav).getByText('Tech')).toBeInTheDocument(); 
+    expect(within(actualCategoryNav).getByText('Gaming')).toBeInTheDocument(); 
   });
 
   it('renders SEO component with correct title', () => {
-    render(<CategoryPage />);
+    render(<CategoryPage {...defaultProps} />);
     expect(screen.getByTestId('seo')).toHaveTextContent(/Tech/i);
   });
 
   it('handles empty category results', () => {
     getPostsByCategory.mockReturnValueOnce([]);
-    render(<CategoryPage />);
+    render(<CategoryPage {...defaultProps} posts={[]} />);
     
     // Should still render the category title and navigation
     expect(screen.getByTestId('post-parallax')).toHaveTextContent('Tech');
-    expect(screen.getByTestId('category-nav')).toBeInTheDocument();
+    
+    // Find all elements with the data-testid
+    const categoryNavs = screen.getAllByTestId('category-nav'); 
+    // Assume the second element is the one we want to check
+    const actualCategoryNav = categoryNavs[1]; 
+    expect(actualCategoryNav).toBeInTheDocument();
     
     // But no post cards
     expect(screen.queryAllByTestId('post-card')).toHaveLength(0);

@@ -2,8 +2,9 @@ import React from 'react';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 import Navbar from './Navbar';
-import CategoryNav from './CategoryNav';
+import CategoryNav from './CategoryNav'; // Assuming CategoryNav is used here based on other context
 
+// Use default parameters for props
 export default function Layout({ children, categories = [], title = 'BikiNinjas Blog' }) {
   return (
     <div className="container">
@@ -17,9 +18,12 @@ export default function Layout({ children, categories = [], title = 'BikiNinjas 
       <Navbar />
 
       <main role="main" className="main-content" id="main-content">
-        <aside role="complementary" aria-label="Categories">
-          <CategoryNav categories={categories} />
-        </aside>
+        {/* Conditionally render CategoryNav if categories are provided */}
+        {categories.length > 0 && (
+          <aside role="complementary" aria-label="Categories">
+            <CategoryNav categories={categories} />
+          </aside>
+        )}
         
         <div className="content-wrapper">
           {children}
@@ -35,11 +39,16 @@ export default function Layout({ children, categories = [], title = 'BikiNinjas 
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-  categories: PropTypes.array,
+  // Update categories prop type to match the expected object shape
+  categories: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+  })),
   title: PropTypes.string
 };
 
-Layout.defaultProps = {
-  categories: [],
-  title: 'BikiNinjas Blog'
-};
+// Remove the deprecated defaultProps
+// Layout.defaultProps = {
+//   categories: [],
+//   title: 'BikiNinjas Blog'
+// };

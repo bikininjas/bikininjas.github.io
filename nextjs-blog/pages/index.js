@@ -7,6 +7,7 @@ import PostCard from '../components/PostCard';
 import { getSortedPostsData, getAllCategories } from '../lib/posts';
 import SEO from '../components/SEO';
 import Hero from '../components/Hero';
+import Link from 'next/link';
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
@@ -67,16 +68,7 @@ export default function Home({ allPostsData = [], allCategories = [] }) {
           
           <div className="posts-grid">
             {filteredPosts.map(post => (
-              <Link href={`/posts/${post.slug}`} key={post.slug}>
-                <PostCard 
-                  title={post.title}
-                  date={post.date}
-                  excerpt={post.excerpt}
-                  coverImage={post.coverImage}
-                  slug={post.slug}
-                  category={post.category}
-                />
-              </Link>
+              <PostCard key={post.id} post={post} />
             ))}
             {filteredPosts.length === 0 && (
               <div className="no-results">

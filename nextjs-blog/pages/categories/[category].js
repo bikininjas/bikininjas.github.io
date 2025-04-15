@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import Layout from '../../components/layout';
 import CategoryNav from '../../components/CategoryNav';
 import { getAllCategories, getAllCategorySlugs, getCategoryFromSlug, getPostsByCategorySlug } from '../../lib/posts';
 import SEO from '../../components/SEO';
+import PostCard from '../../components/PostCard'; // <-- Add this import
 
 export async function getStaticPaths() {
   const categorySlugs = getAllCategorySlugs();
@@ -37,47 +38,46 @@ export async function getStaticProps({ params }) {
   };
 }
 
-export default function Category({ allPosts, categories, categoryData }) {
-  // Make sure categoryData is properly structured and the title is passed
-  const categoryTitle = categoryData?.title || capitalize(categoryData?.slug || '');
-  
+export default function CategoryPage({ posts = [], category, categoryName, categories = [] }) { 
+  const [searchTerm, setSearchTerm] = useState('');
+
+  // Ensure 'posts' is an array before filtering, then filter
+  const filteredPosts = Array.isArray(posts) 
+    ? posts.filter(post => 
+        // Ensure properties exist before calling methods
+        (post?.title?.toLowerCase() ?? '').includes(searchTerm.toLowerCase()) ||
+        (post?.excerpt?.toLowerCase() ?? '').includes(searchTerm.toLowerCase()) ||
+        (Array.isArray(post?.categories) && post.categories.some(cat => (cat?.toLowerCase() ?? '').includes(searchTerm.toLowerCase())))
+      )
+    : []; // Default to empty array if posts is not an array
+
   return (
     <Layout>
-      <SEO title={`${categoryTitle} - My Blog`} description={`Posts about ${categoryTitle}`} />
+      <SEO title={`${categoryName} - My Blog`} description={`Posts about ${categoryName}`} />
       
       <section className="container">
         <div className="category-header" data-testid="post-parallax">
-          <h1 className="category-title">{categoryTitle}</h1>
+          <h1 className="category-title">{categoryName}</h1>
         </div>
         
-        <div data-testid="category-nav">
+        {/* Remove data-testid from this div */}
+        <div> 
           <CategoryNav 
             categories={categories} 
-            activeCategory={categoryData?.slug} 
+            activeCategory={category} 
             onCategoryChange={(cat) => router.push(`/categories/${cat}`)}
           />
         </div>
         
         <div className="posts-grid">
-          {allPosts.map(post => (
-            <Link href={`/posts/${post.slug}`} key={post.slug}>
-              <div key={post.id} data-testid="post-card">
-                <PostCard 
-                  title={post.title}
-                  date={post.date}
-                  excerpt={post.excerpt}
-                  coverImage={post.coverImage}
-                  slug={post.slug}
-                  category={post.category}
-                />
-              </div>
-            </Link>
-          ))}
-          
-          {allPosts.length === 0 && (
-            <div className="no-results">
-              <p>No posts found in this category.</p>
-            </div>
+          {/* Check filteredPosts length before mapping */}
+          {filteredPosts.length > 0 ? ( 
+            // Optional chaining on map is still good practice
+            filteredPosts?.map(post => ( 
+              <PostCard key={post?.id} post={post} /> // Add optional chaining for key too
+            ))
+          ) : (
+            <p>No posts found in this category{searchTerm ? ' matching your search' : ''}.</p>
           )}
         </div>
       </section>
@@ -91,7 +91,7 @@ function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-Category.propTypes = {
+CategoryPage.propTypes = {
   category: PropTypes.string.isRequired,
   categorySlug: PropTypes.string.isRequired,
   postsData: PropTypes.arrayOf(

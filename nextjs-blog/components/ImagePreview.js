@@ -1,82 +1,73 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import styles from './ImagePreview.module.css';
 
-const ImagePreview = ({ src, alt, loading = 'lazy' }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const modalRef = useRef(null);
-  const modalOverlayRef = useRef(null);
-  
-  const openModal = () => {
-    setIsModalOpen(true);
+export default function ImagePreview({ src, alt, width, height, className = '', loading = 'lazy' }) {
+  const [showModal, setShowModal] = useState(false);
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    console.error(`Failed to load image: ${src}`);
   };
-  
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-  
-  // Close on escape key press
+
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
+
   useEffect(() => {
-    const handleEscPress = (e) => {
-      if (isModalOpen && e.key === 'Escape') {
+    const handleEsc = (event) => {
+      if (event.keyCode === 27) {
         closeModal();
       }
     };
-    
-    window.addEventListener('keydown', handleEscPress);
-    return () => window.removeEventListener('keydown', handleEscPress);
-  }, [isModalOpen]);
-  
-  // Close on click outside
-  useEffect(() => {
-    if (!isModalOpen) return;
-    
-    const handleOutsideClick = (e) => {
-      if (modalRef.current && !modalRef.current.contains(e.target) && 
-          modalOverlayRef.current && modalOverlayRef.current.contains(e.target)) {
-        closeModal();
-      }
+    if (showModal) {
+      window.addEventListener('keydown', handleEsc);
+    }
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
     };
-    
-    document.addEventListener('mousedown', handleOutsideClick);
-    return () => document.removeEventListener('mousedown', handleOutsideClick);
-  }, [isModalOpen]);
-  
+  }, [showModal]);
+
+  if (!src || !alt) {
+    console.warn('ImagePreview requires src and alt props.');
+    return null;
+  }
+
   return (
-    <div className="image-preview">
-      <img 
-        src={src} 
-        alt={alt} 
-        loading={loading} 
-        onClick={openModal} 
-        className="preview-image"
-        data-testid="preview-image"
-        {...props} 
+    <>
+      <img
+        src={imgSrc}
+        alt={alt}
+        width={width}
+        height={height}
+        className={`${styles.previewImage} ${className}`}
+        onClick={openModal}
+        onError={handleError}
+        loading={loading}
+        style={{ cursor: 'pointer' }}
+        // Ensure no direct 'props.' access is used around here (line 53).
+        // Example: If there was 'data-prop={props.someValue}', change it to
+        // use a destructured prop if 'someValue' is passed in, or remove/refactor.
       />
-      
-      {isModalOpen && (
-        <div 
-          className={`image-modal ${isModalOpen ? 'open' : ''}`}
-          data-testid="image-modal" 
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="image-preview-title"
-        >
-          <button 
-            className={styles.closeButton} 
-            onClick={closeModal}
-            aria-label="Close image preview"
-          >
-            &times;
-          </button>
-          <img 
-            src={src} 
-            alt={alt} 
-            className={styles.modalImage} 
-          />
+
+      {showModal && (
+        <div className={styles.modalOverlay} onClick={closeModal} role="dialog" aria-modal="true" aria-label={`Image preview: ${alt}`}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <button className={styles.closeButton} onClick={closeModal} aria-label="Close image preview">
+              &times;
+            </button>
+            <img src={imgSrc} alt={alt} className={styles.modalImage} onError={handleError} />
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
-};
+}
 
-export default ImagePreview;
+ImagePreview.propTypes = {
+  src: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  className: PropTypes.string,
+  loading: PropTypes.oneOf(['lazy', 'eager']),
+};

@@ -150,9 +150,11 @@ export async function getPostData(id) {
     console.log(message);
   }
 
-  log('Post ID:', id);
-  log('Contains embeds:', markdownWithEmbeds.includes('embed-container'));
-  log('Final HTML contains embeds:', finalHtml.includes('embed-container'));
+  // Remove or comment out console.log statements
+  // console.log(`Processing file: ${fullPath}`); 
+  // console.log('Post ID:', id);
+  // console.log('Contains embeds:', markdownWithEmbeds.includes('embed-container'));
+  // console.log('Final HTML contains embeds:', finalHtml.includes('embed-container'));
   
   // Use the final HTML with embeds
   let contentHtml = finalHtml;
