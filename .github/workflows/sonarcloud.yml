@@ -19,10 +19,10 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: bun install
 
       - name: Run tests with coverage
-        run: npm run test:coverage
+        run: bun run test --coverage
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
