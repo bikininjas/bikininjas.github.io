@@ -2,13 +2,13 @@ import I18nKeys from "./src/locales/keys";
 import type { Configuration } from "./src/types/config";
 
 const YukinaConfig: Configuration = {
-  title: "Yukina",
-  subTitle: "Yukina Template Demo Site",
-  brandTitle: "Yukina",
+  title: "Bikininjas",
+  subTitle: "Bikininjas Blog",
+  brandTitle: "Bikininjas",
 
   description: "Demo Site",
 
-  site: "https://yukina-blog.vercel.app",
+  site: "https://bikininjas.github.io",
 
   locale: "en", // set for website language and date format
 
@@ -27,25 +27,25 @@ const YukinaConfig: Configuration = {
     },
     {
       nameKey: I18nKeys.nav_bar_github,
-      href: "https://github.com/WhitePaper233/yukina",
+      href: "https://github.com/SebPikPik",
     },
   ],
 
-  username: "WhitePaper 白芷",
-  sign: "Ad Astra Per Aspera.",
-  avatarUrl: "https://s2.loli.net/2025/01/25/FPpTrQSezM8ivbl.webp",
+  username: "Bikininjas",
+  sign: "100% des gagnants ont tenté leur chance",
+  avatarUrl: "https://robertsspaceindustries.com/media/o8yk577me0mvpr/heap_infobox/2020-11-07-20_15_58-Window.png",
   socialLinks: [
     {
       icon: "line-md:github-loop",
-      link: "https://github.com/WhitePaper233",
+      link: "https://github.com/bikininjas",
     },
     {
-      icon: "mingcute:bilibili-line",
-      link: "https://space.bilibili.com/22433608",
+      icon: "heroicons:chat-bubble-left-ellipsis",
+      link: "https://x.com/SebPikPik",
     },
     {
-      icon: "mingcute:netease-music-line",
-      link: "https://music.163.com/#/user/home?id=125291648",
+      icon: "heroicons:play-circle",
+      link: "https://www.twitch.tv/redpikpik",
     },
   ],
   maxSidebarCategoryChip: 6, // It is recommended to set it to a common multiple of 2 and 3
@@ -54,14 +54,14 @@ const YukinaConfig: Configuration = {
   maxFooterTagChip: 24,
 
   banners: [
-    "https://s2.loli.net/2025/01/25/PBvHFjr5yDu6t4a.webp",
-    "https://s2.loli.net/2025/01/25/6bKcwHZigzlM4mJ.webp",
-    "https://s2.loli.net/2025/01/25/H9WgEK6qNTcpFiS.webp",
-    "https://s2.loli.net/2025/01/25/njNVtuUMzxs81RI.webp",
-    "https://s2.loli.net/2025/01/25/tozsJ8QHAjFN3Mm.webp",
-    "https://s2.loli.net/2025/01/25/Pm89OveZq7NWUxF.webp",
-    "https://s2.loli.net/2025/01/25/UCYKvc1ZhgPHB9m.webp",
-    "https://s2.loli.net/2025/01/25/JjpLOW8VSmufzlA.webp",
+    "https://pbs.twimg.com/media/Gpj4qYeWEAAp9Xk?format=jpg&name=4096x4096",
+    "https://pbs.twimg.com/media/Go849RobYAExzi_?format=jpg&name=4096x4096",
+    "https://pbs.twimg.com/media/Go010LwWkAAvEHA?format=jpg&name=4096x4096",
+    "https://pbs.twimg.com/media/Gpj6IIVXoAAZkoZ?format=jpg&name=4096x4096",
+    "https://pbs.twimg.com/media/GjskJKdacAA67I9?format=jpg&name=4096x4096",
+    "https://pbs.twimg.com/media/GomGfGZWkAAvQRk?format=jpg&name=4096x4096",
+    "https://pbs.twimg.com/media/GpJbIl9W0AET5rK?format=jpg&name=4096x4096",
+    "https://pbs.twimg.com/media/GowCXb7XEAA521n?format=jpg&name=4096x4096",
   ],
 
   slugMode: "HASH", // 'RAW' | 'HASH'

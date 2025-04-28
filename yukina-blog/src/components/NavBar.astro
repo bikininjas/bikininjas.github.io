@@ -39,7 +39,7 @@ const navCount = YukinaConfig.navigators.length;
     </div>
     <a class="brand-lg" href="/">
       <div class="title space-x-2">
-        <Icon name="heroicons:home" size={32} />
+        <Icon name="heroicons:rocket-launch" size={32} />
         <p>{YukinaConfig.brandTitle}</p>
       </div>
     </a>
@@ -283,7 +283,7 @@ const navCount = YukinaConfig.navigators.length;
   ) as any as SVGElement;
 
   // Record the current theme
-  let currentTheme = localStorage.getItem("theme") || "light";
+  let currentTheme = localStorage.getItem("theme") || "dark";
 
   // Set theme
   const setTheme = (theme: string) => {
