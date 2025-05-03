@@ -19,20 +19,17 @@ let carouselImgsList = YukinaConfig.banners;
 const carouselAnimationTime = `${carouselImgsList.length * 6}s`;
 ---
 
-<div id="banner" class="banner onload-animation-fade-in">
+<div id="banner" class="banner onload-animation-fade-in" style={`--carouselAnimationTime: ${carouselAnimationTime};`}>
   <div class="transition-main banner-inner h-full w-full">
     {
       (isHome || !hasHeaderImg) && (
         <div class="carousel">
-          <ul id="carousel_imgs">
-            {carouselImgsList.map((img, index) => (
-              <li
-                class="item lozad"
-                style={{ animationDelay: `${index * 6}s` }}
-                data-background-image={img}
-              />
-            ))}
-          </ul>
+          {carouselImgsList.map((img, index) => (
+            <div
+              class="carousel-item"
+              style={`background-image: url('${img}'); animation-delay: ${index * 6}s;`}
+            />
+          ))}
         </div>
       )
     }
@@ -40,9 +37,9 @@ const carouselAnimationTime = `${carouselImgsList.length * 6}s`;
       !isHome && hasHeaderImg && (
         <div class="cover">
           <img
-            class="item lozad"
-            data-src={bannerImage ?? GetCoverURLForUnspecifiedEntry(slug ?? "")}
-            alt="PostCoverr"
+            class="item"
+            src={bannerImage ?? GetCoverURLForUnspecifiedEntry(slug ?? "")}
+            alt="PostCover"
           />
         </div>
       )
@@ -58,6 +55,9 @@ const carouselAnimationTime = `${carouselImgsList.length * 6}s`;
             class="title mx-auto mb-2 max-h-64 w-auto brand-heart-logo"
             style="object-fit:contain;"
           />
+          <h1 class={`title ${isHome ? "title-index" : "title-normal"}`}>
+            {title ?? YukinaConfig.title}
+          </h1>
           <h2 class="subtitle">{subTitle ?? YukinaConfig.subTitle}</h2>
         </div>
       </div>
@@ -109,40 +109,50 @@ const carouselAnimationTime = `${carouselImgsList.length * 6}s`;
 </div>
 
 <script>
-  const styleElement = document.createElement("style");
-  const carouselImgs = document.getElementById("carousel_imgs");
-  const carouselImgsCount = carouselImgs?.children.length ?? 0;
-
-  const carouselAnimation = `
-  @keyframes carousel-animation {
-    0% {
-      opacity: 0;
-      transform: scale(1);
+  // Calculate and create the animation based on the number of images
+  document.addEventListener('DOMContentLoaded', function() {
+    const carouselItems = document.querySelectorAll('.carousel-item');
+    if (carouselItems.length > 0) {
+      const styleElement = document.createElement("style");
+      const carouselImgsCount = carouselItems.length;
+      
+      // Create the carousel animation CSS
+      const carouselAnimation = `
+      @keyframes carousel-animation {
+        0% {
+          opacity: 0;
+          transform: scale(1);
+        }
+        3% {
+          opacity: 1;
+        }
+        8% {
+          opacity: 1;
+        }
+        ${100 / carouselImgsCount - 10}% {
+          opacity: 1;
+        }
+        ${100 / carouselImgsCount}% {
+          opacity: 0;
+          transform: scale(1.1);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1.2);
+        }
+      }
+      `;
+      
+      styleElement.textContent = carouselAnimation;
+      document.head.appendChild(styleElement);
+      
+      // Debug log to check if carousel images are available
+      console.log(`Carousel setup: ${carouselItems.length} images found`);
+      carouselItems.forEach(item => {
+        console.log(`Image background: ${item.style.backgroundImage}`);
+      });
     }
-    3% {
-      opacity: 1;
-    }
-    8% {
-      opacity: 1;
-      animation-timing-function: ease-out;
-    }
-    ${100 / carouselImgsCount}% {
-      opacity: 1;
-    }
-    ${100 / carouselImgsCount + 50 / carouselImgsCount}% {
-      opacity: 0;
-      animation-timing-function: ease-out;
-    }
-    100% {
-      opacity: 0;
-      transform: scale(2);
-    }
-  }
-  `;
-  styleElement.textContent = carouselAnimation;
-  let bannerElement = document.getElementById("banner");
-  if (bannerElement && !bannerElement.querySelector("style"))
-    bannerElement.appendChild(styleElement);
+  });
 </script>
 
 <style>
@@ -164,13 +174,14 @@ const carouselAnimationTime = `${carouselImgsList.length * 6}s`;
   .flex.flex-col:hover .brand-heart-logo {
     animation: heart-pump 0.7s cubic-bezier(0.4,0,0.2,1) both;
   }
+  
   .banner {
     @apply relative h-[calc(var(--banner-height)*3/4)] opacity-100 lg:h-[var(--banner-height)];
+    --carouselAnimationTime: 18s; /* Default fallback */
   }
 
   .carousel {
     @apply absolute left-0 top-0 -z-10 block h-[calc(var(--banner-height)*3/4)] w-full overflow-hidden bg-white lg:h-[var(--banner-height)];
-    animation-fill-mode: forwards;
   }
 
   .carousel::before {
@@ -178,12 +189,27 @@ const carouselAnimationTime = `${carouselImgsList.length * 6}s`;
     @apply dark:bg-black/30;
   }
 
-  .carousel .item {
-    @apply absolute left-0 top-0 z-0 h-full w-full origin-center bg-cover bg-center bg-no-repeat opacity-0;
-    animation: carousel-animation var(--carouselAnimationTime) linear infinite
-      0s;
+  .carousel-item {
+    @apply absolute left-0 top-0 z-0 h-full w-full origin-center bg-cover bg-center bg-no-repeat;
+    animation: carousel-animation var(--carouselAnimationTime) linear infinite;
     backface-visibility: hidden;
     transform-style: preserve-3d;
+    opacity: 0; /* Start with opacity 0, will be changed by the animation */
+  }
+
+  /* Default fallback animation in case the JS one fails */
+  @keyframes carousel-animation {
+    0%, 100% {
+      opacity: 0;
+      transform: scale(1);
+    }
+    3%, 45% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+      transform: scale(1.2);
+    }
   }
 
   .cover {

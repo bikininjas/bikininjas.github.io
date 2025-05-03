@@ -1,11 +1,10 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Main from "../layouts/MainLayout.astro";
 import Calendar from "../components/Calendar.jsx";
 ---
 
-<Layout title="Calendar" description="Interactive editable calendar">
-  <main class="container mx-auto py-8 px-4">
-    <h1 class="text-3xl font-bold mb-6">Calendar</h1>
+<Main title="Calendar" subTitle="Interactive event calendar">
+  <div class="rounded-2xl bg-[var(--card-color)] p-6">
     <Calendar client:load />
-  </main>
-</Layout>
+  </div>
+</Main>
