@@ -207,7 +207,7 @@ Les améliorations apportées par la mise à jour 4.1 offrent une expérience de
 
 L'engagement de la communauté est essentiel pour le développement continu de Star Citizen. Les retours des joueurs permettent aux développeurs d'apporter des améliorations et de corriger les bugs, garantissant une expérience de jeu de qualité.
 
-<iframe width="100%" height="468" src="https://www.youtube.com/watch?v=blNmKKUKX88" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="100%" height="468" src="https://www.youtube.com/embed/blNmKKUKX88" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Perspectives Excitantes
 

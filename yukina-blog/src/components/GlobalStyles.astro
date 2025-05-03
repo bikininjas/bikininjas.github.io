@@ -7,18 +7,31 @@ import "overlayscrollbars/overlayscrollbars.css";
 ---
 
 <style is:global>
-  :root {
-    --hue: 300;
+  a {
+    /* color: var(--text-color); */
+    color: var(--text-color);
+    background: var(--background-color);
+    text-decoration: none;
+    transition: color 0.2s, background 0.2s;
+  }
+  a:visited, a:active {
+    color: var(--text-color);
+  }
+  a:hover, a:focus {
+    color: var(--primary-color-hover);
+    background: var(--background-color);
+  }
 
-    --primary-color: oklch(70% 0.15 var(--hue));
-    --primary-color-lighten: oklch(95% 0.02 var(--hue));
-    --primary-color-hover: oklch(90% 0.025 var(--hue));
-    --primary-color-transparent: oklch(70% 0.15 var(--hue) / 15%);
-    --text-color: oklch(30% 0 0);
-    --text-color-lighten: oklch(50% 0 0);
-    --card-color: oklch(100% 0 0);
-    --card-color-transparent: oklch(100% 0 0 / 85%);
-    --background-color: oklch(97% 0.01 var(--hue));
+  :root {
+    --primary-color: oklch(15% 0 0); /* dark grey */
+    --primary-color-lighten: oklch(30% 0 0); /* lighter dark grey */
+    --primary-color-hover: oklch(60% 0.21 29); /* vivid red for hover */
+    --primary-color-transparent: oklch(15% 0 0 / 15%);
+    --text-color: oklch(95% 0 0); /* white */
+    --text-color-lighten: oklch(80% 0 0); /* light grey */
+    --card-color: oklch(20% 0 0); /* very dark grey */
+    --card-color-transparent: oklch(20% 0 0 / 85%);
+    --background-color: oklch(7% 0 0); /* black */
 
     --brand-font: "Raleway", "Noto Sans SC", sans-serif;
     --primary-font: "Noto Sans SC", sans-serif;
@@ -38,15 +51,15 @@ import "overlayscrollbars/overlayscrollbars.css";
   }
 
   :root.dark {
-    --primary-color: oklch(70% 0.125 var(--hue));
-    --primary-color-lighten: oklch(40% 0.04 var(--hue));
-    --primary-color-hover: oklch(20% 0.015 var(--hue));
-    --text-color: oklch(95% 0.002 var(--hue));
-    --text-color-lighten: oklch(90% 0.002 var(--hue));
-    --card-color: oklch(25% 0.02 var(--hue));
-    --card-color-lighten: oklch(40% 0.04 var(--hue));
-    --card-color-transparent: oklch(30% 0.025 var(--hue) / 85%);
-    --background-color: oklch(17.5% 0.015 var(--hue));
+    --primary-color: oklch(15% 0 0); /* dark grey */
+    --primary-color-lighten: oklch(30% 0 0); /* lighter dark grey */
+    --primary-color-hover: oklch(60% 0.21 29); /* vivid red for hover */
+    --text-color: oklch(95% 0 0); /* white */
+    --text-color-lighten: oklch(80% 0 0); /* light grey */
+    --card-color: oklch(12% 0 0); /* very dark grey */
+    --card-color-lighten: oklch(20% 0 0); /* dark grey */
+    --card-color-transparent: oklch(12% 0 0 / 85%);
+    --background-color: oklch(3% 0 0); /* black */
   }
 
   .swup-progress-bar {

@@ -39,7 +39,7 @@ const navCount = YukinaConfig.navigators.length;
     </div>
     <a class="brand-lg" href="/">
       <div class="title space-x-2">
-        <Icon name="heroicons:rocket-launch" size={32} />
+        <img src="/bikininjas-logos.png" alt="Bikininjas Logo" class="inline-block h-16 w-auto align-middle mr-2 brand-heart-logo" />
         <p>{YukinaConfig.brandTitle}</p>
       </div>
     </a>
@@ -102,7 +102,22 @@ const navCount = YukinaConfig.navigators.length;
   </div>
 </nav>
 
-<style define:vars={{ navCount }}>
+<style>
+  @keyframes heart-pump {
+    0% { transform: scale(1); }
+    10% { transform: scale(1.10); }
+    20% { transform: scale(0.95); }
+    30% { transform: scale(1.15); }
+    40% { transform: scale(0.92); }
+    50% { transform: scale(1.12); }
+    60% { transform: scale(0.98); }
+    70% { transform: scale(1.08); }
+    80% { transform: scale(1); }
+    100% { transform: scale(1); }
+  }
+  a.brand-lg:hover .brand-heart-logo {
+    animation: heart-pump 0.7s cubic-bezier(0.4,0,0.2,1) both;
+  }
   .nav {
     @apply fixed left-1/2 z-10 flex w-full select-none flex-col justify-end rounded-b-xl bg-[var(--card-color-transparent)] px-2.5 opacity-0 backdrop-blur-md transition-all;
     @apply lg:w-[var(--page-width-lg)] lg:rounded-b-2xl;

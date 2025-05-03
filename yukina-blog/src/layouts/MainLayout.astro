@@ -27,6 +27,7 @@ const props = Astro.props;
         subTitle={props.subTitle}
         bannerImage={props.bannerImage}
         slug={props.slug}
+        isHome={!props.bannerImage && !props.slug}
       />
     )
   }
