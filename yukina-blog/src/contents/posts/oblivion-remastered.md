@@ -1,7 +1,7 @@
 ---
 title: "Oblivion Remastered : Retour en Cyrodiil avec un Nouveau Souffle"
 slug: oblivion-remastered
-date: 2025-04-26
+published: 2025-04-26
 description: "Découvrez les nouveautés et les améliorations du remaster d’Oblivion : graphismes, gameplay, mods et nostalgie."
 category: RPG
 tags: [RPG, Modding, Jeux Vidéo]
