@@ -35,7 +35,7 @@ jobs:
           bun-version: latest
       
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
         with:
           # Automatically detect static output directory for Astro
           static_site_generator: astro
