@@ -93,34 +93,36 @@ const tagKeys = [...tags.keys()];
       }
       {
         categoryKeys.length > YukinaConfig.maxFooterCategoryChip && (
-          <a
-            href={`/categories/${categoryKeys[YukinaConfig.maxFooterCategoryChip]}`}
-            class="category col-span-2 flex flex-row items-center justify-between rounded-lg px-2 py-1.5 transition-all hover:bg-[var(--primary-color-lighten)] md:col-span-3"
-          >
-            <p class="line-clamp-1 text-[var(--text-color)] transition-all">
-              {
-                categories.get(
-                  categoryKeys[YukinaConfig.maxFooterCategoryChip],
-                )!.name
-              }
-            </p>
-            <span class="rounded-md bg-[var(--primary-color-lighten)] px-2.5 py-0.5 text-[var(--primary-color)]">
-              {
-                categories.get(
-                  categoryKeys[YukinaConfig.maxFooterCategoryChip],
-                )!.posts.length
-              }
-            </span>
-          </a>
-          <div class="absolute bottom-0 flex h-11 w-full flex-row items-center justify-center bg-gradient-to-t from-[var(--card-color)] from-25% to-transparent backdrop-blur-sm">
+          <>
             <a
-              href="/categories/"
-              class="flex flex-row items-center space-x-1 text-[var(--primary-color)] transition-colors hover:brightness-75 dark:hover:brightness-125"
+              href={`/categories/${categoryKeys[YukinaConfig.maxFooterCategoryChip]}`}
+              class="category col-span-2 flex flex-row items-center justify-between rounded-lg px-2 py-1.5 transition-all hover:bg-[var(--primary-color-lighten)] md:col-span-3"
             >
-            <span>{i18n(I18nKeys.side_bar_view_more)}</span>
-                <Icon name="mingcute:arrow-right-line" />
+              <p class="line-clamp-1 text-[var(--text-color)] transition-all">
+                {
+                  categories.get(
+                    categoryKeys[YukinaConfig.maxFooterCategoryChip],
+                  )!.name
+                }
+              </p>
+              <span class="rounded-md bg-[var(--primary-color-lighten)] px-2.5 py-0.5 text-[var(--primary-color)]">
+                {
+                  categories.get(
+                    categoryKeys[YukinaConfig.maxFooterCategoryChip],
+                  )!.posts.length
+                }
+              </span>
             </a>
-          </div>
+            <div class="absolute bottom-0 flex h-11 w-full flex-row items-center justify-center bg-gradient-to-t from-[var(--card-color)] from-25% to-transparent backdrop-blur-sm">
+              <a
+                href="/categories/"
+                class="flex flex-row items-center space-x-1 text-[var(--primary-color)] transition-colors hover:brightness-75 dark:hover:brightness-125"
+              >
+                <span>{i18n(I18nKeys.side_bar_view_more)}</span>
+                <Icon name="mingcute:arrow-right-line" />
+              </a>
+            </div>
+          </>
         )
       }
     </div>
@@ -179,9 +181,8 @@ const tagKeys = [...tags.keys()];
         {YukinaConfig.username} All Rights Reserved.
       </p>
       <p>
-        Designed by <a
-          class="link"
-          href="https://github.com/bikininjas">Yukina</a
+        Designed by <a class="link" href="https://github.com/bikininjas"
+          >Yukina</a
         > & <a class="link" href="https://x.com/SebPikPik">Astro</a>
       </p>
       <p>

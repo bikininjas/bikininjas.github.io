@@ -70,7 +70,7 @@ const { time, wordCount } = props.readingMetadata;
         >
         </div>
         <a href={contentUrl} class="title">
-          <p class="truncate card-title">{props.title}</p>
+          <p class="card-title truncate">{props.title}</p>
           <Icon
             name="cuida:caret-right-outline"
             class="translate-y-[0.07rem] text-[var(--primary-color)]"
@@ -161,7 +161,9 @@ const { time, wordCount } = props.readingMetadata;
     color: var(--text-color);
     border-radius: 0.5rem;
     padding: 0.25rem 0.5rem;
-    transition: color 0.2s, background 0.2s;
+    transition:
+      color 0.2s,
+      background 0.2s;
   }
   a.title:hover .card-title {
     color: var(--primary-color-hover);

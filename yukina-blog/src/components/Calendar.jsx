@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import '../styles/calendar.css';
+import { useState, useEffect } from "react";
+import "../styles/calendar.css";
 
 export default function Calendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -7,11 +7,11 @@ export default function Calendar() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [editingEvent, setEditingEvent] = useState(null);
   const [showEventForm, setShowEventForm] = useState(false);
-  const [newEvent, setNewEvent] = useState({ title: '', description: '' });
+  const [newEvent, setNewEvent] = useState({ title: "", description: "" });
 
   // Load events from localStorage on initial render
   useEffect(() => {
-    const savedEvents = localStorage.getItem('calendarEvents');
+    const savedEvents = localStorage.getItem("calendarEvents");
     if (savedEvents) {
       try {
         setEvents(JSON.parse(savedEvents));
@@ -23,7 +23,7 @@ export default function Calendar() {
 
   // Save events to localStorage when they change
   useEffect(() => {
-    localStorage.setItem('calendarEvents', JSON.stringify(events));
+    localStorage.setItem("calendarEvents", JSON.stringify(events));
   }, [events]);
 
   const getDaysInMonth = (year, month) => {
@@ -35,7 +35,7 @@ export default function Calendar() {
   };
 
   const handlePrevMonth = () => {
-    setCurrentDate(prev => {
+    setCurrentDate((prev) => {
       const newDate = new Date(prev);
       newDate.setMonth(newDate.getMonth() - 1);
       return newDate;
@@ -43,7 +43,7 @@ export default function Calendar() {
   };
 
   const handleNextMonth = () => {
-    setCurrentDate(prev => {
+    setCurrentDate((prev) => {
       const newDate = new Date(prev);
       newDate.setMonth(newDate.getMonth() + 1);
       return newDate;
@@ -54,32 +54,32 @@ export default function Calendar() {
     const newSelectedDate = new Date(
       currentDate.getFullYear(),
       currentDate.getMonth(),
-      day
+      day,
     );
     setSelectedDate(newSelectedDate);
     setShowEventForm(true);
     setEditingEvent(null);
-    setNewEvent({ title: '', description: '' });
+    setNewEvent({ title: "", description: "" });
   };
 
   const handleAddEvent = () => {
     if (!newEvent.title.trim()) return;
-    
+
     const eventToAdd = {
       id: Date.now().toString(),
-      date: selectedDate.toISOString().split('T')[0],
+      date: selectedDate.toISOString().split("T")[0],
       title: newEvent.title,
       description: newEvent.description,
     };
 
     if (editingEvent) {
-      setEvents(events.map(e => e.id === editingEvent.id ? eventToAdd : e));
+      setEvents(events.map((e) => (e.id === editingEvent.id ? eventToAdd : e)));
     } else {
       setEvents([...events, eventToAdd]);
     }
 
     setShowEventForm(false);
-    setNewEvent({ title: '', description: '' });
+    setNewEvent({ title: "", description: "" });
     setEditingEvent(null);
   };
 
@@ -94,7 +94,7 @@ export default function Calendar() {
   };
 
   const handleDeleteEvent = (eventId) => {
-    setEvents(events.filter(e => e.id !== eventId));
+    setEvents(events.filter((e) => e.id !== eventId));
     if (editingEvent && editingEvent.id === eventId) {
       setShowEventForm(false);
       setEditingEvent(null);
@@ -106,35 +106,36 @@ export default function Calendar() {
     const month = currentDate.getMonth();
     const daysInMonth = getDaysInMonth(year, month);
     const firstDay = getFirstDayOfMonth(year, month);
-    
+
     const today = new Date();
-    const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
+    const isCurrentMonth =
+      today.getFullYear() === year && today.getMonth() === month;
     const todayDate = today.getDate();
-    
+
     let days = [];
-    
+
     // Add empty cells for days before the first day of the month
     for (let i = 0; i < firstDay; i++) {
       days.push(<div key={`empty-${i}`} className="calendar-day empty"></div>);
     }
-    
+
     // Add cells for each day of the month
     for (let day = 1; day <= daysInMonth; day++) {
-      const date = new Date(year, month, day).toISOString().split('T')[0];
-      const dayEvents = events.filter(event => event.date === date);
+      const date = new Date(year, month, day).toISOString().split("T")[0];
+      const dayEvents = events.filter((event) => event.date === date);
       const isToday = isCurrentMonth && day === todayDate;
-      
+
       days.push(
-        <div 
-          key={day} 
-          className={`calendar-day ${dayEvents.length > 0 ? 'has-events' : ''} ${isToday ? 'today' : ''}`}
+        <div
+          key={day}
+          className={`calendar-day ${dayEvents.length > 0 ? "has-events" : ""} ${isToday ? "today" : ""}`}
           onClick={() => handleDateClick(day)}
         >
           <div className="day-number">{day}</div>
           <div className="day-events">
-            {dayEvents.map(event => (
-              <div 
-                key={event.id} 
+            {dayEvents.map((event) => (
+              <div
+                key={event.id}
                 className="event-pill"
                 onClick={(e) => {
                   e.stopPropagation();
@@ -146,16 +147,26 @@ export default function Calendar() {
               </div>
             ))}
           </div>
-        </div>
+        </div>,
       );
     }
-    
+
     return days;
   };
 
   const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
   return (
@@ -173,61 +184,68 @@ export default function Calendar() {
       </div>
 
       <div className="weekday-header">
-        {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-          <div key={day} className="weekday">{day}</div>
+        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+          <div key={day} className="weekday">
+            {day}
+          </div>
         ))}
       </div>
 
-      <div className="calendar-grid">
-        {renderCalendar()}
-      </div>
+      <div className="calendar-grid">{renderCalendar()}</div>
 
       {showEventForm && (
         <div className="event-form-overlay">
           <div className="event-form">
-            <h3>{editingEvent ? 'Edit Event' : 'Add Event'}</h3>
+            <h3>{editingEvent ? "Edit Event" : "Add Event"}</h3>
             <p>
               {selectedDate?.toLocaleDateString(undefined, {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long', 
-                day: 'numeric'
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
               })}
             </p>
-            
+
             <div className="form-group">
               <label htmlFor="event-title">Title</label>
               <input
                 id="event-title"
                 type="text"
                 value={newEvent.title}
-                onChange={(e) => setNewEvent({...newEvent, title: e.target.value})}
+                onChange={(e) =>
+                  setNewEvent({ ...newEvent, title: e.target.value })
+                }
                 placeholder="Event title"
               />
             </div>
-            
+
             <div className="form-group">
               <label htmlFor="event-desc">Description</label>
               <textarea
                 id="event-desc"
                 value={newEvent.description}
-                onChange={(e) => setNewEvent({...newEvent, description: e.target.value})}
+                onChange={(e) =>
+                  setNewEvent({ ...newEvent, description: e.target.value })
+                }
                 placeholder="Event description"
               />
             </div>
-            
+
             <div className="form-actions">
-              <button onClick={() => setShowEventForm(false)} className="btn-cancel">
+              <button
+                onClick={() => setShowEventForm(false)}
+                className="btn-cancel"
+              >
                 Cancel
               </button>
-              
+
               <button onClick={handleAddEvent} className="btn-save">
-                {editingEvent ? 'Update' : 'Add'}
+                {editingEvent ? "Update" : "Add"}
               </button>
-              
+
               {editingEvent && (
-                <button 
-                  onClick={() => handleDeleteEvent(editingEvent.id)} 
+                <button
+                  onClick={() => handleDeleteEvent(editingEvent.id)}
                   className="btn-delete"
                 >
                   Delete

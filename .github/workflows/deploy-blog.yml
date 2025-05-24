@@ -17,6 +17,10 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
+env:
+  # Force consistent environment
+  NODE_ENV: production
+
 jobs:
   # Build job
   build:
@@ -36,8 +40,19 @@ jobs:
           # Automatically detect static output directory for Astro
           static_site_generator: astro
       
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
+      
       - name: Install dependencies
         run: cd yukina-blog && bun install --frozen-lockfile
+      
+      - name: Type check
+        run: cd yukina-blog && bun run check
       
       - name: Build with Astro
         run: cd yukina-blog && bun run build

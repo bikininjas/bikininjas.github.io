@@ -37,7 +37,8 @@ const YukinaConfig: Configuration = {
 
   username: "Bikininjas",
   sign: "100% des gagnants ont tenté leur chance",
-  avatarUrl: "https://robertsspaceindustries.com/media/o8yk577me0mvpr/heap_infobox/2020-11-07-20_15_58-Window.png",
+  avatarUrl:
+    "https://robertsspaceindustries.com/media/o8yk577me0mvpr/heap_infobox/2020-11-07-20_15_58-Window.png",
   socialLinks: [
     {
       icon: "line-md:github-loop",

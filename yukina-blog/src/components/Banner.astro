@@ -11,7 +11,6 @@ export interface Props {
 }
 const { title, subTitle, bannerImage, slug } = Astro.props;
 
-const hasTitle = title !== undefined || subTitle !== undefined;
 const isHome = Astro.props.isHome === true;
 const hasHeaderImg = !isHome && (bannerImage || slug);
 
@@ -19,7 +18,11 @@ let carouselImgsList = YukinaConfig.banners;
 const carouselAnimationTime = `${carouselImgsList.length * 6}s`;
 ---
 
-<div id="banner" class="banner onload-animation-fade-in" style={`--carouselAnimationTime: ${carouselAnimationTime};`}>
+<div
+  id="banner"
+  class="banner onload-animation-fade-in"
+  style={`--carouselAnimationTime: ${carouselAnimationTime};`}
+>
   <div class="transition-main banner-inner h-full w-full">
     {
       (isHome || !hasHeaderImg) && (
@@ -52,7 +55,7 @@ const carouselAnimationTime = `${carouselImgsList.length * 6}s`;
           <img
             src="/bikininjas-logos.png"
             alt="Bikininjas Logo"
-            class="title mx-auto mb-2 max-h-64 w-auto brand-heart-logo"
+            class="title brand-heart-logo mx-auto mb-2 max-h-64 w-auto"
             style="object-fit:contain;"
           />
           <h1 class={`title ${isHome ? "title-index" : "title-normal"}`}>
@@ -110,12 +113,12 @@ const carouselAnimationTime = `${carouselImgsList.length * 6}s`;
 
 <script>
   // Calculate and create the animation based on the number of images
-  document.addEventListener('DOMContentLoaded', function() {
-    const carouselItems = document.querySelectorAll('.carousel-item');
+  document.addEventListener("DOMContentLoaded", function () {
+    const carouselItems = document.querySelectorAll(".carousel-item");
     if (carouselItems.length > 0) {
       const styleElement = document.createElement("style");
       const carouselImgsCount = carouselItems.length;
-      
+
       // Create the carousel animation CSS
       const carouselAnimation = `
       @keyframes carousel-animation {
@@ -142,14 +145,16 @@ const carouselAnimationTime = `${carouselImgsList.length * 6}s`;
         }
       }
       `;
-      
+
       styleElement.textContent = carouselAnimation;
       document.head.appendChild(styleElement);
-      
+
       // Debug log to check if carousel images are available
       console.log(`Carousel setup: ${carouselItems.length} images found`);
-      carouselItems.forEach(item => {
-        console.log(`Image background: ${item.style.backgroundImage}`);
+      carouselItems.forEach((item) => {
+        console.log(
+          `Image background: ${(item as HTMLElement).style.backgroundImage}`,
+        );
       });
     }
   });
@@ -157,24 +162,44 @@ const carouselAnimationTime = `${carouselImgsList.length * 6}s`;
 
 <style>
   @keyframes heart-pump {
-    0% { transform: scale(1); }
-    10% { transform: scale(1.10); }
-    20% { transform: scale(0.95); }
-    30% { transform: scale(1.15); }
-    40% { transform: scale(0.92); }
-    50% { transform: scale(1.12); }
-    60% { transform: scale(0.98); }
-    70% { transform: scale(1.08); }
-    80% { transform: scale(1); }
-    100% { transform: scale(1); }
+    0% {
+      transform: scale(1);
+    }
+    10% {
+      transform: scale(1.1);
+    }
+    20% {
+      transform: scale(0.95);
+    }
+    30% {
+      transform: scale(1.15);
+    }
+    40% {
+      transform: scale(0.92);
+    }
+    50% {
+      transform: scale(1.12);
+    }
+    60% {
+      transform: scale(0.98);
+    }
+    70% {
+      transform: scale(1.08);
+    }
+    80% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
   .brand-heart-logo:hover,
   .brand-heart-logo:focus,
   .brand-heart-logo:active,
   .flex.flex-col:hover .brand-heart-logo {
-    animation: heart-pump 0.7s cubic-bezier(0.4,0,0.2,1) both;
+    animation: heart-pump 0.7s cubic-bezier(0.4, 0, 0.2, 1) both;
   }
-  
+
   .banner {
     @apply relative h-[calc(var(--banner-height)*3/4)] opacity-100 lg:h-[var(--banner-height)];
     --carouselAnimationTime: 18s; /* Default fallback */
@@ -199,11 +224,13 @@ const carouselAnimationTime = `${carouselImgsList.length * 6}s`;
 
   /* Default fallback animation in case the JS one fails */
   @keyframes carousel-animation {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 0;
       transform: scale(1);
     }
-    3%, 45% {
+    3%,
+    45% {
       opacity: 1;
     }
     50% {

@@ -12,15 +12,19 @@ import "overlayscrollbars/overlayscrollbars.css";
     color: var(--primary-color);
     background: transparent;
     text-decoration: none;
-    transition: color 0.2s, background-color 0.2s;
+    transition:
+      color 0.2s,
+      background-color 0.2s;
     border-radius: 4px;
     padding: 2px 4px;
     margin: -2px -4px;
   }
-  a:visited, a:active {
+  a:visited,
+  a:active {
     color: var(--primary-color-lighten);
   }
-  a:hover, a:focus {
+  a:hover,
+  a:focus {
     color: var(--primary-color-hover);
     background-color: var(--primary-color-hover-bg);
   }
@@ -29,7 +33,9 @@ import "overlayscrollbars/overlayscrollbars.css";
     --primary-color: oklch(55% 0.18 25); /* red with good visibility */
     --primary-color-lighten: oklch(65% 0.15 25); /* lighter red */
     --primary-color-hover: oklch(95% 0 0); /* white text for hover */
-    --primary-color-hover-bg: oklch(40% 0.20 25); /* darker red background for hover */
+    --primary-color-hover-bg: oklch(
+      40% 0.2 25
+    ); /* darker red background for hover */
     --primary-color-transparent: oklch(55% 0.18 25 / 15%);
     --text-color: oklch(95% 0 0); /* white */
     --text-color-lighten: oklch(80% 0 0); /* light grey */
@@ -58,7 +64,9 @@ import "overlayscrollbars/overlayscrollbars.css";
     --primary-color: oklch(55% 0.18 25); /* red with good visibility */
     --primary-color-lighten: oklch(65% 0.15 25); /* lighter red */
     --primary-color-hover: oklch(95% 0 0); /* white text for hover */
-    --primary-color-hover-bg: oklch(40% 0.20 25); /* darker red background for hover */
+    --primary-color-hover-bg: oklch(
+      40% 0.2 25
+    ); /* darker red background for hover */
     --text-color: oklch(95% 0 0); /* white */
     --text-color-lighten: oklch(80% 0 0); /* light grey */
     --card-color: oklch(12% 0 0); /* very dark grey */

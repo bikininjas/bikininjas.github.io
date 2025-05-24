@@ -94,7 +94,6 @@ La compatibilité avec les mods et la communauté active de moddeurs enrichissen
 
 **Oblivion Remastered** est une invitation à (re)découvrir Cyrodiil dans les meilleures conditions, offrant une expérience de jeu modernisée et immersive pour les vétérans comme pour les nouveaux joueurs
 
-
 # Oblivion Remastered : Retour en Cyrodiil avec un Nouveau Souffle
 
 Le remaster d’Oblivion, l’un des RPG les plus emblématiques, offre une seconde jeunesse au jeu culte de Bethesda. Sorti à l'origine en 2006, **The Elder Scrolls IV: Oblivion** a marqué une génération de joueurs avec son vaste monde ouvert, ses quêtes immersives et sa liberté d'exploration. Avec **Oblivion Remastered**, les développeurs ont retravaillé le jeu de fond en comble pour offrir une expérience modernisée tout en conservant l'essence de l'original.
