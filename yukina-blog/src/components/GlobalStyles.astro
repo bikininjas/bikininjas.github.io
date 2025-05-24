@@ -1,0 +1,82 @@
+---
+import "../styles/animations.css";
+import "../styles/scrollbar.css";
+import "../styles/transitions.css";
+import "../styles/searchbar.css";
+import "overlayscrollbars/overlayscrollbars.css";
+---
+
+<style is:global>
+  a {
+    /* color: var(--text-color); */
+    color: var(--primary-color);
+    background: transparent;
+    text-decoration: none;
+    transition:
+      color 0.2s,
+      background-color 0.2s;
+    border-radius: 4px;
+    padding: 2px 4px;
+    margin: -2px -4px;
+  }
+  a:visited,
+  a:active {
+    color: var(--primary-color-lighten);
+  }
+  a:hover,
+  a:focus {
+    color: var(--primary-color-hover);
+    background-color: var(--primary-color-hover-bg);
+  }
+
+  :root {
+    --primary-color: oklch(55% 0.18 25); /* red with good visibility */
+    --primary-color-lighten: oklch(65% 0.15 25); /* lighter red */
+    --primary-color-hover: oklch(95% 0 0); /* white text for hover */
+    --primary-color-hover-bg: oklch(
+      40% 0.2 25
+    ); /* darker red background for hover */
+    --primary-color-transparent: oklch(55% 0.18 25 / 15%);
+    --text-color: oklch(95% 0 0); /* white */
+    --text-color-lighten: oklch(80% 0 0); /* light grey */
+    --card-color: oklch(20% 0 0); /* very dark grey */
+    --card-color-transparent: oklch(20% 0 0 / 85%);
+    --background-color: oklch(7% 0 0); /* black */
+
+    --brand-font: "Raleway", "Noto Sans SC", sans-serif;
+    --primary-font: "Noto Sans SC", sans-serif;
+    --code-font: "JetBrains Mono", "Fira Code", monospace;
+
+    --page-width-lg: 992px;
+    --page-width-xl: 1264px;
+
+    --banner-height: 55vh;
+    --title-font: var(--brand-font);
+    --title-color: oklch(100% 0 0 / 95%);
+    --subtitle-font: var(--brand-font);
+    --subtitle-color: oklch(100% 0 0 / 85%);
+
+    --onload-animation-delay: 100ms;
+    --onload-animation-interval: 100ms;
+  }
+
+  :root.dark {
+    --primary-color: oklch(55% 0.18 25); /* red with good visibility */
+    --primary-color-lighten: oklch(65% 0.15 25); /* lighter red */
+    --primary-color-hover: oklch(95% 0 0); /* white text for hover */
+    --primary-color-hover-bg: oklch(
+      40% 0.2 25
+    ); /* darker red background for hover */
+    --text-color: oklch(95% 0 0); /* white */
+    --text-color-lighten: oklch(80% 0 0); /* light grey */
+    --card-color: oklch(12% 0 0); /* very dark grey */
+    --card-color-lighten: oklch(20% 0 0); /* dark grey */
+    --card-color-transparent: oklch(12% 0 0 / 85%);
+    --background-color: oklch(3% 0 0); /* black */
+  }
+
+  .swup-progress-bar {
+    height: 5px;
+    background-color: var(--primary-color);
+  }
+</style>

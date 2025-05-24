@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [ "master", "main" ]
+  push:
+    branches-ignore: [ "master", "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
+      
+      - name: Install dependencies
+        run: cd yukina-blog && bun install --frozen-lockfile
+      
+      - name: Type check
+        run: cd yukina-blog && bun run check
+      
+      - name: Format check
+        run: cd yukina-blog && bun run format:check
+      
+      - name: Build test
+        run: cd yukina-blog && bun run build
+      
+      - name: Check for build artifacts
+        run: |
+          if [ ! -d "yukina-blog/dist" ]; then
+            echo "Build failed: dist directory not found"
+            exit 1
+          fi
+          if [ ! -f "yukina-blog/dist/index.html" ]; then
+            echo "Build failed: index.html not found"
+            exit 1
+          fi
+          echo "Build artifacts verified successfully"

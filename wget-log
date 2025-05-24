@@ -1,11 +1,0 @@
---2025-03-29 09:47:31--  https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80
-Resolving images.unsplash.com (images.unsplash.com)... 151.101.122.208, 2a04:4e42:1d::720
-Connecting to images.unsplash.com (images.unsplash.com)|151.101.122.208|:443... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: 866921 (847K) [image/jpeg]
-Saving to: ‘nextjs-blog/public/images/gaming-bg.jpg’
-
-nextjs-blog/public/images/gaming-bg.jpg           0%[                                                                                                      ]       0  --.-KB/s               nextjs-blog/public/images/gaming-bg.jpg         100%[=====================================================================================================>] 846.60K  --.-KB/s    in 0.02s   
-
-2025-03-29 09:47:31 (55.0 MB/s) - ‘nextjs-blog/public/images/gaming-bg.jpg’ saved [866921/866921]
-
