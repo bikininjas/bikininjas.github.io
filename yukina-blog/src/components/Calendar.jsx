@@ -107,6 +107,10 @@ export default function Calendar() {
     const daysInMonth = getDaysInMonth(year, month);
     const firstDay = getFirstDayOfMonth(year, month);
     
+    const today = new Date();
+    const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
+    const todayDate = today.getDate();
+    
     let days = [];
     
     // Add empty cells for days before the first day of the month
@@ -118,11 +122,12 @@ export default function Calendar() {
     for (let day = 1; day <= daysInMonth; day++) {
       const date = new Date(year, month, day).toISOString().split('T')[0];
       const dayEvents = events.filter(event => event.date === date);
+      const isToday = isCurrentMonth && day === todayDate;
       
       days.push(
         <div 
           key={day} 
-          className={`calendar-day ${dayEvents.length > 0 ? 'has-events' : ''}`}
+          className={`calendar-day ${dayEvents.length > 0 ? 'has-events' : ''} ${isToday ? 'today' : ''}`}
           onClick={() => handleDateClick(day)}
         >
           <div className="day-number">{day}</div>
@@ -135,6 +140,7 @@ export default function Calendar() {
                   e.stopPropagation();
                   handleEditEvent(event);
                 }}
+                title={event.description || event.title}
               >
                 {event.title}
               </div>

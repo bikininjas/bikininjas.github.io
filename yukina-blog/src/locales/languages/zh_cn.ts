@@ -9,6 +9,7 @@ export const zh_CN: Translation = {
   [key.nav_bar_home]: "首页",
   [key.nav_bar_archive]: "归档",
   [key.nav_bar_about]: "关于",
+  [key.nav_bar_calendar]: "日历",
   [key.nav_bar_github]: "GitHub",
   [key.nav_bar_search_placeholder]: "搜索",
 

@@ -9,24 +9,28 @@ import "overlayscrollbars/overlayscrollbars.css";
 <style is:global>
   a {
     /* color: var(--text-color); */
-    color: var(--text-color);
-    background: var(--background-color);
+    color: var(--primary-color);
+    background: transparent;
     text-decoration: none;
-    transition: color 0.2s, background 0.2s;
+    transition: color 0.2s, background-color 0.2s;
+    border-radius: 4px;
+    padding: 2px 4px;
+    margin: -2px -4px;
   }
   a:visited, a:active {
-    color: var(--text-color);
+    color: var(--primary-color-lighten);
   }
   a:hover, a:focus {
     color: var(--primary-color-hover);
-    background: var(--background-color);
+    background-color: var(--primary-color-hover-bg);
   }
 
   :root {
-    --primary-color: oklch(15% 0 0); /* dark grey */
-    --primary-color-lighten: oklch(30% 0 0); /* lighter dark grey */
-    --primary-color-hover: oklch(60% 0.21 29); /* vivid red for hover */
-    --primary-color-transparent: oklch(15% 0 0 / 15%);
+    --primary-color: oklch(55% 0.18 25); /* red with good visibility */
+    --primary-color-lighten: oklch(65% 0.15 25); /* lighter red */
+    --primary-color-hover: oklch(95% 0 0); /* white text for hover */
+    --primary-color-hover-bg: oklch(40% 0.20 25); /* darker red background for hover */
+    --primary-color-transparent: oklch(55% 0.18 25 / 15%);
     --text-color: oklch(95% 0 0); /* white */
     --text-color-lighten: oklch(80% 0 0); /* light grey */
     --card-color: oklch(20% 0 0); /* very dark grey */
@@ -51,9 +55,10 @@ import "overlayscrollbars/overlayscrollbars.css";
   }
 
   :root.dark {
-    --primary-color: oklch(15% 0 0); /* dark grey */
-    --primary-color-lighten: oklch(30% 0 0); /* lighter dark grey */
-    --primary-color-hover: oklch(60% 0.21 29); /* vivid red for hover */
+    --primary-color: oklch(55% 0.18 25); /* red with good visibility */
+    --primary-color-lighten: oklch(65% 0.15 25); /* lighter red */
+    --primary-color-hover: oklch(95% 0 0); /* white text for hover */
+    --primary-color-hover-bg: oklch(40% 0.20 25); /* darker red background for hover */
     --text-color: oklch(95% 0 0); /* white */
     --text-color-lighten: oklch(80% 0 0); /* light grey */
     --card-color: oklch(12% 0 0); /* very dark grey */

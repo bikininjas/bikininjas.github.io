@@ -3,8 +3,12 @@ import Main from "../layouts/MainLayout.astro";
 import Calendar from "../components/Calendar.jsx";
 ---
 
-<Main title="Calendar" subTitle="Interactive event calendar">
-  <div class="rounded-2xl bg-[var(--card-color)] p-6">
+<Main title="Event Calendar" subTitle="Manage your events and schedule">
+  <div class="rounded-2xl bg-[var(--card-color)] p-6 shadow-lg">
+    <div class="mb-6">
+      <h1 class="text-2xl font-bold text-[var(--heading-color)] mb-2">My Calendar</h1>
+      <p class="text-[var(--text-color)] opacity-80">Click on any date to add an event, or click on existing events to edit them.</p>
+    </div>
     <Calendar client:load />
   </div>
 </Main>

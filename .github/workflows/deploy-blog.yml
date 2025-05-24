@@ -1,4 +1,4 @@
-name: Deploy Next.js Blog to GitHub Pages
+name: Deploy Astro Blog to GitHub Pages
 
 on:
   push:
@@ -25,13 +25,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: 'npm'
-          cache-dependency-path: './nextjs-blog/package-lock.json'
-      
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
@@ -40,22 +33,19 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
         with:
-          # Automatically detect static output directory for Next.js
-          static_site_generator: next
+          # Automatically detect static output directory for Astro
+          static_site_generator: astro
       
       - name: Install dependencies
-        run: cd nextjs-blog && bun install --frozen-lockfile
+        run: cd yukina-blog && bun install --frozen-lockfile
       
-      - name: Run tests
-        run: cd nextjs-blog && bun run test:unit
-      
-      - name: Build with Next.js (includes export)
-        run: cd nextjs-blog && bun run build
+      - name: Build with Astro
+        run: cd yukina-blog && bun run build
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./nextjs-blog/out
+          path: ./yukina-blog/dist
 
   # Deployment job
   deploy:
