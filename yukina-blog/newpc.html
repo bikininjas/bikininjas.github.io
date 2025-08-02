@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet de Mise à Jour PC - Synthèse d'Investissement Détaillée</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony (Slate, Cyan) -->
+    <!-- Application Structure Plan: A single-page narrative flow. Starts with 'Why' (arguments), moves to 'How Much' (fully detailed interactive quote with a dynamic cost breakdown chart), adds a 'What For' section with static project ideas, introduces more 'Time Gain' visualizations, and finishes with the 'What's the Gain' (overall performance chart). This static version is fully self-contained and enriched with more visualizations for clarity. -->
+    <!-- Visualization & Content Choices: Report Info: Configs -> Goal: Compare Cost -> Method: Fully itemized interactive table + Chart.js Donut chart for cost breakdown. Report Info: Performance Gain -> Goal: Compare -> Method: Main Chart.js bar chart + NEW visual stat cards for time savings and raw speed comparisons. Report Info: Arguments -> Goal: Persuade -> Method: Icon-driven cards. All content is pre-written and static. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+        }
+        .donut-chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 500px;
+            }
+        }
+        .toggle-bg {
+            position: relative;
+            display: block;
+            width: 2.75rem;
+            height: 1.5rem;
+            border-radius: 9999px;
+            background-color: #e5e7eb;
+            transition: background-color 0.3s;
+        }
+        .toggle-bg:after {
+            content: '';
+            position: absolute;
+            top: 0.125rem;
+            left: 0.125rem;
+            background-color: white;
+            border: 1px solid #d1d5db;
+            border-radius: 9999px;
+            height: 1.25rem;
+            width: 1.25rem;
+            transition: transform 0.3s;
+        }
+        input:checked + .toggle-bg:after {
+            transform: translateX(1.25rem);
+        }
+        input:checked + .toggle-bg {
+            background-color: #0891b2;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <main class="container mx-auto px-4 py-8 md:py-16">
+
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4">Projet de Mise à Jour PC</h1>
+            <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">Un investissement dans un outil de travail et de création, conçu pour la performance, le confort et la durabilité sur les 7 prochaines années.</p>
+        </header>
+
+        <section id="arguments" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-12">Pourquoi investir maintenant ? Les 4 arguments clés</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200">
+                    <div class="text-4xl mb-4">⏱️</div>
+                    <h3 class="text-xl font-bold mb-2">On achète du TEMPS</h3>
+                    <p class="text-slate-600">Le nouveau PC effectue les tâches de calcul (vidéo, 3D) 3 à 5 fois plus vite. Moins de temps à attendre, c'est plus de temps pour créer.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200">
+                    <div class="text-4xl mb-4">🧘</div>
+                    <h3 class="text-xl font-bold mb-2">On achète la TRANQUILLITÉ</h3>
+                    <p class="text-slate-600">En choisissant des composants de pointe, on s'assure de ne pas avoir à faire de mise à jour coûteuse avant au moins 5 à 7 ans.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200">
+                    <div class="text-4xl mb-4">🎨</div>
+                    <h3 class="text-xl font-bold mb-2">C'est un OUTIL DE CRÉATION</h3>
+                    <p class="text-slate-600">La même puissance qui rend les jeux magnifiques permet de travailler sur des projets ambitieux qui sont aujourd'hui frustrants.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200">
+                    <div class="text-4xl mb-4">🛡️</div>
+                    <h3 class="text-xl font-bold mb-2">On garantit la SÉCURITÉ</h3>
+                    <p class="text-slate-600">L'alimentation actuelle présente un risque. La remplacer par un modèle neuf et fiable est une assurance pour protéger cet investissement.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="devis" class="mb-20 bg-white p-6 sm:p-8 md:p-12 rounded-2xl shadow-lg border border-slate-200">
+            <h2 class="text-3xl font-bold text-center mb-4">Le Devis Interactif Détaillé</h2>
+            <p class="text-center text-slate-600 mb-10">Ajustez les options pour voir comment le prix total évolue en temps réel.</p>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8 mb-10">
+                <div class="flex items-center space-x-4">
+                    <span class="font-medium text-slate-700">Mémoire Vive :</span>
+                    <label for="ramToggle" class="flex items-center cursor-pointer">
+                        <span class="mr-3 text-slate-600" id="ramLabel">32 Go (Standard)</span>
+                        <div class="relative">
+                            <input type="checkbox" id="ramToggle" class="sr-only">
+                            <div class="toggle-bg"></div>
+                        </div>
+                        <span class="ml-3 font-bold text-cyan-600">64 Go (Future-Proof)</span>
+                    </label>
+                </div>
+                <div class="flex items-center space-x-4">
+                     <span class="font-medium text-slate-700">Configuration :</span>
+                    <label for="gpuToggle" class="flex items-center cursor-pointer">
+                        <span class="mr-3 text-slate-600">Socle de base</span>
+                        <div class="relative">
+                            <input type="checkbox" id="gpuToggle" class="sr-only" checked>
+                            <div class="toggle-bg"></div>
+                        </div>
+                        <span class="ml-3 font-bold text-cyan-600" id="gpuLabel">Prêt à Jouer</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                <div class="lg:col-span-2 overflow-x-auto">
+                    <table id="devis-table" class="w-full text-left">
+                        <thead>
+                            <tr class="border-b border-slate-300">
+                                <th class="p-4 font-bold">Composant</th>
+                                <th class="p-4 font-bold text-right">Prix</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Components will be injected here by JavaScript -->
+                        </tbody>
+                        <tfoot>
+                            <tr class="bg-slate-100">
+                                <td class="p-4 text-xl font-extrabold text-slate-900">PRIX TOTAL ESTIMÉ</td>
+                                <td class="p-4 text-2xl md:text-3xl font-extrabold text-right text-cyan-600" id="totalPrice"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="lg:col-span-1 mt-8 lg:mt-0">
+                     <h3 class="text-xl font-bold text-center mb-4">Répartition du Coût</h3>
+                     <div class="donut-chart-container">
+                        <canvas id="costChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="time-gain" class="mb-20 text-center">
+            <h2 class="text-3xl font-bold mb-4">Gains de Temps et de Vitesse Concrets</h2>
+            <p class="text-slate-600 mb-12 max-w-3xl mx-auto">La puissance du nouveau PC se traduit par des gains spectaculaires sur les tâches créatives et les temps de chargement.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200">
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">Export d'une Vidéo 4K (10 min)</h3>
+                    <div class="flex justify-around items-center text-center">
+                        <div><p class="text-slate-500 text-sm">PC Actuel</p><p class="text-3xl font-bold text-slate-500">~1h</p></div>
+                        <div class="text-cyan-500 text-4xl font-bold">→</div>
+                        <div><p class="text-cyan-600 text-sm">Nouveau PC</p><p class="text-3xl font-bold text-cyan-600">~15min</p></div>
+                    </div>
+                     <p class="text-center text-green-600 font-semibold mt-4 text-lg">4x plus rapide</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200">
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">Calcul d'Éclairage 3D (Scène Complexe)</h3>
+                    <div class="flex justify-around items-center text-center">
+                        <div><p class="text-slate-500 text-sm">PC Actuel</p><p class="text-3xl font-bold text-slate-500">~25min</p></div>
+                        <div class="text-cyan-500 text-4xl font-bold">→</div>
+                        <div><p class="text-cyan-600 text-sm">Nouveau PC</p><p class="text-3xl font-bold text-cyan-600">~5min</p></div>
+                    </div>
+                    <p class="text-center text-green-600 font-semibold mt-4 text-lg">5x plus rapide</p>
+                </div>
+                 <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200">
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">Chargement d'un Jeu (Niveau Lourd)</h3>
+                    <div class="flex justify-around items-center text-center">
+                        <div><p class="text-slate-500 text-sm">PC Actuel</p><p class="text-3xl font-bold text-slate-500">~45s</p></div>
+                        <div class="text-cyan-500 text-4xl font-bold">→</div>
+                        <div><p class="text-cyan-600 text-sm">Nouveau PC</p><p class="text-3xl font-bold text-cyan-600">~8s</p></div>
+                    </div>
+                     <p class="text-center text-green-600 font-semibold mt-4 text-lg">Plus de 5x plus rapide</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200">
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">Vitesse de la Mémoire Vive (RAM)</h3>
+                    <div class="flex justify-around items-center text-center">
+                        <div><p class="text-slate-500 text-sm">PC Actuel (DDR4)</p><p class="text-3xl font-bold text-slate-500">~3200 MT/s</p></div>
+                        <div class="text-cyan-500 text-4xl font-bold">→</div>
+                        <div><p class="text-cyan-600 text-sm">Nouveau PC (DDR5)</p><p class="text-3xl font-bold text-cyan-600">6000 MT/s</p></div>
+                    </div>
+                    <p class="text-center text-green-600 font-semibold mt-4 text-lg">~2x plus rapide</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="static-ideas" class="mb-20 text-center">
+             <h2 class="text-3xl font-bold mb-4">Que peut-on créer concrètement avec ce PC ?</h2>
+             <p class="text-slate-600 mb-8 max-w-3xl mx-auto">Cette puissance n'est pas que pour les jeux. C'est un outil qui débloque de nouvelles possibilités créatives. Voici quelques exemples concrets.</p>
+             <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col">
+                    <h4 class="text-xl font-bold mb-2 text-cyan-700">🎬 Projet Vidéo : "Mon Voyage en 4K"</h4>
+                    <p class="text-slate-600 mb-3 flex-grow">Réaliser un court-métrage documentaire de 15 minutes sur un voyage, filmé en 4K. Le montage inclurait des effets de couleurs professionnels (étalonnage), des transitions complexes, des titres animés et une bande-son synchronisée.</p>
+                    <p class="text-sm text-slate-500 bg-slate-50 p-2 rounded-md"><strong>Pourquoi ce PC le permet :</strong> Il peut manipuler des fichiers vidéo 4K sans aucune saccade, appliquer des effets en temps réel sans attendre, et réduire le temps d'exportation final de plusieurs heures à moins de 30 minutes.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col">
+                    <h4 class="text-xl font-bold mb-2 text-cyan-700">🎮 Projet 3D : "Le Chalet dans la Forêt"</h4>
+                    <p class="text-slate-600 mb-3 flex-grow">Créer une scène 3D photo-réaliste d'un chalet en pleine nature avec Unreal Engine 5. Le projet utiliserait des textures de très haute qualité, une végétation dense et un système d'éclairage dynamique simulant le cycle jour/nuit.</p>
+                    <p class="text-sm text-slate-500 bg-slate-50 p-2 rounded-md"><strong>Pourquoi ce PC le permet :</strong> La carte graphique puissante et la RAM abondante permettent d'afficher des millions de polygones et des textures lourdes sans ralentir. Les temps de calcul pour l'éclairage (le plus long en 3D) sont divisés par 5.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col">
+                    <h4 class="text-xl font-bold mb-2 text-cyan-700">🎵 Projet Musical : "Orchestre Virtuel"</h4>
+                    <p class="text-slate-600 mb-3 flex-grow">Composer un morceau de musique épique de 5 minutes utilisant une banque de sons d'orchestre complète (violons, cuivres, percussions...). Le projet superposerait plus de 50 pistes d'instruments virtuels, chacune avec ses propres effets audio.</p>
+                    <p class="text-sm text-slate-500 bg-slate-50 p-2 rounded-md"><strong>Pourquoi ce PC le permet :</strong> Le processeur rapide et les 64Go de RAM optionnels permettent de charger en mémoire tous ces instruments lourds et de les jouer en temps réel sans aucun "craquement" ou latence, ce qui est impossible sur une machine moins puissante.</p>
+                </div>
+             </div>
+        </section>
+
+        <section id="performance" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-4">Le Gain de Performance Global : Avant / Après</h2>
+            <p class="text-center text-slate-600 mb-12 max-w-3xl mx-auto">Voici la différence de puissance concrète entre le PC actuel (de 2019) et le nouveau projet. Plus la barre est haute, plus c'est performant.</p>
+            <div class="bg-white p-4 sm:p-8 rounded-2xl shadow-lg border border-slate-200">
+                <div class="chart-container">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8">
+        <p class="text-sm text-slate-500">Document préparé en Août 2025.</p>
+    </footer>
+
+    <script>
+        const data = {
+            components: [
+                { name: 'Processeur', price: 482, analogy: "Le 'cerveau' du PC, ultra-puissant pour les jeux." },
+                { name: 'Carte Mère', price: 250, analogy: "La 'colonne vertébrale' qui connecte tout." },
+                { name: 'Refroidissement', price: 40, analogy: "Le 'radiateur' silencieux qui empêche le cerveau de surchauffer." },
+                { name: 'Stockage SSD', price: 111, analogy: "Le 'disque dur' ultra-rapide pour des chargements instantanés." },
+                { name: 'Alimentation', price: 130, analogy: "Le 'cœur' fiable qui distribue l'énergie et protège les pièces." },
+                { name: 'Boîtier', price: 100, analogy: "La 'carrosserie' qui protège et aère les composants." }
+            ],
+            ram: {
+                '32': { name: 'Mémoire Vive (32 Go)', price: 110, label: '32 Go (Standard)' },
+                '64': { name: 'Mémoire Vive (64 Go)', price: 205, label: '64 Go (Future-Proof)' }
+            },
+            gpu: {
+                'off': { name: 'Carte Graphique', price: 0, label: 'Socle de base' },
+                'on': { name: 'Carte Graphique', price: 732, label: 'Prêt à Jouer' }
+            },
+            performance: {
+                labels: ['Gaming', 'Dev Unreal Engine', 'Montage Vidéo', 'Code & Musique'],
+                oldPC: [3, 1, 2, 4],
+                newPC: [5, 5, 4, 5]
+            }
+        };
+
+        const ramToggle = document.getElementById('ramToggle');
+        const gpuToggle = document.getElementById('gpuToggle');
+        const ramLabelEl = document.getElementById('ramLabel');
+        const gpuLabelEl = document.getElementById('gpuLabel');
+        const totalPriceEl = document.getElementById('totalPrice');
+        const tableBody = document.querySelector('#devis-table tbody');
+        
+        let costChart;
+
+        function renderTable() {
+            tableBody.innerHTML = '';
+            
+            data.components.forEach(comp => {
+                const row = document.createElement('tr');
+                row.className = 'border-b border-slate-200';
+                row.innerHTML = `
+                    <td class="p-4 text-slate-600">${comp.name}<br><span class="text-sm italic mt-1 block">${comp.analogy}</span></td>
+                    <td class="p-4 text-right font-medium">${comp.price} €</td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            const ramChoice = ramToggle.checked ? '64' : '32';
+            const gpuChoice = gpuToggle.checked ? 'on' : 'off';
+            const ramData = data.ram[ramChoice];
+            const gpuData = data.gpu[gpuChoice];
+
+            const ramRow = document.createElement('tr');
+            ramRow.className = 'border-b border-slate-200 bg-slate-50';
+            ramRow.innerHTML = `
+                <td class="p-4 text-slate-600">${ramData.name}<br><span class="text-sm italic mt-1 block"><b>Analogie :</b> C'est le plan de travail d'un cuisinier. 32 Go est un grand plan de travail, 64 Go est un plan de travail immense.</span></td>
+                <td class="p-4 text-right font-medium">${ramData.price} €</td>
+            `;
+            tableBody.appendChild(ramRow);
+
+            if (gpuChoice === 'on') {
+                const gpuRow = document.createElement('tr');
+                gpuRow.className = 'border-b border-slate-200 bg-slate-50';
+                gpuRow.innerHTML = `
+                    <td class="p-4 text-slate-600">${gpuData.name} - "RX 9070 XT"<br><span class="text-sm italic mt-1 block"><b>Analogie :</b> C'est le moteur de la voiture de sport. Sans lui, la voiture n'avance pas.</span></td>
+                    <td class="p-4 text-right font-medium">${gpuData.price} €</td>
+                `;
+                tableBody.appendChild(gpuRow);
+            }
+        }
+
+        function updateUI() {
+            renderTable();
+            
+            const ramChoice = ramToggle.checked ? '64' : '32';
+            const gpuChoice = gpuToggle.checked ? 'on' : 'off';
+            const ramData = data.ram[ramChoice];
+            const gpuData = data.gpu[gpuChoice];
+
+            ramLabelEl.textContent = ramData.label;
+            gpuLabelEl.textContent = gpuData.label;
+            
+            const baseTotal = data.components.reduce((sum, comp) => sum + comp.price, 0);
+            const total = baseTotal + ramData.price + gpuData.price;
+            totalPriceEl.textContent = `${total} €`;
+            
+            updateCostChart(ramData.price, gpuData.price);
+        }
+
+        function updateCostChart(ramCost, gpuCost) {
+            const baseComponentsGrouped = {
+                'CPU': data.components.find(c => c.name === 'Processeur').price,
+                'Carte Mère': data.components.find(c => c.name === 'Carte Mère').price,
+                'Stockage': data.components.find(c => c.name === 'Stockage SSD').price,
+                'Autres': data.components.filter(c => ['Refroidissement', 'Alimentation', 'Boîtier'].includes(c.name)).reduce((s, c) => s + c.price, 0)
+            };
+
+            const labels = [...Object.keys(baseComponentsGrouped), 'Mémoire Vive (RAM)'];
+            const prices = [...Object.values(baseComponentsGrouped), ramCost];
+            const colors = ['#334155', '#475569', '#64748b', '#94a3b8', '#0e7490', '#06b6d4'];
+
+            if (gpuCost > 0) {
+                labels.push('Carte Graphique');
+                prices.push(gpuCost);
+            }
+
+            if (costChart) {
+                costChart.data.labels = labels;
+                costChart.data.datasets[0].data = prices;
+                costChart.data.datasets[0].backgroundColor = colors.slice(0, prices.length);
+                costChart.update();
+            }
+        }
+
+        ramToggle.addEventListener('change', updateUI);
+        gpuToggle.addEventListener('change', updateUI);
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const perfCtx = document.getElementById('performanceChart').getContext('2d');
+            new Chart(perfCtx, {
+                type: 'bar',
+                data: {
+                    labels: data.performance.labels.map(label => {
+                        if (label.length > 16) {
+                            const words = label.split(' ');
+                            let lines = [];
+                            let currentLine = '';
+                            for (let word of words) {
+                                if ((currentLine + ' ' + word).trim().length > 16) {
+                                    lines.push(currentLine.trim());
+                                    currentLine = word;
+                                } else {
+                                    currentLine = (currentLine + ' ' + word).trim();
+                                }
+                            }
+                            lines.push(currentLine);
+                            return lines;
+                        }
+                        return label;
+                    }),
+                    datasets: [
+                        {
+                            label: 'PC Actuel (2019)',
+                            data: data.performance.oldPC,
+                            backgroundColor: 'rgba(100, 116, 139, 0.6)',
+                            borderColor: 'rgba(100, 116, 139, 1)',
+                            borderWidth: 1,
+                            borderRadius: 6
+                        },
+                        {
+                            label: 'Nouveau PC (2025)',
+                            data: data.performance.newPC,
+                            backgroundColor: 'rgba(6, 182, 212, 0.6)',
+                            borderColor: 'rgba(6, 182, 212, 1)',
+                            borderWidth: 1,
+                            borderRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 5,
+                            ticks: {
+                                stepSize: 1,
+                                callback: function(value) {
+                                    const labels = ['Nul', 'Limité', 'Moyen', 'Bon', 'Excellent', 'Optimal'];
+                                    return labels[value];
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    return Array.isArray(label) ? label.join(' ') : label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const costCtx = document.getElementById('costChart').getContext('2d');
+            costChart = new Chart(costCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        data: [],
+                        backgroundColor: [],
+                        borderColor: '#f8fafc',
+                        borderWidth: 4,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(context.parsed);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            updateUI();
+        });
+    </script>
+</body>
+</html>
